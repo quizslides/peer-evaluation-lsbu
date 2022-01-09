@@ -118,3 +118,6 @@ dist
 # next.js
 /.next/
 /out/
+
+# Local development
+.history
