@@ -33,6 +33,11 @@
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@fontsource/roboto": "^4.5.1",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.8",
     "@prisma/client": "^3.8.1",
     "apollo-server-micro": "^3.6.1",
     "class-validator": "^0.13.2",
