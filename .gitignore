@@ -121,3 +121,9 @@ dist
 
 # Local development
 .history
+
+# Cypress 
+cypress/videos/*
+cypress/screenshots
+cypress.env.json
+cypress/downloads/*
