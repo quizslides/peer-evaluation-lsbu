@@ -7,7 +7,7 @@ import { resolvers } from "@generated/type-graphql";
 import { applyMiddleware } from "graphql-middleware";
 import { shield, deny } from "graphql-shield";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 export const permissions = shield({
   Query: {

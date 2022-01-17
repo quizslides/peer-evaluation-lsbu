@@ -4,6 +4,26 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import Button from "@/components/Button";
 
+import { useSession, signIn, signOut } from "next-auth/react";
+
+const Component = () => {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  );
+};
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -19,6 +39,8 @@ const Home: NextPage = () => {
         </h1>
 
         <Button />
+
+        <Component />
 
         <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.tsx</code>
