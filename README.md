@@ -1,5 +1,7 @@
 # Peer Evaluation LSBU
 
+[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge)
+
 These are the instructions to run a full-stack framework using Next.js.
 
 The frontend, by default, will listen through the port `3000` to avoid conflicts with any other system the developer might have running in their local environments.
