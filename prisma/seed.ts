@@ -7,7 +7,6 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error(e.code);
     process.exit(1);
   })
   .finally(async () => {
