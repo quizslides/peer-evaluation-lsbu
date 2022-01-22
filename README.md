@@ -36,7 +36,7 @@ yarn install
 1. Copy the env variables to run locally
 
 ```bash
-cp .env.local .env
+cp .env.sample .env.development.local
 ```
 
 2. Run server
@@ -50,6 +50,10 @@ This will run the web app in your local machine, listening through the port `300
 ## Accessing
 
 Now you can access your local environment through `http://localhost:3000/`
+
+## Sentry
+
+Request the key for sentry for local development to be added to the `.env` as `SENTRYand never commit to the repository
 
 ## Database
 
