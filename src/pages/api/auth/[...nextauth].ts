@@ -1,7 +1,8 @@
-import NextAuth from "next-auth";
-import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextApiHandler } from "next";
+import NextAuth from "next-auth";
+import EmailProvider from "next-auth/providers/email";
+
 import { prisma } from "@/pages/api/graphql";
 
 const options = {

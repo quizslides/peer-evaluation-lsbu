@@ -1,11 +1,12 @@
 import "reflect-metadata";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { ApolloServer } from "apollo-server-micro";
-import { PrismaClient } from "@prisma/client";
-import { buildSchema } from "type-graphql";
+
 import { resolvers } from "@generated/type-graphql";
+import { PrismaClient } from "@prisma/client";
+import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
-import { shield, deny } from "graphql-shield";
+import { deny, shield } from "graphql-shield";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { buildSchema } from "type-graphql";
 
 export const prisma = new PrismaClient();
 
