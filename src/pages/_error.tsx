@@ -1,7 +1,13 @@
 import * as Sentry from "@sentry/nextjs";
-import NextErrorComponent from "next/error";
+import { NextPageContext, NextPage } from "next";
+import NextErrorComponent, { ErrorProps } from "next/error";
 
-const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
+interface AppErrorProps extends ErrorProps {
+  err?: Error;
+  hasGetInitialPropsRun?: boolean;
+}
+
+const AppError: NextPage<AppErrorProps> = ({ hasGetInitialPropsRun, err, statusCode }) => {
   if (!hasGetInitialPropsRun && err) {
     Sentry.captureException(err);
   }
@@ -9,12 +15,10 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-MyError.getInitialProps = async (context) => {
+AppError.getInitialProps = async (context: NextPageContext) => {
   const errorInitialProps = await NextErrorComponent.getInitialProps(context);
 
   const { res, err, asPath } = context;
-
-  errorInitialProps.hasGetInitialPropsRun = true;
 
   if (res?.statusCode === 404) {
     return errorInitialProps;
@@ -27,11 +31,11 @@ MyError.getInitialProps = async (context) => {
     return errorInitialProps;
   }
 
-  Sentry.captureException(new Error(`_error.js getInitialProps missing data at path: ${asPath}`));
+  Sentry.captureException(new Error(`_error.tsx getInitialProps missing data at path: ${asPath}`));
 
   await Sentry.flush(2000);
 
   return errorInitialProps;
 };
 
-export default MyError;
+export default AppError;
