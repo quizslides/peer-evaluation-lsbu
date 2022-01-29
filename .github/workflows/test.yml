@@ -79,6 +79,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+    
+      - name: Setup env files
+        run: cp .env.sample .env
 
       - name: Start docker container
         id: automated-test
@@ -87,7 +90,6 @@ jobs:
 
       - name: Run E2E tests
         run: |
-          cp .env.sample .env
           yarn prisma:start
           yarn cypress
 
