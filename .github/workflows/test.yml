@@ -80,6 +80,32 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Start docker container
+        id: automated-test
+        run: |
+          docker-compose up -d
+
+      - name: Run E2E tests
+        run: |
+          yarn prisma:start
+          yarn cypress
+
+      - name: Video Cypress
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: videos-cypress
+          path: cypress/videos
+          retention-days: 7
+
+      - name: Screenshots Cypress
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: screenshots-cypress
+          path: cypress/screenshots
+          retention-days: 7
+
       - name: Run jest tests
         run: yarn test:ci
 

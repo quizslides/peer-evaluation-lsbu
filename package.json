@@ -17,6 +17,7 @@
     "test:clear-cache": "jest --clearCache",
     "cypress": "cypress run",
     "prisma:studio": "npx prisma studio",
+    "prisma:start": "npx prisma migrate dev",
     "prepare": "husky install"
   },
   "prisma": {
