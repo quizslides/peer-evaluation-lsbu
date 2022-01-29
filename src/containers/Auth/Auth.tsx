@@ -1,5 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 
+import Button from "@/components/Button/Button";
+
 const Auth = () => {
   const { data: session } = useSession();
 
@@ -10,14 +12,18 @@ const Auth = () => {
     return (
       <>
         Signed in as {session?.user?.email} <br />
-        <button onClick={userSignOut}>Sign out</button>
+        <Button variant="contained" onClick={userSignOut}>
+          Sign out
+        </Button>
       </>
     );
   }
   return (
     <>
       Not signed in <br />
-      <button onClick={userSignIn}>Sign in</button>
+      <Button variant="contained" onClick={userSignIn}>
+        Sign in
+      </Button>
     </>
   );
 };

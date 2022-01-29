@@ -1,16 +1,17 @@
 import * as React from "react";
 
-import { Button as ButtonMUI } from "@mui/material";
+import { Button as ButtonMUI, ButtonProps } from "@mui/material";
 
 type ButtonVariant = "text" | "outlined" | "contained";
 
-interface IButton {
-  text: string;
+interface IButton extends ButtonProps {
   variant: ButtonVariant;
 }
 
-const Button = ({ text, variant = "text" }: IButton) => {
-  return <ButtonMUI variant={variant}>{text}</ButtonMUI>;
+const Button = (props: IButton) => {
+  const { variant } = props;
+
+  return <ButtonMUI {...props} variant={variant} />;
 };
 
 export default Button;
