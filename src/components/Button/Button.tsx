@@ -1,16 +1,17 @@
-import * as React from "react";
+import React, { FC } from "react";
 
-import { Button as ButtonMUI } from "@mui/material";
+import { Button as ButtonMUI, ButtonProps } from "@mui/material";
 
-export default function Button() {
-  return (
-    <ButtonMUI
-      onClick={() => {
-        throw new Error("Sentry Frontend Error");
-      }}
-      variant="contained"
-    >
-      Hello from a button
-    </ButtonMUI>
-  );
+type ButtonVariant = "text" | "outlined" | "contained";
+
+interface IButton extends ButtonProps {
+  variant: ButtonVariant;
 }
+
+const Button: FC<IButton> = (props) => {
+  const { variant } = props;
+
+  return <ButtonMUI {...props} variant={variant} />;
+};
+
+export default Button;

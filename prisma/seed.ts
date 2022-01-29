@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -6,7 +7,7 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
+  .catch(() => {
     process.exit(1);
   })
   .finally(async () => {
