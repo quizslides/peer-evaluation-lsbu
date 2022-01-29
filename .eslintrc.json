@@ -25,7 +25,7 @@
   ],
   "rules": {
     "require-jsdoc": "off",
-    "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "error",
     "import/order": [
       "error",
       {
@@ -54,7 +54,21 @@
       }
     ],
     "import/newline-after-import": "error",
-    "import/no-duplicates": "error"
+    "import/no-duplicates": "error",
+    "react/jsx-props-no-spreading": "off",
+    "padding-line-between-statements": "off",
+    "@typescript-eslint/padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": [
+          "interface",
+          "type",
+          "const"
+        ]
+      }
+    ]
   },
   "overrides": [
     {

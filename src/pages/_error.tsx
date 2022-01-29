@@ -1,3 +1,5 @@
+import React from "react";
+
 import * as Sentry from "@sentry/nextjs";
 import { NextPageContext, NextPage } from "next";
 import NextErrorComponent, { ErrorProps } from "next/error";
