@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <Button />
+        <Button text="Button" />
 
         <Auth />
 
