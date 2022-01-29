@@ -48,7 +48,7 @@
     "graphql-middleware": "6.0.9",
     "graphql-shield": "^7.5.0",
     "micro": "^9.3.4",
-    "next": "12.0.7",
+    "next": "12.0.9",
     "next-auth": "^4.1.1",
     "nodemailer": "^6.7.2",
     "react": "17.0.2",
