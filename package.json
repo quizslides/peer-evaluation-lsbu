@@ -16,7 +16,7 @@
     "test:ci": "jest --ci --coverage",
     "test:clear-cache": "jest --clearCache",
     "cypress": "cypress run",
-    "prisma:studio": " npx prisma studio",
+    "prisma:studio": "npx prisma studio",
     "prepare": "husky install"
   },
   "prisma": {
