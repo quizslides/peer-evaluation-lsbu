@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 
-const Auth = () => {
+function Auth() {
   const { data: session } = useSession();
   if (session) {
     return (
@@ -16,6 +16,6 @@ const Auth = () => {
       <button onClick={() => signIn()}>Sign in</button>
     </>
   );
-};
+}
 
 export default Auth;
