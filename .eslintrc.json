@@ -25,6 +25,7 @@
   ],
   "rules": {
     "require-jsdoc": "off",
+    "valid-jsdoc": "off",
     "react/react-in-jsx-scope": "error",
     "import/order": [
       "error",
