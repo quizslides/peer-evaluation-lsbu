@@ -19,7 +19,7 @@ export const permissions = shield({
   },
 });
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<false | undefined> => {
   const schemaDefinitions = await buildSchema({
     resolvers,
   });
