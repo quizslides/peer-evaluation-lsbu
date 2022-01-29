@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout Code 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.4.0
         with:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -56,12 +56,12 @@ jobs:
 
     steps:
       - name: Checkout Code 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.4.0
         with:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -79,6 +79,37 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+    
+      - name: Setup test dependencies
+        run: |
+          cp .env.sample .env
+          npx cypress install
+
+      - name: Start docker container
+        id: automated-test
+        run: |
+          docker-compose up -d
+
+      - name: Run E2E tests
+        run: |
+          yarn prisma:start
+          yarn cypress
+
+      - name: Video Cypress
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: videos-cypress
+          path: cypress/videos
+          retention-days: 7
+
+      - name: Screenshots Cypress
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: screenshots-cypress
+          path: cypress/screenshots
+          retention-days: 7
 
       - name: Run jest tests
         run: yarn test:ci

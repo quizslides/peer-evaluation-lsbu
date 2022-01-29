@@ -19,6 +19,7 @@
     "prisma:studio": "npx prisma studio",
     "prisma:generate": "npx prisma generate",
     "postinstall": "yarn prisma:generate",
+    "prisma:start": "npx prisma migrate dev",
     "prepare": "husky install"
   },
   "prisma": {
