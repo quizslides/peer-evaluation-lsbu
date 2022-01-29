@@ -1,13 +1,18 @@
 name: Test
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
       - staging
       - 'PEL-**'
+    paths-ignore:
+      - README.md
+      - CHANGELOG.md
+      - .gitignore
+      - .github/**
   pull_request:
     types: [opened, reopened, edited]
-
 
 jobs:
   install-dependencies:
