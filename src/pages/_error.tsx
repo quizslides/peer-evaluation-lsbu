@@ -7,6 +7,14 @@ interface AppErrorProps extends ErrorProps {
   hasGetInitialPropsRun?: boolean;
 }
 
+/**
+ * App Error Handler for Next with Sentry integration
+ *
+ * @param {boolean | undefined} hasGetInitialPropsRun
+ * @param {Error | undefined} err
+ * @param {number} statusCode
+ * @returns NextErrorComponent
+ */
 const AppError: NextPage<AppErrorProps> = ({ hasGetInitialPropsRun, err, statusCode }) => {
   if (!hasGetInitialPropsRun && err) {
     Sentry.captureException(err);
