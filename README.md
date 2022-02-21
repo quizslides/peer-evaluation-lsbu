@@ -1,6 +1,6 @@
 # Peer Evaluation LSBU
 
-[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=resolved+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![Test](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml)
 
 These are the instructions to run a full-stack framework using Next.js.
 
