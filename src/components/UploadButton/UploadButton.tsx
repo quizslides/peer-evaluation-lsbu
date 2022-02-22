@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
 import { ParseResult } from "papaparse";
@@ -61,4 +61,4 @@ const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
   );
 };
 
-export default UploadButton;
+export default memo(UploadButton);

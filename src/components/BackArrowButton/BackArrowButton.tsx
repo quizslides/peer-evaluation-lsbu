@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { useRouter } from "next/router";
 
@@ -23,4 +23,4 @@ const BackArrowButton = () => {
   );
 };
 
-export default BackArrowButton;
+export default memo(BackArrowButton);

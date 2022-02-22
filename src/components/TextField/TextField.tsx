@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { TextField as TextFieldMUI, TextFieldProps } from "@mui/material";
 import { useField } from "formik";
@@ -20,4 +20,4 @@ const TextField = ({ testId, name, props }: ITextField) => {
   return <TextFieldMUI data-testid={testId} {...field} {...props} />;
 };
 
-export default TextField;
+export default memo(TextField);

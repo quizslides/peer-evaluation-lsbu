@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 
 import { Link as LinkMUI, LinkProps } from "@mui/material";
 
@@ -10,4 +10,4 @@ const Link: FC<ILink> = ({ testId, ...props }) => {
   return <LinkMUI data-testid={testId} {...props} />;
 };
 
-export default Link;
+export default memo(Link);

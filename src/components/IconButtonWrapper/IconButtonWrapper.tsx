@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { IconButton, IconButtonProps } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
@@ -26,4 +26,4 @@ const IconButtonWrapper = ({ tooltip, testId, children, ...props }: IIconButtonW
   );
 };
 
-export default IconButtonWrapper;
+export default memo(IconButtonWrapper);

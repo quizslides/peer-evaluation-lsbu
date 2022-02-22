@@ -1,6 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import { ComponentChildren } from "@/types";
@@ -26,11 +27,17 @@ export const overrideCss = css`
   margin: auto;
 `;
 
+const WrapperLoader = styled.div``;
+
 const LoaderSpinner = (props: IClipLoader) => {
   const { size, color, isLoading, children } = props;
 
   if (isLoading) {
-    return <ClipLoader css={overrideCss} size={size} color={color} loading={isLoading} />;
+    return (
+      <WrapperLoader data-testid="loader-spinner">
+        <ClipLoader css={overrideCss} size={size} color={color} loading={isLoading} />; //{" "}
+      </WrapperLoader>
+    );
   }
 
   return <>{children}</>;
@@ -38,4 +45,4 @@ const LoaderSpinner = (props: IClipLoader) => {
 
 LoaderSpinner.defaultProps = defaultLoaderProps;
 
-export default LoaderSpinner;
+export default memo(LoaderSpinner);

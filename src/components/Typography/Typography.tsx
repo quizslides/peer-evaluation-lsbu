@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 
 import { Typography as TypographyMUI, TypographyProps } from "@mui/material";
 
@@ -10,4 +10,4 @@ const Typography: FC<ITypography> = ({ testId, ...props }) => {
   return <TypographyMUI data-testid={testId} {...props} />;
 };
 
-export default Typography;
+export default memo(Typography);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import styled from "@emotion/styled";
 import { TypographyProps } from "@mui/material";
@@ -43,4 +43,4 @@ const PageTitle = (props: IPageTitle) => {
   );
 };
 
-export default PageTitle;
+export default memo(PageTitle);

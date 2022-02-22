@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -41,4 +41,4 @@ const MenuTopItemsWrapper = ({ title, icon, router, pathname, scope }: IMenuTopI
   );
 };
 
-export default MenuTopItemsWrapper;
+export default memo(MenuTopItemsWrapper);

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 
 import { Button as ButtonMUI, ButtonProps } from "@mui/material";
 
@@ -13,4 +13,4 @@ const Button: FC<IButton> = ({ variant, testId, ...props }) => {
   return <ButtonMUI data-testid={testId} {...props} variant={variant} />;
 };
 
-export default Button;
+export default memo(Button);
