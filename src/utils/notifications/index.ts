@@ -30,7 +30,7 @@ const loadingNotification = (message: string, id?: string): string => {
   });
 };
 
-const promiseNotification = (promise: Promise<any>, config: TPromiseNotifications): Promise<any> => {
+const promiseNotification = (promise: Promise<unknown>, config: TPromiseNotifications) => {
   return toast.promise(promise, config);
 };
 
