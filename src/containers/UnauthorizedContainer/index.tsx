@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import styled from "@emotion/styled";
 import { Stack } from "@mui/material";
@@ -42,4 +42,4 @@ const UnauthorizedContainer = () => {
   );
 };
 
-export default UnauthorizedContainer;
+export default memo(UnauthorizedContainer);

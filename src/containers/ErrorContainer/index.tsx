@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import styled from "@emotion/styled";
 import { Stack } from "@mui/material";
@@ -32,4 +32,4 @@ const ErrorContainer = () => {
   );
 };
 
-export default ErrorContainer;
+export default memo(ErrorContainer);
