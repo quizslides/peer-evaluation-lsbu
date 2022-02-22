@@ -21,6 +21,10 @@ export interface UploadFileProps {
 
 export const Wrapper = styled.div``;
 
+interface CSVReaderProps {
+  getRootProps: Function;
+}
+
 const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
   const { CSVReader } = useCSVReader();
 
@@ -41,7 +45,7 @@ const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
       }}
       multiple={false}
     >
-      {({ getRootProps }: any) => (
+      {({ getRootProps }: CSVReaderProps) => (
         <>
           <IconButtonWrapper
             data-testid="upload-button-wrapper"

@@ -13,9 +13,6 @@ const AllUsers: NextPage = () => {
   const [files, setFiles] = useState<string[][]>();
 
   const onFilesSelected = (csv: string[][]) => {
-    if (!files) {
-      return;
-    }
     setFiles(csv);
   };
 
