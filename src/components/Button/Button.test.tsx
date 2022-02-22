@@ -2,36 +2,63 @@ import React from "react";
 
 import { render, screen } from "@testing-library/react";
 
-import Button from "@/components/Button/Button";
+import { Button } from "@/components";
 
-describe("Testing button component", () => {
+describe("Testing Button component", () => {
   it("renders a button with variant text", () => {
     const buttonText = "Text Button";
 
-    render(<Button variant="text">{buttonText}</Button>);
+    const testId = "test-button";
 
-    const button = screen.getByText(buttonText);
+    render(
+      <Button testId={testId} variant="text">
+        {buttonText}
+      </Button>
+    );
 
-    expect(button).toBeInTheDocument();
+    const buttonElement = screen.getByText(buttonText);
+
+    const buttonElementByTestId = screen.getByTestId(testId);
+
+    expect(buttonElement).toBeInTheDocument();
+    expect(buttonElementByTestId).toBeInTheDocument();
   });
 
   it("renders a button with variant outlined", () => {
     const buttonText = "Text Button";
 
-    render(<Button variant="outlined">{buttonText}</Button>);
+    const testId = "test-button";
 
-    const button = screen.getByText(buttonText);
+    render(
+      <Button testId={testId} variant="outlined">
+        {buttonText}
+      </Button>
+    );
 
-    expect(button).toBeInTheDocument();
+    const buttonElement = screen.getByText(buttonText);
+
+    const buttonElementByTestId = screen.getByTestId(testId);
+
+    expect(buttonElement).toBeInTheDocument();
+    expect(buttonElementByTestId).toBeInTheDocument();
   });
 
   it("renders a button with variant contained", () => {
     const buttonText = "Text Button";
 
-    render(<Button variant="contained">{buttonText}</Button>);
+    const testId = "test-button";
 
-    const button = screen.getByText(buttonText);
+    render(
+      <Button testId={testId} variant="contained">
+        {buttonText}
+      </Button>
+    );
 
-    expect(button).toBeInTheDocument();
+    const buttonElement = screen.getByText(buttonText);
+
+    const buttonElementByTestId = screen.getByTestId(testId);
+
+    expect(buttonElement).toBeInTheDocument();
+    expect(buttonElementByTestId).toBeInTheDocument();
   });
 });

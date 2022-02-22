@@ -6,12 +6,11 @@ type ButtonVariant = "text" | "outlined" | "contained";
 
 interface IButton extends ButtonProps {
   variant: ButtonVariant;
+  testId: string;
 }
 
-const Button: FC<IButton> = (props) => {
-  const { variant } = props;
-
-  return <ButtonMUI {...props} variant={variant} />;
+const Button: FC<IButton> = ({ variant, testId, ...props }) => {
+  return <ButtonMUI data-testid={testId} {...props} variant={variant} />;
 };
 
 export default Button;
