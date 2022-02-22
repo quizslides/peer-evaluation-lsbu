@@ -1,0 +1,4 @@
+Name, Email, Role
+FirstName LastName,email@example.com,ADMIN
+FirstName LastName,email@example.com,LECTURER
+FirstName LastName,email@example.com,STUDENT
