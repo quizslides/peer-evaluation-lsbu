@@ -1,0 +1,37 @@
+
+{% layout "base" %}
+{% block content %}
+
+<p>
+    Click the button below to sign in to Peer Evaluation LSBU.<br />
+    This link will expire in {{expireTime}} {{expireTimeUnit}}.
+  </p>
+  <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
+    role="presentation">
+    <tr>
+      <td align="center">
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+          <tr>
+            <td>
+              <a href="{{signInUrl}}" class="f-fallback button" target="_blank">SIGN IN</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <p>Confirming this request will securely signed you in using {{email}}.</p>
+<table class="body-sub" role="presentation">
+    <tr>
+      <td>
+        <p class="f-fallback sub">
+          If you are having trouble with the button above, copy and paste the URL below into your
+          web browser.
+        </p>
+        <p class="f-fallback sub">{{signInUrl}}</p>
+      </td>
+    </tr>
+  </table>
+  
+{% endblock %}
