@@ -112,7 +112,7 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
   },
-  "engine": {
+  "engines": {
     "node": "16.13.2"
   }
 }
