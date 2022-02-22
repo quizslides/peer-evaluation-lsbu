@@ -1,23 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import * as Sentry from "@sentry/nextjs";
-import { NextPageContext, NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import NextErrorComponent, { ErrorProps } from "next/error";
+
+import { dismissNotification } from "@/utils";
 
 interface AppErrorProps extends ErrorProps {
   err?: Error;
   hasGetInitialPropsRun?: boolean;
 }
 
-/**
- * App Error Handler for Next with Sentry integration
- *
- * @param {boolean | undefined} hasGetInitialPropsRun
- * @param {Error | undefined} err
- * @param {number} statusCode
- * @returns NextErrorComponent
- */
 const AppError: NextPage<AppErrorProps> = ({ hasGetInitialPropsRun, err, statusCode }) => {
+  useEffect(() => {
+    dismissNotification();
+  });
+
   if (!hasGetInitialPropsRun && err) {
     Sentry.captureException(err);
   }
