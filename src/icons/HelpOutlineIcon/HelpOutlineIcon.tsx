@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as HelpOutlineIconMUI } from "@mui/icons-material/HelpOutline";
 
@@ -8,4 +8,4 @@ const HelpOutline = ({ testId, ...props }: Icon) => {
   return <HelpOutlineIconMUI data-testid={testId} {...props} />;
 };
 
-export default HelpOutline;
+export default memo(HelpOutline);

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { memo } from "react";
 
 import { SVG } from "@/icons/type";
 
@@ -70,4 +70,4 @@ const EmailSentEmoji = ({ testId, ...props }: SVG) => (
   </svg>
 );
 
-export default EmailSentEmoji;
+export default memo(EmailSentEmoji);

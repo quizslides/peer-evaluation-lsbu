@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as ArrowBackIconMUI } from "@mui/icons-material/ArrowBack";
 
@@ -8,4 +8,4 @@ const ArrowBackIcon = ({ testId, ...props }: Icon) => {
   return <ArrowBackIconMUI data-testid={testId} {...props} />;
 };
 
-export default ArrowBackIcon;
+export default memo(ArrowBackIcon);

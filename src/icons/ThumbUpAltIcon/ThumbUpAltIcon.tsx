@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as ThumbUpAltIconMUI } from "@mui/icons-material/ThumbUpAlt";
 
@@ -8,4 +8,4 @@ const ThumbUpAltIcon = ({ testId, ...props }: Icon) => {
   return <ThumbUpAltIconMUI data-testid={testId} {...props} />;
 };
 
-export default ThumbUpAltIcon;
+export default memo(ThumbUpAltIcon);

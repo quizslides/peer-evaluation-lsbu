@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as MenuIconMUI } from "@mui/icons-material/Menu";
 
@@ -8,4 +8,4 @@ const MenuIcon = ({ testId, ...props }: Icon) => {
   return <MenuIconMUI data-testid={testId} {...props} />;
 };
 
-export default MenuIcon;
+export default memo(MenuIcon);

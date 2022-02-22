@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as HomeIconMUI } from "@mui/icons-material/Home";
 
@@ -8,4 +8,4 @@ const HomeIcon = ({ testId, ...props }: Icon) => {
   return <HomeIconMUI data-testid={testId} {...props} />;
 };
 
-export default HomeIcon;
+export default memo(HomeIcon);

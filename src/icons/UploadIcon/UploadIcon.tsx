@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { default as FileUploadIconMUI } from "@mui/icons-material/FileUpload";
 
@@ -8,4 +8,4 @@ const UploadIcon = ({ testId, ...props }: Icon) => {
   return <FileUploadIconMUI data-testid={testId} {...props} />;
 };
 
-export default UploadIcon;
+export default memo(UploadIcon);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { SVG } from "@/icons/type";
 
@@ -41,4 +41,4 @@ const SadFaceEmoji = ({ testId, ...props }: SVG) => (
   </svg>
 );
 
-export default SadFaceEmoji;
+export default memo(SadFaceEmoji);

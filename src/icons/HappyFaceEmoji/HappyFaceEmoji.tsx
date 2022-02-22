@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { SVG } from "@/icons/type";
 
@@ -65,4 +65,4 @@ const HappyFaceEmoji = ({ testId, ...props }: SVG) => (
   </svg>
 );
 
-export default HappyFaceEmoji;
+export default memo(HappyFaceEmoji);
