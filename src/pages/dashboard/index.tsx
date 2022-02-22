@@ -13,12 +13,12 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps = () => {
   return {
     props: {
       protected: true,
     },
   };
-}
+};
 
 export default Dashboard;

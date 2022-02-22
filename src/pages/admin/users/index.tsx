@@ -103,13 +103,13 @@ const AllUsers: NextPage = () => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps = () => {
   return {
     props: {
       protected: true,
       roles: [ROLE.ADMIN],
     },
   };
-}
+};
 
 export default AllUsers;
