@@ -1,11 +1,22 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextApiHandler } from "next";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
-import { prisma } from "@/pages/api/graphql";
+import { getUserSessionWithRole, isAccountCreated } from "@/pages/api/auth/utils";
+import { sendSignInEmail } from "@/pages/api/email/index";
+import prisma from "@/pages/api/prisma";
+import routing from "@/routing";
 
-const options = {
+const options: NextAuthOptions = {
+  pages: {
+    signIn: routing.auth.signIn,
+    signOut: routing.home,
+  },
+  session: {
+    maxAge: 24 * 60 * 60,
+    updateAge: 12 * 60 * 60,
+  },
   providers: [
     EmailProvider({
       server: {
@@ -18,10 +29,15 @@ const options = {
       },
       from: process.env.SMTP_FROM,
       maxAge: 24 * 60 * 60,
+      sendVerificationRequest: async ({ identifier: email, url }) => await sendSignInEmail(email, url),
     }),
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET,
+  callbacks: {
+    signIn: async ({ user }) => await isAccountCreated(user.email),
+    session: async ({ user, session }) => await getUserSessionWithRole(user, session),
+  },
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
