@@ -10,7 +10,11 @@ const HelpButton = () => {
   const router = useRouter();
 
   return (
-    <IconButtonWrapper tooltip="help" onClick={() => router.push(routing.Help)}>
+    <IconButtonWrapper
+      tooltip="help"
+      onClick={() => router.push(routing.Help)}
+      testId={"routing-help-page-icon-wrapper"}
+    >
       <HelpOutlineIcon testId="routing-help-page" color="inherit" />
     </IconButtonWrapper>
   );

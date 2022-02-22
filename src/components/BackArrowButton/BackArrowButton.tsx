@@ -17,7 +17,7 @@ const BackArrowButton = () => {
   };
 
   return (
-    <IconButtonWrapper onClick={goBack}>
+    <IconButtonWrapper onClick={goBack} testId={"goback-arrow-button-icon-wrapper"}>
       <ArrowBackIcon testId="goback-arrow-button" fontSize="large" color="inherit" />
     </IconButtonWrapper>
   );
