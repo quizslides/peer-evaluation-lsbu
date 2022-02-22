@@ -37,33 +37,38 @@ const sendSignInEmail = async (email: string, signInUrl: string) => {
       }),
     });
   } catch (error) {
-    errorLogger(`Unable to send sign in email to ${email}`);
+    errorLogger(`Unable to send sign in email to ${email}. Error: ${error}`);
   }
 };
 
 const sendWelcomeEmail = async (email: string, name: string) => {
-  try {
-    await emailTransporter.sendMail({
-      from: content.global.from,
-      to: email,
-      subject: content.emailTemplates.sendWelcomeEmail.subject,
-      html: await getEmailTemplate("account-created", {
-        name,
-        preHeader: content.emailTemplates.sendWelcomeEmail.variables.preHeader,
-        baseUrl: process.env.NEXTAUTH_URL,
-      }),
-    });
-  } catch (error) {
-    errorLogger(`Unable to send welcome email to ${email}`);
+  const isUserCreated = await isAccountCreated(email);
+
+  if (!isUserCreated) {
+    try {
+      await emailTransporter.sendMail({
+        from: content.global.from,
+        to: email,
+        subject: content.emailTemplates.sendWelcomeEmail.subject,
+        html: await getEmailTemplate("account-created", {
+          name,
+          preHeader: content.emailTemplates.sendWelcomeEmail.variables.preHeader,
+          baseUrl: process.env.NEXTAUTH_URL,
+        }),
+      });
+    } catch (error) {
+      errorLogger(`Unable to send welcome email to ${email}. Error: ${error}`);
+    }
   }
 };
 
 const sendWelcomeEmailBulk = async (users: [User]) => {
   for (let user of users) {
-    let email = user.email;
-    let name = user.name;
+    const email = user.email;
 
-    let isUserCreated = await isAccountCreated(email);
+    const name = user.name;
+
+    const isUserCreated = await isAccountCreated(email);
 
     if (!isUserCreated) {
       await sendWelcomeEmail(email, name);

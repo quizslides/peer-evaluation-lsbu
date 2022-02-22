@@ -17,6 +17,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   sessions      Session[]
+  role          Role      @default(STUDENT)
 }
 
 model VerificationToken {
@@ -33,4 +34,10 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  LECTURER
+  STUDENT
 }

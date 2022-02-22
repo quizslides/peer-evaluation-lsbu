@@ -1,25 +1,34 @@
 import "reflect-metadata";
 
 import { resolvers } from "@generated/type-graphql";
-import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
-import { deny, shield } from "graphql-shield";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { buildSchema } from "type-graphql";
 
-export const prisma = new PrismaClient();
+import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
+import { permissions } from "@/pages/api/permissions";
+import prisma from "@/pages/api/prisma";
 
-export const permissions = shield({
-  Query: {
-    "*": deny,
+const config = {
+  api: {
+    bodyParser: false,
   },
-  Mutation: {
-    "*": deny,
-  },
+};
+
+prisma.$use(async (params, next) => {
+  if (params.model === "User") {
+    await welcomeUserEmailHook(params);
+  }
+
+  const result = await next(params);
+
+  return result;
 });
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<false | undefined> => {
+const apolloServer = async (req: NextApiRequest, res: NextApiResponse): Promise<false | undefined> => {
+  const isProduction = process.env.NODE_ENV !== "production";
+
   const schemaDefinitions = await buildSchema({
     resolvers,
   });
@@ -37,9 +46,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<false
 
   const apolloServer = new ApolloServer({
     schema: schemaWithRules,
-    context: () => ({ prisma }),
-    debug: process.env.NODE_ENV !== "production",
-    introspection: process.env.NODE_ENV !== "production",
+    context: () => ({ prisma, req, res }),
+    debug: isProduction,
+    introspection: isProduction,
+    formatError: (err) => {
+      if (isProduction) {
+        return err;
+      }
+
+      return new Error("Internal server error");
+    },
   });
 
   await apolloServer.start();
@@ -49,10 +65,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<false
   })(req, res);
 };
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export { config };
 
-export default handler;
+export default apolloServer;
