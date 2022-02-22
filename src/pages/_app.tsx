@@ -11,6 +11,7 @@ import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 
+import { Layout } from "@/containers";
 import AuthenticatedRoute from "@/containers/Auth";
 import { theme } from "@/styles";
 
@@ -22,13 +23,15 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SessionProvider session={session}>
-          {pageProps.protected ? (
-            <AuthenticatedRoute roles={pageProps.roles}>
+          <Layout>
+            {pageProps.protected ? (
+              <AuthenticatedRoute roles={pageProps.roles}>
+                <Component {...pageProps} />
+              </AuthenticatedRoute>
+            ) : (
               <Component {...pageProps} />
-            </AuthenticatedRoute>
-          ) : (
-            <Component {...pageProps} />
-          )}
+            )}
+          </Layout>
         </SessionProvider>
       </ThemeProvider>
       <Toaster />

@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import { Base } from "@/components";
 
 describe("Testing Base component", () => {
-  it("renders base with footer and children", async () => {
+  it("renders base with error state", async () => {
     const textChildrenComponent = "Component Text";
 
     const ChildrenComponent = () => {
@@ -13,22 +13,52 @@ describe("Testing Base component", () => {
     };
 
     render(
-      <Base topLeftComponent="none">
+      <Base topLeftComponent="none" error={true} loading={false}>
         <ChildrenComponent />
       </Base>
     );
 
-    const childrenComponent = screen.getByText(textChildrenComponent);
+    const elements = screen.queryByText(textChildrenComponent);
+    expect(elements).not.toBeInTheDocument();
 
-    const body = screen.getByTestId("base-body");
+    const errorComponent = screen.getByTestId("error-container-text");
+    expect(errorComponent).toBeInTheDocument();
+  });
 
-    const main = screen.getByTestId("base-main");
+  it("renders base with loading state", async () => {
+    const textChildrenComponent = "Component Text";
 
-    const footer = screen.getByTestId("base-footer");
+    const ChildrenComponent = () => {
+      return <>{textChildrenComponent}</>;
+    };
 
-    expect(childrenComponent).toBeInTheDocument();
-    expect(body).toBeInTheDocument();
-    expect(main).toBeInTheDocument();
-    expect(footer).toBeInTheDocument();
+    render(
+      <Base topLeftComponent="none" error={false} loading={true}>
+        <ChildrenComponent />
+      </Base>
+    );
+
+    const elements = screen.queryByText(textChildrenComponent);
+    expect(elements).not.toBeInTheDocument();
+
+    const errorComponent = screen.getByTestId("loader-spinner");
+    expect(errorComponent).toBeInTheDocument();
+  });
+
+  it("renders base returning the children component", async () => {
+    const textChildrenComponent = "Component Text";
+
+    const ChildrenComponent = () => {
+      return <>{textChildrenComponent}</>;
+    };
+
+    render(
+      <Base topLeftComponent="none" error={false} loading={false}>
+        <ChildrenComponent />
+      </Base>
+    );
+
+    const elements = screen.queryByText(textChildrenComponent);
+    expect(elements).toBeInTheDocument();
   });
 });
