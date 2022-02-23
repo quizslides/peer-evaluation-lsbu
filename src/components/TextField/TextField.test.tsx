@@ -2,53 +2,31 @@ import React from "react";
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Form, Formik } from "formik";
-import { object, string } from "yup";
 
 import { TextField } from "@/components";
 
 describe("Testing TextField component in a form", () => {
   it("renders a TextField with test id", async () => {
-    const initialFormState = {
-      email: "",
-    };
-
-    const validationSchema = object({
-      email: string().email("Invalid email").required("Email required"),
-    });
-
-    const fieldName = "email";
-
-    const fieldLabel = "Email";
+    const fieldLabel = "text";
 
     const testId = "test-id";
 
     render(
-      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={() => console.log(null)}>
-        {() => (
-          <Form>
-            <TextField
-              testId={testId}
-              name={fieldName}
-              props={{
-                fullWidth: true,
-                label: fieldLabel,
-                type: "email",
-                variant: "outlined",
-              }}
-            />
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
+      <TextField
+        testId={testId}
+        props={{
+          fullWidth: true,
+          label: fieldLabel,
+          type: "email",
+          variant: "outlined",
+        }}
+      />
     );
 
-    userEvent.type(screen.getByLabelText(/email/i), "test");
-
-    userEvent.click(screen.getByRole("button", { name: /submit/i }));
+    userEvent.type(screen.getByLabelText(/text/i), "test");
 
     const validationErrors = await screen.findByTestId(testId);
 
-    expect(validationErrors).toHaveTextContent("Invalid email");
+    expect(validationErrors).toBeInTheDocument();
   });
 });

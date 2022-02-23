@@ -1,23 +1,14 @@
 import React, { memo } from "react";
 
-import { TextField as TextFieldMUI, TextFieldProps } from "@mui/material";
-import { useField } from "formik";
+import { TextField as TextFieldFormMUI, TextFieldProps } from "@mui/material";
 
-interface ITextField {
+export interface ITextField {
   testId: string;
-  name: string;
   props: TextFieldProps;
 }
 
-const TextField = ({ testId, name, props }: ITextField) => {
-  const [field, meta] = useField(name);
-
-  if (meta && meta.touched && meta.error) {
-    props.error = true;
-    props.helperText = meta.error;
-  }
-
-  return <TextFieldMUI data-testid={testId} {...field} {...props} />;
+const TextField = ({ testId, props }: ITextField) => {
+  return <TextFieldFormMUI data-testid={testId} {...props} />;
 };
 
 export default memo(TextField);
