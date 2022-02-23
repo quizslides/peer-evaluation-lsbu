@@ -11,8 +11,13 @@ type TitleProps = {
   colorDark: string;
 };
 
-const Wrapper = styled.div`
+type WrapperProps = {
+  margin?: string;
+};
+
+const Wrapper = styled.div<WrapperProps>`
   text-align: center;
+  margin: ${(props) => `${props.margin}`};
 `;
 
 const Title = styled.div<TitleProps>`
@@ -25,15 +30,14 @@ const Title = styled.div<TitleProps>`
 interface IPageTitle extends TypographyProps {
   title: string;
   testId: string;
+  margin?: string;
 }
 
-const PageTitle = (props: IPageTitle) => {
-  const { title, testId, variant } = props;
-
+const PageTitle = ({ title, testId, variant, margin }: IPageTitle) => {
   const theme = useTheme();
 
   return (
-    <Wrapper>
+    <Wrapper margin={margin}>
       <Typography testId={testId} variant={variant}>
         <Title colorLight={theme.palette.primary.light} colorDark={theme.palette.primary.dark}>
           {title}
