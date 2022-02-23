@@ -6,15 +6,15 @@ import { Form, Formik } from "formik";
 import type { NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { object, string } from "yup";
+import { object } from "yup";
 
-import { Base, Button, LoaderSpinner, PageTitle, TextField, Typography } from "@/components";
+import { Base, Button, LoaderSpinner, PageTitle, TextFieldForm, Typography } from "@/components";
 import content from "@/content";
 import { EmailSentEmoji } from "@/icons";
 import routing from "@/routing";
 import { CenteredContent } from "@/styles";
 import { ComponentChildren } from "@/types";
-import { errorNotification, loadingNotification, successNotification } from "@/utils";
+import { emailValidator, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface ISignInForm {
   email: string;
@@ -58,10 +58,7 @@ const SignIn: NextPage = () => {
   const [isLinkSent, setLinkSent] = useState<boolean>(false);
 
   const validationSchema = object({
-    email: string()
-      .email(content.pages.auth.signIn.form.email.invalid)
-      .matches(content.pages.auth.signIn.form.email.regex, content.pages.auth.signIn.form.email.invalidDomain)
-      .required(content.pages.auth.signIn.form.email.empty),
+    ...emailValidator,
   });
 
   const submitForm = async (valuesForm: ISignInForm) => {
@@ -163,7 +160,7 @@ const SignIn: NextPage = () => {
                   >
                     <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>
                       <Grid item xs={6}>
-                        <TextField
+                        <TextFieldForm
                           testId="signin-form-email-field"
                           name="email"
                           props={{

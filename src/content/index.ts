@@ -45,11 +45,6 @@ const content = {
         form: {
           email: {
             defaultValue: "",
-            invalid: "Invalid email address",
-            invalidDomain: "Email must end with @lsbu.ac.uk",
-            empty: "Enter an email",
-            regex: /@(gmail)\.com$/,
-            // regex: /@(lsbu)\.ac.uk$/, TODO: update rules to use only @lsbu.ac.uk
             placeholder: "name@lsbu.ac.uk",
           },
           button: {
