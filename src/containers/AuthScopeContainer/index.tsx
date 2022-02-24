@@ -3,10 +3,10 @@ import React, { memo, useEffect, useState } from "react";
 import { GetSessionParams, getSession, useSession } from "next-auth/react";
 
 import { ElementChildren } from "@/types";
-import { ROLE, isScopeAuthorized } from "@/utils/permissions";
+import { Role, isScopeAuthorized } from "@/utils/permissions";
 
 interface IAuthScopeContainer extends ElementChildren {
-  scope?: ROLE[] | undefined;
+  scope?: Role[] | undefined;
 }
 
 const AuthScopeContainer = ({ scope, children }: IAuthScopeContainer) => {

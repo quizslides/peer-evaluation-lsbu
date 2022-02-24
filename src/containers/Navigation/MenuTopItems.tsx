@@ -7,7 +7,7 @@ import { NextRouter } from "next/router";
 
 import MenuTopItemsWrapper from "@/components/MenuTopItemsWrapper/MenuTopItemsWrapper";
 import routing from "@/routing";
-import { ROLE } from "@/utils/permissions";
+import { Role } from "@/utils/permissions";
 
 interface IMenuTopItems {
   router: NextRouter;
@@ -19,19 +19,19 @@ const MenuTopItems = ({ router }: IMenuTopItems) => {
       title: "Dashboard",
       icon: <GridViewIcon />,
       pathname: routing.dashboard,
-      scope: [ROLE.AUTHENTICATED],
+      scope: [Role.AUTHENTICATED],
     },
     {
       title: "Student",
       icon: <GridViewIcon />,
       pathname: routing.dashboard,
-      scope: [ROLE.STUDENT],
+      scope: [Role.STUDENT],
     },
     {
       title: "Sign In",
       icon: <LoginIcon />,
       pathname: routing.auth.signIn,
-      scope: [ROLE.UNAUTHENTICATED],
+      scope: [Role.UNAUTHENTICATED],
     },
     {
       title: "Playground",

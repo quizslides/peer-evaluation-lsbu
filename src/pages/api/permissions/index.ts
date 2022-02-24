@@ -5,7 +5,7 @@ import { MicroRequest } from "apollo-server-micro/dist/types";
 import { deny, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
-import { ROLE } from "@/utils/permissions";
+import { Role } from "@/utils/permissions";
 
 export interface Context {
   prisma: PrismaClient;
@@ -21,7 +21,7 @@ export const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _ar
 export const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
   const session = await getSession({ req });
 
-  if (session?.user.role === ROLE.ADMIN) {
+  if (session?.user.role === Role.ADMIN) {
     return true;
   }
 
@@ -31,7 +31,7 @@ export const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { re
 export const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
   const session = await getSession({ req });
 
-  if (session?.user.role === ROLE.LECTURER) {
+  if (session?.user.role === Role.LECTURER) {
     return true;
   }
 
@@ -41,7 +41,7 @@ export const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, {
 export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
   const session = await getSession({ req });
 
-  if (session?.user.role === ROLE.STUDENT) {
+  if (session?.user.role === Role.STUDENT) {
     return true;
   }
 

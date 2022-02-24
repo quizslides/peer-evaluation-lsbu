@@ -1,6 +1,6 @@
 import { mixed, string } from "yup";
 
-import { ROLE } from "@/utils/permissions";
+import { RoleSelect } from "@/utils/permissions";
 import content from "@/utils/validator/content";
 
 const emailValidator = {
@@ -12,12 +12,12 @@ const emailValidator = {
 };
 
 const nameValidator = {
-  name: string().length(70, content.name.maxLength).required(content.name.required),
+  name: string().max(70, content.name.maxLength).required(content.name.required),
 };
 
 const roleValidator = {
   role: mixed()
-    .oneOf([...Object.keys(ROLE)], content.role.oneOf)
+    .oneOf([...Object.keys(RoleSelect)], content.role.oneOf)
     .required(content.role.required),
 };
 

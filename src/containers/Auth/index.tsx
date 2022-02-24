@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import { LoadingContainer } from "@/containers";
 import routing from "@/routing";
 import { ElementChildren } from "@/types";
-import { ROLE } from "@/utils/permissions";
+import { Role } from "@/utils/permissions";
 
 interface IAuthenticatedRoute extends ElementChildren {
-  roles?: ROLE[];
+  roles?: Role[];
 }
 
 const AuthenticatedRoute = ({ children, roles }: IAuthenticatedRoute) => {

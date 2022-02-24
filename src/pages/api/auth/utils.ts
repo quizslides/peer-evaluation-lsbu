@@ -1,7 +1,7 @@
 import { Session, User } from "next-auth";
 
 import prisma from "@/pages/api/prisma";
-import { ROLE } from "@/utils/permissions";
+import { Role } from "@/utils/permissions";
 
 const isAccountCreated = async (userEmail: string | null | undefined) => {
   if (typeof userEmail === "string" && userEmail.length > 0) {
@@ -22,7 +22,7 @@ const isAccountCreated = async (userEmail: string | null | undefined) => {
 const getUserSessionWithRole = async (user: User, session: Session) => {
   if (user.email) {
     const response = await getUserData(user.email);
-    session.user.role = response?.role as ROLE;
+    session.user.role = response?.role as Role;
     return session;
   }
 

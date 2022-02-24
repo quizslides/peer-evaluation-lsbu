@@ -1,4 +1,4 @@
-export enum ROLE {
+export enum Role {
   ADMIN = "ADMIN",
   LECTURER = "LECTURER",
   STUDENT = "STUDENT",
@@ -6,23 +6,29 @@ export enum ROLE {
   UNAUTHENTICATED = "UNAUTHENTICATED",
 }
 
-export interface RoleScope {
-  scope: ROLE[] | undefined;
+export enum RoleSelect {
+  ADMIN = "ADMIN",
+  LECTURER = "LECTURER",
+  STUDENT = "STUDENT",
 }
 
-const isRoleAuthenticated = (scope: ROLE[], role: ROLE | undefined) => {
-  return role && scope[0] === ROLE.AUTHENTICATED;
+export interface RoleScope {
+  scope: Role[] | undefined;
+}
+
+const isRoleAuthenticated = (scope: Role[], role: Role | undefined) => {
+  return role && scope[0] === Role.AUTHENTICATED;
 };
 
-const isUserUnauthenticated = (scope: ROLE[], role: ROLE | undefined) => {
-  return !role && scope[0] === ROLE.UNAUTHENTICATED;
+const isUserUnauthenticated = (scope: Role[], role: Role | undefined) => {
+  return !role && scope[0] === Role.UNAUTHENTICATED;
 };
 
-const isRoleScopeAuthorized = (scope: ROLE[], role: ROLE | undefined) => {
+const isRoleScopeAuthorized = (scope: Role[], role: Role | undefined) => {
   return role && scope.includes(role);
 };
 
-export const isScopeAuthorized = (scope: ROLE[] | undefined, role: ROLE | undefined): boolean => {
+export const isScopeAuthorized = (scope: Role[] | undefined, role: Role | undefined): boolean => {
   if (
     !scope ||
     isRoleAuthenticated(scope, role) ||
