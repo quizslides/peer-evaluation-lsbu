@@ -8,10 +8,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { NextRouter } from "next/router";
 
 import AuthScopeContainer from "@/containers/AuthScopeContainer";
-import { Role } from "@/utils/permissions";
+import { RoleScope } from "@/utils/permissions";
 
 export interface IMenuItem {
-  scope: Role[] | undefined;
+  scope: RoleScope[] | undefined;
   menuTitle: string;
   menuDescription: string;
   menuItemList: {

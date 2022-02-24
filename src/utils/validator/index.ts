@@ -1,6 +1,6 @@
 import { mixed, string } from "yup";
 
-import { RoleSelect } from "@/utils/permissions";
+import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
 
 const emailValidator = {
@@ -17,7 +17,7 @@ const nameValidator = {
 
 const roleValidator = {
   role: mixed()
-    .oneOf([...Object.keys(RoleSelect)], content.role.oneOf)
+    .oneOf([...Object.keys(Role)], content.role.oneOf)
     .required(content.role.required),
 };
 

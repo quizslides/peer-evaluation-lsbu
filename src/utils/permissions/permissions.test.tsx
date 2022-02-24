@@ -1,10 +1,10 @@
-import { Role, isScopeAuthorized } from "@/utils";
+import { RoleScope, isScopeAuthorized } from "@/utils";
 
 describe("Permissions test by different scopes", () => {
   it("scope undefined return as true", () => {
     const scope = undefined;
 
-    const role = Role.ADMIN;
+    const role = RoleScope.ADMIN;
 
     const permission = isScopeAuthorized(scope, role);
 
@@ -12,7 +12,7 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User is not unauthenticated", () => {
-    const scope = [Role.UNAUTHENTICATED];
+    const scope = [RoleScope.UNAUTHENTICATED];
 
     const role = undefined;
 
@@ -22,9 +22,9 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as admin is authenticated and scope is authenticated", () => {
-    const scope = [Role.AUTHENTICATED];
+    const scope = [RoleScope.AUTHENTICATED];
 
-    const role = Role.ADMIN;
+    const role = RoleScope.ADMIN;
 
     const permission = isScopeAuthorized(scope, role);
 
@@ -32,9 +32,9 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as lecturer is authenticated and scope is authenticated", () => {
-    const scope = [Role.AUTHENTICATED];
+    const scope = [RoleScope.AUTHENTICATED];
 
-    const role = Role.LECTURER;
+    const role = RoleScope.LECTURER;
 
     const permission = isScopeAuthorized(scope, role);
 
@@ -42,9 +42,9 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as student is authenticated and scope is authenticated", () => {
-    const scope = [Role.AUTHENTICATED];
+    const scope = [RoleScope.AUTHENTICATED];
 
-    const role = Role.STUDENT;
+    const role = RoleScope.STUDENT;
 
     const permission = isScopeAuthorized(scope, role);
 
@@ -52,9 +52,9 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as student and scope is not included", () => {
-    const scope = [Role.ADMIN];
+    const scope = [RoleScope.ADMIN];
 
-    const role = Role.STUDENT;
+    const role = RoleScope.STUDENT;
 
     const permission = isScopeAuthorized(scope, role);
 
@@ -62,9 +62,9 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as student and scope include student", () => {
-    const scope = [Role.STUDENT, Role.LECTURER];
+    const scope = [RoleScope.STUDENT, RoleScope.LECTURER];
 
-    const role = Role.STUDENT;
+    const role = RoleScope.STUDENT;
 
     const permission = isScopeAuthorized(scope, role);
 

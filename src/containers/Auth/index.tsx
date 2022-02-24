@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import { LoadingContainer } from "@/containers";
 import routing from "@/routing";
 import { ElementChildren } from "@/types";
-import { Role } from "@/utils/permissions";
+import { RoleScope } from "@/utils/permissions";
 
 interface IAuthenticatedRoute extends ElementChildren {
-  roles?: Role[];
+  roles?: RoleScope[];
 }
 
 const AuthenticatedRoute = ({ children, roles }: IAuthenticatedRoute) => {
@@ -30,7 +30,7 @@ const AuthenticatedRoute = ({ children, roles }: IAuthenticatedRoute) => {
       if (!hasUser && window.location.pathname !== routing.auth.signIn) {
         router.push(`${routing.auth.signIn}?callbackUrl=${window.location.pathname}`);
         setRedirecting(true);
-      } else if (session && roles && !roles.includes(session.user.role)) {
+      } else if (session && roles && !roles.includes(session.user.role as unknown as RoleScope)) {
         router.push(routing.unauthorized);
         setRedirecting(true);
       }

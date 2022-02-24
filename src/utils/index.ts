@@ -8,7 +8,7 @@ import {
   promiseNotification,
   successNotification,
 } from "@/utils/notifications";
-import { Role, RoleScope, RoleSelect, isScopeAuthorized } from "@/utils/permissions";
+import { IRoleScope, Role, RoleScope, isScopeAuthorized } from "@/utils/permissions";
 import { emailValidator, nameValidator, roleValidator } from "@/utils/validator";
 
 export {
@@ -24,9 +24,9 @@ export {
   nameValidator,
   promiseNotification,
   Role,
-  RoleSelect,
+  RoleScope,
   roleValidator,
   successNotification,
 };
 
-export type { RoleScope };
+export type { IRoleScope };

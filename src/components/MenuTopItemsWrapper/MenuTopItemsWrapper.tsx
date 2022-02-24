@@ -8,9 +8,9 @@ import ListItemText from "@mui/material/ListItemText";
 import { NextRouter } from "next/router";
 
 import AuthScopeContainer from "@/containers/AuthScopeContainer";
-import { RoleScope } from "@/utils/permissions";
+import { IRoleScope } from "@/utils/permissions";
 
-interface IMenuTopItemsWrapper extends RoleScope {
+interface IMenuTopItemsWrapper extends IRoleScope {
   title: string;
   icon: JSX.Element;
   pathname: string;

@@ -15,7 +15,7 @@ import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem, { IMenuItem } from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import MenuTopItems from "@/containers/Navigation/MenuTopItems";
 import routing from "@/routing";
-import { Role } from "@/utils/permissions";
+import { RoleScope } from "@/utils/permissions";
 
 interface MenuItemState {
   [key: string]: boolean;
@@ -31,25 +31,25 @@ interface IMenuItemList {
 
 const menuExpendablesItems: IMenuItemList = {
   admin: {
-    scope: [Role.ADMIN],
+    scope: [RoleScope.ADMIN],
     menuTitle: "Administrator",
     menuDescription: "Administrator menu",
     menuItemList: [{ icon: <GroupIcon />, label: "Users", pathname: routing.admin.users }],
   },
   account: {
-    scope: [Role.AUTHENTICATED],
+    scope: [RoleScope.AUTHENTICATED],
     menuTitle: "Your Account",
     menuDescription: "Manage your account",
     menuItemList: [{ icon: <LogoutIcon />, label: "Sign out", pathname: routing.auth.signOut }],
   },
   modules: {
-    scope: [Role.ADMIN, Role.LECTURER],
+    scope: [RoleScope.ADMIN, RoleScope.LECTURER],
     menuTitle: "Your Modules",
     menuDescription: "List of all modules",
     menuItemList: [{ icon: <People />, label: "modules1", pathname: "/" }],
   },
   sharedModules: {
-    scope: [Role.ADMIN, Role.LECTURER],
+    scope: [RoleScope.ADMIN, RoleScope.LECTURER],
     menuTitle: "Shared Modules",
     menuDescription: "List of shared modules with me",
     menuItemList: [{ icon: <People />, label: "sharedModules1", pathname: "/" }],
