@@ -35,7 +35,7 @@ const LoaderSpinner = (props: IClipLoader) => {
   if (isLoading) {
     return (
       <WrapperLoader data-testid="loader-spinner">
-        <ClipLoader css={overrideCss} size={size} color={color} loading={isLoading} />; //{" "}
+        <ClipLoader css={overrideCss} size={size} color={color} loading={isLoading} />
       </WrapperLoader>
     );
   }
