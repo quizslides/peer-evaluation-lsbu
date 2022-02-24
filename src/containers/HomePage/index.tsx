@@ -49,7 +49,7 @@ const HomePage = () => {
                     testId="homepage-routing-dashboard-button"
                     variant="contained"
                   >
-                    {content.pages.homePage.dashboard.button.text}
+                    {content.pages.homePage.dashboard.button}
                   </ButtonMargin>
                 </>
               ) : (
@@ -59,7 +59,7 @@ const HomePage = () => {
                   testId="homepage-routing-sign-in-button"
                   variant="contained"
                 >
-                  {content.pages.homePage.signIn.button.text}
+                  {content.pages.homePage.signIn.button}
                 </ButtonMargin>
               )}
 
@@ -69,7 +69,7 @@ const HomePage = () => {
                 testId="homepage-routing-playground-button"
                 variant="outlined"
               >
-                {content.pages.homePage.playground.button.text}
+                {content.pages.homePage.playground.button}
               </ButtonMargin>
             </Stack>
           </Box>

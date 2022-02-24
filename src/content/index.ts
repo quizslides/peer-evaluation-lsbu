@@ -16,27 +16,41 @@ const content = {
       button: "Click here to refresh",
       text: "Something went wrong...",
     },
+    userForm: {
+      form: {
+        email: {
+          label: "Email",
+          placeholder: "name@lsbu.ac.uk",
+        },
+        name: {
+          label: "Name",
+          placeholder: "Enter a name...",
+        },
+        role: {
+          label: "RoleScope",
+          helperText: "The role of the user",
+        },
+        button: {
+          submit: "submit",
+          cancel: "cancel",
+        },
+      },
+    },
   },
   pages: {
     homePage: {
       title: "Peer Evaluation",
       signIn: {
-        button: {
-          text: "Sign In",
-        },
+        button: "Sign In",
       },
       playground: {
-        button: {
-          text: "Playground",
-        },
+        button: "Playground",
       },
       dashboard: {
         welcomeBack: {
           text: "Hi userName!",
         },
-        button: {
-          text: "Go to my dashboard",
-        },
+        button: "Go to my dashboard",
       },
     },
     auth: {
@@ -48,12 +62,8 @@ const content = {
             placeholder: "name@lsbu.ac.uk",
           },
           button: {
-            submit: {
-              text: "Sign In",
-            },
-            playground: {
-              text: "Playground",
-            },
+            submit: "Sign In",
+            playground: "Playground",
           },
         },
         linkSent: {

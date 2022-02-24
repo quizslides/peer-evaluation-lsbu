@@ -161,7 +161,7 @@ const SignIn: NextPage = () => {
                     <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>
                       <Grid item xs={6}>
                         <TextFieldForm
-                          testId="signin-form-email-field"
+                          testId="signin-form-field-email"
                           name="email"
                           props={{
                             autoFocus: true,
@@ -182,7 +182,7 @@ const SignIn: NextPage = () => {
                             variant="contained"
                             type="submit"
                           >
-                            {content.pages.auth.signIn.form.button.submit.text}
+                            {content.pages.auth.signIn.form.button.submit}
                           </Button>
                           <Button
                             onClick={() => router.push(routing.playground)}
@@ -190,7 +190,7 @@ const SignIn: NextPage = () => {
                             testId="signin-form-playground-button"
                             variant="text"
                           >
-                            {content.pages.auth.signIn.form.button.playground.text}
+                            {content.pages.auth.signIn.form.button.playground}
                           </Button>
                         </Grid>
                       </Grid>
