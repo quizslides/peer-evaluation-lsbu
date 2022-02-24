@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { TextField as TextFieldFormMUI, TextFieldProps } from "@mui/material";
+import { TextField as TextFieldMUI, TextFieldProps } from "@mui/material";
 
 export interface ITextField {
   testId: string;
@@ -8,7 +8,7 @@ export interface ITextField {
 }
 
 const TextField = ({ testId, props }: ITextField) => {
-  return <TextFieldFormMUI data-testid={testId} {...props} />;
+  return <TextFieldMUI data-testid={testId} {...props} />;
 };
 
 export default memo(TextField);
