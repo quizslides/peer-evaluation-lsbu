@@ -75,6 +75,13 @@
       {
         "allowArrowFunctions": true
       }
+    ],
+    // TODO: review this rule
+    "react/jsx-max-depth": [
+      "error",
+      {
+        "max": 6
+      }
     ]
   },
   "overrides": [

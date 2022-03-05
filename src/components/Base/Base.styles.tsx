@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+import Typography from "@/components/Typography/Typography";
+
 export const Body = styled.div`
   min-height: 100vh;
   display: flex;
@@ -43,7 +45,7 @@ export const Footer = styled(container)`
   padding-bottom: 1.5rem;
 `;
 
-export const FooterText = styled.div`
+export const FooterText = styled(Typography)`
   opacity: 0.5;
 
   &:hover {

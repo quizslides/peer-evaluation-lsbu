@@ -4,7 +4,6 @@ import Head from "next/head";
 
 import { Body, Footer, FooterText, Main } from "@/components/Base/Base.styles";
 import Link from "@/components/Link/Link";
-import Typography from "@/components/Typography/Typography";
 import content from "@/content";
 import { ComponentChildren } from "@/types";
 
@@ -27,10 +26,8 @@ const Layout = ({ children }: ComponentChildren) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FooterText>
-              <Typography testId="base-footer-link-text">
-                Copyright &copy; {content.components.base.footer.text} - {new Date().getFullYear()}
-              </Typography>
+            <FooterText testId="base-footer-link-text">
+              Copyright &copy; {content.components.base.footer.text} - {new Date().getFullYear()}
             </FooterText>
           </Link>
         </Footer>
