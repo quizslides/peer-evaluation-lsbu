@@ -1,6 +1,8 @@
 import { ServerResponse } from "http";
 
 import { PrismaClient } from "@prisma/client";
+import * as Sentry from "@sentry/nextjs";
+import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
 import { deny, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
@@ -48,16 +50,15 @@ export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { 
   return false;
 });
 
-/* 
-TODO: Module Owner or Collaborator
-Student with access to a module and live or editable
-*/
-
-const isFalse = rule()(async () => {
+/**
+ * TODO: Module Owner or Collaborator
+ * Student with access to a module and live or editable
+ */
+export const isFalse = rule()(async () => {
   return false;
 });
 
-const isTrue = rule()(async () => {
+export const isTrue = rule()(async () => {
   return true;
 });
 
@@ -65,15 +66,30 @@ const permissions = shield(
   {
     Query: {
       "*": deny,
-      users: isTrue,
+      users: isAdmin,
+      groupByUser: isAdmin,
     },
     Mutation: {
       "*": deny,
-      createManyUser: isTrue,
-      createUser: isFalse,
+      createManyUser: isAdmin,
+      updateUser: isAdmin,
+      deleteManyUser: isAdmin,
+      createUser: isAdmin,
     },
   },
-  { allowExternalErrors: true }
+  {
+    allowExternalErrors: true,
+    fallbackError: async (thrownThing) => {
+      if (thrownThing instanceof ApolloError) {
+        return thrownThing;
+      } else if (thrownThing instanceof Error) {
+        Sentry.captureException(thrownThing);
+        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+      } else {
+        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+      }
+    },
+  }
 );
 
 export { permissions };

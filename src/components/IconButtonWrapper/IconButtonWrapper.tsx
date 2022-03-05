@@ -1,27 +1,31 @@
 import React, { memo } from "react";
 
+import styled from "@emotion/styled";
 import { IconButton, IconButtonProps } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 
 interface IIconButtonWrapper extends IconButtonProps {
   testId: string;
   tooltip?: string;
+  component?: string;
 }
+
+const CustomIconCButton = styled(IconButton)``;
 
 const IconButtonWrapper = ({ tooltip, testId, children, ...props }: IIconButtonWrapper) => {
   if (!tooltip) {
     return (
-      <IconButton data-testid={testId} {...props}>
+      <CustomIconCButton data-testid={testId} {...props}>
         {children}
-      </IconButton>
+      </CustomIconCButton>
     );
   }
 
   return (
     <Tooltip title={tooltip} disableInteractive>
-      <IconButton data-testid={testId} {...props}>
+      <CustomIconCButton data-testid={testId} {...props}>
         {children}
-      </IconButton>
+      </CustomIconCButton>
     </Tooltip>
   );
 };

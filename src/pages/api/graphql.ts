@@ -1,16 +1,17 @@
 import "reflect-metadata";
-
-import { resolvers } from "@generated/type-graphql";
+import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { buildSchema } from "type-graphql";
+import { PageConfig } from "next";
 
+import ErrorHandler from "@/pages/api/error";
 import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import { permissions } from "@/pages/api/permissions";
 import prisma from "@/pages/api/prisma";
+import schemaDefinitions from "@/pages/api/prisma/schema";
 
-const config = {
+const config: PageConfig = {
   api: {
     bodyParser: false,
   },
@@ -26,15 +27,31 @@ prisma.$use(async (params, next) => {
   return result;
 });
 
-const apolloServer = async (req: NextApiRequest, res: NextApiResponse): Promise<false | undefined> => {
-  const isProduction = process.env.NODE_ENV !== "production";
-
-  const schemaDefinitions = await buildSchema({
-    resolvers,
-  });
+const getApolloServer = async (prisma: PrismaClient) => {
+  const isProduction = process.env.NODE_ENV === "production";
 
   const schemaWithRules = applyMiddleware(schemaDefinitions, permissions);
 
+  return new ApolloServer({
+    schema: schemaWithRules,
+    context: ({ req, res }) => ({ prisma, req, res }),
+    debug: !isProduction,
+    introspection: !isProduction,
+    formatError: (error) => ErrorHandler(error),
+  });
+};
+
+const createApolloServerHandler = (apolloServer: ApolloServer) => {
+  return apolloServer.createHandler({
+    path: "/api/graphql",
+  });
+};
+
+const apolloInstance = await getApolloServer(prisma);
+
+await apolloInstance.start();
+
+const apolloServerHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "https://studio.apollographql.com");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -44,27 +61,9 @@ const apolloServer = async (req: NextApiRequest, res: NextApiResponse): Promise<
     return false;
   }
 
-  const apolloServer = new ApolloServer({
-    schema: schemaWithRules,
-    context: () => ({ prisma, req, res }),
-    debug: isProduction,
-    introspection: isProduction,
-    formatError: (err) => {
-      if (isProduction) {
-        return err;
-      }
-
-      return new Error("Internal server error");
-    },
-  });
-
-  await apolloServer.start();
-
-  await apolloServer.createHandler({
-    path: "/api/graphql",
-  })(req, res);
+  return createApolloServerHandler(apolloInstance)(req, res);
 };
 
 export { config };
 
-export default apolloServer;
+export default apolloServerHandler;

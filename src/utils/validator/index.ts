@@ -12,7 +12,7 @@ const emailValidator = {
 };
 
 const nameValidator = {
-  name: string().max(70, content.name.maxLength).required(content.name.required),
+  name: string().min(2, content.name.minLength).max(70, content.name.maxLength).required(content.name.required),
 };
 
 const roleValidator = {

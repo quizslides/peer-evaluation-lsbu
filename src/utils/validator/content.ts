@@ -10,6 +10,7 @@ const validatorContent = {
   },
   name: {
     required: "Name is required",
+    minLength: "Name must be longer than one character",
     maxLength: "Name cannot be longer than 70 characters",
   },
   role: {

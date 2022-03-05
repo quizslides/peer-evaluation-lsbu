@@ -2,7 +2,7 @@ import React, { FC, memo } from "react";
 
 import { Button as ButtonMUI, ButtonProps } from "@mui/material";
 
-type ButtonVariant = "text" | "outlined" | "contained";
+export type ButtonVariant = "text" | "outlined" | "contained";
 
 interface IButton extends ButtonProps {
   variant: ButtonVariant;

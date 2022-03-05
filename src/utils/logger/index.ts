@@ -10,4 +10,4 @@ const errorLogger = (message: string | object): void => {
   logger.error(message);
 };
 
-export { errorLogger, infoLogger };
+export { errorLogger, infoLogger, logger };

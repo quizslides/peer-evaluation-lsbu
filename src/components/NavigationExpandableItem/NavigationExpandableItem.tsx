@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { Box } from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -8,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { NextRouter } from "next/router";
 
 import AuthScopeContainer from "@/containers/AuthScopeContainer";
+import { KeyboardArrowDown } from "@/icons";
 import { RoleScope } from "@/utils/permissions";
 
 export interface IMenuItem {
@@ -74,6 +74,7 @@ const NavigationExpandableItem = ({
             sx={{ my: 0 }}
           />
           <KeyboardArrowDown
+            testId="navigation-expandable-item-keyboard-arrow-down"
             sx={{
               mr: -1,
               opacity: 0,

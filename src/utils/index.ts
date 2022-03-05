@@ -1,4 +1,3 @@
-import { fetcher } from "@/utils/fetcher";
 import { errorLogger, infoLogger } from "@/utils/logger";
 import {
   blankNotification,
@@ -17,7 +16,6 @@ export {
   emailValidator,
   errorLogger,
   errorNotification,
-  fetcher,
   infoLogger,
   isScopeAuthorized,
   loadingNotification,

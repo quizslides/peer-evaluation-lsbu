@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import MenuItem from "@mui/material/MenuItem";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
@@ -41,4 +41,4 @@ const SelectFieldForm = ({ testId, name, options, props }: ISelectFieldForm) => 
   );
 };
 
-export default SelectFieldForm;
+export default memo(SelectFieldForm);

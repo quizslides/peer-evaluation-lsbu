@@ -1,8 +1,7 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 
 import styled from "@emotion/styled";
-import { ParseResult } from "papaparse";
-import { useCSVReader } from "react-papaparse";
+import Papa, { ParseResult } from "papaparse";
 
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
 import { UploadIcon } from "@/icons";
@@ -15,49 +14,43 @@ export interface File {
 }
 
 export interface UploadFileProps {
-  onFilesSelected?: (files: string[][]) => void;
-  multiple: boolean;
+  onFilesSelected: (files: ObjectCSV) => void;
 }
 
-export const Wrapper = styled.div``;
-
-interface CSVReaderProps {
-  getRootProps: Function;
-}
+export type ObjectCSV = {
+  [key: string]: [value: string];
+}[];
 
 const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
-  const { CSVReader } = useCSVReader();
+  const csvOptions = {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    transformHeader: (header: string) => header.toLowerCase(),
+  };
 
-  const [fileData, setFileData] = useState<string[][]>([]);
+  const Input = styled("input")({
+    display: "none",
+  });
 
-  useEffect(() => {
-    if (!onFilesSelected) {
-      return;
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      Papa.parse(e.target.files[0], {
+        ...csvOptions,
+        complete: (results: ParseResult<object>) => {
+          onFilesSelected(results.data as ObjectCSV);
+        },
+      });
     }
-
-    onFilesSelected(fileData);
-  }, [onFilesSelected, fileData]);
+  };
 
   return (
-    <CSVReader
-      onUploadAccepted={(results: ParseResult<object>) => {
-        setFileData(results.data as string[][]);
-      }}
-      multiple={false}
-    >
-      {({ getRootProps }: CSVReaderProps) => (
-        <>
-          <IconButtonWrapper
-            data-testid="upload-button-wrapper"
-            {...getRootProps()}
-            tooltip={"Upload"}
-            style={{ margin: 1 }}
-          >
-            <UploadIcon testId={"upload-button-icon"} />
-          </IconButtonWrapper>
-        </>
-      )}
-    </CSVReader>
+    <label htmlFor="contained-button-file">
+      <Input type="file" accept=".csv" id="contained-button-file" multiple={false} onChange={handleUpload} />
+      <IconButtonWrapper testId="upload-button-wrapper" tooltip={"Upload"} component="span">
+        <UploadIcon testId={"upload-button-icon"} />
+      </IconButtonWrapper>
+    </label>
   );
 };
 

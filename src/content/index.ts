@@ -27,7 +27,7 @@ const content = {
           placeholder: "Enter a name...",
         },
         role: {
-          label: "RoleScope",
+          label: "Role",
           helperText: "The role of the user",
         },
         button: {

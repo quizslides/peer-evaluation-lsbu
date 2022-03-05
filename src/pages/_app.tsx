@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 
 import React from "react";
 
+import { ApolloProvider } from "@apollo/client";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { SessionProvider } from "next-auth/react";
@@ -13,13 +14,14 @@ import { Toaster } from "react-hot-toast";
 
 import { Layout } from "@/containers";
 import AuthenticatedRoute from "@/containers/Auth";
+import client from "@/graphql/client";
 import { theme } from "@/styles";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   <Component {...pageProps} />;
 
   return (
-    <>
+    <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SessionProvider session={session}>
@@ -35,7 +37,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         </SessionProvider>
       </ThemeProvider>
       <Toaster />
-    </>
+    </ApolloProvider>
   );
 };
 
