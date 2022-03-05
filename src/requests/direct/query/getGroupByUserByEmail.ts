@@ -1,11 +1,10 @@
-import { ApolloClient } from "@apollo/client";
 import { UserGroupBy } from "@generated/type-graphql";
 
 import { GROUP_BY_USER } from "../../schema/user";
 
 import { TApolloClientType } from "@/graphql/client";
 
-const getGroupByUserByEmail = (apolloClient: ApolloClient<TApolloClientType>, emails: string[]) => {
+const getGroupByUserByEmail = (apolloClient: TApolloClientType, emails: string[]) => {
   return apolloClient.query<{ groupByUser: [UserGroupBy] }>({
     query: GROUP_BY_USER,
     errorPolicy: "all",

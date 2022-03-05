@@ -1,12 +1,10 @@
-import { ApolloClient } from "@apollo/client";
-
 import { IUserData } from "../../schema/user";
 
 import updateUser from "./updateUser";
 
 import { TApolloClientType } from "@/graphql/client";
 
-const updateManyUsers = async (apolloClient: ApolloClient<TApolloClientType>, usersData: IUserData[]) => {
+const updateManyUsers = async (apolloClient: TApolloClientType, usersData: IUserData[]) => {
   const usersUpdatePromise = usersData.map((userData) => updateUser(apolloClient, userData));
 
   const response = await Promise.all(usersUpdatePromise);

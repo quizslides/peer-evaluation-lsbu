@@ -1,10 +1,8 @@
-import { ApolloClient } from "@apollo/client";
-
 import { IUserData, UPDATE_USER } from "../../schema/user";
 
 import { TApolloClientType } from "@/graphql/client";
 
-const updateUser = (apolloClient: ApolloClient<TApolloClientType>, userData: IUserData) => {
+const updateUser = (apolloClient: TApolloClientType, userData: IUserData) => {
   return apolloClient.mutate({
     mutation: UPDATE_USER,
     variables: {
