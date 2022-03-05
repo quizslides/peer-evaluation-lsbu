@@ -8,13 +8,7 @@ const RenderRow = (props: ListChildComponentProps) => {
   const { index, style, data } = props;
 
   return (
-    <ListItem
-      data-testid={`virtual-string-list-${index}`}
-      style={{ ...style }}
-      key={index}
-      component="div"
-      disablePadding
-    >
+    <ListItem data-testid={`virtual-string-list-${index}`} style={style} key={index} component="div" disablePadding>
       <ListItemText primary={data[index]} />
     </ListItem>
   );
