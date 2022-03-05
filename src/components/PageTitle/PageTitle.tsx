@@ -7,8 +7,8 @@ import { useTheme } from "@mui/material/styles";
 import Typography from "@/components/Typography/Typography";
 
 type TitleProps = {
-  colorLight: string;
-  colorDark: string;
+  colorLight?: string;
+  colorDark?: string;
 };
 
 type WrapperProps = {
