@@ -21,6 +21,7 @@ TK
 | VARIABLES                | DESCRIPTION                                                                 | DEFAULT VALUE | ACCEPTED VALUES |
 | ------------------------ | --------------------------------------------------------------------------- | ------------- | --------------- |
 | `ENVIRONMENT`            |                                                                             |               |                 |
+| `LOGICAL_ENVIRONMENT`    |                                                                             |               |                 |
 | `NEXTAUTH_SECRET`        | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. |               |                 |
 | `NEXTAUTH_URL`           |                                                                             |               |                 |
 | `SENTRY_DSN`             |                                                                             |               |                 |
