@@ -14,9 +14,9 @@ describe("Testing Dialog component", () => {
 
     const contentChildComponent = "ChildComponent";
 
-    const onAccept = () => {};
+    const onAccept = jest.fn();
 
-    const onCancel = () => {};
+    const onCancel = jest.fn();
 
     const isDialogOpen = true;
 
@@ -51,9 +51,9 @@ describe("Testing Dialog component", () => {
 
     const contentChildComponent = "ChildComponent";
 
-    const onAccept = () => {};
+    const onAccept = jest.fn();
 
-    const onCancel = () => {};
+    const onCancel = jest.fn();
 
     const isDialogOpen = false;
 
