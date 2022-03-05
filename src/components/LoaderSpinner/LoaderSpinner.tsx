@@ -39,7 +39,7 @@ const LoaderSpinner = (props: IClipLoader) => {
 LoaderSpinner.defaultProps = {
   size: 150,
   color: "primary",
-  children: null,
+  children: null, // skipcq: JS-0391
 };
 
 export default memo(LoaderSpinner);
