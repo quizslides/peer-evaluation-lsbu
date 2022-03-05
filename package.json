@@ -93,7 +93,7 @@
     "reflect-metadata": "0.1.13",
     "swr": "^1.2.2",
     "type-graphql": "1.1.1",
-    "typegraphql-prisma": "0.19.0",
+    "typegraphql-prisma": "0.19.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
