@@ -205,7 +205,7 @@ const Users: NextPage = () => {
 
     const usersBulk = usersBulkList as unknown as User[];
 
-    const usersBulkErrors = [];
+    const usersBulkErrors: { [key: string]: string | number | null }[] = [];
 
     const columnsBulk: { [key: string]: string | number | null } = {
       row: 0,
@@ -214,7 +214,7 @@ const Users: NextPage = () => {
       role: "",
     };
 
-    for (const userBulkIndex in usersBulk) {
+    usersBulk.forEach(async (_, userBulkIndex) => {
       try {
         await userBulkSchema.validate(usersBulk[userBulkIndex], {
           abortEarly: false,
@@ -234,7 +234,7 @@ const Users: NextPage = () => {
         }
         usersBulkErrors.push(rawBulkError);
       }
-    }
+    });
 
     if (usersBulkErrors.length) {
       errorNotification("The CSV contains error, please review the errors below", "onUserBulkUpload");
