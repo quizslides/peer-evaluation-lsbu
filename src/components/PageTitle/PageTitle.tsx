@@ -17,7 +17,7 @@ type WrapperProps = {
 
 const Wrapper = styled.div<WrapperProps>`
   text-align: center;
-  margin: ${(props) => `${props.margin}`};
+  margin: ${(props) => props.margin};
 `;
 
 const Title = styled.div<TitleProps>`

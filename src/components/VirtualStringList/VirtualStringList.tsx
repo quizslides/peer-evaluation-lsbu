@@ -31,12 +31,12 @@ const Wrapper = styled.div<WrapperProps>`
   padding: 1rem;
   border: 2px solid grey;
   border-radius: 20px;
-  max-width: ${(props) => `${props.maxWidth}`};
+  max-width: ${(props) => props.maxWidth};
 `;
 
 const VirtualStringList = ({ testId, data, height, maxWidth, itemSize }: IVirtualStringList) => (
   <Wrapper data-testid={testId} maxWidth={maxWidth}>
-    <FixedSizeList height={height} width={"100%"} itemSize={itemSize} itemCount={data.length} itemData={data}>
+    <FixedSizeList height={height} width="100%" itemSize={itemSize} itemCount={data.length} itemData={data}>
       {RenderRow}
     </FixedSizeList>
   </Wrapper>

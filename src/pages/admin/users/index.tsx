@@ -205,29 +205,29 @@ const Users: NextPage = () => {
 
     const usersBulk = usersBulkList as unknown as User[];
 
-    let usersBulkErrors = [];
+    const usersBulkErrors = [];
 
-    let columnsBulk: { [key: string]: string } = {
+    const columnsBulk: { [key: string]: string } = {
       row: "",
       name: "",
       email: "",
       role: "",
     };
 
-    for (let userBulkIndex in usersBulk) {
+    for (const userBulkIndex in usersBulk) {
       try {
         await userBulkSchema.validate(usersBulk[userBulkIndex], {
           abortEarly: false,
         });
       } catch (error: unknown) {
-        let errorValidation = error as ValidationError;
+        const errorValidation = error as ValidationError;
 
-        let rawBulkError: { [key: string]: string } = {
+        const rawBulkError: { [key: string]: string } = {
           ...columnsBulk,
           row: Number(userBulkIndex + 2).toString(),
         };
 
-        for (let errorBulk of errorValidation.inner) {
+        for (const errorBulk of errorValidation.inner) {
           if (errorBulk.path && errorBulk.message) {
             rawBulkError[errorBulk.path] = errorBulk.message;
           }
@@ -266,8 +266,9 @@ const Users: NextPage = () => {
   const onBulkUserAction = async () => {
     loadingNotification("Running bulk...", "onBulkUserAction");
 
-    let usersBulkUpdate = userDataBulk?.filter((user) => user.action === BulkUserAction.UPDATE);
-    let usersBulkCreate = userDataBulk?.filter((user) => user.action === BulkUserAction.CREATE);
+    const usersBulkUpdate = userDataBulk?.filter((user) => user.action === BulkUserAction.UPDATE);
+
+    const usersBulkCreate = userDataBulk?.filter((user) => user.action === BulkUserAction.CREATE);
 
     const usersBulkUpdateSanitized = usersBulkUpdate?.map((item) => {
       return {
@@ -366,7 +367,7 @@ const Users: NextPage = () => {
 
     let emailsToDelete = [];
 
-    for (let row of rows) {
+    for (const row of rows) {
       emailsToDelete.push(usersObject[row].email);
     }
 
