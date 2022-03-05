@@ -8,7 +8,7 @@ import { SelectFieldForm } from "@/components";
 import { Role, roleValidator } from "@/utils";
 
 describe("Testing SelectFieldForm component in a form", () => {
-  it("renders a SelectFieldForm with test id", async () => {
+  it("renders a SelectFieldForm with test id", () => {
     const initialFormState = {
       role: "",
     };

@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import { Base } from "@/components";
 
 describe("Testing Base component", () => {
-  it("renders base with error state", async () => {
+  it("renders base with error state", () => {
     const textChildrenComponent = "Component Text";
 
     const ChildrenComponent = () => {
@@ -25,7 +25,7 @@ describe("Testing Base component", () => {
     expect(errorComponent).toBeInTheDocument();
   });
 
-  it("renders base with loading state", async () => {
+  it("renders base with loading state", () => {
     const textChildrenComponent = "Component Text";
 
     const ChildrenComponent = () => {
@@ -45,7 +45,7 @@ describe("Testing Base component", () => {
     expect(errorComponent).toBeInTheDocument();
   });
 
-  it("renders base returning the children component", async () => {
+  it("renders base returning the children component", () => {
     const textChildrenComponent = "Component Text";
 
     const ChildrenComponent = () => {

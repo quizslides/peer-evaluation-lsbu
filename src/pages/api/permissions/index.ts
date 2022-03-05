@@ -54,11 +54,11 @@ export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { 
  * TODO: Module Owner or Collaborator
  * Student with access to a module and live or editable
  */
-export const isFalse = rule()(async () => {
+export const isFalse = rule()(() => {
   return false;
 });
 
-export const isTrue = rule()(async () => {
+export const isTrue = rule()(() => {
   return true;
 });
 
@@ -79,7 +79,7 @@ const permissions = shield(
   },
   {
     allowExternalErrors: true,
-    fallbackError: async (thrownThing) => {
+    fallbackError: (thrownThing) => {
       if (thrownThing instanceof ApolloError) {
         return thrownThing;
       } else if (thrownThing instanceof Error) {

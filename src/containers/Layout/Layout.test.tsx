@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import { Layout } from "@/containers";
 
 describe("Testing Base component", () => {
-  it("renders base with footer and children", async () => {
+  it("renders base with footer and children", () => {
     const textChildrenComponent = "Component Text";
 
     const ChildrenComponent = () => {
