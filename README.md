@@ -192,3 +192,11 @@ Caching issues may cause Prisma Studio to use an older version of the query engi
 
 Error in request: PrismaClientKnownRequestError: Failed to validate the query Error occurred during query validation & transformation
 To resolve, delete the following folders: `~/.cache/prisma` on macOS and Linux and `%AppData%/Prisma/Studio` on Windows
+
+## Deployment
+
+Visit the [DEPLOYMENT](./DEPLOYMENT.md) to read the deployment instructions
+
+## Changelog
+
+Visit the [CHANGELOG](./CHANGELOG.md) to see all the changes.

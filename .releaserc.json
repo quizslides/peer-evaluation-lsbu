@@ -6,7 +6,7 @@
       "prerelease": true
     }
   ],
-  "repositoryUrl": "https://github.com/QuizSlides/peer-evaluation-lsbu",
+  "repositoryUrl": "https://github.com/quizslides/peer-evaluation-lsbu",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -63,7 +63,7 @@
       "@semantic-release/changelog",
       {
         "changelogFile": "CHANGELOG.md",
-        "changelogTitle": "# Changelog\nThis changelog is auto generated using semantic releases."
+        "changelogTitle": "# Changelog\n\nThis changelog is auto generated using semantic releases."
       }
     ],
     "@semantic-release/npm",
@@ -71,7 +71,7 @@
       "@semantic-release/git",
       {
         "assets": ["package.json", "CHANGELOG.md"],
-        "message": "chore(release): ${nextRelease.version} [skip-ci][skip netlify]\n\n${nextRelease.notes}"
+        "message": "chore(release): ${nextRelease.version} [skip-ci]\n\n${nextRelease.notes}"
       }
     ]
   ]

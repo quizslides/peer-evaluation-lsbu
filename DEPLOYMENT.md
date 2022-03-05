@@ -1,0 +1,49 @@
+# Deployment
+
+The project follows CI/CD by releasing automatically and without human intervention to the live environments.
+
+## Docker
+
+The project is build using Docker in the live environments:
+
+### Pipeline Variables
+
+| VARIABLE                               | DESCRIPTION                                             | SCOPE                 |
+| -------------------------------------- | ------------------------------------------------------- | --------------------- |
+| `DIGITALOCEAN_ACCESS_TOKEN`            | Access token to access the Digital Ocean Project        | Read and write access |
+| `DIGITALOCEAN_APP_PLATFORM_ID_MAIN`    | ID of the App Platform for the `production` environment | N/A                   |
+| `DIGITALOCEAN_APP_PLATFORM_ID_STAGING` | ID of the App Platform for the `staging` environment    | N/A                   |
+
+### Environmental Variables
+
+TK
+
+| VARIABLES                | DESCRIPTION | DEFAULT VALUE | ACCEPTED VALUES |
+| ------------------------ | ----------- | ------------- | --------------- |
+| `ENVIRONMENT`            |             |               |                 |
+| `AUTH_SECRET`            |             |               |                 |
+| `NEXTAUTH_URL`           |             |               |                 |
+| `SENTRY_DSN`             |             |               |                 |
+| `NEXT_PUBLIC_SENTRY_DSN` |             |               |                 |
+| `SENTRY_AUTH_TOKEN`      |             |               |                 |
+| `SMTP_HOST`              |             |               |                 |
+| `SMTP_PORT`              |             |               |                 |
+| `SMTP_USER`              |             |               |                 |
+| `SMTP_PASSWORD`          |             |               |                 |
+| `SMTP_FROM`              |             |               |                 |
+| `SMTP_SECURE`            |             |               |                 |
+| `DATABASE_URL`           |             |               |                 |
+
+### Build the production image
+
+The build requires to pass all the environmental variables to the build
+
+```bash
+docker build -t pel-app . --env-file .env
+```
+
+### Run the production
+
+```bash
+docker run -p 3000:3000 pel-app
+```
