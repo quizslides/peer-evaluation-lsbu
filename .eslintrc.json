@@ -69,6 +69,12 @@
       {
         "allowExpressions": true
       }
+    ],
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "allowArrowFunctions": true
+      }
     ]
   },
   "overrides": [
