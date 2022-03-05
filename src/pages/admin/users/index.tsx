@@ -205,6 +205,8 @@ const Users: NextPage = () => {
 
     const usersBulk = usersBulkList as unknown as User[];
 
+    // TODO: Refactored as well as emailVariables to ObjectKeys type
+
     const usersBulkErrors: { [key: string]: string | number | null }[] = [];
 
     const columnsBulk: { [key: string]: string | number | null } = {
@@ -214,17 +216,19 @@ const Users: NextPage = () => {
       role: "",
     };
 
-    usersBulk.forEach(async (_, userBulkIndex) => {
+    for (const userBulk of usersBulk) {
       try {
-        await userBulkSchema.validate(usersBulk[userBulkIndex], {
+        await userBulkSchema.validate(userBulk, {
           abortEarly: false,
         });
       } catch (error: unknown) {
         const errorValidation = error as ValidationError;
 
+        const userBulkIndexError = usersBulk.findIndex((userDataBulk) => userDataBulk === userBulk);
+
         const rawBulkError: { [key: string]: string | number | null } = {
           ...columnsBulk,
-          row: Number(userBulkIndex) + 2,
+          row: userBulkIndexError + 2,
         };
 
         for (const errorBulk of errorValidation.inner) {
@@ -234,7 +238,7 @@ const Users: NextPage = () => {
         }
         usersBulkErrors.push(rawBulkError);
       }
-    });
+    }
 
     if (usersBulkErrors.length) {
       errorNotification("The CSV contains error, please review the errors below", "onUserBulkUpload");
