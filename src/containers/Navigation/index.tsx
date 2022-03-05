@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
 import MenuItems from "@/containers/Navigation/MenuItems";
 import { MenuIcon } from "@/icons";
-import { TopLeft } from "@/styles/global-style";
 
 const Navigation = () => {
   const [isOpenNavigation, setOpenNavigation] = useState<boolean>(false);
@@ -40,11 +39,9 @@ const Navigation = () => {
 
   return (
     <>
-      <TopLeft>
-        <IconButtonWrapper onClick={toggleNavigation(true)} testId={"navigation-menu-button-wrapper"}>
-          <MenuIcon testId="navigation-menu-button" />
-        </IconButtonWrapper>
-      </TopLeft>
+      <IconButtonWrapper onClick={toggleNavigation(true)} testId={"navigation-menu-button-wrapper"}>
+        <MenuIcon testId="navigation-menu-button" />
+      </IconButtonWrapper>
       <SwipeableDrawer open={isOpenNavigation} onClose={toggleNavigation(false)} onOpen={toggleNavigation(true)}>
         <ThemeProvider
           theme={createTheme({

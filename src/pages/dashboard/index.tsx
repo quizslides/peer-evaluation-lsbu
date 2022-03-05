@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 
 import { Base } from "@/components";
 import { CenteredContent } from "@/styles";
+import { RoleScope } from "@/utils";
 
 const Dashboard: NextPage = () => {
   return (
@@ -17,6 +18,7 @@ export const getStaticProps = () => {
   return {
     props: {
       protected: true,
+      roles: [RoleScope.ADMIN],
     },
   };
 };
