@@ -50,4 +50,6 @@ const Dialog = ({
   );
 };
 
+Dialog.defaultProps = { rightButtonVariant: "text", leftButtonVariant: "text", extraRightButton: <></> };
+
 export default memo(Dialog);

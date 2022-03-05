@@ -25,6 +25,8 @@ const AuthScopeContainer = ({ scope, children }: IAuthScopeContainer) => {
   return <></>;
 };
 
+AuthScopeContainer.defaultProps = { scope: undefined };
+
 export async function getServerSideProps(context: GetSessionParams | undefined) {
   return {
     props: {

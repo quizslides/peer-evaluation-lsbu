@@ -6,8 +6,8 @@ import Tooltip from "@mui/material/Tooltip";
 
 interface IIconButtonWrapper extends IconButtonProps {
   testId: string;
-  tooltip?: string;
-  component?: string;
+  tooltip?: string | undefined;
+  component?: string | undefined;
 }
 
 const CustomIconCButton = styled(IconButton)``;
@@ -29,5 +29,7 @@ const IconButtonWrapper = ({ tooltip, testId, children, ...props }: IIconButtonW
     </Tooltip>
   );
 };
+
+IconButtonWrapper.defaultProps = { tooltip: undefined, component: undefined };
 
 export default memo(IconButtonWrapper);

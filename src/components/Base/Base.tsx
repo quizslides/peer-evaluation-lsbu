@@ -39,4 +39,6 @@ const Base = ({ children, topLeftComponent, loading, error }: IBase) => {
   );
 };
 
+Base.defaultProps = { error: false, loading: false };
+
 export default memo(Base);

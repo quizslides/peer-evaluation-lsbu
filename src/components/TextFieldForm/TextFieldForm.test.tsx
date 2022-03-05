@@ -8,7 +8,7 @@ import { object, string } from "yup";
 import { TextFieldForm } from "@/components";
 
 describe("Testing TextFieldForm component in a form", () => {
-  it("renders a TextFieldForm with test id", () => {
+  it("renders a TextFieldForm with test id", async () => {
     const initialFormState = {
       email: "",
     };

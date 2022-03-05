@@ -30,7 +30,7 @@ const Title = styled.div<TitleProps>`
 interface IPageTitle extends TypographyProps {
   title: string;
   testId: string;
-  margin?: string;
+  margin?: string | undefined;
 }
 
 const PageTitle = ({ title, testId, variant, margin }: IPageTitle) => {
@@ -46,5 +46,7 @@ const PageTitle = ({ title, testId, variant, margin }: IPageTitle) => {
     </Wrapper>
   );
 };
+
+PageTitle.defaultProps = { margin: undefined };
 
 export default memo(PageTitle);
