@@ -2,9 +2,19 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function main() {
-  //   Prisma method
-}
+const createAdministratorUser = async () => {
+  await prisma.user.create({
+    data: {
+      name: "Administrator",
+      email: "local@gmail.com",
+      role: "ADMIN",
+    },
+  });
+};
+
+const main = async () => {
+  await createAdministratorUser();
+};
 
 main()
   .catch(() => {

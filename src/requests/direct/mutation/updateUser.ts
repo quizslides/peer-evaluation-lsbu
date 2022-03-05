@@ -1,0 +1,29 @@
+import { ApolloClient } from "@apollo/client";
+
+import { IUserData, UPDATE_USER } from "../../schema/user";
+
+const updateUser = (apolloClient: ApolloClient<object>, userData: IUserData) => {
+  return apolloClient.mutate({
+    mutation: UPDATE_USER,
+    variables: {
+      data: {
+        name: {
+          set: userData.name,
+        },
+        role: {
+          set: userData.role,
+        },
+        email: {
+          set: userData.email,
+        },
+      },
+      where: {
+        email: userData.email,
+      },
+    },
+    errorPolicy: "all",
+    fetchPolicy: "no-cache",
+  });
+};
+
+export default updateUser;

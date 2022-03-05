@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -6,22 +5,40 @@ import "@fontsource/roboto/700.css";
 
 import React from "react";
 
+import { ApolloProvider } from "@apollo/client";
+import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import { Toaster } from "react-hot-toast";
 
-import theme from "@/styles/theme";
+import { Layout } from "@/containers";
+import AuthenticatedRoute from "@/containers/Auth";
+import client from "@/graphql/client";
+import { theme } from "@/styles";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   <Component {...pageProps} />;
 
   return (
-    <ThemeProvider theme={theme}>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <SessionProvider session={session}>
+          <Layout>
+            {pageProps.protected ? (
+              <AuthenticatedRoute roles={pageProps.roles}>
+                <Component {...pageProps} />
+              </AuthenticatedRoute>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </Layout>
+        </SessionProvider>
+      </ThemeProvider>
+      <Toaster />
+    </ApolloProvider>
   );
-}
+};
 
-export default MyApp;
+export default App;

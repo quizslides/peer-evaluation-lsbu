@@ -1,0 +1,54 @@
+# node:16.13.2-alpine
+FROM node:alpine@sha256:f21f35732964a96306a84a8c4b5a829f6d3a0c5163237ff4b6b8b34f8d70064b
+
+LABEL maintainer="juancarlosjr97@gmail.com" \
+    description="This is a build container image to deploy Next.js web app using SSR"
+
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV PORT 3000
+
+ARG ENVIRONMENT
+ARG AUTH_SECRET
+ARG NEXTAUTH_URL
+ARG SENTRY_DSN
+ARG NEXT_PUBLIC_SENTRY_DSN
+ARG SENTRY_AUTH_TOKEN
+ARG SMTP_HOST
+ARG SMTP_PORT
+ARG SMTP_USER
+ARG SMTP_PASSWORD
+ARG SMTP_FROM
+ARG SMTP_SECURE
+ARG DATABASE_URL
+
+ENV ENVIRONMENT=${ENVIRONMENT}
+ENV AUTH_SECRET=${AUTH_SECRET}
+ENV NEXTAUTH_URL=${NEXTAUTH_URL}
+ENV SENTRY_DSN=${SENTRY_DSN}
+ENV NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN}
+ENV SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
+ENV SMTP_HOST=${SMTP_HOST}
+ENV SMTP_PORT=${SMTP_PORT}
+ENV SMTP_USER=${SMTP_USER}
+ENV SMTP_PASSWORD=${SMTP_PASSWORD}
+ENV SMTP_FROM=${SMTP_FROM}
+ENV SMTP_SECURE=${SMTP_SECURE}
+ENV DATABASE_URL=${DATABASE_URL}
+
+WORKDIR /app
+
+COPY . ./
+
+RUN yarn config set network-timeout 300000
+
+RUN yarn install --frozen-lockfile \
+    && yarn build:next \
+    && rm -rf node_modules \
+    && yarn install --production --prefer-offline \
+    && yarn cache clean --all
+
+RUN chmod +x scripts/start.sh
+
+EXPOSE 3000
+
+CMD scripts/start.sh

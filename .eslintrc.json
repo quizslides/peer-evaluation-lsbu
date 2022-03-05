@@ -13,11 +13,24 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "testing-library", "simple-import-sort"],
+  "plugins": ["react", "@typescript-eslint", "testing-library", "simple-import-sort", "import"],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "import/no-cycle": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
     "require-jsdoc": "off",
     "valid-jsdoc": "off",
     "react/react-in-jsx-scope": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": false
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -37,6 +50,8 @@
         "pathGroupsExcludedImportTypes": ["builtin"]
       }
     ],
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     "react/jsx-props-no-spreading": "off",
@@ -46,7 +61,7 @@
       {
         "blankLine": "always",
         "prev": "*",
-        "next": ["interface", "type", "const"]
+        "next": ["interface", "type", "const", "export"]
       }
     ]
   },

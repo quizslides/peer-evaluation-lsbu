@@ -2,10 +2,27 @@ const { withSentryConfig } = require("@sentry/nextjs");
 
 const moduleExports = {
   reactStrictMode: true,
+  webpack: (config) => {
+    config.experiments = config.experiments || {};
+    config.experiments.topLevelAwait = true;
+    return config;
+  },
 };
 
 const sentryWebpackPluginOptions = {
   silent: true,
 };
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
+const isProductionEnvironment = () => {
+  switch (process.env.ENVIRONMENT) {
+    case "ci":
+    case "local":
+      return false;
+    default:
+      return true;
+  }
+};
+
+module.exports = isProductionEnvironment()
+  ? withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+  : moduleExports;

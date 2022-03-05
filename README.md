@@ -1,6 +1,6 @@
 # Peer Evaluation LSBU
 
-[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=resolved+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![Test](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml)
 
 These are the instructions to run a full-stack framework using Next.js.
 
@@ -192,3 +192,11 @@ Caching issues may cause Prisma Studio to use an older version of the query engi
 
 Error in request: PrismaClientKnownRequestError: Failed to validate the query Error occurred during query validation & transformation
 To resolve, delete the following folders: `~/.cache/prisma` on macOS and Linux and `%AppData%/Prisma/Studio` on Windows
+
+## Deployment
+
+Visit the [DEPLOYMENT](./DEPLOYMENT.md) to read the deployment instructions
+
+## Changelog
+
+Visit the [CHANGELOG](./CHANGELOG.md) to see all the changes.

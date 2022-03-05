@@ -1,13 +1,18 @@
+---
 name: Test
 on:
   push:
     branches:
       - main
       - staging
-      - 'PEL-**'
+      - "PEL-**"
+    paths-ignore:
+      - README.md
+      - CHANGELOG.md
+      - .gitignore
+      - .github/**
   pull_request:
     types: [opened, reopened, edited]
-
 
 jobs:
   install-dependencies:
@@ -79,7 +84,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-    
+
       - name: Setup test dependencies
         run: |
           cp .env.sample .env
