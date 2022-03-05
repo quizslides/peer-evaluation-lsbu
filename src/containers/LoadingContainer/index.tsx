@@ -10,7 +10,7 @@ interface ILoading {
 const LoadingContainer = ({ loading }: ILoading) => {
   return (
     <CenteredContent>
-      <LoaderSpinner isLoading={loading}></LoaderSpinner>
+      <LoaderSpinner isLoading={loading} />
     </CenteredContent>
   );
 };

@@ -24,7 +24,7 @@ describe("Testing TextFieldForm component in a form", () => {
     const testId = "test-id";
 
     render(
-      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={() => console.log(null)}>
+      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={() => {}}>
         {() => (
           <Form>
             <TextFieldForm

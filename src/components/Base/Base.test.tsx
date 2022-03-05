@@ -13,7 +13,7 @@ describe("Testing Base component", () => {
     };
 
     render(
-      <Base topLeftComponent="none" error={true} loading={false}>
+      <Base topLeftComponent="none" error loading={false}>
         <ChildrenComponent />
       </Base>
     );
@@ -33,7 +33,7 @@ describe("Testing Base component", () => {
     };
 
     render(
-      <Base topLeftComponent="none" error={false} loading={true}>
+      <Base topLeftComponent="none" error={false} loading>
         <ChildrenComponent />
       </Base>
     );

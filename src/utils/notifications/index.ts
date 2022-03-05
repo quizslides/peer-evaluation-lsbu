@@ -34,7 +34,7 @@ const promiseNotification = (promise: Promise<unknown>, config: TPromiseNotifica
   return toast.promise(promise, config);
 };
 
-const dismissNotification = (id?: string) => {
+const dismissNotification = (id?: string): void  => {
   toast.dismiss(id);
 };
 
