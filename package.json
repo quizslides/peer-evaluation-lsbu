@@ -79,7 +79,7 @@
     "liquidjs": "^9.34.0",
     "micro": "9.3.4",
     "mui-datatables": "^4.1.2",
-    "next": "12.0.9",
+    "next": "12.1.0",
     "next-auth": "4.1.2",
     "nodemailer": "6.7.2",
     "papaparse": "^5.3.1",
