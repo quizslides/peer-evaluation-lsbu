@@ -33,7 +33,6 @@ const options: NextAuthOptions = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.AUTH_SECRET,
   callbacks: {
     signIn: async ({ user }) => await isAccountCreated(user.email),
     session: async ({ user, session }) => await getUserSessionWithRole(user, session),
