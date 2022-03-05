@@ -7,8 +7,8 @@ import { useTheme } from "@mui/material/styles";
 import Typography from "@/components/Typography/Typography";
 
 type TitleProps = {
-  colorLight?: string;
-  colorDark?: string;
+  colorLight: string;
+  colorDark: string;
 };
 
 type WrapperProps = {
@@ -22,7 +22,7 @@ const Wrapper = styled.div<WrapperProps>`
 
 const Title = styled.div<TitleProps>`
   font-weight: 800;
-  background: -webkit-linear-gradient(${(props) => `${props.colorLight}, ${props.colorDark}`});
+  background: -webkit-linear-gradient(${(props) => `${props.colorLight.toString()}, ${props.colorDark.toString()}`});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
