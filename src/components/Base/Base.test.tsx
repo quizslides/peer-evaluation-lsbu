@@ -4,14 +4,14 @@ import { render, screen } from "@testing-library/react";
 
 import { Base } from "@/components";
 
+const textChildrenComponent = "Component Text";
+
+const ChildrenComponent = () => {
+  return <>{textChildrenComponent}</>;
+};
+
 describe("Testing Base component", () => {
   it("renders base with error state", () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
     render(
       <Base topLeftComponent="none" error loading={false}>
         <ChildrenComponent />
@@ -26,12 +26,6 @@ describe("Testing Base component", () => {
   });
 
   it("renders base with loading state", () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
     render(
       <Base topLeftComponent="none" error={false} loading>
         <ChildrenComponent />
@@ -46,12 +40,6 @@ describe("Testing Base component", () => {
   });
 
   it("renders base returning the children component", () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
     render(
       <Base topLeftComponent="none" error={false} loading={false}>
         <ChildrenComponent />

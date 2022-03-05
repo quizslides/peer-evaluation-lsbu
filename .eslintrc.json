@@ -63,6 +63,12 @@
         "prev": "*",
         "next": ["interface", "type", "const", "export"]
       }
+    ],
+    "react/jsx-no-useless-fragment": [
+      "error",
+      {
+        "allowExpressions": true
+      }
     ]
   },
   "overrides": [

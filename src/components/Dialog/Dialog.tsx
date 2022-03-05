@@ -17,7 +17,7 @@ interface IDialog extends DialogProps {
   leftButtonVariant?: ButtonVariant;
   onClickRightButton: () => void;
   onClickLeftButton: () => void;
-  extraRightButton?: React.ReactNode;
+  extraRightButton?: React.ReactNode | null;
 }
 
 const Dialog = ({
@@ -50,6 +50,6 @@ const Dialog = ({
   );
 };
 
-Dialog.defaultProps = { rightButtonVariant: "text", leftButtonVariant: "text", extraRightButton: <></> };
+Dialog.defaultProps = { rightButtonVariant: "text", leftButtonVariant: "text", extraRightButton: null };
 
 export default memo(Dialog);

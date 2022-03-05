@@ -101,7 +101,7 @@ const SignIn: NextPage = () => {
 
   if (!loading && session) {
     router.push(routing.dashboard);
-    return <></>;
+    return null;
   }
 
   if (isLinkSent) {
