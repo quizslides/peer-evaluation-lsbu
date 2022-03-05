@@ -22,7 +22,7 @@ const AuthScopeContainer = ({ scope, children }: IAuthScopeContainer) => {
     return children;
   }
 
-  return <></>;
+  return null;
 };
 
 AuthScopeContainer.defaultProps = { scope: undefined };

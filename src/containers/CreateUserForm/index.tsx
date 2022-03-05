@@ -25,7 +25,7 @@ const CreateUserForm = ({ state, updateUserFormState }: ICreateUserForm) => {
   }, [data, loading, reset, updateUserFormState]);
 
   if (!state) {
-    return <></>;
+    return null;
   }
 
   return (

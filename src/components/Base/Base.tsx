@@ -26,7 +26,7 @@ const TopLeftComponent: React.FC<{ topLeftComponent: TTopLeftComponent }> = ({ t
         </TopLeft>
       );
     default:
-      return <></>;
+      return null;
   }
 };
 

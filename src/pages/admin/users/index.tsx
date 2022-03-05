@@ -77,7 +77,7 @@ const Users: NextPage = () => {
 
   const [userDataBulk, setUserDataBulk] = useState<UserDateBulk[] | null>(null);
 
-  const [userDataBulkError, setUserDataBulkError] = useState<{ [key: string]: string }[] | null>(null);
+  const [userDataBulkError, setUserDataBulkError] = useState<{ [key: string]: string | number | null }[] | null>(null);
 
   const columnsUserDataBulk = [
     {
@@ -453,9 +453,7 @@ const Users: NextPage = () => {
           >
             <EditIcon testId={"update-user-button-icon"} />
           </IconButtonWrapper>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <IconButtonWrapper
           testId="delete-user-button-wrapper"
           tooltip={"Delete"}
