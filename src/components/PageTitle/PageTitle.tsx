@@ -22,7 +22,12 @@ const Wrapper = styled.div<WrapperProps>`
 
 const Title = styled.div<TitleProps>`
   font-weight: 800;
-  background: -webkit-linear-gradient(${(props) => `${props.colorLight.toString()}, ${props.colorDark.toString()}`});
+  background: -webkit-linear-gradient(
+    ${(props) =>
+      `${typeof props.colorLight === "string" ? props.colorLight : ""}, ${
+        typeof props.colorDark === "string" ? props.colorDark : ""
+      }`}
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
