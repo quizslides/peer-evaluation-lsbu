@@ -11,19 +11,12 @@ import { useSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError, object } from "yup";
 
+import tableCustomToolbar from "./TableCustomToolbar";
+
 import { Base, Dialog, IconButtonWrapper, PageTitle, Typography, UploadButton, VirtualStringList } from "@/components";
 import { ObjectCSV } from "@/components/UploadButton/UploadButton";
 import { CreateUserForm, UpdateUserForm } from "@/containers";
-import {
-  CheckIcon,
-  CloseIcon,
-  DeleteIcon,
-  EditIcon,
-  GroupsIcon,
-  PersonAddAltIcon,
-  RefreshIcon,
-  WidgetsIcon,
-} from "@/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
@@ -440,13 +433,7 @@ const Users: NextPage = () => {
         tableState.selectedRows.lookup = [];
       }
     },
-    customToolbar: () => {
-      return (
-        <IconButtonWrapper testId="refresh-users-table" tooltip={"Refresh"} onClick={onRefreshUsers}>
-          <RefreshIcon testId={"refresh-users-table-icon"} />
-        </IconButtonWrapper>
-      );
-    },
+    customToolbar: () => tableCustomToolbar({ onClick: onRefreshUsers }),
     customToolbarSelect: (selectedRows, displayData) => (
       <Container>
         {selectedRows.data.length === 1 ? (
