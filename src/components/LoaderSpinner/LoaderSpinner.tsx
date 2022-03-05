@@ -12,13 +12,6 @@ export interface IClipLoader extends ComponentChildren {
   color?: string;
 }
 
-export const defaultLoaderProps: IClipLoader = {
-  isLoading: false,
-  size: 150,
-  color: "primary",
-  children: <></>,
-};
-
 export const overrideCss = css`
   top: 0;
   bottom: 0;
@@ -43,6 +36,9 @@ const LoaderSpinner = (props: IClipLoader) => {
   return <>{children}</>;
 };
 
-LoaderSpinner.defaultProps = defaultLoaderProps;
+LoaderSpinner.defaultProps = {
+  size: 150,
+  color: "primary",
+};
 
 export default memo(LoaderSpinner);
