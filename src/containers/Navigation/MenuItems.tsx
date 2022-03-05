@@ -100,8 +100,8 @@ const MenuItems = ({ router }: IMenuItems) => {
   };
 
   const getMenuUserMessage = () => {
-    if (session) {
-      return `Hello, ${session?.user?.name}`;
+    if (session && typeof session.user.name === "string") {
+      return `Hello, ${session.user.name}`;
     }
 
     return "Hello, Stranger";
