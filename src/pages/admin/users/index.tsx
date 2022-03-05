@@ -207,8 +207,8 @@ const Users: NextPage = () => {
 
     const usersBulkErrors = [];
 
-    const columnsBulk: { [key: string]: string } = {
-      row: "",
+    const columnsBulk: { [key: string]: string | number | null } = {
+      row: 0,
       name: "",
       email: "",
       role: "",
@@ -222,9 +222,9 @@ const Users: NextPage = () => {
       } catch (error: unknown) {
         const errorValidation = error as ValidationError;
 
-        const rawBulkError: { [key: string]: string } = {
+        const rawBulkError: { [key: string]: string | number | null } = {
           ...columnsBulk,
-          row: Number(userBulkIndex + 2).toString(),
+          row: Number(userBulkIndex) + 2,
         };
 
         for (const errorBulk of errorValidation.inner) {
