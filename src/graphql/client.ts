@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, from, useApolloClient } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
 import routing from "@/routing";
@@ -22,5 +22,7 @@ const client = new ApolloClient({
   link: from([errorLink, httpLink]),
   cache: new InMemoryCache(),
 });
+
+export type TApolloClientType = typeof useApolloClient;
 
 export default client;

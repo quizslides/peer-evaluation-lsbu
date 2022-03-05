@@ -14,7 +14,11 @@ const emailTransporter = nodemailer.createTransport({
   secure: process.env.SMTP_SECURE === "true",
 });
 
-const getEmailTemplate = async (templateName: string, variables?: object) => {
+type emailVariables = {
+  [key: string]: string | number;
+};
+
+const getEmailTemplate = async (templateName: string, variables?: emailVariables) => {
   const emailsDirectory = path.resolve(process.cwd(), "src/pages/api/email/templates");
 
   const liquidEngine = new Liquid({
