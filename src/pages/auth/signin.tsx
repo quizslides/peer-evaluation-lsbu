@@ -61,11 +61,6 @@ const SignIn: NextPage = () => {
     ...emailValidator,
   });
 
-  const submitForm = async (valuesForm: ISignInForm) => {
-    setValuesForm(valuesForm);
-    await sendLink(valuesForm);
-  };
-
   const sendLink = async (valuesForm: ISignInForm) => {
     setSubmitting(true);
 
@@ -85,6 +80,11 @@ const SignIn: NextPage = () => {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const submitForm = async (valuesForm: ISignInForm) => {
+    setValuesForm(valuesForm);
+    await sendLink(valuesForm);
   };
 
   const resendLink = () => sendLink(valuesForm);
