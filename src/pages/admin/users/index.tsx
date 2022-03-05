@@ -205,7 +205,7 @@ const Users: NextPage = () => {
 
     const usersBulk = usersBulkList as unknown as User[];
 
-    // TODO: Refactored as well as emailVariables to ObjectKeys type
+    // TODO: Refactored as well as emailVariables to ObjectKeys type to have better types
 
     const usersBulkErrors: { [key: string]: string | number | null }[] = [];
 
