@@ -42,6 +42,7 @@
     "prisma:deploy": "npx prisma migrate deploy",
     "prisma:migrate:create": "npx prisma migrate dev",
     "prisma:db:push": "npx prisma db push",
+    "prisma:format": "npx prisma format",
     "prepare": "husky install"
   },
   "nyc": {
