@@ -12,14 +12,16 @@ generator typegraphql {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
   name          String
-  email         String    @unique
+  email         String         @unique
   emailVerified DateTime?
   sessions      Session[]
-  role          Role      @default(STUDENT)
+  role          Role           @default(STUDENT)
+  modulesOwned  Module[]
+  moduleMember  ModuleMember[]
 }
 
 model VerificationToken {
@@ -42,4 +44,61 @@ enum Role {
   ADMIN
   LECTURER
   STUDENT
+}
+
+model Module {
+  id                  String         @id @default(cuid())
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @default(now()) @updatedAt
+  title               String
+  moduleCoordinator   User           @relation(fields: [moduleCoordinatorId], references: [id])
+  moduleCoordinatorId String
+  moduleReference     String         @unique
+  status              ModuleStatus   @default(DRAFT)
+  submissionsLockDate DateTime?
+  maxGradeIncrease    Int            @default(10)
+  maxGradeDecrease    Int            @default(10)
+  reminderEmailBody   String?
+  rangeColumns        RangeColumn?
+  moduleMember        ModuleMember[]
+}
+
+enum ModuleStatus {
+  DRAFT
+  OPEN
+  BLOCKED
+}
+
+model ModuleMember {
+  id         String                  @id @default(cuid())
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @default(now()) @updatedAt
+  permission ModuleMemberPermissions @default(VIEWER)
+  module     Module                  @relation(fields: [moduleId], references: [id])
+  moduleId   String
+  user       User                    @relation(fields: [userId], references: [id])
+  userId     String
+}
+
+enum ModuleMemberPermissions {
+  EDITOR
+  VIEWER
+}
+
+model RangeColumn {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  module    Module   @relation(fields: [moduleId], references: [id])
+  moduleId  String   @unique
+  rangeFrom Int      @default(1)
+  rangeTo   Int      @default(5)
+}
+
+// Peer Evaluation - TBC
+model Column {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  description String
 }
