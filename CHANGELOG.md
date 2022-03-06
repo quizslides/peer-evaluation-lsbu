@@ -2,6 +2,20 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.3...v1.0.0-staging.4) (2022-03-06)
+
+
+### Features
+
+* adding create and updated field to user schema ([e779ab9](https://github.com/quizslides/peer-evaluation-lsbu/commit/e779ab947875b81a28a05df70494de45377cffd1))
+
+
+### Bug Fixes
+
+* fix auth redirect URL for staging environment ([7d607e8](https://github.com/quizslides/peer-evaluation-lsbu/commit/7d607e81441aad24fcca3872ca15432efbbcd3a7))
+* removing bash slash of routing on sign in ([9c4bd49](https://github.com/quizslides/peer-evaluation-lsbu/commit/9c4bd497b00ff45e97ddcc5b3a71e8f2b602aa73))
+* updating sentry environment for the banckend ([b0e7be7](https://github.com/quizslides/peer-evaluation-lsbu/commit/b0e7be794c18aae02538c8b9e5c2c495d8699fc2))
+
 ## [1.0.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.2...v1.0.0-staging.3) (2022-03-06)
 
 
