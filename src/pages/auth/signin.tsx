@@ -55,7 +55,7 @@ const SignIn: NextPage = () => {
       await signIn("email", {
         email: valuesForm.email,
         redirect: false,
-        callbackUrl: callBackUrl || `${window.location.origin}/${routing.dashboard}`,
+        callbackUrl: callBackUrl || `${window.location.origin}${routing.dashboard}`,
       });
 
       setLinkSent(true);
