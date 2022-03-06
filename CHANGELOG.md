@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.1...v1.0.0-staging.2) (2022-03-06)
+
+
+### Features
+
+* adding seed for live environments using real email ([e71ef1c](https://github.com/quizslides/peer-evaluation-lsbu/commit/e71ef1c0218cc91e631ad87e0c17056dc89e3d3b))
+
 ## 1.0.0-staging.1 (2022-03-06)
 
 
