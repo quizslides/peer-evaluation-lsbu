@@ -6,14 +6,14 @@ import { useTheme } from "@mui/material/styles";
 
 import Typography from "@/components/Typography/Typography";
 
-type TitleProps = {
+interface TitleProps {
   colorLight: string;
   colorDark: string;
-};
+}
 
-type WrapperProps = {
+interface WrapperProps {
   margin?: string;
-};
+}
 
 const Wrapper = styled.div<WrapperProps>`
   text-align: center;
@@ -22,12 +22,7 @@ const Wrapper = styled.div<WrapperProps>`
 
 const Title = styled.div<TitleProps>`
   font-weight: 800;
-  background: -webkit-linear-gradient(
-    ${(props) =>
-      `${typeof props.colorLight === "string" ? props.colorLight : ""}, ${
-        typeof props.colorDark === "string" ? props.colorDark : ""
-      }`}
-  );
+  background: -webkit-linear-gradient(${(props) => `${props.colorLight}, ${props.colorDark}`});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
