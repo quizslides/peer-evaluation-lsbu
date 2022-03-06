@@ -25,7 +25,7 @@ envs:
     value: EV[1:E1ZjuzoXYqOm0iteXRQPVYIhuDBuCvy5:3eszGpyTNlyNqSlkBlZwVZM9HlA/Nz2lCa+R0UxCoQNAcQuzZpSAGrESU9wWBnqcmuUPGIRDYSrj3ldU]
   - key: NEXTAUTH_URL
     scope: RUN_AND_BUILD_TIME
-    value: https://lsbupeerevaluation.software
+    value: https://staging.lsbupeerevaluation.software
   - key: SMTP_HOST
     scope: RUN_AND_BUILD_TIME
     value: smtp.gmail.com
