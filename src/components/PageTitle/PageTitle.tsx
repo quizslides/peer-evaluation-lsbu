@@ -20,9 +20,22 @@ const Wrapper = styled.div<WrapperProps>`
   margin: ${(props) => props.margin};
 `;
 
+interface TitleProps {
+  colorLight: string;
+  colorDark: string;
+}
+
+const getLinearGradientTitle = (colorLight: string, colorDark: string) => {
+  if (typeof colorLight === "string" && typeof colorDark == "string") {
+    return `${colorLight}, ${colorDark}`;
+  }
+
+  return "";
+};
+
 const Title = styled.div<TitleProps>`
   font-weight: 800;
-  background: -webkit-linear-gradient(${(props) => `${props.colorLight}, ${props.colorDark}`});
+  background: -webkit-linear-gradient(${(props) => getLinearGradientTitle(props.colorLight, props.colorDark)});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
