@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.2...v1.0.0-staging.3) (2022-03-06)
+
+
+### Bug Fixes
+
+* adding [@lsbupeerevaluation](https://github.com/lsbupeerevaluation).software and [@lsbu](https://github.com/lsbu).ac.uk in addition to [@gmail](https://github.com/gmail).com to create account ([01aef71](https://github.com/quizslides/peer-evaluation-lsbu/commit/01aef717f5d69436d66c6d31119e07c4250b1f6a))
+
 ## [1.0.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.1...v1.0.0-staging.2) (2022-03-06)
 
 
