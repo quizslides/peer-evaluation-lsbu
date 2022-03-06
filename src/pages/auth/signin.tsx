@@ -8,12 +8,11 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { object } from "yup";
 
-import { Base, Button, LoaderSpinner, PageTitle, TextFieldForm, Typography } from "@/components";
+import { Button, PageTitle, TextFieldForm, Typography } from "@/components";
+import { SignInWrapper } from "@/containers";
 import content from "@/content";
 import { EmailSentEmoji } from "@/icons";
 import routing from "@/routing";
-import { CenteredContent } from "@/styles";
-import { ComponentChildren } from "@/types";
 import { emailValidator, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface ISignInForm {
@@ -27,20 +26,6 @@ const EmailSentContainer = styled(Container)`
 const TextBold = styled.a`
   font-weight: 700;
 `;
-
-interface ISignInWrapper extends ComponentChildren {
-  loading: boolean;
-}
-
-const SignInWrapper = ({ children, loading }: ISignInWrapper) => {
-  return (
-    <Base topLeftComponent="backArrow">
-      <CenteredContent>
-        <LoaderSpinner isLoading={loading}>{children}</LoaderSpinner>
-      </CenteredContent>
-    </Base>
-  );
-};
 
 const SignIn: NextPage = () => {
   const router = useRouter();
@@ -60,11 +45,6 @@ const SignIn: NextPage = () => {
   const validationSchema = object({
     ...emailValidator,
   });
-
-  const submitForm = async (valuesForm: ISignInForm) => {
-    setValuesForm(valuesForm);
-    await sendLink(valuesForm);
-  };
 
   const sendLink = async (valuesForm: ISignInForm) => {
     setSubmitting(true);
@@ -87,6 +67,11 @@ const SignIn: NextPage = () => {
     }
   };
 
+  const submitForm = async (valuesForm: ISignInForm) => {
+    setValuesForm(valuesForm);
+    await sendLink(valuesForm);
+  };
+
   const resendLink = () => sendLink(valuesForm);
 
   const hideLinkSetComponent = () => setLinkSent(false);
@@ -101,7 +86,7 @@ const SignIn: NextPage = () => {
 
   if (!loading && session) {
     router.push(routing.dashboard);
-    return <></>;
+    return null;
   }
 
   if (isLinkSent) {

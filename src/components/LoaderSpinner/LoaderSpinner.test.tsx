@@ -11,7 +11,7 @@ describe("Testing LoaderSpinner component", () => {
     const testId = "test-id";
 
     render(
-      <LoaderSpinner isLoading={true}>
+      <LoaderSpinner isLoading>
         <Typography testId={testId}>{text}</Typography>
       </LoaderSpinner>
     );

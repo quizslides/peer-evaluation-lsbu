@@ -1,0 +1,16 @@
+---
+name: Development
+on:
+  push:
+    branches:
+      - "PEL-**"
+  pull_request:
+    types: [opened, reopened, edited]
+
+jobs:
+  install-dependencies:
+    uses: ./.github/workflows/install-dependencies.yml
+
+  tests:
+    needs: install-dependencies
+    uses: ./.github/workflows/tests.yml

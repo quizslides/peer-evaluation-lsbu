@@ -23,4 +23,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// skipcq: JS-0296
+export type TApolloClientType = ApolloClient<object>;
+
 export default client;

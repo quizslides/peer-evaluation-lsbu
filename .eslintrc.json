@@ -63,7 +63,27 @@
         "prev": "*",
         "next": ["interface", "type", "const", "export"]
       }
-    ]
+    ],
+    "react/jsx-no-useless-fragment": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    // TODO: review this rule
+    "react/jsx-max-depth": [
+      "error",
+      {
+        "max": 6
+      }
+    ],
+    "react/no-multi-comp": "error"
   },
   "overrides": [
     {

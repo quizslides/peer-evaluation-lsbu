@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { GetSessionParams, getSession, useSession } from "next-auth/react";
 
@@ -22,8 +22,10 @@ const AuthScopeContainer = ({ scope, children }: IAuthScopeContainer) => {
     return children;
   }
 
-  return <></>;
+  return null;
 };
+
+AuthScopeContainer.defaultProps = { scope: undefined };
 
 export async function getServerSideProps(context: GetSessionParams | undefined) {
   return {

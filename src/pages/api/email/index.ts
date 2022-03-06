@@ -36,8 +36,9 @@ const sendSignInEmail = async (email: string, signInUrl: string) => {
         email,
       }),
     });
-  } catch (error) {
-    errorLogger(`Unable to send sign in email to ${email}. Error: ${error}`);
+  } catch (error: unknown) {
+    const errorObject = error as Error;
+    errorLogger(`Unable to send sign in email to ${email}. Error: ${errorObject.message}`);
   }
 };
 
@@ -56,14 +57,15 @@ const sendWelcomeEmail = async (email: string, name: string) => {
           baseUrl: process.env.NEXTAUTH_URL,
         }),
       });
-    } catch (error) {
-      errorLogger(`Unable to send welcome email to ${email}. Error: ${error}`);
+    } catch (error: unknown) {
+      const errorObject = error as Error;
+      errorLogger(`Unable to send welcome email to ${email}. Error: ${errorObject.message}`);
     }
   }
 };
 
 const sendWelcomeEmailBulk = async (users: [User]) => {
-  for (let user of users) {
+  for (const user of users) {
     const email = user.email;
 
     const name = user.name;

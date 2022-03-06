@@ -45,4 +45,6 @@ const AuthenticatedRoute = ({ children, roles }: IAuthenticatedRoute) => {
   return children;
 };
 
+AuthenticatedRoute.defaultProps = { roles: [] };
+
 export default AuthenticatedRoute;

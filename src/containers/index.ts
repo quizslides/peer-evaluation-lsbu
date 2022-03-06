@@ -4,6 +4,7 @@ import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
+import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdateUserForm from "@/containers/UpdateUserForm/";
 
@@ -14,6 +15,7 @@ export {
   Layout,
   LoadingContainer,
   Navigation,
+  SignInWrapper,
   UnauthorizedContainer,
   UpdateUserForm,
 };

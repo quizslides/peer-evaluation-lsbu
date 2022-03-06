@@ -21,24 +21,22 @@ const UnauthorizedContainer = () => {
   const router = useRouter();
 
   return (
-    <>
-      <Base topLeftComponent="menu">
-        <CenteredContent>
-          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-            <SadFaceEmoji height="5rem" width="5rem" testId={"unauthorized-page-emoji"} />
-            <UnauthorizedMessage testId={"unauthorized-text"}>{content.pages.unauthorized.text}</UnauthorizedMessage>
-            <Button
-              size="large"
-              testId="unauthorized-button"
-              variant="contained"
-              onClick={() => router.push(routing.dashboard)}
-            >
-              {content.pages.unauthorized.button}
-            </Button>
-          </Stack>
-        </CenteredContent>
-      </Base>
-    </>
+    <Base topLeftComponent="menu">
+      <CenteredContent>
+        <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+          <SadFaceEmoji height="5rem" width="5rem" testId={"unauthorized-page-emoji"} />
+          <UnauthorizedMessage testId={"unauthorized-text"}>{content.pages.unauthorized.text}</UnauthorizedMessage>
+          <Button
+            size="large"
+            testId="unauthorized-button"
+            variant="contained"
+            onClick={() => router.push(routing.dashboard)}
+          >
+            {content.pages.unauthorized.button}
+          </Button>
+        </Stack>
+      </CenteredContent>
+    </Base>
   );
 };
 

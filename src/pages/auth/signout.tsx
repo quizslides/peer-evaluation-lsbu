@@ -26,7 +26,7 @@ const SignOut: NextPage = () => {
     return <LoadingContainer loading={!!session} />;
   }
 
-  return <></>;
+  return null;
 };
 
 export default SignOut;

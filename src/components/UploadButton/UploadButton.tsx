@@ -37,7 +37,7 @@ const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
     if (e.target.files?.length) {
       Papa.parse(e.target.files[0], {
         ...csvOptions,
-        complete: (results: ParseResult<object>) => {
+        complete: (results: ParseResult<unknown>) => {
           onFilesSelected(results.data as ObjectCSV);
         },
       });

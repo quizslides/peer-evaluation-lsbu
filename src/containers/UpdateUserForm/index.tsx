@@ -42,7 +42,7 @@ const UpdateUserForm = ({ email, name, role, state, updateUserFormState }: IUpda
   }, [data, loading, reset, updateUserFormState]);
 
   if (!state) {
-    return <></>;
+    return null;
   }
 
   return (

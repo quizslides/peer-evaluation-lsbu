@@ -99,6 +99,14 @@ const MenuItems = ({ router }: IMenuItems) => {
     setOpen({ ...drawerItemsClose, [id]: !open?.[id] });
   };
 
+  const getMenuUserMessage = () => {
+    if (session && typeof session.user.name === "string") {
+      return `Hello, ${session.user.name}`;
+    }
+
+    return "Hello, Stranger";
+  };
+
   return (
     <Box sx={{ display: "flex", height: "500%" }}>
       <Paper variant="outlined" square elevation={0} sx={{ maxWidth: 250, width: 250 }}>
@@ -106,7 +114,7 @@ const MenuItems = ({ router }: IMenuItems) => {
           <ListItemButton component="a">
             <ListItemText
               sx={{ my: 0 }}
-              primary={`Hello, ${session?.user?.name || "Stranger"}`}
+              primary={getMenuUserMessage()}
               primaryTypographyProps={{
                 noWrap: true,
                 fontSize: 20,

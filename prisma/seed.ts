@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+import { errorLogger } from "@/utils";
+
 const prisma = new PrismaClient();
 
 const createAdministratorUser = async () => {
@@ -17,7 +19,9 @@ const main = async () => {
 };
 
 main()
-  .catch(() => {
+  .catch((error) => {
+    const errorSeed = error;
+    errorLogger(errorSeed.message);
     process.exit(1);
   })
   .finally(async () => {

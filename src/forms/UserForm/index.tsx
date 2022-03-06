@@ -43,7 +43,7 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
     ...roleValidator,
   });
 
-  const submitForm = async (userValuesForm: IUserData) => {
+  const submitForm = (userValuesForm: IUserData) => {
     setSubmitting(true);
     onSubmitForm(userValuesForm);
   };

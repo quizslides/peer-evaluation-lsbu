@@ -4,16 +4,16 @@ import { render, screen } from "@testing-library/react";
 
 import { Base } from "@/components";
 
+const textChildrenComponent = "Component Text";
+
+const ChildrenComponent = () => {
+  return <>{textChildrenComponent}</>;
+};
+
 describe("Testing Base component", () => {
-  it("renders base with error state", async () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
+  it("renders base with error state", () => {
     render(
-      <Base topLeftComponent="none" error={true} loading={false}>
+      <Base topLeftComponent="none" error loading={false}>
         <ChildrenComponent />
       </Base>
     );
@@ -25,15 +25,9 @@ describe("Testing Base component", () => {
     expect(errorComponent).toBeInTheDocument();
   });
 
-  it("renders base with loading state", async () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
+  it("renders base with loading state", () => {
     render(
-      <Base topLeftComponent="none" error={false} loading={true}>
+      <Base topLeftComponent="none" error={false} loading>
         <ChildrenComponent />
       </Base>
     );
@@ -45,13 +39,7 @@ describe("Testing Base component", () => {
     expect(errorComponent).toBeInTheDocument();
   });
 
-  it("renders base returning the children component", async () => {
-    const textChildrenComponent = "Component Text";
-
-    const ChildrenComponent = () => {
-      return <>{textChildrenComponent}</>;
-    };
-
+  it("renders base returning the children component", () => {
     render(
       <Base topLeftComponent="none" error={false} loading={false}>
         <ChildrenComponent />

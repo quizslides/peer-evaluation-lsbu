@@ -27,7 +27,7 @@ prisma.$use(async (params, next) => {
   return result;
 });
 
-const getApolloServer = async (prisma: PrismaClient) => {
+const getApolloServer = (prisma: PrismaClient) => {
   const isProduction = process.env.NODE_ENV === "production";
 
   const schemaWithRules = applyMiddleware(schemaDefinitions, permissions);
@@ -51,7 +51,7 @@ const apolloInstance = await getApolloServer(prisma);
 
 await apolloInstance.start();
 
-const apolloServerHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const apolloServerHandler = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "https://studio.apollographql.com");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

@@ -1,0 +1,92 @@
+---
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
+databases:
+  - engine: PG
+    name: db-size-dev-staging
+    num_nodes: 1
+    size: db-s-dev-database
+    version: "12"
+domains:
+  - domain: staging.lsbupeerevaluation.software
+    type: PRIMARY
+    zone: lsbupeerevaluation.software
+envs:
+  - key: ENVIRONMENT
+    scope: RUN_AND_BUILD_TIME
+    value: production
+  - key: LOGICAL_ENVIRONMENT
+    scope: RUN_AND_BUILD_TIME
+    value: staging
+  - key: NEXTAUTH_SECRET
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:E1ZjuzoXYqOm0iteXRQPVYIhuDBuCvy5:3eszGpyTNlyNqSlkBlZwVZM9HlA/Nz2lCa+R0UxCoQNAcQuzZpSAGrESU9wWBnqcmuUPGIRDYSrj3ldU]
+  - key: NEXTAUTH_URL
+    scope: RUN_AND_BUILD_TIME
+    value: https://lsbupeerevaluation.software
+  - key: SMTP_HOST
+    scope: RUN_AND_BUILD_TIME
+    value: smtp.gmail.com
+  - key: SMTP_PORT
+    scope: RUN_AND_BUILD_TIME
+    value: "465"
+  - key: SMTP_USER
+    scope: RUN_AND_BUILD_TIME
+    value: admin@lsbupeerevaluation.software
+  - key: SMTP_PASSWORD
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:YXg7ZyBqOHAMt/sqLrYj8tWcN7MvQBEC:bVPPuFjgvFprf6X9SLI8WP6UteOEgQyLmq9gdAQ7fDk=]
+  - key: SMTP_FROM
+    scope: RUN_AND_BUILD_TIME
+    value: admin@lsbupeerevaluation.software
+  - key: SMTP_SECURE
+    scope: RUN_AND_BUILD_TIME
+    value: "true"
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:D3yFqjCVeHz1JC0ghdHemBWRrT3zY7Mv:FXDIfoVynoL54uTtktBLAuljUJrWc05vyzoQOGVZ8d5tIQPYqi3jWfdwN9qv/RYmPrWuYYIVStfO5koDtQfvKiIM6z7k75PbiHAtJz9tkGEEc46x19LUU4G9iQhviDNFZsSdyWXBks3BPSrJL0va6TWbjYvhSd5GVlxXfyONx22adyRUBVtrBy2sXtjJy1S4rEbPYO7+sjuNydkKs1xTx+uE991mnFq0U+XscGJaPr+Gakp2LbROVjOyXL01spE=]
+  - key: SENTRY_DSN
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:hLf88TE9iUtKkJzJyTqp4sdgJP05ca/g:2Ax2JccmdEgC1imSI3lU+WmWKZSKu1sv5wKVPDT0TlrkE24NC5q/eOJogB6A4kJfOsy/ZWkKMSGErMUeO0+V4VxN6M8JZd7xO1BuAk7kT7Y8P+9aLuqrLB2h]
+  - key: NEXT_PUBLIC_SENTRY_DSN
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:uSeeBn+uMvK7P+AxHaigHPQqncDfT7E3:Fj9wQfStf+xF21pUbPAAE8h4naejRot5HVMHsCI2Jyj7uLGDNOGX82N6Y9RL5rmSdPhl6lZCLlXFX0wKgdKthoM88dLQyh4ufXNLDvlSfkZbjOgsZpCrSrv0]
+  - key: SENTRY_AUTH_TOKEN
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:tR988vldmCG4tDMzIsiaZakeUDwMuae0:qObUmQ3nLH+l8GacfIOLfJuxeWrY2qzFZSjTb0pNNGslzzTb99ZQ/jcR+a26RQuOsfm4Uo53IKkZytVwBsM5gn0oq+gSzADABPGMFkKBOuM=]
+name: peer-evaluation-web-app-staging
+region: lon
+services:
+  - alerts:
+      - operator: GREATER_THAN
+        rule: CPU_UTILIZATION
+        value: 80
+        window: FIVE_MINUTES
+      - operator: GREATER_THAN
+        rule: MEM_UTILIZATION
+        value: 80
+        window: FIVE_MINUTES
+    dockerfile_path: Dockerfile
+    github:
+      branch: staging
+      repo: quizslides/peer-evaluation-lsbu
+    health_check:
+      failure_threshold: 3
+      http_path: /api/graphql?query=%7B__typename%7D
+      initial_delay_seconds: 30
+      period_seconds: 60
+      timeout_seconds: 100
+    http_port: 3000
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: peer-evaluation-web-app-staging
+    routes:
+      - path: /
+    source_dir: /

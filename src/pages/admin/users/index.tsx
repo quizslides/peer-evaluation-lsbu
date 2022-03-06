@@ -11,19 +11,12 @@ import { useSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError, object } from "yup";
 
+import tableCustomToolbar from "./TableCustomToolbar";
+
 import { Base, Dialog, IconButtonWrapper, PageTitle, Typography, UploadButton, VirtualStringList } from "@/components";
 import { ObjectCSV } from "@/components/UploadButton/UploadButton";
 import { CreateUserForm, UpdateUserForm } from "@/containers";
-import {
-  CheckIcon,
-  CloseIcon,
-  DeleteIcon,
-  EditIcon,
-  GroupsIcon,
-  PersonAddAltIcon,
-  RefreshIcon,
-  WidgetsIcon,
-} from "@/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
@@ -77,7 +70,7 @@ const Users: NextPage = () => {
 
   const [userDataBulk, setUserDataBulk] = useState<UserDateBulk[] | null>(null);
 
-  const [userDataBulkError, setUserDataBulkError] = useState<{ [key: string]: string }[] | null>(null);
+  const [userDataBulkError, setUserDataBulkError] = useState<{ [key: string]: string | number | null }[] | null>(null);
 
   const columnsUserDataBulk = [
     {
@@ -205,29 +198,33 @@ const Users: NextPage = () => {
 
     const usersBulk = usersBulkList as unknown as User[];
 
-    let usersBulkErrors = [];
+    // TODO: Refactored as well as emailVariables to ObjectKeys type to have better types
 
-    let columnsBulk: { [key: string]: string } = {
-      row: "",
+    const usersBulkErrors: { [key: string]: string | number | null }[] = [];
+
+    const columnsBulk: { [key: string]: string | number | null } = {
+      row: 0,
       name: "",
       email: "",
       role: "",
     };
 
-    for (let userBulkIndex in usersBulk) {
+    for (const userBulk of usersBulk) {
       try {
-        await userBulkSchema.validate(usersBulk[userBulkIndex], {
+        await userBulkSchema.validate(userBulk, {
           abortEarly: false,
         });
       } catch (error: unknown) {
-        let errorValidation = error as ValidationError;
+        const errorValidation = error as ValidationError;
 
-        let rawBulkError: { [key: string]: string } = {
+        const userBulkIndexError = usersBulk.findIndex((userDataBulk) => userDataBulk === userBulk);
+
+        const rawBulkError: { [key: string]: string | number | null } = {
           ...columnsBulk,
-          row: Number(userBulkIndex + 2).toString(),
+          row: userBulkIndexError + 2,
         };
 
-        for (let errorBulk of errorValidation.inner) {
+        for (const errorBulk of errorValidation.inner) {
           if (errorBulk.path && errorBulk.message) {
             rawBulkError[errorBulk.path] = errorBulk.message;
           }
@@ -266,8 +263,9 @@ const Users: NextPage = () => {
   const onBulkUserAction = async () => {
     loadingNotification("Running bulk...", "onBulkUserAction");
 
-    let usersBulkUpdate = userDataBulk?.filter((user) => user.action === BulkUserAction.UPDATE);
-    let usersBulkCreate = userDataBulk?.filter((user) => user.action === BulkUserAction.CREATE);
+    const usersBulkUpdate = userDataBulk?.filter((user) => user.action === BulkUserAction.UPDATE);
+
+    const usersBulkCreate = userDataBulk?.filter((user) => user.action === BulkUserAction.CREATE);
 
     const usersBulkUpdateSanitized = usersBulkUpdate?.map((item) => {
       return {
@@ -366,7 +364,7 @@ const Users: NextPage = () => {
 
     let emailsToDelete = [];
 
-    for (let row of rows) {
+    for (const row of rows) {
       emailsToDelete.push(usersObject[row].email);
     }
 
@@ -435,13 +433,7 @@ const Users: NextPage = () => {
         tableState.selectedRows.lookup = [];
       }
     },
-    customToolbar: () => {
-      return (
-        <IconButtonWrapper testId="refresh-users-table" tooltip={"Refresh"} onClick={onRefreshUsers}>
-          <RefreshIcon testId={"refresh-users-table-icon"} />
-        </IconButtonWrapper>
-      );
-    },
+    customToolbar: () => tableCustomToolbar({ onClick: onRefreshUsers }),
     customToolbarSelect: (selectedRows, displayData) => (
       <Container>
         {selectedRows.data.length === 1 ? (
@@ -452,9 +444,7 @@ const Users: NextPage = () => {
           >
             <EditIcon testId={"update-user-button-icon"} />
           </IconButtonWrapper>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <IconButtonWrapper
           testId="delete-user-button-wrapper"
           tooltip={"Delete"}

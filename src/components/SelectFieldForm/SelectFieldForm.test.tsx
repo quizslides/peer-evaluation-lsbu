@@ -8,7 +8,7 @@ import { SelectFieldForm } from "@/components";
 import { Role, roleValidator } from "@/utils";
 
 describe("Testing SelectFieldForm component in a form", () => {
-  it("renders a SelectFieldForm with test id", async () => {
+  it("renders a SelectFieldForm with test id", () => {
     const initialFormState = {
       role: "",
     };
@@ -24,7 +24,7 @@ describe("Testing SelectFieldForm component in a form", () => {
     const testId = "test-id";
 
     render(
-      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={() => console.log(null)}>
+      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={jest.fn()}>
         {() => (
           <Form>
             <SelectFieldForm

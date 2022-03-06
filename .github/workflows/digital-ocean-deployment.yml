@@ -1,0 +1,44 @@
+---
+name: Digital Ocean Deployment
+on:
+  workflow_call:
+    inputs:
+      DIGITALOCEAN_APP_CONFIGURATION_FILE:
+        description: 'Digital Ocean App Platform configuration file'
+        required: true
+        type: string
+    secrets:
+      DIGITALOCEAN_ACCESS_TOKEN:
+        description: 'Access token to the Digital Ocean Project'
+        required: true
+      DIGITALOCEAN_APP_PLATFORM_ID:
+        description: 'ID of the App Platform'
+        required: true
+
+jobs:
+  digital-ocean-deployment:
+    name: Digital Ocean Workflow
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node-version: [16.13.2]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install Digital Ocean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Deploy
+        env:
+          DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets.DIGITALOCEAN_APP_PLATFORM_ID }}
+        run: |
+          doctl apps update ${DIGITALOCEAN_APP_PLATFORM_ID} --spec ./.do/${{ inputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
+          doctl apps create-deployment ${DIGITALOCEAN_APP_PLATFORM_ID} --force-rebuild
