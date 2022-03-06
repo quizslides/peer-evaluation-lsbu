@@ -4,8 +4,8 @@ const validatorContent = {
     invalid: "Invalid email address",
     invalidDomain: "Email must end with @lsbu.ac.uk",
     required: "Enter an email",
-    regex: /@(gmail)\.com$/,
-    // regex: /@(lsbu)\.ac.uk$/, TODO: update rules to use only @lsbu.ac.uk
+    regex: /@((gmail)\.com|(lsbupeerevaluation)\.software|(lsbu)\.ac.uk)$/,
+    // regex: /@(lsbu)\.ac.uk$/, TODO: update rules to use only @lsbu.ac.uk and @lsbupeerevaluation.software
     placeholder: "name@lsbu.ac.uk",
   },
   name: {
