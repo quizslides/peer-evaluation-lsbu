@@ -41,6 +41,7 @@
     "postinstall": "yarn prisma:generate",
     "prisma:deploy": "npx prisma migrate deploy",
     "prisma:migrate:create": "npx prisma migrate dev",
+    "prisma:migrate:reset:create": "npx prisma migrate reset",
     "prisma:db:push": "npx prisma db push",
     "prisma:format": "npx prisma format",
     "prepare": "husky install"
