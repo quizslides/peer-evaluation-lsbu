@@ -137,9 +137,6 @@ CREATE UNIQUE INDEX "PeerEvaluation_studentId_key" ON "PeerEvaluation"("studentI
 CREATE UNIQUE INDEX "ModuleMember_userId_moduleId_key" ON "ModuleMember"("userId", "moduleId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PeerEvaluationColumn_moduleId_key" ON "PeerEvaluationColumn"("moduleId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "PeerEvaluationColumn_id_moduleId_key" ON "PeerEvaluationColumn"("id", "moduleId");
 
 -- CreateIndex

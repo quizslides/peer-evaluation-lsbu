@@ -140,14 +140,14 @@ model ModuleMember {
 }
 
 model PeerEvaluationColumn {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  description String
-  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  moduleId    String   @unique
-
+  id                           String                         @id @default(cuid())
+  createdAt                    DateTime                       @default(now())
+  updatedAt                    DateTime                       @default(now()) @updatedAt
+  description                  String
+  module                       Module                         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  moduleId                     String
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
+
   @@unique([id, moduleId])
 }
 
