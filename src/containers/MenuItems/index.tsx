@@ -92,6 +92,15 @@ const menuTopItems = [
   },
 ];
 
+const menuBottomItems = [
+  {
+    title: "Sign out",
+    icon: <LogoutIcon testId={"menu-expandable-account"} />,
+    pathname: routing.auth.signOut,
+    scope: [RoleScope.AUTHENTICATED],
+  },
+];
+
 const MenuItems = ({ router }: IMenuItems) => {
   const { data: session } = useSession();
 
@@ -155,6 +164,8 @@ const MenuItems = ({ router }: IMenuItems) => {
             );
           })}
           <Divider />
+
+          <MenuSingleItems router={router} menuItems={menuBottomItems} />
         </NavigationDrawer>
       </Paper>
     </Box>
