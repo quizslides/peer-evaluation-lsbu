@@ -117,7 +117,7 @@ const content = {
         },
         linkSent: {
           description1: "Email sent to",
-          description2: ". Check your inbox and click the link in the email to sign in.",
+          description2: "if it exists in the system. Check your inbox and click the link in the email to sign in.",
           resendLink: "Send me another link",
           hideLinkSetComponent: "Change email",
         },
