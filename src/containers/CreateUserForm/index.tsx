@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 
-import { UserForm } from "@/forms";
+import UserForm from "@/forms/UserForm";
 import useCreateOneUser from "@/requests/hooks/mutations/useCreateOneUser";
 import { IUserData, initialUserState } from "@/types/user";
 import { loadingNotification } from "@/utils";
@@ -41,4 +41,4 @@ const CreateUserForm = ({ state, updateUserFormState }: ICreateUserForm) => {
   );
 };
 
-export default CreateUserForm;
+export default memo(CreateUserForm);

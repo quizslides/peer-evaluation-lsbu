@@ -1,5 +1,5 @@
 const validatorContent = {
-  UserEmail: {
+  userEmail: {
     defaultValue: "",
     invalid: "Invalid email address",
     invalidDomain: "Email must end with @lsbu.ac.uk",
@@ -72,6 +72,14 @@ const validatorContent = {
   reminderEmailBody: {
     matchUrlRegex: /{{url}}/,
     matchUrl: "Email body must contain {{url}} for the URL of the peer evaluation",
+  },
+  column: {
+    required: "Column is required",
+    minLength: "Column must be longer than one character",
+    maxLength: "Column cannot be longer than 70 characters",
+  },
+  columns: {
+    minLength: "One Column is required in the peer evaluation",
   },
 };
 

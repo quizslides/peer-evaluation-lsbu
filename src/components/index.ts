@@ -1,7 +1,9 @@
 import BackArrowButton from "@/components/BackArrowButton/BackArrowButton";
 import Base from "@/components/Base/Base";
 import Button from "@/components/Button/Button";
+import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import DataTable from "@/components/DataTable/DataTable";
+import DataTableAddColumnToolbarIcon from "@/components/DataTableAddColumnToolbarIcon/DataTableAddColumnToolbarIcon";
 import DataTableRefreshToolbarIcon from "@/components/DataTableRefreshToolbarIcon/DataTableRefreshToolbarIcon";
 import DatePicker from "@/components/DatePicker/DatePicker";
 import DatePickerForm from "@/components/DatePickerForm/DatePickerForm";
@@ -29,7 +31,9 @@ export {
   BackArrowButton,
   Base,
   Button,
+  ConfirmationDialog,
   DataTable,
+  DataTableAddColumnToolbarIcon,
   DataTableRefreshToolbarIcon,
   DatePicker,
   DatePickerForm,

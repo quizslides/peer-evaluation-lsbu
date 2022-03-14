@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 
-import { UserForm } from "@/forms";
+import UserForm from "@/forms/UserForm";
 import useUpdateUser from "@/requests/hooks/mutations/useUpdateUser";
 import { IUserData } from "@/types/user";
 import { Role, loadingNotification } from "@/utils";
@@ -58,4 +58,4 @@ const UpdateUserForm = ({ email, name, role, state, updateUserFormState }: IUpda
   );
 };
 
-export default UpdateUserForm;
+export default memo(UpdateUserForm);

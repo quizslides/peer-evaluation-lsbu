@@ -78,6 +78,14 @@ const SignIn: NextPage = () => {
 
   const loading = status === "loading";
 
+  const getAuthenticatedRedirect = () => {
+    if (typeof router.query.callbackUrl === "string") {
+      return router.query.callbackUrl;
+    }
+
+    return routing.dashboard;
+  };
+
   useEffect(() => {
     if (router.query.callbackUrl && typeof router.query.callbackUrl === "string") {
       setCallBackUrl(router.query.callbackUrl);
@@ -85,7 +93,7 @@ const SignIn: NextPage = () => {
   }, [router.query.callbackUrl]);
 
   if (!loading && session) {
-    router.push(routing.dashboard);
+    router.push(getAuthenticatedRedirect());
     return null;
   }
 

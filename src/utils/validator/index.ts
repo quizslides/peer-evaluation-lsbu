@@ -7,10 +7,10 @@ import content from "@/utils/validator/content";
 
 const userEmailValidator = {
   email: string()
-    .default(content.UserEmail.defaultValue)
-    .email(content.UserEmail.invalid)
-    .matches(content.UserEmail.regex, content.UserEmail.invalidDomain)
-    .required(content.UserEmail.required),
+    .default(content.userEmail.defaultValue)
+    .email(content.userEmail.invalid)
+    .matches(content.userEmail.regex, content.userEmail.invalidDomain)
+    .required(content.userEmail.required),
 };
 
 const userNameValidator = {
@@ -105,8 +105,21 @@ const moduleEmailBodyValidator = {
   }),
 };
 
+const moduleColumnValidator = {
+  description: string()
+    .min(2, content.column.minLength)
+    .max(70, content.column.maxLength)
+    .required(content.column.required),
+};
+
+const moduleColumnsValidator = {
+  columns: array().min(1, content.columns.minLength),
+};
+
 export {
   moduleCodeValidator,
+  moduleColumnsValidator,
+  moduleColumnValidator,
   moduleCriteriaScoreRangeMaxValidator,
   moduleCriteriaScoreRangeMinValidator,
   moduleEmailBodyValidator,

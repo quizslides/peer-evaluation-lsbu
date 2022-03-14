@@ -83,6 +83,35 @@ const content = {
           helperText: "Email body of the reminder",
           resetButtonText: "Reset Email Body",
         },
+        columnManagement: {
+          helperText: "List of columns of the peer evaluation",
+        },
+        button: {
+          submit: "submit",
+          cancel: "cancel",
+        },
+      },
+    },
+    columnForm: {
+      form: {
+        description: {
+          label: "Column description",
+          helperText: "The description of the column",
+          placeholder: "Description",
+        },
+        button: {
+          submit: "submit",
+          cancel: "cancel",
+        },
+      },
+    },
+    PeerEvaluationColumnManagement: {
+      resetButton: "Reset columns",
+      confirmationDeleteColumn: {
+        title: "Delete column",
+        bodyText: "Are you sure you want to delete the column?",
+        acceptText: "OK",
+        closeText: "Cancel",
       },
     },
   },

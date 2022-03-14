@@ -14,6 +14,18 @@ interface IWYSIWYGForm {
   resetButtonText: string;
 }
 
+const Wrapper = styled.div`
+  margin-top: 2em;
+  position: relative;
+  margin-bottom: 1em;
+`;
+
+const BottomRight = styled.div`
+  position: absolute;
+  bottom: 100;
+  right: 0;
+`;
+
 const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWYGForm) => {
   const { setFieldValue } = useFormikContext();
 
@@ -61,18 +73,6 @@ const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWY
   ];
 
   const isError = meta.error != undefined;
-
-  const Wrapper = styled.div`
-    margin-top: 2em;
-    position: relative;
-    margin-bottom: 1em;
-  `;
-
-  const BottomRight = styled.div`
-    position: absolute;
-    bottom: 100;
-    right: 0;
-  `;
 
   return (
     <FormControl error={isError} variant="standard" fullWidth data-testid={testId}>

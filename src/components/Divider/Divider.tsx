@@ -1,12 +1,24 @@
-import { memo } from "react";
+import React, { memo } from "react";
 
 import styled from "@emotion/styled";
-import { Divider as DividerMUI } from "@mui/material";
+import { Chip, Divider as DividerMUI } from "@mui/material";
 
-const Divider = styled(DividerMUI)`
+interface IDivider {
+  children: string;
+}
+
+const DividerLine = styled(DividerMUI)`
   margin-top: 1em;
   margin-bottom: 2em;
   text-transform: uppercase;
 `;
+
+const Divider = ({ children }: IDivider) => {
+  return (
+    <DividerLine>
+      <Chip label={children} />
+    </DividerLine>
+  );
+};
 
 export default memo(Divider);

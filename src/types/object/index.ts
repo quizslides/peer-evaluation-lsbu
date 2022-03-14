@@ -2,4 +2,6 @@ type JSONStringNumber = {
   [key: string]: string | number;
 };
 
-export type { JSONStringNumber };
+type ArrayObject = Array<string | number | undefined>;
+
+export type { ArrayObject, JSONStringNumber };

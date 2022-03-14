@@ -1,3 +1,26 @@
+interface IPeerEvaluationColumn {
+  id: string;
+  description: string;
+  status: PeerEvaluationColumnStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface IModuleData {
+  title: string;
+  moduleCode: string;
+  schools: Schools[];
+  status: ModuleStatus;
+  maxGradeIncrease: number;
+  maxGradeDecrease: number;
+  submissionsLockDate: null | Date;
+  reminderEmailTitle: string;
+  reminderEmailBody: string | null;
+  criteriaScoreRangeMin: number;
+  criteriaScoreRangeMax: number;
+  columns: IPeerEvaluationColumn[];
+}
+
 enum ModuleMemberPermissions {
   OWNER = "OWNER",
   EDITOR = "EDITOR",
@@ -12,6 +35,20 @@ enum Schools {
   SCHOOL_OF_ENGINEERING = "SCHOOL_OF_ENGINEERING",
   SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES = "SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES",
   INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE = "INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE",
+}
+
+enum ModuleStatus {
+  DRAFT = "DRAFT",
+  PUBLISHED = "PUBLISHED",
+  UNPUBLISHED = "UNPUBLISHED",
+  SUBMISSIONS_LOCKED = "SUBMISSIONS_LOCKED",
+}
+
+enum PeerEvaluationColumnStatus {
+  NEW = "NEW",
+  UPDATED = "UPDATED",
+  SAVED = "SAVED",
+  DELETED = "DELETED",
 }
 
 const SchoolAcronyms = {
@@ -34,12 +71,45 @@ const SchoolsDropdown = {
   HSC: "Institute of Health and Social Care",
 };
 
-enum ModuleStatus {
-  DRAFT = "DRAFT",
-  PUBLISHED = "PUBLISHED",
-  UNPUBLISHED = "UNPUBLISHED",
-  SUBMISSIONS_LOCKED = "SUBMISSIONS_LOCKED",
-}
+const peerEvaluationColumnOrder = ["id", "description", "status", "createdAt", "updatedAt"];
+
+const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
+  {
+    id: "column1",
+    status: PeerEvaluationColumnStatus.NEW,
+    description: "Attends group meetings regularly and on time",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "column2",
+    status: PeerEvaluationColumnStatus.NEW,
+    description: "Contributes significantly towards the success of the project",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "column3",
+    status: PeerEvaluationColumnStatus.NEW,
+    description: "Completes assigned tasks on time and to good quality",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "column4",
+    status: PeerEvaluationColumnStatus.NEW,
+    description: "Cooperative and supportive attitude towards team",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: "column5",
+    status: PeerEvaluationColumnStatus.NEW,
+    description: "Listens and contributes meaningfully in team discussions",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
 
 const initialModuleState = {
   title: "",
@@ -53,22 +123,23 @@ const initialModuleState = {
   reminderEmailBody: "Email body {{url}}",
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
+  columns: defaultPeerEvaluationColumns,
 };
 
-interface IModuleData {
-  title: string;
-  moduleCode: string;
-  schools: Schools[];
-  status: ModuleStatus;
-  maxGradeIncrease: number;
-  maxGradeDecrease: number;
-  submissionsLockDate: null | Date;
-  reminderEmailTitle: string;
-  reminderEmailBody: string | null;
-  criteriaScoreRangeMin: number;
-  criteriaScoreRangeMax: number;
-}
+const initialColumnState = {
+  description: "",
+};
 
-export { initialModuleState, ModuleMemberPermissions, ModuleStatus, SchoolAcronyms, Schools, SchoolsDropdown };
+export {
+  initialColumnState,
+  initialModuleState,
+  ModuleMemberPermissions,
+  ModuleStatus,
+  peerEvaluationColumnOrder,
+  PeerEvaluationColumnStatus,
+  SchoolAcronyms,
+  Schools,
+  SchoolsDropdown,
+};
 
-export type { IModuleData };
+export type { IModuleData, IPeerEvaluationColumn };

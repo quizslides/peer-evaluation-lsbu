@@ -13,11 +13,13 @@ import {
   TextFieldForm,
   WYSIWYGForm,
 } from "@/components";
+import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { IModuleData, ModuleStatus, SchoolAcronyms, SchoolsDropdown } from "@/types/module";
 import {
   moduleCodeValidator,
+  moduleColumnsValidator,
   moduleCriteriaScoreRangeMaxValidator,
   moduleCriteriaScoreRangeMinValidator,
   moduleEmailBodyValidator,
@@ -62,6 +64,7 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
     ...moduleCriteriaScoreRangeMinValidator,
     ...moduleEmailTitleValidator,
     ...moduleEmailBodyValidator,
+    ...moduleColumnsValidator,
   });
 
   const submitForm = (userValuesForm: IModuleData) => {
@@ -80,6 +83,8 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
       {() => (
         <Form>
           <Container maxWidth="lg">
+            <Divider>Information</Divider>
+
             <FieldWrapper>
               <TextFieldForm
                 testId="module-form-title-field"
@@ -183,6 +188,13 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
               />
             </FieldWrapper>
 
+            <FieldWrapper>
+              <PeerEvaluationColumnManagement
+                helperText={content.containers.moduleForm.form.columnManagement.helperText}
+                testId={"module-form-module-peer-evaluation-column-management-field"}
+              />
+            </FieldWrapper>
+
             <Divider>Email Reminder</Divider>
 
             <FieldWrapper>
@@ -241,10 +253,10 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
 
             <Stack direction="column" spacing={3}>
               <Button onClick={() => handleCloseDialog()} testId="module-form-cancel-button" variant="outlined">
-                {content.containers.userForm.form.button.cancel}
+                {content.containers.moduleForm.form.button.cancel}
               </Button>
               <Button disabled={isSubmitting} testId="module-form-submit-button" variant="contained" type="submit">
-                {content.containers.userForm.form.button.submit}
+                {content.containers.moduleForm.form.button.submit}
               </Button>
             </Stack>
           </Container>

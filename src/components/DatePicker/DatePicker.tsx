@@ -14,7 +14,7 @@ const DateTimePicker: FC<IDatePicker> = ({ testId, ...props }) => {
   return (
     <DatePickerMUI
       {...props}
-      inputFormat="DD/MM/yyyy"
+      inputFormat="dd/MM/yyyy"
       renderInput={(params) => <TextField props={{ ...params }} testId={testId} />}
     />
   );

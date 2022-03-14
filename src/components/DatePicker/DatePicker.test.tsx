@@ -1,7 +1,7 @@
 import React from "react";
 
 import { LocalizationProvider } from "@mui/lab";
-import DateAdapter from "@mui/lab/AdapterMoment";
+import DateAdapter from "@mui/lab/AdapterDateFns";
 import { render, screen } from "@testing-library/react";
 
 import { DatePicker } from "@/components";

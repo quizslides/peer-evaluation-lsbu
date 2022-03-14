@@ -14,9 +14,9 @@ const CreateModuleForm = ({ state, updateFormState }: ICreateUserForm) => {
   const [createOneUser, { data, loading, reset }] = useCreateOneUser("UserForm");
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const submitForm = (userValuesForm: any) => {
+  const submitForm = (valuesForm: any) => {
     loadingNotification("Creating module", "UserForm");
-    createOneUser({ variables: { data: userValuesForm } });
+    createOneUser({ variables: { data: valuesForm } });
   };
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const CreateModuleForm = ({ state, updateFormState }: ICreateUserForm) => {
       reminderEmailBody={initialModuleState.reminderEmailBody}
       criteriaScoreRangeMin={initialModuleState.criteriaScoreRangeMin}
       criteriaScoreRangeMax={initialModuleState.criteriaScoreRangeMax}
+      columns={initialModuleState.columns}
       isNewModule={true}
       updateFormState={updateFormState}
       state={state}

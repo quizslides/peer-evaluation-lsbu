@@ -28,6 +28,8 @@ const Modules: NextPage = () => {
    * Sanitize the schools for the filter
    */
 
+  // TODO: Here
+
   const onRefreshModules = async () => {
     loadingNotification("Refreshing modules", "AllModules");
     try {

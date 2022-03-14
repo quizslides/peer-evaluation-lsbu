@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Base, LoaderSpinner } from "@/components";
 import { CenteredContent } from "@/styles";
@@ -18,4 +18,4 @@ const SignInWrapper = ({ children, loading }: ISignInWrapper) => {
   );
 };
 
-export default SignInWrapper;
+export default memo(SignInWrapper);
