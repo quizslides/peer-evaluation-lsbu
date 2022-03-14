@@ -4,15 +4,13 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { useField } from "formik";
 
-type SelectOptions = {
-  [key: string]: string;
-};
+import { JSONStringNumber } from "@/types/object";
 
 interface ISelectFieldForm {
   testId: string;
   name: string;
   props: TextFieldProps;
-  options: SelectOptions;
+  options: JSONStringNumber;
 }
 
 const SelectFieldForm = ({ testId, name, options, props }: ISelectFieldForm) => {

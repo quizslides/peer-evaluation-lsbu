@@ -121,3 +121,6 @@ dist
 
 # Local development
 .history
+
+# Documentation
+CHANGELOG.md

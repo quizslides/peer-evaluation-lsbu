@@ -8,23 +8,49 @@ import {
   successNotification,
 } from "@/utils/notifications";
 import { IRoleScope, Role, RoleScope, isScopeAuthorized } from "@/utils/permissions";
-import { emailValidator, nameValidator, roleValidator } from "@/utils/validator";
+import {
+  moduleCodeValidator,
+  moduleCriteriaScoreRangeMaxValidator,
+  moduleCriteriaScoreRangeMinValidator,
+  moduleEmailBodyValidator,
+  moduleEmailTitleValidator,
+  moduleMaxGradeDecreaseValidator,
+  moduleMaxGradeIncreaseValidator,
+  moduleSchoolValidator,
+  moduleStatusValidator,
+  moduleSubmissionsLockDateValidator,
+  moduleTitleValidator,
+  userEmailValidator,
+  userNameValidator,
+  userRoleValidator,
+} from "@/utils/validator";
 
 export {
   blankNotification,
   dismissNotification,
-  emailValidator,
   errorLogger,
   errorNotification,
   infoLogger,
   isScopeAuthorized,
   loadingNotification,
-  nameValidator,
+  moduleCodeValidator,
+  moduleCriteriaScoreRangeMaxValidator,
+  moduleCriteriaScoreRangeMinValidator,
+  moduleEmailBodyValidator,
+  moduleEmailTitleValidator,
+  moduleMaxGradeDecreaseValidator,
+  moduleMaxGradeIncreaseValidator,
+  moduleSchoolValidator,
+  moduleStatusValidator,
+  moduleSubmissionsLockDateValidator,
+  moduleTitleValidator,
   promiseNotification,
   Role,
   RoleScope,
-  roleValidator,
   successNotification,
+  userEmailValidator,
+  userNameValidator,
+  userRoleValidator,
 };
 
 export type { IRoleScope };

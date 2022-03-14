@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { UserForm } from "@/forms";
 import useCreateOneUser from "@/requests/hooks/mutations/useCreateOneUser";
-import { IUserData, initialUserState } from "@/requests/schema/user";
+import { IUserData, initialUserState } from "@/types/user";
 import { loadingNotification } from "@/utils";
 
 interface ICreateUserForm {
@@ -34,7 +34,7 @@ const CreateUserForm = ({ state, updateUserFormState }: ICreateUserForm) => {
       name={initialUserState.name}
       role={initialUserState.role}
       updateUserFormState={updateUserFormState}
-      title="New user"
+      formTitle="New user"
       state={state}
       onSubmitForm={submitForm}
     />

@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { AffectedRowsOutput } from "@generated/type-graphql";
 
-import { CREATE_MULTIPLE_USERS, IUserData } from "../../schema/user";
-
+import { CREATE_MULTIPLE_USERS } from "@/requests/schema/user";
+import { IUserData } from "@/types/user";
 import { errorNotification, successNotification } from "@/utils";
 
 const useCreateMultipleUsers = (usersData: IUserData[], notificationsId: string) => {

@@ -1,8 +1,6 @@
-import { IUserData } from "../../schema/user";
-
-import updateUser from "./updateUser";
-
 import { TApolloClientType } from "@/graphql/client";
+import updateUser from "@/requests/direct/mutation/updateUser";
+import { IUserData } from "@/types/user";
 
 const updateManyUsers = async (apolloClient: TApolloClientType, usersData: IUserData[]) => {
   const usersUpdatePromise = usersData.map((userData) => updateUser(apolloClient, userData));

@@ -1,6 +1,6 @@
-import { IUserData, UPDATE_USER } from "../../schema/user";
-
 import { TApolloClientType } from "@/graphql/client";
+import { UPDATE_USER } from "@/requests/schema/user";
+import { IUserData } from "@/types/user";
 
 const updateUser = (apolloClient: TApolloClientType, userData: IUserData) => {
   return apolloClient.mutate({

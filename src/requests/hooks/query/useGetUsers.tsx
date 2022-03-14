@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { User } from "@generated/type-graphql";
 
-import { GET_USERS } from "../../schema/user";
-
+import { GET_USERS } from "@/requests/schema/user";
 import { errorNotification } from "@/utils";
 
 const useGetUsers = () => {

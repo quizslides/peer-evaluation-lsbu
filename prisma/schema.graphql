@@ -1,0 +1,5772 @@
+type Query {
+  email(where: EmailWhereUniqueInput!): Email
+  findFirstEmail(
+    where: EmailWhereInput
+    orderBy: [EmailOrderByWithRelationInput!]
+    cursor: EmailWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [EmailScalarFieldEnum!]
+  ): Email
+  emails(
+    where: EmailWhereInput
+    orderBy: [EmailOrderByWithRelationInput!]
+    cursor: EmailWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [EmailScalarFieldEnum!]
+  ): [Email!]!
+  aggregateEmail(
+    where: EmailWhereInput
+    orderBy: [EmailOrderByWithRelationInput!]
+    cursor: EmailWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateEmail!
+  groupByEmail(
+    where: EmailWhereInput
+    orderBy: [EmailOrderByWithAggregationInput!]
+    by: [EmailScalarFieldEnum!]!
+    having: EmailScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [EmailGroupBy!]!
+  module(where: ModuleWhereUniqueInput!): Module
+  findFirstModule(
+    where: ModuleWhereInput
+    orderBy: [ModuleOrderByWithRelationInput!]
+    cursor: ModuleWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleScalarFieldEnum!]
+  ): Module
+  modules(
+    where: ModuleWhereInput
+    orderBy: [ModuleOrderByWithRelationInput!]
+    cursor: ModuleWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleScalarFieldEnum!]
+  ): [Module!]!
+  aggregateModule(
+    where: ModuleWhereInput
+    orderBy: [ModuleOrderByWithRelationInput!]
+    cursor: ModuleWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateModule!
+  groupByModule(
+    where: ModuleWhereInput
+    orderBy: [ModuleOrderByWithAggregationInput!]
+    by: [ModuleScalarFieldEnum!]!
+    having: ModuleScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [ModuleGroupBy!]!
+  moduleMember(where: ModuleMemberWhereUniqueInput!): ModuleMember
+  findFirstModuleMember(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithRelationInput!]
+    cursor: ModuleMemberWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleMemberScalarFieldEnum!]
+  ): ModuleMember
+  moduleMembers(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithRelationInput!]
+    cursor: ModuleMemberWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleMemberScalarFieldEnum!]
+  ): [ModuleMember!]!
+  aggregateModuleMember(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithRelationInput!]
+    cursor: ModuleMemberWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateModuleMember!
+  groupByModuleMember(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithAggregationInput!]
+    by: [ModuleMemberScalarFieldEnum!]!
+    having: ModuleMemberScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [ModuleMemberGroupBy!]!
+  peerEvaluation(where: PeerEvaluationWhereUniqueInput!): PeerEvaluation
+  findFirstPeerEvaluation(
+    where: PeerEvaluationWhereInput
+    orderBy: [PeerEvaluationOrderByWithRelationInput!]
+    cursor: PeerEvaluationWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationScalarFieldEnum!]
+  ): PeerEvaluation
+  peerEvaluations(
+    where: PeerEvaluationWhereInput
+    orderBy: [PeerEvaluationOrderByWithRelationInput!]
+    cursor: PeerEvaluationWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationScalarFieldEnum!]
+  ): [PeerEvaluation!]!
+  aggregatePeerEvaluation(
+    where: PeerEvaluationWhereInput
+    orderBy: [PeerEvaluationOrderByWithRelationInput!]
+    cursor: PeerEvaluationWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregatePeerEvaluation!
+  groupByPeerEvaluation(
+    where: PeerEvaluationWhereInput
+    orderBy: [PeerEvaluationOrderByWithAggregationInput!]
+    by: [PeerEvaluationScalarFieldEnum!]!
+    having: PeerEvaluationScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [PeerEvaluationGroupBy!]!
+  peerEvaluationColumn(where: PeerEvaluationColumnWhereUniqueInput!): PeerEvaluationColumn
+  findFirstPeerEvaluationColumn(
+    where: PeerEvaluationColumnWhereInput
+    orderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationColumnScalarFieldEnum!]
+  ): PeerEvaluationColumn
+  peerEvaluationColumns(
+    where: PeerEvaluationColumnWhereInput
+    orderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationColumnScalarFieldEnum!]
+  ): [PeerEvaluationColumn!]!
+  aggregatePeerEvaluationColumn(
+    where: PeerEvaluationColumnWhereInput
+    orderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationColumnWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregatePeerEvaluationColumn!
+  groupByPeerEvaluationColumn(
+    where: PeerEvaluationColumnWhereInput
+    orderBy: [PeerEvaluationColumnOrderByWithAggregationInput!]
+    by: [PeerEvaluationColumnScalarFieldEnum!]!
+    having: PeerEvaluationColumnScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [PeerEvaluationColumnGroupBy!]!
+  peerEvaluationReviewee(where: PeerEvaluationRevieweeWhereUniqueInput!): PeerEvaluationReviewee
+  findFirstPeerEvaluationReviewee(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeScalarFieldEnum!]
+  ): PeerEvaluationReviewee
+  peerEvaluationReviewees(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeScalarFieldEnum!]
+  ): [PeerEvaluationReviewee!]!
+  aggregatePeerEvaluationReviewee(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregatePeerEvaluationReviewee!
+  groupByPeerEvaluationReviewee(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithAggregationInput!]
+    by: [PeerEvaluationRevieweeScalarFieldEnum!]!
+    having: PeerEvaluationRevieweeScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [PeerEvaluationRevieweeGroupBy!]!
+  peerEvaluationRevieweeColumn(where: PeerEvaluationRevieweeColumnWhereUniqueInput!): PeerEvaluationRevieweeColumn
+  findFirstPeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeColumnScalarFieldEnum!]
+  ): PeerEvaluationRevieweeColumn
+  peerEvaluationRevieweeColumns(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeColumnScalarFieldEnum!]
+  ): [PeerEvaluationRevieweeColumn!]!
+  aggregatePeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregatePeerEvaluationRevieweeColumn!
+  groupByPeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithAggregationInput!]
+    by: [PeerEvaluationRevieweeColumnScalarFieldEnum!]!
+    having: PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [PeerEvaluationRevieweeColumnGroupBy!]!
+  session(where: SessionWhereUniqueInput!): Session
+  findFirstSession(
+    where: SessionWhereInput
+    orderBy: [SessionOrderByWithRelationInput!]
+    cursor: SessionWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [SessionScalarFieldEnum!]
+  ): Session
+  sessions(
+    where: SessionWhereInput
+    orderBy: [SessionOrderByWithRelationInput!]
+    cursor: SessionWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [SessionScalarFieldEnum!]
+  ): [Session!]!
+  aggregateSession(
+    where: SessionWhereInput
+    orderBy: [SessionOrderByWithRelationInput!]
+    cursor: SessionWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateSession!
+  groupBySession(
+    where: SessionWhereInput
+    orderBy: [SessionOrderByWithAggregationInput!]
+    by: [SessionScalarFieldEnum!]!
+    having: SessionScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [SessionGroupBy!]!
+  student(where: StudentWhereUniqueInput!): Student
+  findFirstStudent(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): Student
+  students(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): [Student!]!
+  aggregateStudent(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateStudent!
+  groupByStudent(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithAggregationInput!]
+    by: [StudentScalarFieldEnum!]!
+    having: StudentScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [StudentGroupBy!]!
+  studentTeam(where: StudentTeamWhereUniqueInput!): StudentTeam
+  findFirstStudentTeam(
+    where: StudentTeamWhereInput
+    orderBy: [StudentTeamOrderByWithRelationInput!]
+    cursor: StudentTeamWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentTeamScalarFieldEnum!]
+  ): StudentTeam
+  studentTeams(
+    where: StudentTeamWhereInput
+    orderBy: [StudentTeamOrderByWithRelationInput!]
+    cursor: StudentTeamWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentTeamScalarFieldEnum!]
+  ): [StudentTeam!]!
+  aggregateStudentTeam(
+    where: StudentTeamWhereInput
+    orderBy: [StudentTeamOrderByWithRelationInput!]
+    cursor: StudentTeamWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateStudentTeam!
+  groupByStudentTeam(
+    where: StudentTeamWhereInput
+    orderBy: [StudentTeamOrderByWithAggregationInput!]
+    by: [StudentTeamScalarFieldEnum!]!
+    having: StudentTeamScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [StudentTeamGroupBy!]!
+  user(where: UserWhereUniqueInput!): User
+  findFirstUser(
+    where: UserWhereInput
+    orderBy: [UserOrderByWithRelationInput!]
+    cursor: UserWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [UserScalarFieldEnum!]
+  ): User
+  users(
+    where: UserWhereInput
+    orderBy: [UserOrderByWithRelationInput!]
+    cursor: UserWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [UserScalarFieldEnum!]
+  ): [User!]!
+  aggregateUser(
+    where: UserWhereInput
+    orderBy: [UserOrderByWithRelationInput!]
+    cursor: UserWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateUser!
+  groupByUser(
+    where: UserWhereInput
+    orderBy: [UserOrderByWithAggregationInput!]
+    by: [UserScalarFieldEnum!]!
+    having: UserScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [UserGroupBy!]!
+  verificationToken(where: VerificationTokenWhereUniqueInput!): VerificationToken
+  findFirstVerificationToken(
+    where: VerificationTokenWhereInput
+    orderBy: [VerificationTokenOrderByWithRelationInput!]
+    cursor: VerificationTokenWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [VerificationTokenScalarFieldEnum!]
+  ): VerificationToken
+  verificationTokens(
+    where: VerificationTokenWhereInput
+    orderBy: [VerificationTokenOrderByWithRelationInput!]
+    cursor: VerificationTokenWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [VerificationTokenScalarFieldEnum!]
+  ): [VerificationToken!]!
+  aggregateVerificationToken(
+    where: VerificationTokenWhereInput
+    orderBy: [VerificationTokenOrderByWithRelationInput!]
+    cursor: VerificationTokenWhereUniqueInput
+    take: Int
+    skip: Int
+  ): AggregateVerificationToken!
+  groupByVerificationToken(
+    where: VerificationTokenWhereInput
+    orderBy: [VerificationTokenOrderByWithAggregationInput!]
+    by: [VerificationTokenScalarFieldEnum!]!
+    having: VerificationTokenScalarWhereWithAggregatesInput
+    take: Int
+    skip: Int
+  ): [VerificationTokenGroupBy!]!
+}
+
+type Email {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  body: String!
+  moduleId: String
+  module: Module
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type Module {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  schools: [Schools!]!
+  moduleCode: String!
+  status: ModuleStatus!
+  maxGradeIncrease: Int!
+  maxGradeDecrease: Int!
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int!
+  criteriaScoreRangeMax: Int!
+  _count: ModuleCount
+  moduleMembers(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithRelationInput!]
+    cursor: ModuleMemberWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleMemberScalarFieldEnum!]
+  ): [ModuleMember!]!
+  reminderEmail: Email
+  columns(
+    where: PeerEvaluationColumnWhereInput
+    orderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationColumnScalarFieldEnum!]
+  ): [PeerEvaluationColumn!]!
+  students(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): [Student!]!
+}
+
+enum Schools {
+  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES
+  SCHOOL_OF_APPLIED_SCIENCES
+  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE
+  LSBU_BUSINESS_SCHOOL
+  SCHOOL_OF_ENGINEERING
+  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES
+  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE
+}
+
+enum ModuleStatus {
+  DRAFT
+  PUBLISHED
+  UNPUBLISHED
+  SUBMISSIONS_LOCKED
+}
+
+type ModuleCount {
+  moduleMembers: Int!
+  columns: Int!
+  students: Int!
+}
+
+type ModuleMember {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  permission: ModuleMemberPermissions!
+  moduleId: String!
+  userId: String!
+  _count: ModuleMemberCount
+  module: Module!
+  user: User!
+  studentsMarkAdjusted(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): [Student!]!
+}
+
+enum ModuleMemberPermissions {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+type ModuleMemberCount {
+  studentsMarkAdjusted: Int!
+}
+
+type User {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  email: String!
+  role: Role!
+  emailVerified: DateTime
+  _count: UserCount
+  sessions(
+    where: SessionWhereInput
+    orderBy: [SessionOrderByWithRelationInput!]
+    cursor: SessionWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [SessionScalarFieldEnum!]
+  ): [Session!]!
+  moduleMember(
+    where: ModuleMemberWhereInput
+    orderBy: [ModuleMemberOrderByWithRelationInput!]
+    cursor: ModuleMemberWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [ModuleMemberScalarFieldEnum!]
+  ): [ModuleMember!]!
+  moduleStudents(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): [Student!]!
+}
+
+enum Role {
+  ADMIN
+  LECTURER
+  STUDENT
+}
+
+type UserCount {
+  sessions: Int!
+  moduleMember: Int!
+  moduleStudents: Int!
+}
+
+type Session {
+  id: String!
+  sessionToken: String!
+  expires: DateTime!
+  userId: String!
+  user: User!
+}
+
+input SessionWhereInput {
+  AND: [SessionWhereInput!]
+  OR: [SessionWhereInput!]
+  NOT: [SessionWhereInput!]
+  id: StringFilter
+  sessionToken: StringFilter
+  expires: DateTimeFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  name: StringFilter
+  email: StringFilter
+  sessions: SessionListRelationFilter
+  role: EnumRoleFilter
+  moduleMember: ModuleMemberListRelationFilter
+  emailVerified: DateTimeNullableFilter
+  moduleStudents: StudentListRelationFilter
+}
+
+input SessionListRelationFilter {
+  every: SessionWhereInput
+  some: SessionWhereInput
+  none: SessionWhereInput
+}
+
+input EnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleFilter
+}
+
+input NestedEnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleFilter
+}
+
+input ModuleMemberListRelationFilter {
+  every: ModuleMemberWhereInput
+  some: ModuleMemberWhereInput
+  none: ModuleMemberWhereInput
+}
+
+input ModuleMemberWhereInput {
+  AND: [ModuleMemberWhereInput!]
+  OR: [ModuleMemberWhereInput!]
+  NOT: [ModuleMemberWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  permission: EnumModuleMemberPermissionsFilter
+  module: ModuleRelationFilter
+  moduleId: StringFilter
+  user: UserRelationFilter
+  userId: StringFilter
+  studentsMarkAdjusted: StudentListRelationFilter
+}
+
+input EnumModuleMemberPermissionsFilter {
+  equals: ModuleMemberPermissions
+  in: [ModuleMemberPermissions!]
+  notIn: [ModuleMemberPermissions!]
+  not: NestedEnumModuleMemberPermissionsFilter
+}
+
+input NestedEnumModuleMemberPermissionsFilter {
+  equals: ModuleMemberPermissions
+  in: [ModuleMemberPermissions!]
+  notIn: [ModuleMemberPermissions!]
+  not: NestedEnumModuleMemberPermissionsFilter
+}
+
+input ModuleRelationFilter {
+  is: ModuleWhereInput
+  isNot: ModuleWhereInput
+}
+
+input ModuleWhereInput {
+  AND: [ModuleWhereInput!]
+  OR: [ModuleWhereInput!]
+  NOT: [ModuleWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  schools: EnumSchoolsNullableListFilter
+  moduleCode: StringFilter
+  status: EnumModuleStatusFilter
+  maxGradeIncrease: IntFilter
+  maxGradeDecrease: IntFilter
+  submissionsLockDate: DateTimeNullableFilter
+  moduleMembers: ModuleMemberListRelationFilter
+  reminderEmail: EmailRelationFilter
+  columns: PeerEvaluationColumnListRelationFilter
+  criteriaScoreRangeMin: IntFilter
+  criteriaScoreRangeMax: IntFilter
+  students: StudentListRelationFilter
+}
+
+input EnumSchoolsNullableListFilter {
+  equals: [Schools!]
+  has: Schools
+  hasEvery: [Schools!]
+  hasSome: [Schools!]
+  isEmpty: Boolean
+}
+
+input EnumModuleStatusFilter {
+  equals: ModuleStatus
+  in: [ModuleStatus!]
+  notIn: [ModuleStatus!]
+  not: NestedEnumModuleStatusFilter
+}
+
+input NestedEnumModuleStatusFilter {
+  equals: ModuleStatus
+  in: [ModuleStatus!]
+  notIn: [ModuleStatus!]
+  not: NestedEnumModuleStatusFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input EmailRelationFilter {
+  is: EmailWhereInput
+  isNot: EmailWhereInput
+}
+
+input EmailWhereInput {
+  AND: [EmailWhereInput!]
+  OR: [EmailWhereInput!]
+  NOT: [EmailWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  title: StringFilter
+  body: StringFilter
+  module: ModuleRelationFilter
+  moduleId: StringNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input PeerEvaluationColumnListRelationFilter {
+  every: PeerEvaluationColumnWhereInput
+  some: PeerEvaluationColumnWhereInput
+  none: PeerEvaluationColumnWhereInput
+}
+
+input PeerEvaluationColumnWhereInput {
+  AND: [PeerEvaluationColumnWhereInput!]
+  OR: [PeerEvaluationColumnWhereInput!]
+  NOT: [PeerEvaluationColumnWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  description: StringFilter
+  module: ModuleRelationFilter
+  moduleId: StringFilter
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnListRelationFilter
+}
+
+input PeerEvaluationRevieweeColumnListRelationFilter {
+  every: PeerEvaluationRevieweeColumnWhereInput
+  some: PeerEvaluationRevieweeColumnWhereInput
+  none: PeerEvaluationRevieweeColumnWhereInput
+}
+
+input PeerEvaluationRevieweeColumnWhereInput {
+  AND: [PeerEvaluationRevieweeColumnWhereInput!]
+  OR: [PeerEvaluationRevieweeColumnWhereInput!]
+  NOT: [PeerEvaluationRevieweeColumnWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  criteriaScore: IntFilter
+  peerEvaluationReviewee: PeerEvaluationRevieweeRelationFilter
+  peerEvaluationRevieweeId: StringFilter
+  peerEvaluationColumn: PeerEvaluationColumnRelationFilter
+  peerEvaluationColumnId: StringFilter
+  isInvalid: BoolFilter
+}
+
+input PeerEvaluationRevieweeRelationFilter {
+  is: PeerEvaluationRevieweeWhereInput
+  isNot: PeerEvaluationRevieweeWhereInput
+}
+
+input PeerEvaluationRevieweeWhereInput {
+  AND: [PeerEvaluationRevieweeWhereInput!]
+  OR: [PeerEvaluationRevieweeWhereInput!]
+  NOT: [PeerEvaluationRevieweeWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  studentReviewed: StudentRelationFilter
+  studentId: StringFilter
+  criteriaScore: IntFilter
+  revieweeComment: StringFilter
+  peerEvaluation: PeerEvaluationRelationFilter
+  peerEvaluationId: StringNullableFilter
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnListRelationFilter
+}
+
+input StudentRelationFilter {
+  is: StudentWhereInput
+  isNot: StudentWhereInput
+}
+
+input StudentWhereInput {
+  AND: [StudentWhereInput!]
+  OR: [StudentWhereInput!]
+  NOT: [StudentWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  user: UserRelationFilter
+  userId: StringNullableFilter
+  module: ModuleRelationFilter
+  moduleId: StringNullableFilter
+  studentTeam: StudentTeamRelationFilter
+  studentTeamId: StringNullableFilter
+  averageCriteriaScore: DecimalNullableFilter
+  averageCriteriaScoreByTeamMember: DecimalNullableFilter
+  systemCalculatedMark: DecimalNullableFilter
+  systemAdjustedMark: DecimalNullableFilter
+  lecturerAdjustedMark: DecimalNullableFilter
+  lecturerAdjustedMarkByUser: ModuleMemberRelationFilter
+  moduleMemberId: StringNullableFilter
+  peerEvaluationReviewed: PeerEvaluationRelationFilter
+  PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
+}
+
+input StudentTeamRelationFilter {
+  is: StudentTeamWhereInput
+  isNot: StudentTeamWhereInput
+}
+
+input StudentTeamWhereInput {
+  AND: [StudentTeamWhereInput!]
+  OR: [StudentTeamWhereInput!]
+  NOT: [StudentTeamWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  name: StringFilter
+  students: StudentListRelationFilter
+  mark: DecimalFilter
+}
+
+input StudentListRelationFilter {
+  every: StudentWhereInput
+  some: StudentWhereInput
+  none: StudentWhereInput
+}
+
+input DecimalFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalFilter
+}
+
+"""
+GraphQL Scalar representing the Prisma.Decimal type, based on Decimal.js library.
+"""
+scalar Decimal
+
+input NestedDecimalFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalFilter
+}
+
+input DecimalNullableFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableFilter
+}
+
+input NestedDecimalNullableFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableFilter
+}
+
+input ModuleMemberRelationFilter {
+  is: ModuleMemberWhereInput
+  isNot: ModuleMemberWhereInput
+}
+
+input PeerEvaluationRelationFilter {
+  is: PeerEvaluationWhereInput
+  isNot: PeerEvaluationWhereInput
+}
+
+input PeerEvaluationWhereInput {
+  AND: [PeerEvaluationWhereInput!]
+  OR: [PeerEvaluationWhereInput!]
+  NOT: [PeerEvaluationWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  student: StudentRelationFilter
+  studentId: StringFilter
+  comment: StringFilter
+  PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
+  isCompleted: BoolFilter
+}
+
+input PeerEvaluationRevieweeListRelationFilter {
+  every: PeerEvaluationRevieweeWhereInput
+  some: PeerEvaluationRevieweeWhereInput
+  none: PeerEvaluationRevieweeWhereInput
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input PeerEvaluationColumnRelationFilter {
+  is: PeerEvaluationColumnWhereInput
+  isNot: PeerEvaluationColumnWhereInput
+}
+
+input SessionOrderByWithRelationInput {
+  id: SortOrder
+  sessionToken: SortOrder
+  expires: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UserOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  email: SortOrder
+  sessions: SessionOrderByRelationAggregateInput
+  role: SortOrder
+  moduleMember: ModuleMemberOrderByRelationAggregateInput
+  emailVerified: SortOrder
+  moduleStudents: StudentOrderByRelationAggregateInput
+}
+
+input SessionOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ModuleMemberOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StudentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input SessionWhereUniqueInput {
+  id: String
+  sessionToken: String
+}
+
+enum SessionScalarFieldEnum {
+  id
+  sessionToken
+  expires
+  userId
+}
+
+input ModuleMemberOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  permission: SortOrder
+  module: ModuleOrderByWithRelationInput
+  moduleId: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+  studentsMarkAdjusted: StudentOrderByRelationAggregateInput
+}
+
+input ModuleOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  schools: SortOrder
+  moduleCode: SortOrder
+  status: SortOrder
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  submissionsLockDate: SortOrder
+  moduleMembers: ModuleMemberOrderByRelationAggregateInput
+  reminderEmail: EmailOrderByWithRelationInput
+  columns: PeerEvaluationColumnOrderByRelationAggregateInput
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+  students: StudentOrderByRelationAggregateInput
+}
+
+input EmailOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  body: SortOrder
+  module: ModuleOrderByWithRelationInput
+  moduleId: SortOrder
+}
+
+input PeerEvaluationColumnOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ModuleMemberWhereUniqueInput {
+  id: String
+  userId_moduleId: ModuleMemberUserIdModuleIdCompoundUniqueInput
+}
+
+input ModuleMemberUserIdModuleIdCompoundUniqueInput {
+  userId: String!
+  moduleId: String!
+}
+
+enum ModuleMemberScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  permission
+  moduleId
+  userId
+}
+
+type Student {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+  _count: StudentCount
+  user: User
+  module: Module
+  studentTeam: StudentTeam
+  lecturerAdjustedMarkByUser: ModuleMember
+  peerEvaluationReviewed: PeerEvaluation
+  PeerEvaluationReviewees(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeScalarFieldEnum!]
+  ): [PeerEvaluationReviewee!]!
+}
+
+type StudentCount {
+  PeerEvaluationReviewees: Int!
+}
+
+type StudentTeam {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  mark: Decimal!
+  _count: StudentTeamCount
+  students(
+    where: StudentWhereInput
+    orderBy: [StudentOrderByWithRelationInput!]
+    cursor: StudentWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [StudentScalarFieldEnum!]
+  ): [Student!]!
+}
+
+type StudentTeamCount {
+  students: Int!
+}
+
+input StudentOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+  module: ModuleOrderByWithRelationInput
+  moduleId: SortOrder
+  studentTeam: StudentTeamOrderByWithRelationInput
+  studentTeamId: SortOrder
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+  lecturerAdjustedMarkByUser: ModuleMemberOrderByWithRelationInput
+  moduleMemberId: SortOrder
+  peerEvaluationReviewed: PeerEvaluationOrderByWithRelationInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
+}
+
+input StudentTeamOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  students: StudentOrderByRelationAggregateInput
+  mark: SortOrder
+}
+
+input PeerEvaluationOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  student: StudentOrderByWithRelationInput
+  studentId: SortOrder
+  comment: SortOrder
+  PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
+  isCompleted: SortOrder
+}
+
+input PeerEvaluationRevieweeOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StudentWhereUniqueInput {
+  id: String
+}
+
+enum StudentScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  userId
+  moduleId
+  studentTeamId
+  averageCriteriaScore
+  averageCriteriaScoreByTeamMember
+  systemCalculatedMark
+  systemAdjustedMark
+  lecturerAdjustedMark
+  moduleMemberId
+}
+
+type PeerEvaluation {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  studentId: String!
+  comment: String!
+  isCompleted: Boolean!
+  _count: PeerEvaluationCount
+  student: Student!
+  PeerEvaluationReviewees(
+    where: PeerEvaluationRevieweeWhereInput
+    orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeScalarFieldEnum!]
+  ): [PeerEvaluationReviewee!]!
+}
+
+type PeerEvaluationCount {
+  PeerEvaluationReviewees: Int!
+}
+
+type PeerEvaluationReviewee {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  studentId: String!
+  criteriaScore: Int!
+  revieweeComment: String!
+  peerEvaluationId: String
+  _count: PeerEvaluationRevieweeCount
+  studentReviewed: Student!
+  peerEvaluation: PeerEvaluation
+  PeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeColumnScalarFieldEnum!]
+  ): [PeerEvaluationRevieweeColumn!]!
+}
+
+type PeerEvaluationRevieweeCount {
+  PeerEvaluationRevieweeColumn: Int!
+}
+
+type PeerEvaluationRevieweeColumn {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  criteriaScore: Int!
+  peerEvaluationRevieweeId: String!
+  peerEvaluationColumnId: String!
+  isInvalid: Boolean!
+  peerEvaluationReviewee: PeerEvaluationReviewee!
+  peerEvaluationColumn: PeerEvaluationColumn!
+}
+
+type PeerEvaluationColumn {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  description: String!
+  moduleId: String!
+  _count: PeerEvaluationColumnCount
+  module: Module!
+  PeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereInput
+    orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
+    cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
+    take: Int
+    skip: Int
+    distinct: [PeerEvaluationRevieweeColumnScalarFieldEnum!]
+  ): [PeerEvaluationRevieweeColumn!]!
+}
+
+type PeerEvaluationColumnCount {
+  PeerEvaluationRevieweeColumn: Int!
+}
+
+input PeerEvaluationRevieweeColumnOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  criteriaScore: SortOrder
+  peerEvaluationReviewee: PeerEvaluationRevieweeOrderByWithRelationInput
+  peerEvaluationRevieweeId: SortOrder
+  peerEvaluationColumn: PeerEvaluationColumnOrderByWithRelationInput
+  peerEvaluationColumnId: SortOrder
+  isInvalid: SortOrder
+}
+
+input PeerEvaluationRevieweeOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentReviewed: StudentOrderByWithRelationInput
+  studentId: SortOrder
+  criteriaScore: SortOrder
+  revieweeComment: SortOrder
+  peerEvaluation: PeerEvaluationOrderByWithRelationInput
+  peerEvaluationId: SortOrder
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
+}
+
+input PeerEvaluationRevieweeColumnOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PeerEvaluationColumnOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  description: SortOrder
+  module: ModuleOrderByWithRelationInput
+  moduleId: SortOrder
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
+}
+
+input PeerEvaluationRevieweeColumnWhereUniqueInput {
+  id: String
+}
+
+enum PeerEvaluationRevieweeColumnScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  criteriaScore
+  peerEvaluationRevieweeId
+  peerEvaluationColumnId
+  isInvalid
+}
+
+input PeerEvaluationRevieweeWhereUniqueInput {
+  id: String
+}
+
+enum PeerEvaluationRevieweeScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  studentId
+  criteriaScore
+  revieweeComment
+  peerEvaluationId
+}
+
+input PeerEvaluationColumnWhereUniqueInput {
+  id: String
+  moduleId: String
+  id_moduleId: PeerEvaluationColumnIdModuleIdCompoundUniqueInput
+}
+
+input PeerEvaluationColumnIdModuleIdCompoundUniqueInput {
+  id: String!
+  moduleId: String!
+}
+
+enum PeerEvaluationColumnScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  description
+  moduleId
+}
+
+input EmailWhereUniqueInput {
+  id: String
+  moduleId: String
+}
+
+enum EmailScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  title
+  body
+  moduleId
+}
+
+type AggregateEmail {
+  _count: EmailCountAggregate
+  _min: EmailMinAggregate
+  _max: EmailMaxAggregate
+}
+
+type EmailCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  title: Int!
+  body: Int!
+  moduleId: Int!
+  _all: Int!
+}
+
+type EmailMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  body: String
+  moduleId: String
+}
+
+type EmailMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  body: String
+  moduleId: String
+}
+
+type EmailGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  body: String!
+  moduleId: String
+  _count: EmailCountAggregate
+  _min: EmailMinAggregate
+  _max: EmailMaxAggregate
+}
+
+input EmailOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  body: SortOrder
+  moduleId: SortOrder
+  _count: EmailCountOrderByAggregateInput
+  _max: EmailMaxOrderByAggregateInput
+  _min: EmailMinOrderByAggregateInput
+}
+
+input EmailCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  body: SortOrder
+  moduleId: SortOrder
+}
+
+input EmailMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  body: SortOrder
+  moduleId: SortOrder
+}
+
+input EmailMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  body: SortOrder
+  moduleId: SortOrder
+}
+
+input EmailScalarWhereWithAggregatesInput {
+  AND: [EmailScalarWhereWithAggregatesInput!]
+  OR: [EmailScalarWhereWithAggregatesInput!]
+  NOT: [EmailScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  title: StringWithAggregatesFilter
+  body: StringWithAggregatesFilter
+  moduleId: StringNullableWithAggregatesFilter
+}
+
+input StringWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedStringFilter
+  _max: NestedStringFilter
+}
+
+input NestedStringWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedStringFilter
+  _max: NestedStringFilter
+}
+
+input DateTimeWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedDateTimeFilter
+  _max: NestedDateTimeFilter
+}
+
+input NestedDateTimeWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedDateTimeFilter
+  _max: NestedDateTimeFilter
+}
+
+input StringNullableWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedStringNullableFilter
+  _max: NestedStringNullableFilter
+}
+
+input NestedStringNullableWithAggregatesFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedStringNullableFilter
+  _max: NestedStringNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input ModuleWhereUniqueInput {
+  id: String
+  moduleCode: String
+}
+
+enum ModuleScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  title
+  schools
+  moduleCode
+  status
+  maxGradeIncrease
+  maxGradeDecrease
+  submissionsLockDate
+  criteriaScoreRangeMin
+  criteriaScoreRangeMax
+}
+
+type AggregateModule {
+  _count: ModuleCountAggregate
+  _avg: ModuleAvgAggregate
+  _sum: ModuleSumAggregate
+  _min: ModuleMinAggregate
+  _max: ModuleMaxAggregate
+}
+
+type ModuleCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  title: Int!
+  schools: Int!
+  moduleCode: Int!
+  status: Int!
+  maxGradeIncrease: Int!
+  maxGradeDecrease: Int!
+  submissionsLockDate: Int!
+  criteriaScoreRangeMin: Int!
+  criteriaScoreRangeMax: Int!
+  _all: Int!
+}
+
+type ModuleAvgAggregate {
+  maxGradeIncrease: Float
+  maxGradeDecrease: Float
+  criteriaScoreRangeMin: Float
+  criteriaScoreRangeMax: Float
+}
+
+type ModuleSumAggregate {
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+}
+
+type ModuleMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  moduleCode: String
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+}
+
+type ModuleMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  moduleCode: String
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+}
+
+type ModuleGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  schools: [Schools!]
+  moduleCode: String!
+  status: ModuleStatus!
+  maxGradeIncrease: Int!
+  maxGradeDecrease: Int!
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int!
+  criteriaScoreRangeMax: Int!
+  _count: ModuleCountAggregate
+  _avg: ModuleAvgAggregate
+  _sum: ModuleSumAggregate
+  _min: ModuleMinAggregate
+  _max: ModuleMaxAggregate
+}
+
+input ModuleOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  schools: SortOrder
+  moduleCode: SortOrder
+  status: SortOrder
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  submissionsLockDate: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+  _count: ModuleCountOrderByAggregateInput
+  _avg: ModuleAvgOrderByAggregateInput
+  _max: ModuleMaxOrderByAggregateInput
+  _min: ModuleMinOrderByAggregateInput
+  _sum: ModuleSumOrderByAggregateInput
+}
+
+input ModuleCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  schools: SortOrder
+  moduleCode: SortOrder
+  status: SortOrder
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  submissionsLockDate: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+}
+
+input ModuleAvgOrderByAggregateInput {
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+}
+
+input ModuleMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  moduleCode: SortOrder
+  status: SortOrder
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  submissionsLockDate: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+}
+
+input ModuleMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  title: SortOrder
+  moduleCode: SortOrder
+  status: SortOrder
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  submissionsLockDate: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+}
+
+input ModuleSumOrderByAggregateInput {
+  maxGradeIncrease: SortOrder
+  maxGradeDecrease: SortOrder
+  criteriaScoreRangeMin: SortOrder
+  criteriaScoreRangeMax: SortOrder
+}
+
+input ModuleScalarWhereWithAggregatesInput {
+  AND: [ModuleScalarWhereWithAggregatesInput!]
+  OR: [ModuleScalarWhereWithAggregatesInput!]
+  NOT: [ModuleScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  title: StringWithAggregatesFilter
+  schools: EnumSchoolsNullableListFilter
+  moduleCode: StringWithAggregatesFilter
+  status: EnumModuleStatusWithAggregatesFilter
+  maxGradeIncrease: IntWithAggregatesFilter
+  maxGradeDecrease: IntWithAggregatesFilter
+  submissionsLockDate: DateTimeNullableWithAggregatesFilter
+  criteriaScoreRangeMin: IntWithAggregatesFilter
+  criteriaScoreRangeMax: IntWithAggregatesFilter
+}
+
+input EnumModuleStatusWithAggregatesFilter {
+  equals: ModuleStatus
+  in: [ModuleStatus!]
+  notIn: [ModuleStatus!]
+  not: NestedEnumModuleStatusWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumModuleStatusFilter
+  _max: NestedEnumModuleStatusFilter
+}
+
+input NestedEnumModuleStatusWithAggregatesFilter {
+  equals: ModuleStatus
+  in: [ModuleStatus!]
+  notIn: [ModuleStatus!]
+  not: NestedEnumModuleStatusWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumModuleStatusFilter
+  _max: NestedEnumModuleStatusFilter
+}
+
+input IntWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedFloatFilter
+  _sum: NestedIntFilter
+  _min: NestedIntFilter
+  _max: NestedIntFilter
+}
+
+input NestedIntWithAggregatesFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedFloatFilter
+  _sum: NestedIntFilter
+  _min: NestedIntFilter
+  _max: NestedIntFilter
+}
+
+input NestedFloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input DateTimeNullableWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedDateTimeNullableFilter
+  _max: NestedDateTimeNullableFilter
+}
+
+input NestedDateTimeNullableWithAggregatesFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _min: NestedDateTimeNullableFilter
+  _max: NestedDateTimeNullableFilter
+}
+
+type AggregateModuleMember {
+  _count: ModuleMemberCountAggregate
+  _min: ModuleMemberMinAggregate
+  _max: ModuleMemberMaxAggregate
+}
+
+type ModuleMemberCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  permission: Int!
+  moduleId: Int!
+  userId: Int!
+  _all: Int!
+}
+
+type ModuleMemberMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  moduleId: String
+  userId: String
+}
+
+type ModuleMemberMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  moduleId: String
+  userId: String
+}
+
+type ModuleMemberGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  permission: ModuleMemberPermissions!
+  moduleId: String!
+  userId: String!
+  _count: ModuleMemberCountAggregate
+  _min: ModuleMemberMinAggregate
+  _max: ModuleMemberMaxAggregate
+}
+
+input ModuleMemberOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  permission: SortOrder
+  moduleId: SortOrder
+  userId: SortOrder
+  _count: ModuleMemberCountOrderByAggregateInput
+  _max: ModuleMemberMaxOrderByAggregateInput
+  _min: ModuleMemberMinOrderByAggregateInput
+}
+
+input ModuleMemberCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  permission: SortOrder
+  moduleId: SortOrder
+  userId: SortOrder
+}
+
+input ModuleMemberMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  permission: SortOrder
+  moduleId: SortOrder
+  userId: SortOrder
+}
+
+input ModuleMemberMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  permission: SortOrder
+  moduleId: SortOrder
+  userId: SortOrder
+}
+
+input ModuleMemberScalarWhereWithAggregatesInput {
+  AND: [ModuleMemberScalarWhereWithAggregatesInput!]
+  OR: [ModuleMemberScalarWhereWithAggregatesInput!]
+  NOT: [ModuleMemberScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  permission: EnumModuleMemberPermissionsWithAggregatesFilter
+  moduleId: StringWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
+input EnumModuleMemberPermissionsWithAggregatesFilter {
+  equals: ModuleMemberPermissions
+  in: [ModuleMemberPermissions!]
+  notIn: [ModuleMemberPermissions!]
+  not: NestedEnumModuleMemberPermissionsWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumModuleMemberPermissionsFilter
+  _max: NestedEnumModuleMemberPermissionsFilter
+}
+
+input NestedEnumModuleMemberPermissionsWithAggregatesFilter {
+  equals: ModuleMemberPermissions
+  in: [ModuleMemberPermissions!]
+  notIn: [ModuleMemberPermissions!]
+  not: NestedEnumModuleMemberPermissionsWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumModuleMemberPermissionsFilter
+  _max: NestedEnumModuleMemberPermissionsFilter
+}
+
+input PeerEvaluationWhereUniqueInput {
+  id: String
+  studentId: String
+}
+
+enum PeerEvaluationScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  studentId
+  comment
+  isCompleted
+}
+
+type AggregatePeerEvaluation {
+  _count: PeerEvaluationCountAggregate
+  _min: PeerEvaluationMinAggregate
+  _max: PeerEvaluationMaxAggregate
+}
+
+type PeerEvaluationCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  studentId: Int!
+  comment: Int!
+  isCompleted: Int!
+  _all: Int!
+}
+
+type PeerEvaluationMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String
+  comment: String
+  isCompleted: Boolean
+}
+
+type PeerEvaluationMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String
+  comment: String
+  isCompleted: Boolean
+}
+
+type PeerEvaluationGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  studentId: String!
+  comment: String!
+  isCompleted: Boolean!
+  _count: PeerEvaluationCountAggregate
+  _min: PeerEvaluationMinAggregate
+  _max: PeerEvaluationMaxAggregate
+}
+
+input PeerEvaluationOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  comment: SortOrder
+  isCompleted: SortOrder
+  _count: PeerEvaluationCountOrderByAggregateInput
+  _max: PeerEvaluationMaxOrderByAggregateInput
+  _min: PeerEvaluationMinOrderByAggregateInput
+}
+
+input PeerEvaluationCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  comment: SortOrder
+  isCompleted: SortOrder
+}
+
+input PeerEvaluationMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  comment: SortOrder
+  isCompleted: SortOrder
+}
+
+input PeerEvaluationMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  comment: SortOrder
+  isCompleted: SortOrder
+}
+
+input PeerEvaluationScalarWhereWithAggregatesInput {
+  AND: [PeerEvaluationScalarWhereWithAggregatesInput!]
+  OR: [PeerEvaluationScalarWhereWithAggregatesInput!]
+  NOT: [PeerEvaluationScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  studentId: StringWithAggregatesFilter
+  comment: StringWithAggregatesFilter
+  isCompleted: BoolWithAggregatesFilter
+}
+
+input BoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
+input NestedBoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
+type AggregatePeerEvaluationColumn {
+  _count: PeerEvaluationColumnCountAggregate
+  _min: PeerEvaluationColumnMinAggregate
+  _max: PeerEvaluationColumnMaxAggregate
+}
+
+type PeerEvaluationColumnCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  description: Int!
+  moduleId: Int!
+  _all: Int!
+}
+
+type PeerEvaluationColumnMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String
+  moduleId: String
+}
+
+type PeerEvaluationColumnMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String
+  moduleId: String
+}
+
+type PeerEvaluationColumnGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  description: String!
+  moduleId: String!
+  _count: PeerEvaluationColumnCountAggregate
+  _min: PeerEvaluationColumnMinAggregate
+  _max: PeerEvaluationColumnMaxAggregate
+}
+
+input PeerEvaluationColumnOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  description: SortOrder
+  moduleId: SortOrder
+  _count: PeerEvaluationColumnCountOrderByAggregateInput
+  _max: PeerEvaluationColumnMaxOrderByAggregateInput
+  _min: PeerEvaluationColumnMinOrderByAggregateInput
+}
+
+input PeerEvaluationColumnCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  description: SortOrder
+  moduleId: SortOrder
+}
+
+input PeerEvaluationColumnMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  description: SortOrder
+  moduleId: SortOrder
+}
+
+input PeerEvaluationColumnMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  description: SortOrder
+  moduleId: SortOrder
+}
+
+input PeerEvaluationColumnScalarWhereWithAggregatesInput {
+  AND: [PeerEvaluationColumnScalarWhereWithAggregatesInput!]
+  OR: [PeerEvaluationColumnScalarWhereWithAggregatesInput!]
+  NOT: [PeerEvaluationColumnScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  description: StringWithAggregatesFilter
+  moduleId: StringWithAggregatesFilter
+}
+
+type AggregatePeerEvaluationReviewee {
+  _count: PeerEvaluationRevieweeCountAggregate
+  _avg: PeerEvaluationRevieweeAvgAggregate
+  _sum: PeerEvaluationRevieweeSumAggregate
+  _min: PeerEvaluationRevieweeMinAggregate
+  _max: PeerEvaluationRevieweeMaxAggregate
+}
+
+type PeerEvaluationRevieweeCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  studentId: Int!
+  criteriaScore: Int!
+  revieweeComment: Int!
+  peerEvaluationId: Int!
+  _all: Int!
+}
+
+type PeerEvaluationRevieweeAvgAggregate {
+  criteriaScore: Float
+}
+
+type PeerEvaluationRevieweeSumAggregate {
+  criteriaScore: Int
+}
+
+type PeerEvaluationRevieweeMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String
+  criteriaScore: Int
+  revieweeComment: String
+  peerEvaluationId: String
+}
+
+type PeerEvaluationRevieweeMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String
+  criteriaScore: Int
+  revieweeComment: String
+  peerEvaluationId: String
+}
+
+type PeerEvaluationRevieweeGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  studentId: String!
+  criteriaScore: Int!
+  revieweeComment: String!
+  peerEvaluationId: String
+  _count: PeerEvaluationRevieweeCountAggregate
+  _avg: PeerEvaluationRevieweeAvgAggregate
+  _sum: PeerEvaluationRevieweeSumAggregate
+  _min: PeerEvaluationRevieweeMinAggregate
+  _max: PeerEvaluationRevieweeMaxAggregate
+}
+
+input PeerEvaluationRevieweeOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  criteriaScore: SortOrder
+  revieweeComment: SortOrder
+  peerEvaluationId: SortOrder
+  _count: PeerEvaluationRevieweeCountOrderByAggregateInput
+  _avg: PeerEvaluationRevieweeAvgOrderByAggregateInput
+  _max: PeerEvaluationRevieweeMaxOrderByAggregateInput
+  _min: PeerEvaluationRevieweeMinOrderByAggregateInput
+  _sum: PeerEvaluationRevieweeSumOrderByAggregateInput
+}
+
+input PeerEvaluationRevieweeCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  criteriaScore: SortOrder
+  revieweeComment: SortOrder
+  peerEvaluationId: SortOrder
+}
+
+input PeerEvaluationRevieweeAvgOrderByAggregateInput {
+  criteriaScore: SortOrder
+}
+
+input PeerEvaluationRevieweeMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  criteriaScore: SortOrder
+  revieweeComment: SortOrder
+  peerEvaluationId: SortOrder
+}
+
+input PeerEvaluationRevieweeMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  studentId: SortOrder
+  criteriaScore: SortOrder
+  revieweeComment: SortOrder
+  peerEvaluationId: SortOrder
+}
+
+input PeerEvaluationRevieweeSumOrderByAggregateInput {
+  criteriaScore: SortOrder
+}
+
+input PeerEvaluationRevieweeScalarWhereWithAggregatesInput {
+  AND: [PeerEvaluationRevieweeScalarWhereWithAggregatesInput!]
+  OR: [PeerEvaluationRevieweeScalarWhereWithAggregatesInput!]
+  NOT: [PeerEvaluationRevieweeScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  studentId: StringWithAggregatesFilter
+  criteriaScore: IntWithAggregatesFilter
+  revieweeComment: StringWithAggregatesFilter
+  peerEvaluationId: StringNullableWithAggregatesFilter
+}
+
+type AggregatePeerEvaluationRevieweeColumn {
+  _count: PeerEvaluationRevieweeColumnCountAggregate
+  _avg: PeerEvaluationRevieweeColumnAvgAggregate
+  _sum: PeerEvaluationRevieweeColumnSumAggregate
+  _min: PeerEvaluationRevieweeColumnMinAggregate
+  _max: PeerEvaluationRevieweeColumnMaxAggregate
+}
+
+type PeerEvaluationRevieweeColumnCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  criteriaScore: Int!
+  peerEvaluationRevieweeId: Int!
+  peerEvaluationColumnId: Int!
+  isInvalid: Int!
+  _all: Int!
+}
+
+type PeerEvaluationRevieweeColumnAvgAggregate {
+  criteriaScore: Float
+}
+
+type PeerEvaluationRevieweeColumnSumAggregate {
+  criteriaScore: Int
+}
+
+type PeerEvaluationRevieweeColumnMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int
+  peerEvaluationRevieweeId: String
+  peerEvaluationColumnId: String
+  isInvalid: Boolean
+}
+
+type PeerEvaluationRevieweeColumnMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int
+  peerEvaluationRevieweeId: String
+  peerEvaluationColumnId: String
+  isInvalid: Boolean
+}
+
+type PeerEvaluationRevieweeColumnGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  criteriaScore: Int!
+  peerEvaluationRevieweeId: String!
+  peerEvaluationColumnId: String!
+  isInvalid: Boolean!
+  _count: PeerEvaluationRevieweeColumnCountAggregate
+  _avg: PeerEvaluationRevieweeColumnAvgAggregate
+  _sum: PeerEvaluationRevieweeColumnSumAggregate
+  _min: PeerEvaluationRevieweeColumnMinAggregate
+  _max: PeerEvaluationRevieweeColumnMaxAggregate
+}
+
+input PeerEvaluationRevieweeColumnOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  criteriaScore: SortOrder
+  peerEvaluationRevieweeId: SortOrder
+  peerEvaluationColumnId: SortOrder
+  isInvalid: SortOrder
+  _count: PeerEvaluationRevieweeColumnCountOrderByAggregateInput
+  _avg: PeerEvaluationRevieweeColumnAvgOrderByAggregateInput
+  _max: PeerEvaluationRevieweeColumnMaxOrderByAggregateInput
+  _min: PeerEvaluationRevieweeColumnMinOrderByAggregateInput
+  _sum: PeerEvaluationRevieweeColumnSumOrderByAggregateInput
+}
+
+input PeerEvaluationRevieweeColumnCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  criteriaScore: SortOrder
+  peerEvaluationRevieweeId: SortOrder
+  peerEvaluationColumnId: SortOrder
+  isInvalid: SortOrder
+}
+
+input PeerEvaluationRevieweeColumnAvgOrderByAggregateInput {
+  criteriaScore: SortOrder
+}
+
+input PeerEvaluationRevieweeColumnMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  criteriaScore: SortOrder
+  peerEvaluationRevieweeId: SortOrder
+  peerEvaluationColumnId: SortOrder
+  isInvalid: SortOrder
+}
+
+input PeerEvaluationRevieweeColumnMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  criteriaScore: SortOrder
+  peerEvaluationRevieweeId: SortOrder
+  peerEvaluationColumnId: SortOrder
+  isInvalid: SortOrder
+}
+
+input PeerEvaluationRevieweeColumnSumOrderByAggregateInput {
+  criteriaScore: SortOrder
+}
+
+input PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput {
+  AND: [PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput!]
+  OR: [PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput!]
+  NOT: [PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  criteriaScore: IntWithAggregatesFilter
+  peerEvaluationRevieweeId: StringWithAggregatesFilter
+  peerEvaluationColumnId: StringWithAggregatesFilter
+  isInvalid: BoolWithAggregatesFilter
+}
+
+type AggregateSession {
+  _count: SessionCountAggregate
+  _min: SessionMinAggregate
+  _max: SessionMaxAggregate
+}
+
+type SessionCountAggregate {
+  id: Int!
+  sessionToken: Int!
+  expires: Int!
+  userId: Int!
+  _all: Int!
+}
+
+type SessionMinAggregate {
+  id: String
+  sessionToken: String
+  expires: DateTime
+  userId: String
+}
+
+type SessionMaxAggregate {
+  id: String
+  sessionToken: String
+  expires: DateTime
+  userId: String
+}
+
+type SessionGroupBy {
+  id: String!
+  sessionToken: String!
+  expires: DateTime!
+  userId: String!
+  _count: SessionCountAggregate
+  _min: SessionMinAggregate
+  _max: SessionMaxAggregate
+}
+
+input SessionOrderByWithAggregationInput {
+  id: SortOrder
+  sessionToken: SortOrder
+  expires: SortOrder
+  userId: SortOrder
+  _count: SessionCountOrderByAggregateInput
+  _max: SessionMaxOrderByAggregateInput
+  _min: SessionMinOrderByAggregateInput
+}
+
+input SessionCountOrderByAggregateInput {
+  id: SortOrder
+  sessionToken: SortOrder
+  expires: SortOrder
+  userId: SortOrder
+}
+
+input SessionMaxOrderByAggregateInput {
+  id: SortOrder
+  sessionToken: SortOrder
+  expires: SortOrder
+  userId: SortOrder
+}
+
+input SessionMinOrderByAggregateInput {
+  id: SortOrder
+  sessionToken: SortOrder
+  expires: SortOrder
+  userId: SortOrder
+}
+
+input SessionScalarWhereWithAggregatesInput {
+  AND: [SessionScalarWhereWithAggregatesInput!]
+  OR: [SessionScalarWhereWithAggregatesInput!]
+  NOT: [SessionScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  sessionToken: StringWithAggregatesFilter
+  expires: DateTimeWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
+type AggregateStudent {
+  _count: StudentCountAggregate
+  _avg: StudentAvgAggregate
+  _sum: StudentSumAggregate
+  _min: StudentMinAggregate
+  _max: StudentMaxAggregate
+}
+
+type StudentCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  userId: Int!
+  moduleId: Int!
+  studentTeamId: Int!
+  averageCriteriaScore: Int!
+  averageCriteriaScoreByTeamMember: Int!
+  systemCalculatedMark: Int!
+  systemAdjustedMark: Int!
+  lecturerAdjustedMark: Int!
+  moduleMemberId: Int!
+  _all: Int!
+}
+
+type StudentAvgAggregate {
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+}
+
+type StudentSumAggregate {
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+}
+
+type StudentMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+type StudentMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+type StudentGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+  _count: StudentCountAggregate
+  _avg: StudentAvgAggregate
+  _sum: StudentSumAggregate
+  _min: StudentMinAggregate
+  _max: StudentMaxAggregate
+}
+
+input StudentOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+  moduleId: SortOrder
+  studentTeamId: SortOrder
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+  moduleMemberId: SortOrder
+  _count: StudentCountOrderByAggregateInput
+  _avg: StudentAvgOrderByAggregateInput
+  _max: StudentMaxOrderByAggregateInput
+  _min: StudentMinOrderByAggregateInput
+  _sum: StudentSumOrderByAggregateInput
+}
+
+input StudentCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+  moduleId: SortOrder
+  studentTeamId: SortOrder
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+  moduleMemberId: SortOrder
+}
+
+input StudentAvgOrderByAggregateInput {
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+}
+
+input StudentMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+  moduleId: SortOrder
+  studentTeamId: SortOrder
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+  moduleMemberId: SortOrder
+}
+
+input StudentMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+  moduleId: SortOrder
+  studentTeamId: SortOrder
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+  moduleMemberId: SortOrder
+}
+
+input StudentSumOrderByAggregateInput {
+  averageCriteriaScore: SortOrder
+  averageCriteriaScoreByTeamMember: SortOrder
+  systemCalculatedMark: SortOrder
+  systemAdjustedMark: SortOrder
+  lecturerAdjustedMark: SortOrder
+}
+
+input StudentScalarWhereWithAggregatesInput {
+  AND: [StudentScalarWhereWithAggregatesInput!]
+  OR: [StudentScalarWhereWithAggregatesInput!]
+  NOT: [StudentScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  userId: StringNullableWithAggregatesFilter
+  moduleId: StringNullableWithAggregatesFilter
+  studentTeamId: StringNullableWithAggregatesFilter
+  averageCriteriaScore: DecimalNullableWithAggregatesFilter
+  averageCriteriaScoreByTeamMember: DecimalNullableWithAggregatesFilter
+  systemCalculatedMark: DecimalNullableWithAggregatesFilter
+  systemAdjustedMark: DecimalNullableWithAggregatesFilter
+  lecturerAdjustedMark: DecimalNullableWithAggregatesFilter
+  moduleMemberId: StringNullableWithAggregatesFilter
+}
+
+input DecimalNullableWithAggregatesFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _avg: NestedDecimalNullableFilter
+  _sum: NestedDecimalNullableFilter
+  _min: NestedDecimalNullableFilter
+  _max: NestedDecimalNullableFilter
+}
+
+input NestedDecimalNullableWithAggregatesFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableWithAggregatesFilter
+  _count: NestedIntNullableFilter
+  _avg: NestedDecimalNullableFilter
+  _sum: NestedDecimalNullableFilter
+  _min: NestedDecimalNullableFilter
+  _max: NestedDecimalNullableFilter
+}
+
+input StudentTeamWhereUniqueInput {
+  id: String
+}
+
+enum StudentTeamScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  name
+  mark
+}
+
+type AggregateStudentTeam {
+  _count: StudentTeamCountAggregate
+  _avg: StudentTeamAvgAggregate
+  _sum: StudentTeamSumAggregate
+  _min: StudentTeamMinAggregate
+  _max: StudentTeamMaxAggregate
+}
+
+type StudentTeamCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  name: Int!
+  mark: Int!
+  _all: Int!
+}
+
+type StudentTeamAvgAggregate {
+  mark: Decimal
+}
+
+type StudentTeamSumAggregate {
+  mark: Decimal
+}
+
+type StudentTeamMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  mark: Decimal
+}
+
+type StudentTeamMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  mark: Decimal
+}
+
+type StudentTeamGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  mark: Decimal!
+  _count: StudentTeamCountAggregate
+  _avg: StudentTeamAvgAggregate
+  _sum: StudentTeamSumAggregate
+  _min: StudentTeamMinAggregate
+  _max: StudentTeamMaxAggregate
+}
+
+input StudentTeamOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  mark: SortOrder
+  _count: StudentTeamCountOrderByAggregateInput
+  _avg: StudentTeamAvgOrderByAggregateInput
+  _max: StudentTeamMaxOrderByAggregateInput
+  _min: StudentTeamMinOrderByAggregateInput
+  _sum: StudentTeamSumOrderByAggregateInput
+}
+
+input StudentTeamCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  mark: SortOrder
+}
+
+input StudentTeamAvgOrderByAggregateInput {
+  mark: SortOrder
+}
+
+input StudentTeamMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  mark: SortOrder
+}
+
+input StudentTeamMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  mark: SortOrder
+}
+
+input StudentTeamSumOrderByAggregateInput {
+  mark: SortOrder
+}
+
+input StudentTeamScalarWhereWithAggregatesInput {
+  AND: [StudentTeamScalarWhereWithAggregatesInput!]
+  OR: [StudentTeamScalarWhereWithAggregatesInput!]
+  NOT: [StudentTeamScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  mark: DecimalWithAggregatesFilter
+}
+
+input DecimalWithAggregatesFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedDecimalFilter
+  _sum: NestedDecimalFilter
+  _min: NestedDecimalFilter
+  _max: NestedDecimalFilter
+}
+
+input NestedDecimalWithAggregatesFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalWithAggregatesFilter
+  _count: NestedIntFilter
+  _avg: NestedDecimalFilter
+  _sum: NestedDecimalFilter
+  _min: NestedDecimalFilter
+  _max: NestedDecimalFilter
+}
+
+input UserWhereUniqueInput {
+  id: String
+  email: String
+}
+
+enum UserScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  name
+  email
+  role
+  emailVerified
+}
+
+type AggregateUser {
+  _count: UserCountAggregate
+  _min: UserMinAggregate
+  _max: UserMaxAggregate
+}
+
+type UserCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  name: Int!
+  email: Int!
+  role: Int!
+  emailVerified: Int!
+  _all: Int!
+}
+
+type UserMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  email: String
+  role: Role
+  emailVerified: DateTime
+}
+
+type UserMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  email: String
+  role: Role
+  emailVerified: DateTime
+}
+
+type UserGroupBy {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  email: String!
+  role: Role!
+  emailVerified: DateTime
+  _count: UserCountAggregate
+  _min: UserMinAggregate
+  _max: UserMaxAggregate
+}
+
+input UserOrderByWithAggregationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  email: SortOrder
+  role: SortOrder
+  emailVerified: SortOrder
+  _count: UserCountOrderByAggregateInput
+  _max: UserMaxOrderByAggregateInput
+  _min: UserMinOrderByAggregateInput
+}
+
+input UserCountOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  email: SortOrder
+  role: SortOrder
+  emailVerified: SortOrder
+}
+
+input UserMaxOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  email: SortOrder
+  role: SortOrder
+  emailVerified: SortOrder
+}
+
+input UserMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  email: SortOrder
+  role: SortOrder
+  emailVerified: SortOrder
+}
+
+input UserScalarWhereWithAggregatesInput {
+  AND: [UserScalarWhereWithAggregatesInput!]
+  OR: [UserScalarWhereWithAggregatesInput!]
+  NOT: [UserScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  email: StringWithAggregatesFilter
+  role: EnumRoleWithAggregatesFilter
+  emailVerified: DateTimeNullableWithAggregatesFilter
+}
+
+input EnumRoleWithAggregatesFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumRoleFilter
+  _max: NestedEnumRoleFilter
+}
+
+input NestedEnumRoleWithAggregatesFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedEnumRoleFilter
+  _max: NestedEnumRoleFilter
+}
+
+type VerificationToken {
+  identifier: String!
+  token: String!
+  expires: DateTime!
+}
+
+input VerificationTokenWhereUniqueInput {
+  token: String
+  identifier_token: VerificationTokenIdentifierTokenCompoundUniqueInput
+}
+
+input VerificationTokenIdentifierTokenCompoundUniqueInput {
+  identifier: String!
+  token: String!
+}
+
+input VerificationTokenWhereInput {
+  AND: [VerificationTokenWhereInput!]
+  OR: [VerificationTokenWhereInput!]
+  NOT: [VerificationTokenWhereInput!]
+  identifier: StringFilter
+  token: StringFilter
+  expires: DateTimeFilter
+}
+
+input VerificationTokenOrderByWithRelationInput {
+  identifier: SortOrder
+  token: SortOrder
+  expires: SortOrder
+}
+
+enum VerificationTokenScalarFieldEnum {
+  identifier
+  token
+  expires
+}
+
+type AggregateVerificationToken {
+  _count: VerificationTokenCountAggregate
+  _min: VerificationTokenMinAggregate
+  _max: VerificationTokenMaxAggregate
+}
+
+type VerificationTokenCountAggregate {
+  identifier: Int!
+  token: Int!
+  expires: Int!
+  _all: Int!
+}
+
+type VerificationTokenMinAggregate {
+  identifier: String
+  token: String
+  expires: DateTime
+}
+
+type VerificationTokenMaxAggregate {
+  identifier: String
+  token: String
+  expires: DateTime
+}
+
+type VerificationTokenGroupBy {
+  identifier: String!
+  token: String!
+  expires: DateTime!
+  _count: VerificationTokenCountAggregate
+  _min: VerificationTokenMinAggregate
+  _max: VerificationTokenMaxAggregate
+}
+
+input VerificationTokenOrderByWithAggregationInput {
+  identifier: SortOrder
+  token: SortOrder
+  expires: SortOrder
+  _count: VerificationTokenCountOrderByAggregateInput
+  _max: VerificationTokenMaxOrderByAggregateInput
+  _min: VerificationTokenMinOrderByAggregateInput
+}
+
+input VerificationTokenCountOrderByAggregateInput {
+  identifier: SortOrder
+  token: SortOrder
+  expires: SortOrder
+}
+
+input VerificationTokenMaxOrderByAggregateInput {
+  identifier: SortOrder
+  token: SortOrder
+  expires: SortOrder
+}
+
+input VerificationTokenMinOrderByAggregateInput {
+  identifier: SortOrder
+  token: SortOrder
+  expires: SortOrder
+}
+
+input VerificationTokenScalarWhereWithAggregatesInput {
+  AND: [VerificationTokenScalarWhereWithAggregatesInput!]
+  OR: [VerificationTokenScalarWhereWithAggregatesInput!]
+  NOT: [VerificationTokenScalarWhereWithAggregatesInput!]
+  identifier: StringWithAggregatesFilter
+  token: StringWithAggregatesFilter
+  expires: DateTimeWithAggregatesFilter
+}
+
+type Mutation {
+  createEmail(data: EmailCreateInput!): Email!
+  createManyEmail(data: [EmailCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteEmail(where: EmailWhereUniqueInput!): Email
+  updateEmail(data: EmailUpdateInput!, where: EmailWhereUniqueInput!): Email
+  deleteManyEmail(where: EmailWhereInput): AffectedRowsOutput!
+  updateManyEmail(data: EmailUpdateManyMutationInput!, where: EmailWhereInput): AffectedRowsOutput!
+  upsertEmail(where: EmailWhereUniqueInput!, create: EmailCreateInput!, update: EmailUpdateInput!): Email!
+  createModule(data: ModuleCreateInput!): Module!
+  createManyModule(data: [ModuleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteModule(where: ModuleWhereUniqueInput!): Module
+  updateModule(data: ModuleUpdateInput!, where: ModuleWhereUniqueInput!): Module
+  deleteManyModule(where: ModuleWhereInput): AffectedRowsOutput!
+  updateManyModule(data: ModuleUpdateManyMutationInput!, where: ModuleWhereInput): AffectedRowsOutput!
+  upsertModule(where: ModuleWhereUniqueInput!, create: ModuleCreateInput!, update: ModuleUpdateInput!): Module!
+  createModuleMember(data: ModuleMemberCreateInput!): ModuleMember!
+  createManyModuleMember(data: [ModuleMemberCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteModuleMember(where: ModuleMemberWhereUniqueInput!): ModuleMember
+  updateModuleMember(data: ModuleMemberUpdateInput!, where: ModuleMemberWhereUniqueInput!): ModuleMember
+  deleteManyModuleMember(where: ModuleMemberWhereInput): AffectedRowsOutput!
+  updateManyModuleMember(data: ModuleMemberUpdateManyMutationInput!, where: ModuleMemberWhereInput): AffectedRowsOutput!
+  upsertModuleMember(
+    where: ModuleMemberWhereUniqueInput!
+    create: ModuleMemberCreateInput!
+    update: ModuleMemberUpdateInput!
+  ): ModuleMember!
+  createPeerEvaluation(data: PeerEvaluationCreateInput!): PeerEvaluation!
+  createManyPeerEvaluation(data: [PeerEvaluationCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deletePeerEvaluation(where: PeerEvaluationWhereUniqueInput!): PeerEvaluation
+  updatePeerEvaluation(data: PeerEvaluationUpdateInput!, where: PeerEvaluationWhereUniqueInput!): PeerEvaluation
+  deleteManyPeerEvaluation(where: PeerEvaluationWhereInput): AffectedRowsOutput!
+  updateManyPeerEvaluation(
+    data: PeerEvaluationUpdateManyMutationInput!
+    where: PeerEvaluationWhereInput
+  ): AffectedRowsOutput!
+  upsertPeerEvaluation(
+    where: PeerEvaluationWhereUniqueInput!
+    create: PeerEvaluationCreateInput!
+    update: PeerEvaluationUpdateInput!
+  ): PeerEvaluation!
+  createPeerEvaluationColumn(data: PeerEvaluationColumnCreateInput!): PeerEvaluationColumn!
+  createManyPeerEvaluationColumn(
+    data: [PeerEvaluationColumnCreateManyInput!]!
+    skipDuplicates: Boolean
+  ): AffectedRowsOutput!
+  deletePeerEvaluationColumn(where: PeerEvaluationColumnWhereUniqueInput!): PeerEvaluationColumn
+  updatePeerEvaluationColumn(
+    data: PeerEvaluationColumnUpdateInput!
+    where: PeerEvaluationColumnWhereUniqueInput!
+  ): PeerEvaluationColumn
+  deleteManyPeerEvaluationColumn(where: PeerEvaluationColumnWhereInput): AffectedRowsOutput!
+  updateManyPeerEvaluationColumn(
+    data: PeerEvaluationColumnUpdateManyMutationInput!
+    where: PeerEvaluationColumnWhereInput
+  ): AffectedRowsOutput!
+  upsertPeerEvaluationColumn(
+    where: PeerEvaluationColumnWhereUniqueInput!
+    create: PeerEvaluationColumnCreateInput!
+    update: PeerEvaluationColumnUpdateInput!
+  ): PeerEvaluationColumn!
+  createPeerEvaluationReviewee(data: PeerEvaluationRevieweeCreateInput!): PeerEvaluationReviewee!
+  createManyPeerEvaluationReviewee(
+    data: [PeerEvaluationRevieweeCreateManyInput!]!
+    skipDuplicates: Boolean
+  ): AffectedRowsOutput!
+  deletePeerEvaluationReviewee(where: PeerEvaluationRevieweeWhereUniqueInput!): PeerEvaluationReviewee
+  updatePeerEvaluationReviewee(
+    data: PeerEvaluationRevieweeUpdateInput!
+    where: PeerEvaluationRevieweeWhereUniqueInput!
+  ): PeerEvaluationReviewee
+  deleteManyPeerEvaluationReviewee(where: PeerEvaluationRevieweeWhereInput): AffectedRowsOutput!
+  updateManyPeerEvaluationReviewee(
+    data: PeerEvaluationRevieweeUpdateManyMutationInput!
+    where: PeerEvaluationRevieweeWhereInput
+  ): AffectedRowsOutput!
+  upsertPeerEvaluationReviewee(
+    where: PeerEvaluationRevieweeWhereUniqueInput!
+    create: PeerEvaluationRevieweeCreateInput!
+    update: PeerEvaluationRevieweeUpdateInput!
+  ): PeerEvaluationReviewee!
+  createPeerEvaluationRevieweeColumn(data: PeerEvaluationRevieweeColumnCreateInput!): PeerEvaluationRevieweeColumn!
+  createManyPeerEvaluationRevieweeColumn(
+    data: [PeerEvaluationRevieweeColumnCreateManyInput!]!
+    skipDuplicates: Boolean
+  ): AffectedRowsOutput!
+  deletePeerEvaluationRevieweeColumn(where: PeerEvaluationRevieweeColumnWhereUniqueInput!): PeerEvaluationRevieweeColumn
+  updatePeerEvaluationRevieweeColumn(
+    data: PeerEvaluationRevieweeColumnUpdateInput!
+    where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  ): PeerEvaluationRevieweeColumn
+  deleteManyPeerEvaluationRevieweeColumn(where: PeerEvaluationRevieweeColumnWhereInput): AffectedRowsOutput!
+  updateManyPeerEvaluationRevieweeColumn(
+    data: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
+    where: PeerEvaluationRevieweeColumnWhereInput
+  ): AffectedRowsOutput!
+  upsertPeerEvaluationRevieweeColumn(
+    where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+    create: PeerEvaluationRevieweeColumnCreateInput!
+    update: PeerEvaluationRevieweeColumnUpdateInput!
+  ): PeerEvaluationRevieweeColumn!
+  createSession(data: SessionCreateInput!): Session!
+  createManySession(data: [SessionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteSession(where: SessionWhereUniqueInput!): Session
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
+  deleteManySession(where: SessionWhereInput): AffectedRowsOutput!
+  updateManySession(data: SessionUpdateManyMutationInput!, where: SessionWhereInput): AffectedRowsOutput!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
+  createStudent(data: StudentCreateInput!): Student!
+  createManyStudent(data: [StudentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteStudent(where: StudentWhereUniqueInput!): Student
+  updateStudent(data: StudentUpdateInput!, where: StudentWhereUniqueInput!): Student
+  deleteManyStudent(where: StudentWhereInput): AffectedRowsOutput!
+  updateManyStudent(data: StudentUpdateManyMutationInput!, where: StudentWhereInput): AffectedRowsOutput!
+  upsertStudent(where: StudentWhereUniqueInput!, create: StudentCreateInput!, update: StudentUpdateInput!): Student!
+  createStudentTeam(data: StudentTeamCreateInput!): StudentTeam!
+  createManyStudentTeam(data: [StudentTeamCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteStudentTeam(where: StudentTeamWhereUniqueInput!): StudentTeam
+  updateStudentTeam(data: StudentTeamUpdateInput!, where: StudentTeamWhereUniqueInput!): StudentTeam
+  deleteManyStudentTeam(where: StudentTeamWhereInput): AffectedRowsOutput!
+  updateManyStudentTeam(data: StudentTeamUpdateManyMutationInput!, where: StudentTeamWhereInput): AffectedRowsOutput!
+  upsertStudentTeam(
+    where: StudentTeamWhereUniqueInput!
+    create: StudentTeamCreateInput!
+    update: StudentTeamUpdateInput!
+  ): StudentTeam!
+  createUser(data: UserCreateInput!): User!
+  createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteUser(where: UserWhereUniqueInput!): User
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  createVerificationToken(data: VerificationTokenCreateInput!): VerificationToken!
+  createManyVerificationToken(data: [VerificationTokenCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  deleteVerificationToken(where: VerificationTokenWhereUniqueInput!): VerificationToken
+  updateVerificationToken(
+    data: VerificationTokenUpdateInput!
+    where: VerificationTokenWhereUniqueInput!
+  ): VerificationToken
+  deleteManyVerificationToken(where: VerificationTokenWhereInput): AffectedRowsOutput!
+  updateManyVerificationToken(
+    data: VerificationTokenUpdateManyMutationInput!
+    where: VerificationTokenWhereInput
+  ): AffectedRowsOutput!
+  upsertVerificationToken(
+    where: VerificationTokenWhereUniqueInput!
+    create: VerificationTokenCreateInput!
+    update: VerificationTokenUpdateInput!
+  ): VerificationToken!
+}
+
+input EmailCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  body: String!
+  module: ModuleCreateNestedOneWithoutReminderEmailInput
+}
+
+input ModuleCreateNestedOneWithoutReminderEmailInput {
+  create: ModuleCreateWithoutReminderEmailInput
+  connectOrCreate: ModuleCreateOrConnectWithoutReminderEmailInput
+  connect: ModuleWhereUniqueInput
+}
+
+input ModuleCreateWithoutReminderEmailInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateschoolsInput
+  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
+  students: StudentCreateNestedManyWithoutModuleInput
+}
+
+input ModuleCreateschoolsInput {
+  set: [Schools!]!
+}
+
+input ModuleMemberCreateNestedManyWithoutModuleInput {
+  create: [ModuleMemberCreateWithoutModuleInput!]
+  connectOrCreate: [ModuleMemberCreateOrConnectWithoutModuleInput!]
+  createMany: ModuleMemberCreateManyModuleInputEnvelope
+  connect: [ModuleMemberWhereUniqueInput!]
+}
+
+input ModuleMemberCreateWithoutModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  user: UserCreateNestedOneWithoutModuleMemberInput!
+  studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input UserCreateNestedOneWithoutModuleMemberInput {
+  create: UserCreateWithoutModuleMemberInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleMemberInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutModuleMemberInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  email: String!
+  role: Role
+  emailVerified: DateTime
+  sessions: SessionCreateNestedManyWithoutUserInput
+  moduleStudents: StudentCreateNestedManyWithoutUserInput
+}
+
+input SessionCreateNestedManyWithoutUserInput {
+  create: [SessionCreateWithoutUserInput!]
+  connectOrCreate: [SessionCreateOrConnectWithoutUserInput!]
+  createMany: SessionCreateManyUserInputEnvelope
+  connect: [SessionWhereUniqueInput!]
+}
+
+input SessionCreateWithoutUserInput {
+  id: String
+  sessionToken: String!
+  expires: DateTime!
+}
+
+input SessionCreateOrConnectWithoutUserInput {
+  where: SessionWhereUniqueInput!
+  create: SessionCreateWithoutUserInput!
+}
+
+input SessionCreateManyUserInputEnvelope {
+  data: [SessionCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input SessionCreateManyUserInput {
+  id: String
+  sessionToken: String!
+  expires: DateTime!
+}
+
+input StudentCreateNestedManyWithoutUserInput {
+  create: [StudentCreateWithoutUserInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutUserInput!]
+  createMany: StudentCreateManyUserInputEnvelope
+  connect: [StudentWhereUniqueInput!]
+}
+
+input StudentCreateWithoutUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input ModuleCreateNestedOneWithoutStudentsInput {
+  create: ModuleCreateWithoutStudentsInput
+  connectOrCreate: ModuleCreateOrConnectWithoutStudentsInput
+  connect: ModuleWhereUniqueInput
+}
+
+input ModuleCreateWithoutStudentsInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateschoolsInput
+  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  reminderEmail: EmailCreateNestedOneWithoutModuleInput
+  columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
+}
+
+input EmailCreateNestedOneWithoutModuleInput {
+  create: EmailCreateWithoutModuleInput
+  connectOrCreate: EmailCreateOrConnectWithoutModuleInput
+  connect: EmailWhereUniqueInput
+}
+
+input EmailCreateWithoutModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  body: String!
+}
+
+input EmailCreateOrConnectWithoutModuleInput {
+  where: EmailWhereUniqueInput!
+  create: EmailCreateWithoutModuleInput!
+}
+
+input PeerEvaluationColumnCreateNestedManyWithoutModuleInput {
+  create: [PeerEvaluationColumnCreateWithoutModuleInput!]
+  connectOrCreate: [PeerEvaluationColumnCreateOrConnectWithoutModuleInput!]
+  createMany: PeerEvaluationColumnCreateManyModuleInputEnvelope
+  connect: [PeerEvaluationColumnWhereUniqueInput!]
+}
+
+input PeerEvaluationColumnCreateWithoutModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String!
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
+}
+
+input PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput {
+  create: [PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput!]
+  connectOrCreate: [PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationColumnInput!]
+  createMany: PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInputEnvelope
+  connect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+}
+
+input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  isInvalid: Boolean!
+  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput {
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput
+  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+  connect: PeerEvaluationRevieweeWhereUniqueInput
+}
+
+input PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  revieweeComment: String!
+  studentReviewed: StudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
+  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationRevieweesInput
+}
+
+input StudentCreateNestedOneWithoutPeerEvaluationRevieweesInput {
+  create: StudentCreateWithoutPeerEvaluationRevieweesInput
+  connectOrCreate: StudentCreateOrConnectWithoutPeerEvaluationRevieweesInput
+  connect: StudentWhereUniqueInput
+}
+
+input StudentCreateWithoutPeerEvaluationRevieweesInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+}
+
+input UserCreateNestedOneWithoutModuleStudentsInput {
+  create: UserCreateWithoutModuleStudentsInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleStudentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutModuleStudentsInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  email: String!
+  role: Role
+  emailVerified: DateTime
+  sessions: SessionCreateNestedManyWithoutUserInput
+  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+}
+
+input ModuleMemberCreateNestedManyWithoutUserInput {
+  create: [ModuleMemberCreateWithoutUserInput!]
+  connectOrCreate: [ModuleMemberCreateOrConnectWithoutUserInput!]
+  createMany: ModuleMemberCreateManyUserInputEnvelope
+  connect: [ModuleMemberWhereUniqueInput!]
+}
+
+input ModuleMemberCreateWithoutUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  module: ModuleCreateNestedOneWithoutModuleMembersInput!
+  studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input ModuleCreateNestedOneWithoutModuleMembersInput {
+  create: ModuleCreateWithoutModuleMembersInput
+  connectOrCreate: ModuleCreateOrConnectWithoutModuleMembersInput
+  connect: ModuleWhereUniqueInput
+}
+
+input ModuleCreateWithoutModuleMembersInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateschoolsInput
+  reminderEmail: EmailCreateNestedOneWithoutModuleInput
+  columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
+  students: StudentCreateNestedManyWithoutModuleInput
+}
+
+input StudentCreateNestedManyWithoutModuleInput {
+  create: [StudentCreateWithoutModuleInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutModuleInput!]
+  createMany: StudentCreateManyModuleInputEnvelope
+  connect: [StudentWhereUniqueInput!]
+}
+
+input StudentCreateWithoutModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input StudentTeamCreateNestedOneWithoutStudentsInput {
+  create: StudentTeamCreateWithoutStudentsInput
+  connectOrCreate: StudentTeamCreateOrConnectWithoutStudentsInput
+  connect: StudentTeamWhereUniqueInput
+}
+
+input StudentTeamCreateWithoutStudentsInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  mark: Decimal!
+}
+
+input StudentTeamCreateOrConnectWithoutStudentsInput {
+  where: StudentTeamWhereUniqueInput!
+  create: StudentTeamCreateWithoutStudentsInput!
+}
+
+input ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput {
+  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput
+  connectOrCreate: ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
+  connect: ModuleMemberWhereUniqueInput
+}
+
+input ModuleMemberCreateWithoutStudentsMarkAdjustedInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  module: ModuleCreateNestedOneWithoutModuleMembersInput!
+  user: UserCreateNestedOneWithoutModuleMemberInput!
+}
+
+input ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput {
+  where: ModuleMemberWhereUniqueInput!
+  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput!
+}
+
+input PeerEvaluationCreateNestedOneWithoutStudentInput {
+  create: PeerEvaluationCreateWithoutStudentInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutStudentInput
+  connect: PeerEvaluationWhereUniqueInput
+}
+
+input PeerEvaluationCreateWithoutStudentInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  comment: String!
+  isCompleted: Boolean!
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationInput
+}
+
+input PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationInput {
+  create: [PeerEvaluationRevieweeCreateWithoutPeerEvaluationInput!]
+  connectOrCreate: [PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationInput!]
+  createMany: PeerEvaluationRevieweeCreateManyPeerEvaluationInputEnvelope
+  connect: [PeerEvaluationRevieweeWhereUniqueInput!]
+}
+
+input PeerEvaluationRevieweeCreateWithoutPeerEvaluationInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  revieweeComment: String!
+  studentReviewed: StudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput {
+  create: [PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput!]
+  connectOrCreate: [PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationRevieweeInput!]
+  createMany: PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInputEnvelope
+  connect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+}
+
+input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  isInvalid: Boolean!
+  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput {
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput
+  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+  connect: PeerEvaluationColumnWhereUniqueInput
+}
+
+input PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String!
+  module: ModuleCreateNestedOneWithoutColumnsInput!
+}
+
+input ModuleCreateNestedOneWithoutColumnsInput {
+  create: ModuleCreateWithoutColumnsInput
+  connectOrCreate: ModuleCreateOrConnectWithoutColumnsInput
+  connect: ModuleWhereUniqueInput
+}
+
+input ModuleCreateWithoutColumnsInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateschoolsInput
+  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  reminderEmail: EmailCreateNestedOneWithoutModuleInput
+  students: StudentCreateNestedManyWithoutModuleInput
+}
+
+input ModuleCreateOrConnectWithoutColumnsInput {
+  where: ModuleWhereUniqueInput!
+  create: ModuleCreateWithoutColumnsInput!
+}
+
+input PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput {
+  where: PeerEvaluationColumnWhereUniqueInput!
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationRevieweeInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  create: PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput!
+}
+
+input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInputEnvelope {
+  data: [PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInput!]!
+  skipDuplicates: Boolean
+}
+
+input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  peerEvaluationColumnId: String!
+  isInvalid: Boolean!
+}
+
+input PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationInput!
+}
+
+input PeerEvaluationRevieweeCreateManyPeerEvaluationInputEnvelope {
+  data: [PeerEvaluationRevieweeCreateManyPeerEvaluationInput!]!
+  skipDuplicates: Boolean
+}
+
+input PeerEvaluationRevieweeCreateManyPeerEvaluationInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String!
+  criteriaScore: Int!
+  revieweeComment: String!
+}
+
+input PeerEvaluationCreateOrConnectWithoutStudentInput {
+  where: PeerEvaluationWhereUniqueInput!
+  create: PeerEvaluationCreateWithoutStudentInput!
+}
+
+input PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput {
+  create: [PeerEvaluationRevieweeCreateWithoutStudentReviewedInput!]
+  connectOrCreate: [PeerEvaluationRevieweeCreateOrConnectWithoutStudentReviewedInput!]
+  createMany: PeerEvaluationRevieweeCreateManyStudentReviewedInputEnvelope
+  connect: [PeerEvaluationRevieweeWhereUniqueInput!]
+}
+
+input PeerEvaluationRevieweeCreateWithoutStudentReviewedInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  revieweeComment: String!
+  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationRevieweesInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationCreateNestedOneWithoutPeerEvaluationRevieweesInput {
+  create: PeerEvaluationCreateWithoutPeerEvaluationRevieweesInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationRevieweesInput
+  connect: PeerEvaluationWhereUniqueInput
+}
+
+input PeerEvaluationCreateWithoutPeerEvaluationRevieweesInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  comment: String!
+  isCompleted: Boolean!
+  student: StudentCreateNestedOneWithoutPeerEvaluationReviewedInput!
+}
+
+input StudentCreateNestedOneWithoutPeerEvaluationReviewedInput {
+  create: StudentCreateWithoutPeerEvaluationReviewedInput
+  connectOrCreate: StudentCreateOrConnectWithoutPeerEvaluationReviewedInput
+  connect: StudentWhereUniqueInput
+}
+
+input StudentCreateWithoutPeerEvaluationReviewedInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input StudentCreateOrConnectWithoutPeerEvaluationReviewedInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutPeerEvaluationReviewedInput!
+}
+
+input PeerEvaluationCreateOrConnectWithoutPeerEvaluationRevieweesInput {
+  where: PeerEvaluationWhereUniqueInput!
+  create: PeerEvaluationCreateWithoutPeerEvaluationRevieweesInput!
+}
+
+input PeerEvaluationRevieweeCreateOrConnectWithoutStudentReviewedInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  create: PeerEvaluationRevieweeCreateWithoutStudentReviewedInput!
+}
+
+input PeerEvaluationRevieweeCreateManyStudentReviewedInputEnvelope {
+  data: [PeerEvaluationRevieweeCreateManyStudentReviewedInput!]!
+  skipDuplicates: Boolean
+}
+
+input PeerEvaluationRevieweeCreateManyStudentReviewedInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  revieweeComment: String!
+  peerEvaluationId: String
+}
+
+input StudentCreateOrConnectWithoutModuleInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutModuleInput!
+}
+
+input StudentCreateManyModuleInputEnvelope {
+  data: [StudentCreateManyModuleInput!]!
+  skipDuplicates: Boolean
+}
+
+input StudentCreateManyModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+input ModuleCreateOrConnectWithoutModuleMembersInput {
+  where: ModuleWhereUniqueInput!
+  create: ModuleCreateWithoutModuleMembersInput!
+}
+
+input StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput {
+  create: [StudentCreateWithoutLecturerAdjustedMarkByUserInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutLecturerAdjustedMarkByUserInput!]
+  createMany: StudentCreateManyLecturerAdjustedMarkByUserInputEnvelope
+  connect: [StudentWhereUniqueInput!]
+}
+
+input StudentCreateWithoutLecturerAdjustedMarkByUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input StudentCreateOrConnectWithoutLecturerAdjustedMarkByUserInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutLecturerAdjustedMarkByUserInput!
+}
+
+input StudentCreateManyLecturerAdjustedMarkByUserInputEnvelope {
+  data: [StudentCreateManyLecturerAdjustedMarkByUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input StudentCreateManyLecturerAdjustedMarkByUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+}
+
+input ModuleMemberCreateOrConnectWithoutUserInput {
+  where: ModuleMemberWhereUniqueInput!
+  create: ModuleMemberCreateWithoutUserInput!
+}
+
+input ModuleMemberCreateManyUserInputEnvelope {
+  data: [ModuleMemberCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input ModuleMemberCreateManyUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  moduleId: String!
+}
+
+input UserCreateOrConnectWithoutModuleStudentsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutModuleStudentsInput!
+}
+
+input StudentCreateOrConnectWithoutPeerEvaluationRevieweesInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutPeerEvaluationRevieweesInput!
+}
+
+input PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationColumnInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  create: PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInputEnvelope {
+  data: [PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInput!]!
+  skipDuplicates: Boolean
+}
+
+input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  peerEvaluationRevieweeId: String!
+  isInvalid: Boolean!
+}
+
+input PeerEvaluationColumnCreateOrConnectWithoutModuleInput {
+  where: PeerEvaluationColumnWhereUniqueInput!
+  create: PeerEvaluationColumnCreateWithoutModuleInput!
+}
+
+input PeerEvaluationColumnCreateManyModuleInputEnvelope {
+  data: [PeerEvaluationColumnCreateManyModuleInput!]!
+  skipDuplicates: Boolean
+}
+
+input PeerEvaluationColumnCreateManyModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String!
+}
+
+input ModuleCreateOrConnectWithoutStudentsInput {
+  where: ModuleWhereUniqueInput!
+  create: ModuleCreateWithoutStudentsInput!
+}
+
+input StudentCreateOrConnectWithoutUserInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutUserInput!
+}
+
+input StudentCreateManyUserInputEnvelope {
+  data: [StudentCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input StudentCreateManyUserInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+input UserCreateOrConnectWithoutModuleMemberInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutModuleMemberInput!
+}
+
+input ModuleMemberCreateOrConnectWithoutModuleInput {
+  where: ModuleMemberWhereUniqueInput!
+  create: ModuleMemberCreateWithoutModuleInput!
+}
+
+input ModuleMemberCreateManyModuleInputEnvelope {
+  data: [ModuleMemberCreateManyModuleInput!]!
+  skipDuplicates: Boolean
+}
+
+input ModuleMemberCreateManyModuleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  userId: String!
+}
+
+input ModuleCreateOrConnectWithoutReminderEmailInput {
+  where: ModuleWhereUniqueInput!
+  create: ModuleCreateWithoutReminderEmailInput!
+}
+
+type AffectedRowsOutput {
+  count: Int!
+}
+
+input EmailCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  body: String!
+  moduleId: String
+}
+
+input EmailUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  module: ModuleUpdateOneWithoutReminderEmailInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input ModuleUpdateOneWithoutReminderEmailInput {
+  create: ModuleCreateWithoutReminderEmailInput
+  connectOrCreate: ModuleCreateOrConnectWithoutReminderEmailInput
+  upsert: ModuleUpsertWithoutReminderEmailInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: ModuleWhereUniqueInput
+  update: ModuleUpdateWithoutReminderEmailInput
+}
+
+input ModuleUpsertWithoutReminderEmailInput {
+  update: ModuleUpdateWithoutReminderEmailInput!
+  create: ModuleCreateWithoutReminderEmailInput!
+}
+
+input ModuleUpdateWithoutReminderEmailInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
+  students: StudentUpdateManyWithoutModuleInput
+}
+
+input EnumModuleStatusFieldUpdateOperationsInput {
+  set: ModuleStatus
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input ModuleUpdateschoolsInput {
+  set: [Schools!]
+  push: [Schools!]
+}
+
+input ModuleMemberUpdateManyWithoutModuleInput {
+  create: [ModuleMemberCreateWithoutModuleInput!]
+  connectOrCreate: [ModuleMemberCreateOrConnectWithoutModuleInput!]
+  upsert: [ModuleMemberUpsertWithWhereUniqueWithoutModuleInput!]
+  createMany: ModuleMemberCreateManyModuleInputEnvelope
+  set: [ModuleMemberWhereUniqueInput!]
+  disconnect: [ModuleMemberWhereUniqueInput!]
+  delete: [ModuleMemberWhereUniqueInput!]
+  connect: [ModuleMemberWhereUniqueInput!]
+  update: [ModuleMemberUpdateWithWhereUniqueWithoutModuleInput!]
+  updateMany: [ModuleMemberUpdateManyWithWhereWithoutModuleInput!]
+  deleteMany: [ModuleMemberScalarWhereInput!]
+}
+
+input ModuleMemberUpsertWithWhereUniqueWithoutModuleInput {
+  where: ModuleMemberWhereUniqueInput!
+  update: ModuleMemberUpdateWithoutModuleInput!
+  create: ModuleMemberCreateWithoutModuleInput!
+}
+
+input ModuleMemberUpdateWithoutModuleInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutModuleMemberInput
+  studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input EnumModuleMemberPermissionsFieldUpdateOperationsInput {
+  set: ModuleMemberPermissions
+}
+
+input UserUpdateOneRequiredWithoutModuleMemberInput {
+  create: UserCreateWithoutModuleMemberInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleMemberInput
+  upsert: UserUpsertWithoutModuleMemberInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutModuleMemberInput
+}
+
+input UserUpsertWithoutModuleMemberInput {
+  update: UserUpdateWithoutModuleMemberInput!
+  create: UserCreateWithoutModuleMemberInput!
+}
+
+input UserUpdateWithoutModuleMemberInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  sessions: SessionUpdateManyWithoutUserInput
+  moduleStudents: StudentUpdateManyWithoutUserInput
+}
+
+input EnumRoleFieldUpdateOperationsInput {
+  set: Role
+}
+
+input SessionUpdateManyWithoutUserInput {
+  create: [SessionCreateWithoutUserInput!]
+  connectOrCreate: [SessionCreateOrConnectWithoutUserInput!]
+  upsert: [SessionUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: SessionCreateManyUserInputEnvelope
+  set: [SessionWhereUniqueInput!]
+  disconnect: [SessionWhereUniqueInput!]
+  delete: [SessionWhereUniqueInput!]
+  connect: [SessionWhereUniqueInput!]
+  update: [SessionUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [SessionUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [SessionScalarWhereInput!]
+}
+
+input SessionUpsertWithWhereUniqueWithoutUserInput {
+  where: SessionWhereUniqueInput!
+  update: SessionUpdateWithoutUserInput!
+  create: SessionCreateWithoutUserInput!
+}
+
+input SessionUpdateWithoutUserInput {
+  id: StringFieldUpdateOperationsInput
+  sessionToken: StringFieldUpdateOperationsInput
+  expires: DateTimeFieldUpdateOperationsInput
+}
+
+input SessionUpdateWithWhereUniqueWithoutUserInput {
+  where: SessionWhereUniqueInput!
+  data: SessionUpdateWithoutUserInput!
+}
+
+input SessionUpdateManyWithWhereWithoutUserInput {
+  where: SessionScalarWhereInput!
+  data: SessionUpdateManyMutationInput!
+}
+
+input SessionScalarWhereInput {
+  AND: [SessionScalarWhereInput!]
+  OR: [SessionScalarWhereInput!]
+  NOT: [SessionScalarWhereInput!]
+  id: StringFilter
+  sessionToken: StringFilter
+  expires: DateTimeFilter
+  userId: StringFilter
+}
+
+input SessionUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  sessionToken: StringFieldUpdateOperationsInput
+  expires: DateTimeFieldUpdateOperationsInput
+}
+
+input StudentUpdateManyWithoutUserInput {
+  create: [StudentCreateWithoutUserInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutUserInput!]
+  upsert: [StudentUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: StudentCreateManyUserInputEnvelope
+  set: [StudentWhereUniqueInput!]
+  disconnect: [StudentWhereUniqueInput!]
+  delete: [StudentWhereUniqueInput!]
+  connect: [StudentWhereUniqueInput!]
+  update: [StudentUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [StudentUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [StudentScalarWhereInput!]
+}
+
+input StudentUpsertWithWhereUniqueWithoutUserInput {
+  where: StudentWhereUniqueInput!
+  update: StudentUpdateWithoutUserInput!
+  create: StudentCreateWithoutUserInput!
+}
+
+input StudentUpdateWithoutUserInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input NullableDecimalFieldUpdateOperationsInput {
+  set: Decimal
+  increment: Decimal
+  decrement: Decimal
+  multiply: Decimal
+  divide: Decimal
+}
+
+input ModuleUpdateOneWithoutStudentsInput {
+  create: ModuleCreateWithoutStudentsInput
+  connectOrCreate: ModuleCreateOrConnectWithoutStudentsInput
+  upsert: ModuleUpsertWithoutStudentsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: ModuleWhereUniqueInput
+  update: ModuleUpdateWithoutStudentsInput
+}
+
+input ModuleUpsertWithoutStudentsInput {
+  update: ModuleUpdateWithoutStudentsInput!
+  create: ModuleCreateWithoutStudentsInput!
+}
+
+input ModuleUpdateWithoutStudentsInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  reminderEmail: EmailUpdateOneWithoutModuleInput
+  columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
+}
+
+input EmailUpdateOneWithoutModuleInput {
+  create: EmailCreateWithoutModuleInput
+  connectOrCreate: EmailCreateOrConnectWithoutModuleInput
+  upsert: EmailUpsertWithoutModuleInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: EmailWhereUniqueInput
+  update: EmailUpdateWithoutModuleInput
+}
+
+input EmailUpsertWithoutModuleInput {
+  update: EmailUpdateWithoutModuleInput!
+  create: EmailCreateWithoutModuleInput!
+}
+
+input EmailUpdateWithoutModuleInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+}
+
+input PeerEvaluationColumnUpdateManyWithoutModuleInput {
+  create: [PeerEvaluationColumnCreateWithoutModuleInput!]
+  connectOrCreate: [PeerEvaluationColumnCreateOrConnectWithoutModuleInput!]
+  upsert: [PeerEvaluationColumnUpsertWithWhereUniqueWithoutModuleInput!]
+  createMany: PeerEvaluationColumnCreateManyModuleInputEnvelope
+  set: [PeerEvaluationColumnWhereUniqueInput!]
+  disconnect: [PeerEvaluationColumnWhereUniqueInput!]
+  delete: [PeerEvaluationColumnWhereUniqueInput!]
+  connect: [PeerEvaluationColumnWhereUniqueInput!]
+  update: [PeerEvaluationColumnUpdateWithWhereUniqueWithoutModuleInput!]
+  updateMany: [PeerEvaluationColumnUpdateManyWithWhereWithoutModuleInput!]
+  deleteMany: [PeerEvaluationColumnScalarWhereInput!]
+}
+
+input PeerEvaluationColumnUpsertWithWhereUniqueWithoutModuleInput {
+  where: PeerEvaluationColumnWhereUniqueInput!
+  update: PeerEvaluationColumnUpdateWithoutModuleInput!
+  create: PeerEvaluationColumnCreateWithoutModuleInput!
+}
+
+input PeerEvaluationColumnUpdateWithoutModuleInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
+}
+
+input PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput {
+  create: [PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput!]
+  connectOrCreate: [PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationColumnInput!]
+  upsert: [PeerEvaluationRevieweeColumnUpsertWithWhereUniqueWithoutPeerEvaluationColumnInput!]
+  createMany: PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInputEnvelope
+  set: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  disconnect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  delete: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  connect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  update: [PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationColumnInput!]
+  updateMany: [PeerEvaluationRevieweeColumnUpdateManyWithWhereWithoutPeerEvaluationColumnInput!]
+  deleteMany: [PeerEvaluationRevieweeColumnScalarWhereInput!]
+}
+
+input PeerEvaluationRevieweeColumnUpsertWithWhereUniqueWithoutPeerEvaluationColumnInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  update: PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationColumnInput!
+  create: PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationColumnInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  isInvalid: BoolFieldUpdateOperationsInput
+  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput {
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput
+  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+  upsert: PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnInput
+  connect: PeerEvaluationRevieweeWhereUniqueInput
+  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput
+}
+
+input PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnInput {
+  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  revieweeComment: StringFieldUpdateOperationsInput
+  studentReviewed: StudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
+  peerEvaluation: PeerEvaluationUpdateOneWithoutPeerEvaluationRevieweesInput
+}
+
+input StudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput {
+  create: StudentCreateWithoutPeerEvaluationRevieweesInput
+  connectOrCreate: StudentCreateOrConnectWithoutPeerEvaluationRevieweesInput
+  upsert: StudentUpsertWithoutPeerEvaluationRevieweesInput
+  connect: StudentWhereUniqueInput
+  update: StudentUpdateWithoutPeerEvaluationRevieweesInput
+}
+
+input StudentUpsertWithoutPeerEvaluationRevieweesInput {
+  update: StudentUpdateWithoutPeerEvaluationRevieweesInput!
+  create: StudentCreateWithoutPeerEvaluationRevieweesInput!
+}
+
+input StudentUpdateWithoutPeerEvaluationRevieweesInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+}
+
+input UserUpdateOneWithoutModuleStudentsInput {
+  create: UserCreateWithoutModuleStudentsInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleStudentsInput
+  upsert: UserUpsertWithoutModuleStudentsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutModuleStudentsInput
+}
+
+input UserUpsertWithoutModuleStudentsInput {
+  update: UserUpdateWithoutModuleStudentsInput!
+  create: UserCreateWithoutModuleStudentsInput!
+}
+
+input UserUpdateWithoutModuleStudentsInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  sessions: SessionUpdateManyWithoutUserInput
+  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+}
+
+input ModuleMemberUpdateManyWithoutUserInput {
+  create: [ModuleMemberCreateWithoutUserInput!]
+  connectOrCreate: [ModuleMemberCreateOrConnectWithoutUserInput!]
+  upsert: [ModuleMemberUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: ModuleMemberCreateManyUserInputEnvelope
+  set: [ModuleMemberWhereUniqueInput!]
+  disconnect: [ModuleMemberWhereUniqueInput!]
+  delete: [ModuleMemberWhereUniqueInput!]
+  connect: [ModuleMemberWhereUniqueInput!]
+  update: [ModuleMemberUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ModuleMemberUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [ModuleMemberScalarWhereInput!]
+}
+
+input ModuleMemberUpsertWithWhereUniqueWithoutUserInput {
+  where: ModuleMemberWhereUniqueInput!
+  update: ModuleMemberUpdateWithoutUserInput!
+  create: ModuleMemberCreateWithoutUserInput!
+}
+
+input ModuleMemberUpdateWithoutUserInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
+  studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input ModuleUpdateOneRequiredWithoutModuleMembersInput {
+  create: ModuleCreateWithoutModuleMembersInput
+  connectOrCreate: ModuleCreateOrConnectWithoutModuleMembersInput
+  upsert: ModuleUpsertWithoutModuleMembersInput
+  connect: ModuleWhereUniqueInput
+  update: ModuleUpdateWithoutModuleMembersInput
+}
+
+input ModuleUpsertWithoutModuleMembersInput {
+  update: ModuleUpdateWithoutModuleMembersInput!
+  create: ModuleCreateWithoutModuleMembersInput!
+}
+
+input ModuleUpdateWithoutModuleMembersInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+  reminderEmail: EmailUpdateOneWithoutModuleInput
+  columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
+  students: StudentUpdateManyWithoutModuleInput
+}
+
+input StudentUpdateManyWithoutModuleInput {
+  create: [StudentCreateWithoutModuleInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutModuleInput!]
+  upsert: [StudentUpsertWithWhereUniqueWithoutModuleInput!]
+  createMany: StudentCreateManyModuleInputEnvelope
+  set: [StudentWhereUniqueInput!]
+  disconnect: [StudentWhereUniqueInput!]
+  delete: [StudentWhereUniqueInput!]
+  connect: [StudentWhereUniqueInput!]
+  update: [StudentUpdateWithWhereUniqueWithoutModuleInput!]
+  updateMany: [StudentUpdateManyWithWhereWithoutModuleInput!]
+  deleteMany: [StudentScalarWhereInput!]
+}
+
+input StudentUpsertWithWhereUniqueWithoutModuleInput {
+  where: StudentWhereUniqueInput!
+  update: StudentUpdateWithoutModuleInput!
+  create: StudentCreateWithoutModuleInput!
+}
+
+input StudentUpdateWithoutModuleInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input StudentTeamUpdateOneWithoutStudentsInput {
+  create: StudentTeamCreateWithoutStudentsInput
+  connectOrCreate: StudentTeamCreateOrConnectWithoutStudentsInput
+  upsert: StudentTeamUpsertWithoutStudentsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: StudentTeamWhereUniqueInput
+  update: StudentTeamUpdateWithoutStudentsInput
+}
+
+input StudentTeamUpsertWithoutStudentsInput {
+  update: StudentTeamUpdateWithoutStudentsInput!
+  create: StudentTeamCreateWithoutStudentsInput!
+}
+
+input StudentTeamUpdateWithoutStudentsInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  mark: DecimalFieldUpdateOperationsInput
+}
+
+input DecimalFieldUpdateOperationsInput {
+  set: Decimal
+  increment: Decimal
+  decrement: Decimal
+  multiply: Decimal
+  divide: Decimal
+}
+
+input ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput {
+  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput
+  connectOrCreate: ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
+  upsert: ModuleMemberUpsertWithoutStudentsMarkAdjustedInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: ModuleMemberWhereUniqueInput
+  update: ModuleMemberUpdateWithoutStudentsMarkAdjustedInput
+}
+
+input ModuleMemberUpsertWithoutStudentsMarkAdjustedInput {
+  update: ModuleMemberUpdateWithoutStudentsMarkAdjustedInput!
+  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput!
+}
+
+input ModuleMemberUpdateWithoutStudentsMarkAdjustedInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
+  user: UserUpdateOneRequiredWithoutModuleMemberInput
+}
+
+input PeerEvaluationUpdateOneWithoutStudentInput {
+  create: PeerEvaluationCreateWithoutStudentInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutStudentInput
+  upsert: PeerEvaluationUpsertWithoutStudentInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: PeerEvaluationWhereUniqueInput
+  update: PeerEvaluationUpdateWithoutStudentInput
+}
+
+input PeerEvaluationUpsertWithoutStudentInput {
+  update: PeerEvaluationUpdateWithoutStudentInput!
+  create: PeerEvaluationCreateWithoutStudentInput!
+}
+
+input PeerEvaluationUpdateWithoutStudentInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  comment: StringFieldUpdateOperationsInput
+  isCompleted: BoolFieldUpdateOperationsInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationInput
+}
+
+input PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationInput {
+  create: [PeerEvaluationRevieweeCreateWithoutPeerEvaluationInput!]
+  connectOrCreate: [PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationInput!]
+  upsert: [PeerEvaluationRevieweeUpsertWithWhereUniqueWithoutPeerEvaluationInput!]
+  createMany: PeerEvaluationRevieweeCreateManyPeerEvaluationInputEnvelope
+  set: [PeerEvaluationRevieweeWhereUniqueInput!]
+  disconnect: [PeerEvaluationRevieweeWhereUniqueInput!]
+  delete: [PeerEvaluationRevieweeWhereUniqueInput!]
+  connect: [PeerEvaluationRevieweeWhereUniqueInput!]
+  update: [PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutPeerEvaluationInput!]
+  updateMany: [PeerEvaluationRevieweeUpdateManyWithWhereWithoutPeerEvaluationInput!]
+  deleteMany: [PeerEvaluationRevieweeScalarWhereInput!]
+}
+
+input PeerEvaluationRevieweeUpsertWithWhereUniqueWithoutPeerEvaluationInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationInput!
+}
+
+input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  revieweeComment: StringFieldUpdateOperationsInput
+  studentReviewed: StudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput {
+  create: [PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput!]
+  connectOrCreate: [PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationRevieweeInput!]
+  upsert: [PeerEvaluationRevieweeColumnUpsertWithWhereUniqueWithoutPeerEvaluationRevieweeInput!]
+  createMany: PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInputEnvelope
+  set: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  disconnect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  delete: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  connect: [PeerEvaluationRevieweeColumnWhereUniqueInput!]
+  update: [PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationRevieweeInput!]
+  updateMany: [PeerEvaluationRevieweeColumnUpdateManyWithWhereWithoutPeerEvaluationRevieweeInput!]
+  deleteMany: [PeerEvaluationRevieweeColumnScalarWhereInput!]
+}
+
+input PeerEvaluationRevieweeColumnUpsertWithWhereUniqueWithoutPeerEvaluationRevieweeInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  update: PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationRevieweeInput!
+  create: PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput!
+}
+
+input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationRevieweeInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  isInvalid: BoolFieldUpdateOperationsInput
+  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+}
+
+input PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput {
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput
+  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+  upsert: PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnInput
+  connect: PeerEvaluationColumnWhereUniqueInput
+  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput
+}
+
+input PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnInput {
+  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput!
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutColumnsInput
+}
+
+input ModuleUpdateOneRequiredWithoutColumnsInput {
+  create: ModuleCreateWithoutColumnsInput
+  connectOrCreate: ModuleCreateOrConnectWithoutColumnsInput
+  upsert: ModuleUpsertWithoutColumnsInput
+  connect: ModuleWhereUniqueInput
+  update: ModuleUpdateWithoutColumnsInput
+}
+
+input ModuleUpsertWithoutColumnsInput {
+  update: ModuleUpdateWithoutColumnsInput!
+  create: ModuleCreateWithoutColumnsInput!
+}
+
+input ModuleUpdateWithoutColumnsInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  reminderEmail: EmailUpdateOneWithoutModuleInput
+  students: StudentUpdateManyWithoutModuleInput
+}
+
+input PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationRevieweeInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  data: PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationRevieweeInput!
+}
+
+input PeerEvaluationRevieweeColumnUpdateManyWithWhereWithoutPeerEvaluationRevieweeInput {
+  where: PeerEvaluationRevieweeColumnScalarWhereInput!
+  data: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
+}
+
+input PeerEvaluationRevieweeColumnScalarWhereInput {
+  AND: [PeerEvaluationRevieweeColumnScalarWhereInput!]
+  OR: [PeerEvaluationRevieweeColumnScalarWhereInput!]
+  NOT: [PeerEvaluationRevieweeColumnScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  criteriaScore: IntFilter
+  peerEvaluationRevieweeId: StringFilter
+  peerEvaluationColumnId: StringFilter
+  isInvalid: BoolFilter
+}
+
+input PeerEvaluationRevieweeColumnUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  isInvalid: BoolFieldUpdateOperationsInput
+}
+
+input PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutPeerEvaluationInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  data: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationInput!
+}
+
+input PeerEvaluationRevieweeUpdateManyWithWhereWithoutPeerEvaluationInput {
+  where: PeerEvaluationRevieweeScalarWhereInput!
+  data: PeerEvaluationRevieweeUpdateManyMutationInput!
+}
+
+input PeerEvaluationRevieweeScalarWhereInput {
+  AND: [PeerEvaluationRevieweeScalarWhereInput!]
+  OR: [PeerEvaluationRevieweeScalarWhereInput!]
+  NOT: [PeerEvaluationRevieweeScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  studentId: StringFilter
+  criteriaScore: IntFilter
+  revieweeComment: StringFilter
+  peerEvaluationId: StringNullableFilter
+}
+
+input PeerEvaluationRevieweeUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  revieweeComment: StringFieldUpdateOperationsInput
+}
+
+input PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput {
+  create: [PeerEvaluationRevieweeCreateWithoutStudentReviewedInput!]
+  connectOrCreate: [PeerEvaluationRevieweeCreateOrConnectWithoutStudentReviewedInput!]
+  upsert: [PeerEvaluationRevieweeUpsertWithWhereUniqueWithoutStudentReviewedInput!]
+  createMany: PeerEvaluationRevieweeCreateManyStudentReviewedInputEnvelope
+  set: [PeerEvaluationRevieweeWhereUniqueInput!]
+  disconnect: [PeerEvaluationRevieweeWhereUniqueInput!]
+  delete: [PeerEvaluationRevieweeWhereUniqueInput!]
+  connect: [PeerEvaluationRevieweeWhereUniqueInput!]
+  update: [PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutStudentReviewedInput!]
+  updateMany: [PeerEvaluationRevieweeUpdateManyWithWhereWithoutStudentReviewedInput!]
+  deleteMany: [PeerEvaluationRevieweeScalarWhereInput!]
+}
+
+input PeerEvaluationRevieweeUpsertWithWhereUniqueWithoutStudentReviewedInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  update: PeerEvaluationRevieweeUpdateWithoutStudentReviewedInput!
+  create: PeerEvaluationRevieweeCreateWithoutStudentReviewedInput!
+}
+
+input PeerEvaluationRevieweeUpdateWithoutStudentReviewedInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  revieweeComment: StringFieldUpdateOperationsInput
+  peerEvaluation: PeerEvaluationUpdateOneWithoutPeerEvaluationRevieweesInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationUpdateOneWithoutPeerEvaluationRevieweesInput {
+  create: PeerEvaluationCreateWithoutPeerEvaluationRevieweesInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationRevieweesInput
+  upsert: PeerEvaluationUpsertWithoutPeerEvaluationRevieweesInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: PeerEvaluationWhereUniqueInput
+  update: PeerEvaluationUpdateWithoutPeerEvaluationRevieweesInput
+}
+
+input PeerEvaluationUpsertWithoutPeerEvaluationRevieweesInput {
+  update: PeerEvaluationUpdateWithoutPeerEvaluationRevieweesInput!
+  create: PeerEvaluationCreateWithoutPeerEvaluationRevieweesInput!
+}
+
+input PeerEvaluationUpdateWithoutPeerEvaluationRevieweesInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  comment: StringFieldUpdateOperationsInput
+  isCompleted: BoolFieldUpdateOperationsInput
+  student: StudentUpdateOneRequiredWithoutPeerEvaluationReviewedInput
+}
+
+input StudentUpdateOneRequiredWithoutPeerEvaluationReviewedInput {
+  create: StudentCreateWithoutPeerEvaluationReviewedInput
+  connectOrCreate: StudentCreateOrConnectWithoutPeerEvaluationReviewedInput
+  upsert: StudentUpsertWithoutPeerEvaluationReviewedInput
+  connect: StudentWhereUniqueInput
+  update: StudentUpdateWithoutPeerEvaluationReviewedInput
+}
+
+input StudentUpsertWithoutPeerEvaluationReviewedInput {
+  update: StudentUpdateWithoutPeerEvaluationReviewedInput!
+  create: StudentCreateWithoutPeerEvaluationReviewedInput!
+}
+
+input StudentUpdateWithoutPeerEvaluationReviewedInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutStudentReviewedInput {
+  where: PeerEvaluationRevieweeWhereUniqueInput!
+  data: PeerEvaluationRevieweeUpdateWithoutStudentReviewedInput!
+}
+
+input PeerEvaluationRevieweeUpdateManyWithWhereWithoutStudentReviewedInput {
+  where: PeerEvaluationRevieweeScalarWhereInput!
+  data: PeerEvaluationRevieweeUpdateManyMutationInput!
+}
+
+input StudentUpdateWithWhereUniqueWithoutModuleInput {
+  where: StudentWhereUniqueInput!
+  data: StudentUpdateWithoutModuleInput!
+}
+
+input StudentUpdateManyWithWhereWithoutModuleInput {
+  where: StudentScalarWhereInput!
+  data: StudentUpdateManyMutationInput!
+}
+
+input StudentScalarWhereInput {
+  AND: [StudentScalarWhereInput!]
+  OR: [StudentScalarWhereInput!]
+  NOT: [StudentScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  userId: StringNullableFilter
+  moduleId: StringNullableFilter
+  studentTeamId: StringNullableFilter
+  averageCriteriaScore: DecimalNullableFilter
+  averageCriteriaScoreByTeamMember: DecimalNullableFilter
+  systemCalculatedMark: DecimalNullableFilter
+  systemAdjustedMark: DecimalNullableFilter
+  lecturerAdjustedMark: DecimalNullableFilter
+  moduleMemberId: StringNullableFilter
+}
+
+input StudentUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+}
+
+input StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput {
+  create: [StudentCreateWithoutLecturerAdjustedMarkByUserInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutLecturerAdjustedMarkByUserInput!]
+  upsert: [StudentUpsertWithWhereUniqueWithoutLecturerAdjustedMarkByUserInput!]
+  createMany: StudentCreateManyLecturerAdjustedMarkByUserInputEnvelope
+  set: [StudentWhereUniqueInput!]
+  disconnect: [StudentWhereUniqueInput!]
+  delete: [StudentWhereUniqueInput!]
+  connect: [StudentWhereUniqueInput!]
+  update: [StudentUpdateWithWhereUniqueWithoutLecturerAdjustedMarkByUserInput!]
+  updateMany: [StudentUpdateManyWithWhereWithoutLecturerAdjustedMarkByUserInput!]
+  deleteMany: [StudentScalarWhereInput!]
+}
+
+input StudentUpsertWithWhereUniqueWithoutLecturerAdjustedMarkByUserInput {
+  where: StudentWhereUniqueInput!
+  update: StudentUpdateWithoutLecturerAdjustedMarkByUserInput!
+  create: StudentCreateWithoutLecturerAdjustedMarkByUserInput!
+}
+
+input StudentUpdateWithoutLecturerAdjustedMarkByUserInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input StudentUpdateWithWhereUniqueWithoutLecturerAdjustedMarkByUserInput {
+  where: StudentWhereUniqueInput!
+  data: StudentUpdateWithoutLecturerAdjustedMarkByUserInput!
+}
+
+input StudentUpdateManyWithWhereWithoutLecturerAdjustedMarkByUserInput {
+  where: StudentScalarWhereInput!
+  data: StudentUpdateManyMutationInput!
+}
+
+input ModuleMemberUpdateWithWhereUniqueWithoutUserInput {
+  where: ModuleMemberWhereUniqueInput!
+  data: ModuleMemberUpdateWithoutUserInput!
+}
+
+input ModuleMemberUpdateManyWithWhereWithoutUserInput {
+  where: ModuleMemberScalarWhereInput!
+  data: ModuleMemberUpdateManyMutationInput!
+}
+
+input ModuleMemberScalarWhereInput {
+  AND: [ModuleMemberScalarWhereInput!]
+  OR: [ModuleMemberScalarWhereInput!]
+  NOT: [ModuleMemberScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  permission: EnumModuleMemberPermissionsFilter
+  moduleId: StringFilter
+  userId: StringFilter
+}
+
+input ModuleMemberUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+}
+
+input PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationColumnInput {
+  where: PeerEvaluationRevieweeColumnWhereUniqueInput!
+  data: PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnUpdateManyWithWhereWithoutPeerEvaluationColumnInput {
+  where: PeerEvaluationRevieweeColumnScalarWhereInput!
+  data: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
+}
+
+input PeerEvaluationColumnUpdateWithWhereUniqueWithoutModuleInput {
+  where: PeerEvaluationColumnWhereUniqueInput!
+  data: PeerEvaluationColumnUpdateWithoutModuleInput!
+}
+
+input PeerEvaluationColumnUpdateManyWithWhereWithoutModuleInput {
+  where: PeerEvaluationColumnScalarWhereInput!
+  data: PeerEvaluationColumnUpdateManyMutationInput!
+}
+
+input PeerEvaluationColumnScalarWhereInput {
+  AND: [PeerEvaluationColumnScalarWhereInput!]
+  OR: [PeerEvaluationColumnScalarWhereInput!]
+  NOT: [PeerEvaluationColumnScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  description: StringFilter
+  moduleId: StringFilter
+}
+
+input PeerEvaluationColumnUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+}
+
+input StudentUpdateWithWhereUniqueWithoutUserInput {
+  where: StudentWhereUniqueInput!
+  data: StudentUpdateWithoutUserInput!
+}
+
+input StudentUpdateManyWithWhereWithoutUserInput {
+  where: StudentScalarWhereInput!
+  data: StudentUpdateManyMutationInput!
+}
+
+input ModuleMemberUpdateWithWhereUniqueWithoutModuleInput {
+  where: ModuleMemberWhereUniqueInput!
+  data: ModuleMemberUpdateWithoutModuleInput!
+}
+
+input ModuleMemberUpdateManyWithWhereWithoutModuleInput {
+  where: ModuleMemberScalarWhereInput!
+  data: ModuleMemberUpdateManyMutationInput!
+}
+
+input EmailUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+}
+
+input ModuleCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateschoolsInput
+  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  reminderEmail: EmailCreateNestedOneWithoutModuleInput
+  columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
+  students: StudentCreateNestedManyWithoutModuleInput
+}
+
+input ModuleCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String!
+  moduleCode: String!
+  status: ModuleStatus
+  maxGradeIncrease: Int
+  maxGradeDecrease: Int
+  submissionsLockDate: DateTime
+  criteriaScoreRangeMin: Int
+  criteriaScoreRangeMax: Int
+  schools: ModuleCreateManyschoolsInput
+}
+
+input ModuleCreateManyschoolsInput {
+  set: [Schools!]!
+}
+
+input ModuleUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  reminderEmail: EmailUpdateOneWithoutModuleInput
+  columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
+  students: StudentUpdateManyWithoutModuleInput
+}
+
+input ModuleUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  moduleCode: StringFieldUpdateOperationsInput
+  status: EnumModuleStatusFieldUpdateOperationsInput
+  maxGradeIncrease: IntFieldUpdateOperationsInput
+  maxGradeDecrease: IntFieldUpdateOperationsInput
+  submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
+  criteriaScoreRangeMin: IntFieldUpdateOperationsInput
+  criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  schools: ModuleUpdateschoolsInput
+}
+
+input ModuleMemberCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  module: ModuleCreateNestedOneWithoutModuleMembersInput!
+  user: UserCreateNestedOneWithoutModuleMemberInput!
+  studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input ModuleMemberCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permission: ModuleMemberPermissions
+  moduleId: String!
+  userId: String!
+}
+
+input ModuleMemberUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
+  user: UserUpdateOneRequiredWithoutModuleMemberInput
+  studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
+}
+
+input PeerEvaluationCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  comment: String!
+  isCompleted: Boolean!
+  student: StudentCreateNestedOneWithoutPeerEvaluationReviewedInput!
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationInput
+}
+
+input PeerEvaluationCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String!
+  comment: String!
+  isCompleted: Boolean!
+}
+
+input PeerEvaluationUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  comment: StringFieldUpdateOperationsInput
+  isCompleted: BoolFieldUpdateOperationsInput
+  student: StudentUpdateOneRequiredWithoutPeerEvaluationReviewedInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationInput
+}
+
+input PeerEvaluationUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  comment: StringFieldUpdateOperationsInput
+  isCompleted: BoolFieldUpdateOperationsInput
+}
+
+input PeerEvaluationColumnCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String!
+  module: ModuleCreateNestedOneWithoutColumnsInput!
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
+}
+
+input PeerEvaluationColumnCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  description: String!
+  moduleId: String!
+}
+
+input PeerEvaluationColumnUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutColumnsInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
+}
+
+input PeerEvaluationRevieweeCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  revieweeComment: String!
+  studentReviewed: StudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
+  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationRevieweesInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationRevieweeCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  studentId: String!
+  criteriaScore: Int!
+  revieweeComment: String!
+  peerEvaluationId: String
+}
+
+input PeerEvaluationRevieweeUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  revieweeComment: StringFieldUpdateOperationsInput
+  studentReviewed: StudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
+  peerEvaluation: PeerEvaluationUpdateOneWithoutPeerEvaluationRevieweesInput
+  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+}
+
+input PeerEvaluationRevieweeColumnCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  isInvalid: Boolean!
+  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+}
+
+input PeerEvaluationRevieweeColumnCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  criteriaScore: Int!
+  peerEvaluationRevieweeId: String!
+  peerEvaluationColumnId: String!
+  isInvalid: Boolean!
+}
+
+input PeerEvaluationRevieweeColumnUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  criteriaScore: IntFieldUpdateOperationsInput
+  isInvalid: BoolFieldUpdateOperationsInput
+  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+}
+
+input SessionCreateInput {
+  id: String
+  sessionToken: String!
+  expires: DateTime!
+  user: UserCreateNestedOneWithoutSessionsInput!
+}
+
+input UserCreateNestedOneWithoutSessionsInput {
+  create: UserCreateWithoutSessionsInput
+  connectOrCreate: UserCreateOrConnectWithoutSessionsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutSessionsInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  email: String!
+  role: Role
+  emailVerified: DateTime
+  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+  moduleStudents: StudentCreateNestedManyWithoutUserInput
+}
+
+input UserCreateOrConnectWithoutSessionsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutSessionsInput!
+}
+
+input SessionCreateManyInput {
+  id: String
+  sessionToken: String!
+  expires: DateTime!
+  userId: String!
+}
+
+input SessionUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  sessionToken: StringFieldUpdateOperationsInput
+  expires: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutSessionsInput
+}
+
+input UserUpdateOneRequiredWithoutSessionsInput {
+  create: UserCreateWithoutSessionsInput
+  connectOrCreate: UserCreateOrConnectWithoutSessionsInput
+  upsert: UserUpsertWithoutSessionsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutSessionsInput
+}
+
+input UserUpsertWithoutSessionsInput {
+  update: UserUpdateWithoutSessionsInput!
+  create: UserCreateWithoutSessionsInput!
+}
+
+input UserUpdateWithoutSessionsInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+  moduleStudents: StudentUpdateManyWithoutUserInput
+}
+
+input StudentCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input StudentCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  moduleId: String
+  studentTeamId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+input StudentUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  studentTeam: StudentTeamUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input StudentTeamCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  mark: Decimal!
+  students: StudentCreateNestedManyWithoutStudentTeamInput
+}
+
+input StudentCreateNestedManyWithoutStudentTeamInput {
+  create: [StudentCreateWithoutStudentTeamInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutStudentTeamInput!]
+  createMany: StudentCreateManyStudentTeamInputEnvelope
+  connect: [StudentWhereUniqueInput!]
+}
+
+input StudentCreateWithoutStudentTeamInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  user: UserCreateNestedOneWithoutModuleStudentsInput
+  module: ModuleCreateNestedOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+}
+
+input StudentCreateOrConnectWithoutStudentTeamInput {
+  where: StudentWhereUniqueInput!
+  create: StudentCreateWithoutStudentTeamInput!
+}
+
+input StudentCreateManyStudentTeamInputEnvelope {
+  data: [StudentCreateManyStudentTeamInput!]!
+  skipDuplicates: Boolean
+}
+
+input StudentCreateManyStudentTeamInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String
+  moduleId: String
+  averageCriteriaScore: Decimal
+  averageCriteriaScoreByTeamMember: Decimal
+  systemCalculatedMark: Decimal
+  systemAdjustedMark: Decimal
+  lecturerAdjustedMark: Decimal
+  moduleMemberId: String
+}
+
+input StudentTeamCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  mark: Decimal!
+}
+
+input StudentTeamUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  mark: DecimalFieldUpdateOperationsInput
+  students: StudentUpdateManyWithoutStudentTeamInput
+}
+
+input StudentUpdateManyWithoutStudentTeamInput {
+  create: [StudentCreateWithoutStudentTeamInput!]
+  connectOrCreate: [StudentCreateOrConnectWithoutStudentTeamInput!]
+  upsert: [StudentUpsertWithWhereUniqueWithoutStudentTeamInput!]
+  createMany: StudentCreateManyStudentTeamInputEnvelope
+  set: [StudentWhereUniqueInput!]
+  disconnect: [StudentWhereUniqueInput!]
+  delete: [StudentWhereUniqueInput!]
+  connect: [StudentWhereUniqueInput!]
+  update: [StudentUpdateWithWhereUniqueWithoutStudentTeamInput!]
+  updateMany: [StudentUpdateManyWithWhereWithoutStudentTeamInput!]
+  deleteMany: [StudentScalarWhereInput!]
+}
+
+input StudentUpsertWithWhereUniqueWithoutStudentTeamInput {
+  where: StudentWhereUniqueInput!
+  update: StudentUpdateWithoutStudentTeamInput!
+  create: StudentCreateWithoutStudentTeamInput!
+}
+
+input StudentUpdateWithoutStudentTeamInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
+  averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
+  systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
+  systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutModuleStudentsInput
+  module: ModuleUpdateOneWithoutStudentsInput
+  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
+  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+}
+
+input StudentUpdateWithWhereUniqueWithoutStudentTeamInput {
+  where: StudentWhereUniqueInput!
+  data: StudentUpdateWithoutStudentTeamInput!
+}
+
+input StudentUpdateManyWithWhereWithoutStudentTeamInput {
+  where: StudentScalarWhereInput!
+  data: StudentUpdateManyMutationInput!
+}
+
+input StudentTeamUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  mark: DecimalFieldUpdateOperationsInput
+}
+
+input UserCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  email: String!
+  role: Role
+  emailVerified: DateTime
+  sessions: SessionCreateNestedManyWithoutUserInput
+  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+  moduleStudents: StudentCreateNestedManyWithoutUserInput
+}
+
+input UserCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  email: String!
+  role: Role
+  emailVerified: DateTime
+}
+
+input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+  sessions: SessionUpdateManyWithoutUserInput
+  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+  moduleStudents: StudentUpdateManyWithoutUserInput
+}
+
+input UserUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  emailVerified: NullableDateTimeFieldUpdateOperationsInput
+}
+
+input VerificationTokenCreateInput {
+  identifier: String!
+  token: String!
+  expires: DateTime!
+}
+
+input VerificationTokenCreateManyInput {
+  identifier: String!
+  token: String!
+  expires: DateTime!
+}
+
+input VerificationTokenUpdateInput {
+  identifier: StringFieldUpdateOperationsInput
+  token: StringFieldUpdateOperationsInput
+  expires: DateTimeFieldUpdateOperationsInput
+}
+
+input VerificationTokenUpdateManyMutationInput {
+  identifier: StringFieldUpdateOperationsInput
+  token: StringFieldUpdateOperationsInput
+  expires: DateTimeFieldUpdateOperationsInput
+}

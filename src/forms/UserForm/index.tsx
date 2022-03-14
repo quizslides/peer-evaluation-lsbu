@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import styled from "@emotion/styled";
 import { Container, Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,22 +10,18 @@ import { object } from "yup";
 
 import { Button, SelectFieldForm, TextFieldForm } from "@/components";
 import content from "@/content";
-import { IUserData } from "@/requests/schema/user";
-import { Role, emailValidator, nameValidator, roleValidator } from "@/utils";
+import { FieldWrapper } from "@/forms/style";
+import { IUserData } from "@/types/user";
+import { Role, userEmailValidator, userNameValidator, userRoleValidator } from "@/utils";
 
 interface IUserForm extends IUserData {
   state: boolean;
-  title: string;
+  formTitle: string;
   updateUserFormState: (state: boolean) => void;
   onSubmitForm: (data: IUserData) => void;
 }
 
-const FieldWrapper = styled.div`
-  margin-top: 1em;
-  margin-bottom: 2em;
-`;
-
-const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubmitForm }: IUserForm) => {
+const UserForm = ({ email, name, role, formTitle, state, updateUserFormState, onSubmitForm }: IUserForm) => {
   const handleCloseDialog = (reason?: string) => {
     if (reason === "backdropClick") {
       return;
@@ -38,9 +33,9 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
   const validationSchema = object({
-    ...emailValidator,
-    ...nameValidator,
-    ...roleValidator,
+    ...userEmailValidator,
+    ...userNameValidator,
+    ...userRoleValidator,
   });
 
   const submitForm = (userValuesForm: IUserData) => {
@@ -50,7 +45,7 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
 
   return (
     <Dialog fullWidth maxWidth={"sm"} open={state} onClose={(_, reason) => handleCloseDialog(reason)}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{formTitle}</DialogTitle>
       <Formik
         initialValues={{
           email,
@@ -68,9 +63,10 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
                   <Grid item xs={6}>
                     <FieldWrapper>
                       <TextFieldForm
-                        testId="userform-form-field-email"
+                        testId="user-form-email-field"
                         name="email"
                         props={{
+                          required: true,
                           fullWidth: true,
                           label: content.containers.userForm.form.email.label,
                           type: "email",
@@ -81,14 +77,16 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
                     </FieldWrapper>
                     <FieldWrapper>
                       <TextFieldForm
-                        testId="userform-form-name-field"
+                        testId="user-form-name-field"
                         name="name"
                         props={{
+                          required: true,
                           fullWidth: true,
                           label: content.containers.userForm.form.name.label,
                           type: "text",
                           variant: "outlined",
                           placeholder: content.containers.userForm.form.name.placeholder,
+                          helperText: content.containers.userForm.form.name.helperText,
                         }}
                       />
                     </FieldWrapper>
@@ -97,11 +95,12 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
                         name="role"
                         options={Role}
                         props={{
+                          required: true,
                           label: content.containers.userForm.form.role.label,
                           helperText: content.containers.userForm.form.role.helperText,
                           fullWidth: true,
                         }}
-                        testId="userform-form-role-field"
+                        testId="user-form-role-field"
                       />
                     </FieldWrapper>
                   </Grid>
@@ -109,10 +108,10 @@ const UserForm = ({ email, name, role, title, state, updateUserFormState, onSubm
               </Container>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => handleCloseDialog()} testId="userform-form-cancel-button" variant="outlined">
+              <Button onClick={() => handleCloseDialog()} testId="user-form-cancel-button" variant="outlined">
                 {content.containers.userForm.form.button.cancel}
               </Button>
-              <Button disabled={isSubmitting} testId="userform-form-submit-button" variant="contained" type="submit">
+              <Button disabled={isSubmitting} testId="user-form-submit-button" variant="contained" type="submit">
                 {content.containers.userForm.form.button.submit}
               </Button>
             </DialogActions>

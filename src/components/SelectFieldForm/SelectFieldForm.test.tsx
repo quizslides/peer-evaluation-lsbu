@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import { object } from "yup";
 
 import { SelectFieldForm } from "@/components";
-import { Role, roleValidator } from "@/utils";
+import { Role, userRoleValidator } from "@/utils";
 
 describe("Testing SelectFieldForm component in a form", () => {
   it("renders a SelectFieldForm with test id", () => {
@@ -14,7 +14,7 @@ describe("Testing SelectFieldForm component in a form", () => {
     };
 
     const validationSchema = object({
-      ...roleValidator,
+      ...userRoleValidator,
     });
 
     const fieldName = "role";

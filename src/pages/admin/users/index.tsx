@@ -11,9 +11,16 @@ import { useSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError, object } from "yup";
 
-import tableCustomToolbar from "./TableCustomToolbar";
-
-import { Base, Dialog, IconButtonWrapper, PageTitle, Typography, UploadButton, VirtualStringList } from "@/components";
+import {
+  Base,
+  DataTableRefreshToolbarIcon,
+  Dialog,
+  IconButtonWrapper,
+  PageTitle,
+  Typography,
+  UploadButton,
+  VirtualStringList,
+} from "@/components";
 import { ObjectCSV } from "@/components/UploadButton/UploadButton";
 import { CreateUserForm, UpdateUserForm } from "@/containers";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
@@ -22,14 +29,14 @@ import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
 import useDeleteManyUser from "@/requests/hooks/mutations/useDeleteManyUser";
 import useGetUsers from "@/requests/hooks/query/useGetUsers";
-import { IUserData, initialUserState } from "@/requests/schema/user";
+import { IUserData, initialUserState } from "@/types/user";
 import {
-  emailValidator,
   errorNotification,
   loadingNotification,
-  nameValidator,
-  roleValidator,
   successNotification,
+  userEmailValidator,
+  userNameValidator,
+  userRoleValidator,
 } from "@/utils";
 import { RoleScope } from "@/utils/permissions";
 
@@ -186,9 +193,9 @@ const Users: NextPage = () => {
   };
 
   const userBulkSchema = object({
-    ...nameValidator,
-    ...emailValidator,
-    ...roleValidator,
+    ...userNameValidator,
+    ...userEmailValidator,
+    ...userRoleValidator,
   });
 
   const onUserBulkUpload = async (usersBulkList: ObjectCSV) => {
@@ -433,7 +440,7 @@ const Users: NextPage = () => {
         tableState.selectedRows.lookup = [];
       }
     },
-    customToolbar: () => tableCustomToolbar({ onClick: onRefreshUsers }),
+    customToolbar: (_) => <DataTableRefreshToolbarIcon onClick={onRefreshUsers} testId={"refresh-admin-users-table"} />,
     customToolbarSelect: (selectedRows, displayData) => (
       <Container>
         {selectedRows.data.length === 1 ? (
@@ -490,7 +497,7 @@ const Users: NextPage = () => {
 
   return (
     <Base topLeftComponent="menu" loading={loading || !data} error={!!error}>
-      <PageTitle title={"Users"} testId="homepage-title" variant="h4" margin="2em" />
+      <PageTitle title={"Users"} testId="page-admin-users-title" variant="h4" margin="2em" />
 
       {data && <MUIDataTable title={"Users"} data={data.users} columns={columns} options={tableOptions} />}
 

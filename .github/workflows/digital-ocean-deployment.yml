@@ -4,15 +4,15 @@ on:
   workflow_call:
     inputs:
       DIGITALOCEAN_APP_CONFIGURATION_FILE:
-        description: 'Digital Ocean App Platform configuration file'
+        description: "Digital Ocean App Platform configuration file"
         required: true
         type: string
     secrets:
       DIGITALOCEAN_ACCESS_TOKEN:
-        description: 'Access token to the Digital Ocean Project'
+        description: "Access token to the Digital Ocean Project"
         required: true
       DIGITALOCEAN_APP_PLATFORM_ID:
-        description: 'ID of the App Platform'
+        description: "ID of the App Platform"
         required: true
 
 jobs:

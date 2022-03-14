@@ -1,19 +1,5 @@
 import { gql } from "@apollo/client";
 
-interface IUserData {
-  email: string;
-  name: string;
-  role: string;
-}
-
-export const initialUserState = {
-  email: "",
-  name: "",
-  role: "",
-};
-
-export type { IUserData };
-
 export const CREATE_MULTIPLE_USERS = gql`
   mutation CreateMultipleUser($data: [UserCreateManyInput!]!, $skipDuplicates: Boolean) {
     createManyUser(data: $data, skipDuplicates: $skipDuplicates) {

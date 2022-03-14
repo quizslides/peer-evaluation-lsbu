@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { deny, rule, shield } from "graphql-shield";
+import { allow, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { Role } from "@/utils/permissions";
@@ -51,6 +51,18 @@ export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { 
 });
 
 /**
+ * Module Owner
+ * Module Viewer
+ * Module Member
+ * Module Editor
+ *
+ * Peer Evaluation Reviewer
+ * Peer Evaluation Reviewees
+ *
+ *
+ */
+
+/**
  * TODO: Module Owner or Collaborator
  * Student with access to a module and live or editable
  */
@@ -65,16 +77,16 @@ export const isTrue = rule()(() => {
 const permissions = shield(
   {
     Query: {
-      "*": deny,
-      users: isAdmin,
-      groupByUser: isAdmin,
+      "*": allow,
+      // users: isAdmin,
+      // groupByUser: isAdmin,
     },
     Mutation: {
-      "*": deny,
-      createManyUser: isAdmin,
-      updateUser: isAdmin,
-      deleteManyUser: isAdmin,
-      createUser: isAdmin,
+      "*": allow,
+      // createManyUser: isAdmin,
+      // updateUser: isAdmin,
+      // deleteManyUser: isAdmin,
+      // createUser: isAdmin,
     },
   },
   {

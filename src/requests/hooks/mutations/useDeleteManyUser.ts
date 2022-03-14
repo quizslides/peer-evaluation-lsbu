@@ -1,8 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { AffectedRowsOutput, UserWhereInput } from "@generated/type-graphql";
 
-import { DELETE_USERS } from "../../schema/user";
-
+import { DELETE_USERS } from "@/requests/schema/user";
 import { errorNotification, successNotification } from "@/utils";
 
 const useDeleteManyUser = (notificationsId: string) => {

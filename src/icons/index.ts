@@ -1,3 +1,4 @@
+import AddIcon from "@/icons/AddIcon/AddIcon";
 import ArrowBackIcon from "@/icons/ArrowBackIcon/ArrowBackIcon";
 import CheckIcon from "@/icons/CheckIcon/CheckIcon";
 import CloseIcon from "@/icons/CloseIcon/CloseIcon";
@@ -21,9 +22,11 @@ import SadFaceEmoji from "@/icons/SadFaceEmoji/SadFaceEmoji";
 import ThumbUpAltIcon from "@/icons/ThumbUpAltIcon/ThumbUpAltIcon";
 import UploadIcon from "@/icons/UploadIcon/UploadIcon";
 import VideogameAssetIcon from "@/icons/VideogameAssetIcon/VideogameAssetIcon";
+import ViewModuleIcon from "@/icons/ViewModuleIcon/ViewModuleIcon";
 import WidgetsIcon from "@/icons/WidgetsIcon/WidgetsIcon";
 
 export {
+  AddIcon,
   ArrowBackIcon,
   CheckIcon,
   CloseIcon,
@@ -47,5 +50,6 @@ export {
   ThumbUpAltIcon,
   UploadIcon,
   VideogameAssetIcon,
+  ViewModuleIcon,
   WidgetsIcon,
 };

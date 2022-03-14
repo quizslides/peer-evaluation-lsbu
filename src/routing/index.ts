@@ -10,6 +10,10 @@ const routing = {
   unauthorized: "/unauthorized",
   admin: {
     users: "/admin/users",
+    modules: "/admin/modules",
+  },
+  module: {
+    create: "/module/create",
   },
   backendEndpoint: "/api/graphql",
 };

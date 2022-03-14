@@ -1,6 +1,6 @@
-import { CREATE_MULTIPLE_USERS, IUserData } from "../../schema/user";
-
 import { TApolloClientType } from "@/graphql/client";
+import { CREATE_MULTIPLE_USERS } from "@/requests/schema/user";
+import { IUserData } from "@/types/user";
 
 const createMultipleUsers = (apolloClient: TApolloClientType, usersData: IUserData[]) => {
   return apolloClient.mutate({

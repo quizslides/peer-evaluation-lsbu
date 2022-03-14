@@ -13,7 +13,7 @@ import { SignInWrapper } from "@/containers";
 import content from "@/content";
 import { EmailSentEmoji } from "@/icons";
 import routing from "@/routing";
-import { emailValidator, errorNotification, loadingNotification, successNotification } from "@/utils";
+import { errorNotification, loadingNotification, successNotification, userEmailValidator } from "@/utils";
 
 interface ISignInForm {
   email: string;
@@ -43,7 +43,7 @@ const SignIn: NextPage = () => {
   const [isLinkSent, setLinkSent] = useState<boolean>(false);
 
   const validationSchema = object({
-    ...emailValidator,
+    ...userEmailValidator,
   });
 
   const sendLink = async (valuesForm: ISignInForm) => {

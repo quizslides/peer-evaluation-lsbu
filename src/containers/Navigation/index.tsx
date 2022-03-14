@@ -5,7 +5,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { useRouter } from "next/router";
 
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
-import MenuItems from "@/containers/Navigation/MenuItems";
+import MenuItems from "@/containers/MenuItems";
 import { MenuIcon } from "@/icons";
 
 const Navigation = () => {

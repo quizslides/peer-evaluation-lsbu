@@ -25,6 +25,7 @@ const content = {
         name: {
           label: "Name",
           placeholder: "Enter a name...",
+          helperText: "Name format must follow 'last name, first name'",
         },
         role: {
           label: "Role",
@@ -33,6 +34,54 @@ const content = {
         button: {
           submit: "submit",
           cancel: "cancel",
+        },
+      },
+    },
+    moduleForm: {
+      form: {
+        title: {
+          label: "Module title",
+          placeholder: "Title of the module",
+        },
+        moduleCode: {
+          label: "Module code",
+          placeholder: "Module code must be unique",
+        },
+        moduleSchools: {
+          label: "Schools module",
+          helperText: "Schools that the module is part of",
+        },
+        moduleStatus: {
+          label: "Status",
+          helperText: "Status of the module peer evaluation",
+        },
+        maxGradeIncrease: {
+          label: "Max grade increase",
+          helperText: "The max grade increase automatically by the system",
+        },
+        maxGradeDecrease: {
+          label: "Max grade decrease",
+          helperText: "The max grade decrease automatically by the system",
+        },
+        submissionsLockDate: {
+          label: "Submission lock date",
+          helperText: "The date when the peer evaluations submissions will be locked automatically",
+        },
+        criteriaScoreRangeMin: {
+          label: "Criteria Score Range Min",
+          helperText: "Criteria Score Range Min",
+        },
+        criteriaScoreRangeMax: {
+          label: "Criteria Score Range Max",
+          helperText: "Criteria Score Range Max",
+        },
+        reminderEmailTitle: {
+          label: "Email title",
+          placeholder: "Title of the reminder email",
+        },
+        reminderEmailBody: {
+          helperText: "Email body of the reminder",
+          resetButtonText: "Reset Email Body",
         },
       },
     },

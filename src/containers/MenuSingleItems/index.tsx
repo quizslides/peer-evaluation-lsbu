@@ -7,7 +7,7 @@ import { RoleScope } from "@/utils";
 
 interface IMenuTopItems {
   router: NextRouter;
-  menuTopItems: {
+  menuItems: {
     title: string;
     icon: JSX.Element;
     pathname: string;
@@ -15,14 +15,14 @@ interface IMenuTopItems {
   }[];
 }
 
-const MenuTopItems = ({ router, menuTopItems }: IMenuTopItems) => {
+const MenuSingleItems = ({ router, menuItems }: IMenuTopItems) => {
   return (
     <>
-      {menuTopItems.map(({ title, icon, pathname, scope }) => (
+      {menuItems.map(({ title, icon, pathname, scope }) => (
         <MenuTopItemsWrapper key={title} title={title} icon={icon} pathname={pathname} router={router} scope={scope} />
       ))}
     </>
   );
 };
 
-export default MenuTopItems;
+export default MenuSingleItems;

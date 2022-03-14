@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { UserForm } from "@/forms";
 import useUpdateUser from "@/requests/hooks/mutations/useUpdateUser";
-import { IUserData } from "@/requests/schema/user";
+import { IUserData } from "@/types/user";
 import { Role, loadingNotification } from "@/utils";
 
 interface IUpdateUserForm extends IUserData {
@@ -51,7 +51,7 @@ const UpdateUserForm = ({ email, name, role, state, updateUserFormState }: IUpda
       name={name}
       role={role}
       updateUserFormState={updateUserFormState}
-      title="Update user"
+      formTitle="Update user"
       state={state}
       onSubmitForm={submitForm}
     />

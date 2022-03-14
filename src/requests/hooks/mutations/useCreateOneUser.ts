@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { UserCreateInput } from "@generated/type-graphql";
 
-import { CREATE_ONE_USER, IUserData } from "../../schema/user";
-
+import { CREATE_ONE_USER } from "@/requests/schema/user";
+import { IUserData } from "@/types/user";
 import { errorNotification, successNotification } from "@/utils";
 
 const useCreateOneUser = (notificationsId: string) => {

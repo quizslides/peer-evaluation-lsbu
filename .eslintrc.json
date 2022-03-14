@@ -17,7 +17,12 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error",
     "import/no-cycle": "error",
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "require-jsdoc": "off",
     "valid-jsdoc": "off",
     "react/react-in-jsx-scope": "error",

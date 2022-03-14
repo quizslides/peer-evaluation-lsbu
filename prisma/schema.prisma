@@ -12,16 +12,16 @@ generator typegraphql {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @default(now()) @updatedAt
-  name          String
-  email         String         @unique
-  emailVerified DateTime?
-  sessions      Session[]
-  role          Role           @default(STUDENT)
-  modulesOwned  Module[]
-  moduleMember  ModuleMember[]
+  id             String         @id @default(cuid())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now()) @updatedAt
+  name           String
+  email          String         @unique
+  sessions       Session[]
+  role           Role           @default(STUDENT)
+  moduleMember   ModuleMember[]
+  emailVerified  DateTime?
+  moduleStudents Student[]
 }
 
 model VerificationToken {
@@ -35,9 +35,130 @@ model VerificationToken {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+}
+
+model Module {
+  id                    String                 @id @default(cuid())
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @default(now()) @updatedAt
+  title                 String
+  schools               Schools[]
+  moduleCode            String                 @unique
+  status                ModuleStatus           @default(DRAFT)
+  maxGradeIncrease      Int                    @default(10)
+  maxGradeDecrease      Int                    @default(100)
+  submissionsLockDate   DateTime?
+  moduleMembers         ModuleMember[]
+  reminderEmail         Email?
+  columns               PeerEvaluationColumn[]
+  criteriaScoreRangeMin Int                    @default(1)
+  criteriaScoreRangeMax Int                    @default(5)
+  students              Student[]
+}
+
+model Student {
+  id                               String                   @id @default(cuid())
+  createdAt                        DateTime                 @default(now())
+  updatedAt                        DateTime                 @default(now()) @updatedAt
+  user                             User?                    @relation(fields: [userId], references: [id])
+  userId                           String?
+  module                           Module?                  @relation(fields: [moduleId], references: [id])
+  moduleId                         String?
+  studentTeam                      StudentTeam?             @relation(fields: [studentTeamId], references: [id])
+  studentTeamId                    String?
+  averageCriteriaScore             Decimal?
+  averageCriteriaScoreByTeamMember Decimal?
+  systemCalculatedMark             Decimal?
+  systemAdjustedMark               Decimal?
+  lecturerAdjustedMark             Decimal?
+  lecturerAdjustedMarkByUser       ModuleMember?            @relation(fields: [moduleMemberId], references: [id]) // Lecturer that edited the adjusted mark
+  moduleMemberId                   String?
+  peerEvaluationReviewed           PeerEvaluation? // Peer evaluation that the studnet is reviewing
+  PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
+}
+
+model PeerEvaluation {
+  id                      String                   @id @default(cuid())
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @default(now()) @updatedAt
+  student                 Student                  @relation(fields: [studentId], references: [id])
+  studentId               String                   @unique
+  comment                 String
+  PeerEvaluationReviewees PeerEvaluationReviewee[]
+  isCompleted             Boolean
+}
+
+model PeerEvaluationReviewee {
+  id                           String                         @id @default(cuid())
+  createdAt                    DateTime                       @default(now())
+  updatedAt                    DateTime                       @default(now()) @updatedAt
+  studentReviewed              Student                        @relation(fields: [studentId], references: [id])
+  studentId                    String
+  criteriaScore                Int
+  revieweeComment              String
+  peerEvaluation               PeerEvaluation?                @relation(fields: [peerEvaluationId], references: [id])
+  peerEvaluationId             String?
+  PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
+}
+
+model PeerEvaluationRevieweeColumn {
+  id                       String                 @id @default(cuid())
+  createdAt                DateTime               @default(now())
+  updatedAt                DateTime               @default(now()) @updatedAt
+  criteriaScore            Int
+  peerEvaluationReviewee   PeerEvaluationReviewee @relation(fields: [peerEvaluationRevieweeId], references: [id])
+  peerEvaluationRevieweeId String
+  peerEvaluationColumn     PeerEvaluationColumn   @relation(fields: [peerEvaluationColumnId], references: [id])
+  peerEvaluationColumnId   String
+  isInvalid                Boolean
+}
+
+model StudentTeam {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  name      String
+  students  Student[]
+  mark      Decimal
+}
+
+model ModuleMember {
+  id                   String                  @id @default(cuid())
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @default(now()) @updatedAt
+  permission           ModuleMemberPermissions @default(VIEWER)
+  module               Module                  @relation(references: [id], fields: [moduleId], onDelete: Cascade)
+  moduleId             String
+  user                 User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId               String
+  studentsMarkAdjusted Student[]
+
+  @@unique([userId, moduleId])
+}
+
+model PeerEvaluationColumn {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  description String
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  moduleId    String   @unique
+
+  PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
+  @@unique([id, moduleId])
+}
+
+model Email {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  title     String
+  body      String
+  module    Module?  @relation(fields: [moduleId], references: [id])
+  moduleId  String?  @unique
 }
 
 enum Role {
@@ -46,59 +167,25 @@ enum Role {
   STUDENT
 }
 
-model Module {
-  id                  String         @id @default(cuid())
-  createdAt           DateTime       @default(now())
-  updatedAt           DateTime       @default(now()) @updatedAt
-  title               String
-  moduleCoordinator   User           @relation(fields: [moduleCoordinatorId], references: [id])
-  moduleCoordinatorId String
-  moduleReference     String         @unique
-  status              ModuleStatus   @default(DRAFT)
-  submissionsLockDate DateTime?
-  maxGradeIncrease    Int            @default(10)
-  maxGradeDecrease    Int            @default(10)
-  reminderEmailBody   String?
-  rangeColumns        RangeColumn?
-  moduleMember        ModuleMember[]
-}
-
 enum ModuleStatus {
   DRAFT
-  OPEN
-  BLOCKED
-}
-
-model ModuleMember {
-  id         String                  @id @default(cuid())
-  createdAt  DateTime                @default(now())
-  updatedAt  DateTime                @default(now()) @updatedAt
-  permission ModuleMemberPermissions @default(VIEWER)
-  module     Module                  @relation(fields: [moduleId], references: [id])
-  moduleId   String
-  user       User                    @relation(fields: [userId], references: [id])
-  userId     String
+  PUBLISHED
+  UNPUBLISHED
+  SUBMISSIONS_LOCKED
 }
 
 enum ModuleMemberPermissions {
+  OWNER
   EDITOR
   VIEWER
 }
 
-model RangeColumn {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  module    Module   @relation(fields: [moduleId], references: [id])
-  moduleId  String   @unique
-  rangeFrom Int      @default(1)
-  rangeTo   Int      @default(5)
-}
-
-// Peer Evaluation - TBC
-model Column {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  description String
+enum Schools {
+  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES
+  SCHOOL_OF_APPLIED_SCIENCES
+  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE
+  LSBU_BUSINESS_SCHOOL
+  SCHOOL_OF_ENGINEERING
+  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES
+  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE
 }

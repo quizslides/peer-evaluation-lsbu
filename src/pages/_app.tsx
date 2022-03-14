@@ -6,6 +6,8 @@ import "@fontsource/roboto/700.css";
 import React from "react";
 
 import { ApolloProvider } from "@apollo/client";
+import { LocalizationProvider } from "@mui/lab";
+import DateAdapter from "@mui/lab/AdapterDateFns";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { SessionProvider } from "next-auth/react";
@@ -24,17 +26,19 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <SessionProvider session={session}>
-          <Layout>
-            {pageProps.protected ? (
-              <AuthenticatedRoute roles={pageProps.roles}>
+        <LocalizationProvider dateAdapter={DateAdapter}>
+          <SessionProvider session={session}>
+            <Layout>
+              {pageProps.protected ? (
+                <AuthenticatedRoute roles={pageProps.roles}>
+                  <Component {...pageProps} />
+                </AuthenticatedRoute>
+              ) : (
                 <Component {...pageProps} />
-              </AuthenticatedRoute>
-            ) : (
-              <Component {...pageProps} />
-            )}
-          </Layout>
-        </SessionProvider>
+              )}
+            </Layout>
+          </SessionProvider>
+        </LocalizationProvider>
       </ThemeProvider>
       <Toaster />
     </ApolloProvider>
