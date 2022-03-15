@@ -127,7 +127,7 @@ const initialModuleState: IModuleData = {
   maxGradeDecrease: 100,
   submissionsLockDate: null,
   reminderEmailTitle: "Peer Evaluation Reminder - {{moduleCode}}",
-  reminderEmailBody: "Email body {{url}}",
+  reminderEmailBody: "Email body {{peerEvaluationUrl}}",
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
   columns: defaultPeerEvaluationColumns,

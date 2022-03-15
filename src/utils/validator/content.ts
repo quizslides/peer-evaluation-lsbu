@@ -70,8 +70,8 @@ const validatorContent = {
     maxLength: "Email title cannot be longer than 70 characters",
   },
   reminderEmailBody: {
-    matchUrlRegex: /{{url}}/,
-    matchUrl: "Email body must contain {{url}} for the URL of the peer evaluation",
+    matchUrlRegex: /{{peerEvaluationUrl}}/,
+    matchUrl: "Email body must contain {{peerEvaluationUrl}} for the URL of the peer evaluation",
   },
   column: {
     required: "Column is required",
