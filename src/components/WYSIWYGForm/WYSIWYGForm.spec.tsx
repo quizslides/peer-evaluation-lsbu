@@ -1,7 +1,8 @@
 import React from "react";
 
-import { render, screen } from "@testing-library/react";
+import { mount } from "@cypress/react";
 import { Form, Formik } from "formik";
+import { cy, it } from "local-cypress";
 import { object, string } from "yup";
 
 import { WYSIWYGForm } from "@/components";
@@ -24,8 +25,8 @@ describe("Testing WYSIWYGForm component in a form", () => {
 
     const testId = "test-id";
 
-    render(
-      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={jest.fn()}>
+    mount(
+      <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={cy.stub()}>
         {() => (
           <Form>
             <WYSIWYGForm
@@ -40,8 +41,6 @@ describe("Testing WYSIWYGForm component in a form", () => {
       </Formik>
     );
 
-    const element = screen.getByTestId(testId);
-
-    expect(element).toBeInTheDocument();
+    cy.get(`[data-testid="${testId}"]`).should("be.visible");
   });
 });
