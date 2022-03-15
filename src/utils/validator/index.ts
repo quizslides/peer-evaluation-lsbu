@@ -1,6 +1,6 @@
 import { array, date, mixed, number, ref, string } from "yup";
 
-import { ModuleStatus, Schools } from "@/types/module";
+import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
@@ -18,6 +18,10 @@ const userNameValidator = {
     .min(2, content.userName.minLength)
     .max(70, content.userName.maxLength)
     .required(content.userName.required),
+};
+
+const moduleMemberNameValidator = {
+  name: string(),
 };
 
 const userRoleValidator = {
@@ -116,6 +120,16 @@ const moduleColumnsValidator = {
   columns: array().min(1, content.columns.minLength),
 };
 
+const moduleMembersValidator = {
+  moduleMembers: array().min(1, content.moduleMembers.minLength),
+};
+
+const moduleMemberPermissionValidator = {
+  permission: mixed()
+    .oneOf([...Object.keys(ModuleMemberPermissions)], content.moduleMemberPermission.oneOf)
+    .required(content.moduleMemberPermission.required),
+};
+
 export {
   moduleCodeValidator,
   moduleColumnsValidator,
@@ -126,6 +140,9 @@ export {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
+  moduleMemberNameValidator,
+  moduleMemberPermissionValidator,
+  moduleMembersValidator,
   moduleSchoolValidator,
   moduleStatusValidator,
   moduleSubmissionsLockDateValidator,

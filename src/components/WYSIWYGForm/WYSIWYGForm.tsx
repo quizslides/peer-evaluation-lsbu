@@ -77,7 +77,7 @@ const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWY
   return (
     <FormControl error={isError} variant="standard" fullWidth data-testid={testId}>
       <WYSIWYG theme="snow" value={convertedText} onChange={onEditorChange} modules={modules} formats={formats} />
-      <FormHelperText id="helper-text">{isError ? meta.error : helperText}</FormHelperText>
+      <FormHelperText>{isError ? meta.error : helperText}</FormHelperText>
       <Wrapper>
         <BottomRight>
           <Button size="small" onClick={resetWYSIWYGToDefault} testId={`${testId}-reset-button`} variant={"outlined"}>

@@ -19,6 +19,13 @@ interface IModuleData {
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
+  moduleMembers: ModuleMember[];
+}
+
+interface ModuleMember {
+  permission: ModuleMemberPermissions;
+  email: string;
+  name: string;
 }
 
 enum ModuleMemberPermissions {
@@ -111,7 +118,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
   },
 ];
 
-const initialModuleState = {
+const initialModuleState: IModuleData = {
   title: "",
   moduleCode: "",
   schools: [],
@@ -124,15 +131,32 @@ const initialModuleState = {
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
   columns: defaultPeerEvaluationColumns,
+  moduleMembers: [
+    {
+      name: "",
+      email: "",
+      permission: ModuleMemberPermissions.OWNER,
+    },
+  ],
+};
+
+const initialModuleMember: ModuleMember = {
+  name: "",
+  email: "",
+  permission: ModuleMemberPermissions.VIEWER,
 };
 
 const initialColumnState = {
   description: "",
 };
 
+const moduleMemberColumnOrder = ["name", "email", "permission"];
+
 export {
   initialColumnState,
+  initialModuleMember,
   initialModuleState,
+  moduleMemberColumnOrder,
   ModuleMemberPermissions,
   ModuleStatus,
   peerEvaluationColumnOrder,
@@ -142,4 +166,4 @@ export {
   SchoolsDropdown,
 };
 
-export type { IModuleData, IPeerEvaluationColumn };
+export type { IModuleData, IPeerEvaluationColumn, ModuleMember };

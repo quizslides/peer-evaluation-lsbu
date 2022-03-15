@@ -1,4 +1,5 @@
 import CreateColumnForm from "@/containers/CreateColumnForm";
+import CreateModuleMemberForm from "@/containers/CreateModuleMemberForm";
 import CreateUserForm from "@/containers/CreateUserForm";
 import ErrorContainer from "@/containers/ErrorContainer";
 import HomePage from "@/containers/HomePage";
@@ -9,10 +10,12 @@ import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnMan
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdateColumnForm from "@/containers/UpdateColumnForm";
+import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm";
 import UpdateUserForm from "@/containers/UpdateUserForm/";
 
 export {
   CreateColumnForm,
+  CreateModuleMemberForm,
   CreateUserForm,
   ErrorContainer,
   HomePage,
@@ -23,5 +26,6 @@ export {
   SignInWrapper,
   UnauthorizedContainer,
   UpdateColumnForm,
+  UpdateModuleMemberForm,
   UpdateUserForm,
 };

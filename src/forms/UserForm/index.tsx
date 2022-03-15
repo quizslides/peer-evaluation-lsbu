@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { Container, Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -122,4 +122,4 @@ const UserForm = ({ email, name, role, formTitle, state, updateUserFormState, on
   );
 };
 
-export default UserForm;
+export default memo(UserForm);

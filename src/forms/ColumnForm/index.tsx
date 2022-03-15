@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { Container, Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -79,10 +79,10 @@ const ColumnForm = ({ formTitle, state, updateFormState, onSubmitForm, ...column
               </Container>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => handleCloseDialog()} testId="user-form-cancel-button" variant="outlined">
+              <Button onClick={() => handleCloseDialog()} testId="column-form-cancel-button" variant="outlined">
                 {content.containers.columnForm.form.button.cancel}
               </Button>
-              <Button disabled={isSubmitting} testId="user-form-submit-button" variant="contained" type="submit">
+              <Button disabled={isSubmitting} testId="column-form-submit-button" variant="contained" type="submit">
                 {content.containers.columnForm.form.button.submit}
               </Button>
             </DialogActions>
@@ -95,4 +95,4 @@ const ColumnForm = ({ formTitle, state, updateFormState, onSubmitForm, ...column
 
 export type { IColumnFormValue };
 
-export default ColumnForm;
+export default memo(ColumnForm);

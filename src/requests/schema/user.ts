@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_MULTIPLE_USERS = gql`
+const CREATE_MULTIPLE_USERS = gql`
   mutation CreateMultipleUser($data: [UserCreateManyInput!]!, $skipDuplicates: Boolean) {
     createManyUser(data: $data, skipDuplicates: $skipDuplicates) {
       count
@@ -8,7 +8,7 @@ export const CREATE_MULTIPLE_USERS = gql`
   }
 `;
 
-export const CREATE_ONE_USER = gql`
+const CREATE_ONE_USER = gql`
   mutation CreateOneUser($data: UserCreateInput!) {
     createUser(data: $data) {
       name
@@ -18,7 +18,7 @@ export const CREATE_ONE_USER = gql`
   }
 `;
 
-export const GET_USERS = gql`
+const GET_USERS = gql`
   query Users {
     users {
       name
@@ -29,7 +29,7 @@ export const GET_USERS = gql`
   }
 `;
 
-export const UPDATE_USER = gql`
+const UPDATE_USER = gql`
   mutation UpdateUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
     updateUser(data: $data, where: $where) {
       name
@@ -39,7 +39,7 @@ export const UPDATE_USER = gql`
   }
 `;
 
-export const DELETE_USERS = gql`
+const DELETE_USERS = gql`
   mutation Mutation($where: UserWhereInput) {
     deleteManyUser(where: $where) {
       count
@@ -47,10 +47,30 @@ export const DELETE_USERS = gql`
   }
 `;
 
-export const GROUP_BY_USER = gql`
+const GROUP_BY_USER = gql`
   query GroupByUser($by: [UserScalarFieldEnum!]!, $where: UserWhereInput) {
     groupByUser(by: $by, where: $where) {
       email
     }
   }
 `;
+
+const GET_LECTURER_USERS = gql`
+  query Users($where: UserWhereInput) {
+    users(where: $where) {
+      name
+      email
+      role
+    }
+  }
+`;
+
+export {
+  CREATE_MULTIPLE_USERS,
+  CREATE_ONE_USER,
+  DELETE_USERS,
+  GET_LECTURER_USERS,
+  GET_USERS,
+  GROUP_BY_USER,
+  UPDATE_USER,
+};

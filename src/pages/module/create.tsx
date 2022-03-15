@@ -12,7 +12,7 @@ const CreateModule: NextPage = () => {
   return (
     <Base topLeftComponent="menu" loading={false}>
       <PageTitle title={"Create Module"} testId="page-module-create-title" variant="h4" margin="2em" />
-      <CreateModuleForm state={true} updateFormState={() => console.log("updateModuleFormState")} />
+      <CreateModuleForm updateFormState={() => console.log("updateModuleFormState")} />
     </Base>
   );
 };

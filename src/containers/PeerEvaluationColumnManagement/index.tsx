@@ -19,6 +19,7 @@ import { getMergedKeyValuesObject } from "@/utils/form";
 interface IPeerEvaluationColumnManagement {
   helperText: string;
   testId: string;
+  name: string;
 }
 
 const Wrapper = styled.div`
@@ -33,10 +34,10 @@ const BottomRight = styled.div`
   right: 0;
 `;
 
-const PeerEvaluationColumnManagement = ({ helperText, testId }: IPeerEvaluationColumnManagement) => {
+const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvaluationColumnManagement) => {
   const { setFieldValue } = useFormikContext();
 
-  const [field, meta] = useField("columns");
+  const [field, meta] = useField(name);
 
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -228,8 +229,8 @@ const PeerEvaluationColumnManagement = ({ helperText, testId }: IPeerEvaluationC
   };
 
   useEffect(() => {
-    setFieldValue("columns", columns);
-  }, [columns, setFieldValue]);
+    setFieldValue(name, columns);
+  }, [columns, name, setFieldValue]);
 
   const isError = meta.error != undefined;
 
@@ -244,12 +245,12 @@ const PeerEvaluationColumnManagement = ({ helperText, testId }: IPeerEvaluationC
         options={tableOptions}
       />
 
-      <FormHelperText id="helper-text">{isError ? meta.error : helperText}</FormHelperText>
+      <FormHelperText>{isError ? meta.error : helperText}</FormHelperText>
 
       <Wrapper>
         <BottomRight>
           <Button size="small" onClick={resetDefault} testId={`${testId}-reset-button`} variant={"outlined"}>
-            {content.containers.PeerEvaluationColumnManagement.resetButton}
+            {content.containers.peerEvaluationColumnManagement.resetButton}
           </Button>
         </BottomRight>
       </Wrapper>
@@ -259,6 +260,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId }: IPeerEvaluationC
         updateFormState={setCreateModuleColumnOpen}
         onSubmit={onSubmitAddColumn}
       />
+
       {updateColumn && (
         <UpdateColumnForm
           state={isUpdateModuleColumnOpen}
@@ -271,12 +273,12 @@ const PeerEvaluationColumnManagement = ({ helperText, testId }: IPeerEvaluationC
       <ConfirmationDialog
         testId={"peer-evaluation-column-management-confirmation-delete-column"}
         isOpen={isDeleteModuleColumnConfirmationOpen}
-        title={content.containers.PeerEvaluationColumnManagement.confirmationDeleteColumn.title}
-        textContent={content.containers.PeerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
+        title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
+        textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
         onAccept={onDeleteModuleColumnAccept}
         onClose={onDeleteModuleColumnCancel}
-        closeText={content.containers.PeerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
-        acceptText={content.containers.PeerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
+        closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
+        acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
       />
     </FormControl>
   );

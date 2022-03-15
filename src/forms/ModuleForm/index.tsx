@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { Container, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
@@ -13,6 +13,7 @@ import {
   TextFieldForm,
   WYSIWYGForm,
 } from "@/components";
+import ModuleMember from "@/containers/ModuleMember";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
@@ -26,6 +27,7 @@ import {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
+  moduleMembersValidator,
   moduleSchoolValidator,
   moduleStatusValidator,
   moduleSubmissionsLockDateValidator,
@@ -34,14 +36,13 @@ import {
 import { arrayToObject, rangeNumber } from "@/utils/form";
 
 interface IModuleForm extends IModuleData {
-  state: boolean;
   updateFormState: (state: boolean) => void;
   onSubmitForm: (data: IModuleData) => void;
   isNewModule: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
+const ModuleForm = ({ updateFormState, onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
   const handleCloseDialog = (reason?: string) => {
     if (reason === "backdropClick") {
       return;
@@ -65,6 +66,7 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
     ...moduleEmailTitleValidator,
     ...moduleEmailBodyValidator,
     ...moduleColumnsValidator,
+    ...moduleMembersValidator,
   });
 
   const submitForm = (userValuesForm: IModuleData) => {
@@ -84,7 +86,6 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
         <Form>
           <Container maxWidth="lg">
             <Divider>Information</Divider>
-
             <FieldWrapper>
               <TextFieldForm
                 testId="module-form-title-field"
@@ -190,6 +191,7 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
 
             <FieldWrapper>
               <PeerEvaluationColumnManagement
+                name="columns"
                 helperText={content.containers.moduleForm.form.columnManagement.helperText}
                 testId={"module-form-module-peer-evaluation-column-management-field"}
               />
@@ -251,6 +253,16 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
               />
             </FieldWrapper>
 
+            <Divider>Module Members</Divider>
+
+            <FieldWrapper marginBottom="3em">
+              <ModuleMember
+                helperText={content.containers.moduleForm.form.moduleMembers.helperText}
+                testId={"module-form-module-member-field"}
+                name={"moduleMembers"}
+              />
+            </FieldWrapper>
+
             <Stack direction="column" spacing={3}>
               <Button onClick={() => handleCloseDialog()} testId="module-form-cancel-button" variant="outlined">
                 {content.containers.moduleForm.form.button.cancel}
@@ -266,4 +278,4 @@ const ModuleForm = ({ state, updateFormState, onSubmitForm, isNewModule = false,
   );
 };
 
-export default ModuleForm;
+export default memo(ModuleForm);

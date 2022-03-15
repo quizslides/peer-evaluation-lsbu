@@ -1,51 +1,65 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+import { useSession } from "next-auth/react";
+
+import { LoadingContainer } from "@/containers";
 import { ModuleForm } from "@/forms";
-import useCreateOneUser from "@/requests/hooks/mutations/useCreateOneUser";
-import { initialModuleState } from "@/types/module";
+import { IModuleData, initialModuleState } from "@/types/module";
 import { loadingNotification } from "@/utils";
 
 interface ICreateUserForm {
-  state: boolean;
   updateFormState: (state: boolean) => void;
 }
 
-const CreateModuleForm = ({ state, updateFormState }: ICreateUserForm) => {
-  const [createOneUser, { data, loading, reset }] = useCreateOneUser("UserForm");
+const CreateModuleForm = ({ updateFormState }: ICreateUserForm) => {
+  const { data: session, status } = useSession();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const submitForm = (valuesForm: any) => {
-    loadingNotification("Creating module", "UserForm");
-    createOneUser({ variables: { data: valuesForm } });
+  const [moduleValues, setModuleValues] = useState(initialModuleState);
+  // const [createOneUser, { data, loading, reset }] = useCreateOneUser("UserForm");
+
+  const submitForm = (valuesForm: IModuleData) => {
+    loadingNotification("Creating module", "ModuleForm");
+    console.log(valuesForm);
   };
 
-  useEffect(() => {
-    if (data && !loading) {
-      updateFormState(false);
-    }
-  }, [data, loading, reset, updateFormState]);
+  const loading = status === "loading";
 
-  if (!state) {
-    return null;
+  useEffect(() => {
+    if (session) {
+      let moduleValuesUpdated = moduleValues;
+      moduleValuesUpdated.moduleMembers[0].email = typeof session.user.email === "string" ? session.user.email : "";
+      moduleValuesUpdated.moduleMembers[0].name = typeof session.user.name === "string" ? session.user.name : "";
+      setModuleValues(moduleValuesUpdated);
+    }
+  }, [session, moduleValues]);
+
+  // useEffect(() => {
+  //   if (data && !loading) {
+  //     updateFormState(false);
+  //   }
+  // }, [data, loading, reset, updateFormState]);
+
+  if (loading) {
+    return <LoadingContainer loading={loading} />;
   }
 
   return (
     <ModuleForm
-      title={initialModuleState.title}
-      moduleCode={initialModuleState.moduleCode}
-      schools={initialModuleState.schools}
-      status={initialModuleState.status}
-      maxGradeIncrease={initialModuleState.maxGradeIncrease}
-      maxGradeDecrease={initialModuleState.maxGradeDecrease}
-      submissionsLockDate={initialModuleState.submissionsLockDate}
-      reminderEmailTitle={initialModuleState.reminderEmailTitle}
-      reminderEmailBody={initialModuleState.reminderEmailBody}
-      criteriaScoreRangeMin={initialModuleState.criteriaScoreRangeMin}
-      criteriaScoreRangeMax={initialModuleState.criteriaScoreRangeMax}
-      columns={initialModuleState.columns}
+      title={moduleValues.title}
+      moduleCode={moduleValues.moduleCode}
+      schools={moduleValues.schools}
+      status={moduleValues.status}
+      maxGradeIncrease={moduleValues.maxGradeIncrease}
+      maxGradeDecrease={moduleValues.maxGradeDecrease}
+      submissionsLockDate={moduleValues.submissionsLockDate}
+      reminderEmailTitle={moduleValues.reminderEmailTitle}
+      reminderEmailBody={moduleValues.reminderEmailBody}
+      criteriaScoreRangeMin={moduleValues.criteriaScoreRangeMin}
+      criteriaScoreRangeMax={moduleValues.criteriaScoreRangeMax}
+      columns={moduleValues.columns}
+      moduleMembers={moduleValues.moduleMembers}
       isNewModule={true}
       updateFormState={updateFormState}
-      state={state}
       onSubmitForm={submitForm}
     />
   );
