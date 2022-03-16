@@ -10,9 +10,7 @@ const useGetLecturerUsers = () => {
     variables: {
       where: {
         role: {
-          in: ["ADMIN", "LECTURER"],
-          // TODO
-          // in: ["LECTURER"],
+          in: ["LECTURER"],
         },
       },
     },
