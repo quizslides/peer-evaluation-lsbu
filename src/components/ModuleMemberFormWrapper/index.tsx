@@ -22,7 +22,7 @@ import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateMo
 import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
-import { ModuleMember, ModuleMemberPermissions, moduleMemberColumnOrder } from "@/types/module";
+import { FieldStatus, ModuleMember, ModuleMemberPermissions, moduleMemberColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
 import { IUserData } from "@/types/user";
 import { errorNotification } from "@/utils";
@@ -54,6 +54,8 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
   const [field, meta] = useField(name);
 
   const { data, loading, error: errorRequest } = useGetLecturerUsers();
+
+  const [dataTableModuleMembers, setDataTableModuleMembers] = useState<ModuleMember[]>(meta.value);
 
   const [currentModuleMembers, setCurrentModuleMembers] = useState<ModuleMember[]>(field.value);
 
@@ -106,6 +108,10 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
 
     columnToUpdate[0] = data;
 
+    if (columnToUpdate[0].status != FieldStatus.NEW) {
+      columnToUpdate[0].status = FieldStatus.UPDATED;
+    }
+
     setCurrentModuleMembers([...columnsUnchanged, ...columnToUpdate]);
 
     setSelectedRows([]);
@@ -131,9 +137,17 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
   const onDeleteModuleMemberAccept = () => {
     const columnsUnchanged = currentModuleMembers.filter(({ email }) => email !== deleteModuleMember?.email);
 
-    setCurrentModuleMembers([...columnsUnchanged]);
-    setDeleteModuleMemberConfirmationOpen(false);
+    const columnToUpdate = currentModuleMembers.filter(({ email }) => email === deleteModuleMember?.email);
+
+    if (columnToUpdate[0].status != FieldStatus.NEW) {
+      columnToUpdate[0].status = FieldStatus.DELETED;
+      setCurrentModuleMembers([...columnsUnchanged, ...columnToUpdate]);
+    } else {
+      setCurrentModuleMembers(columnsUnchanged);
+    }
+
     setSelectedRows([]);
+    setDeleteModuleMemberConfirmationOpen(false);
   };
 
   const onDeleteModuleMemberCancel = () => {
@@ -168,6 +182,16 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
       name: "permission",
       label: "Permission",
       options: {
+        filter: true,
+        sort: true,
+        filterType: "dropdown",
+      },
+    },
+    {
+      name: "status",
+      label: "Status",
+      options: {
+        display: "excluded",
         filter: true,
         sort: true,
         filterType: "dropdown",
@@ -257,6 +281,17 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
     setFieldValue(name, currentModuleMembers);
   }, [currentModuleMembers, name, setFieldValue]);
 
+  useEffect(() => {
+    const sanitizeDataTable = () => {
+      const data = meta.value as ModuleMember[];
+
+      const dataFilteredByNotDelete = data.filter((item) => item.status !== FieldStatus.DELETED);
+      setDataTableModuleMembers(dataFilteredByNotDelete);
+    };
+
+    sanitizeDataTable();
+  }, [meta.value]);
+
   if (loading && moduleMembersAvailable) {
     return <LoadingContainer loading={loading} />;
   }
@@ -271,7 +306,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
         testId={`${testId}-datatable`}
         isVisible
         title={"Module members"}
-        data={[...meta.value]}
+        data={dataTableModuleMembers}
         columns={tableColumns}
         options={tableOptions}
       />

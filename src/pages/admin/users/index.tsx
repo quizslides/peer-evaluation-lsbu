@@ -344,7 +344,7 @@ const Users: NextPage = () => {
     },
   ];
 
-  const columnsOrder = ["name", "email", "role"];
+  const columnsOrder = ["name", "email", "role", "status"];
 
   const createNewUser = () => {
     setUserValuesForm(initialUserState);

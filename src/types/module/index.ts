@@ -1,7 +1,7 @@
 interface IPeerEvaluationColumn {
   id: string;
   description: string;
-  status: PeerEvaluationColumnStatus;
+  status: FieldStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,6 +26,7 @@ interface ModuleMember {
   permission: ModuleMemberPermissions;
   email: string;
   name: string;
+  status: FieldStatus;
 }
 
 enum ModuleMemberPermissions {
@@ -56,7 +57,7 @@ enum ModuleStatus {
   SUBMISSIONS_LOCKED = "SUBMISSIONS_LOCKED",
 }
 
-enum PeerEvaluationColumnStatus {
+enum FieldStatus {
   NEW = "NEW",
   UPDATED = "UPDATED",
   SAVED = "SAVED",
@@ -83,40 +84,40 @@ const SchoolsDropdown = {
   HSC: "Institute of Health and Social Care",
 };
 
-const peerEvaluationColumnOrder = ["id", "description", "status", "createdAt", "updatedAt"];
+const peerEvaluationColumnOrder = ["id", "description", "createdAt", "updatedAt", "status"];
 
 const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
   {
     id: "column1",
-    status: PeerEvaluationColumnStatus.NEW,
+    status: FieldStatus.NEW,
     description: "Attends group meetings regularly and on time",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     id: "column2",
-    status: PeerEvaluationColumnStatus.NEW,
+    status: FieldStatus.NEW,
     description: "Contributes significantly towards the success of the project",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     id: "column3",
-    status: PeerEvaluationColumnStatus.NEW,
+    status: FieldStatus.NEW,
     description: "Completes assigned tasks on time and to good quality",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     id: "column4",
-    status: PeerEvaluationColumnStatus.NEW,
+    status: FieldStatus.NEW,
     description: "Cooperative and supportive attitude towards team",
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     id: "column5",
-    status: PeerEvaluationColumnStatus.NEW,
+    status: FieldStatus.NEW,
     description: "Listens and contributes meaningfully in team discussions",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -141,6 +142,7 @@ const initialModuleState: IModuleData = {
       name: "",
       email: "",
       permission: ModuleMemberPermissions.OWNER,
+      status: FieldStatus.NEW,
     },
   ],
 };
@@ -149,6 +151,7 @@ const initialModuleMember: ModuleMember = {
   name: "",
   email: "",
   permission: ModuleMemberPermissions.VIEWER,
+  status: FieldStatus.NEW,
 };
 
 const initialColumnState = {
@@ -158,6 +161,7 @@ const initialColumnState = {
 const moduleMemberColumnOrder = ["name", "email", "permission"];
 
 export {
+  FieldStatus,
   initialColumnState,
   initialModuleMember,
   initialModuleState,
@@ -166,7 +170,6 @@ export {
   ModuleMemberPermissionsNoOwner,
   ModuleStatus,
   peerEvaluationColumnOrder,
-  PeerEvaluationColumnStatus,
   SchoolAcronyms,
   Schools,
   SchoolsDropdown,

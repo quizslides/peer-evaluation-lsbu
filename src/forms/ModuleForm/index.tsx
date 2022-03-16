@@ -36,18 +36,15 @@ import {
 import { arrayToObject, rangeNumber } from "@/utils/form";
 
 interface IModuleForm extends IModuleData {
-  updateFormState: (state: boolean) => void;
   onSubmitForm: (data: IModuleData) => void;
   isNewModule: boolean;
 }
 
-const ModuleForm = ({ updateFormState, onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
+const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
   const handleCloseDialog = (reason?: string) => {
     if (reason === "backdropClick") {
       return;
     }
-
-    updateFormState(false);
   };
 
   const [isSubmitting, setSubmitting] = useState<boolean>(false);

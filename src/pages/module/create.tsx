@@ -7,14 +7,10 @@ import CreateModuleForm from "@/containers/CreateModuleForm";
 import { RoleScope } from "@/utils";
 
 const CreateModule: NextPage = () => {
-  // If it is redirect, show arrow, otherwise menu
-
-  // const [isCreateModuleFormOpen, setCreateModuleFormOpen] = useState(false);
-
   return (
     <Base topLeftComponent="menu" loading={false}>
-      <PageTitle title={"Create Module"} testId="page-module-create-title" variant="h4" margin="2em" />
-      <CreateModuleForm updateFormState={() => console.log("updateModuleFormState")} />
+      <PageTitle title={"Create Module"} testId="page-create-module-title" variant="h4" margin="2em" />
+      <CreateModuleForm onSubmit={() => console.log("updateModuleFormState")} />
     </Base>
   );
 };

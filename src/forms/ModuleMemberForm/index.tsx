@@ -22,11 +22,7 @@ interface IModuleMemberForm {
   formTitle: string;
   isModuleMemberOwner: boolean;
   users: IUserData[];
-  data: {
-    name: string;
-    email: string;
-    permission: ModuleMemberPermissions;
-  };
+  data: ModuleMember;
   updateFormState: (state: boolean) => void;
   onSubmitForm: (data: ModuleMember) => void;
 }

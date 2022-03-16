@@ -12,7 +12,7 @@ import UpdateColumnForm from "@/containers/UpdateColumnForm";
 import content from "@/content";
 import { IColumnFormValue } from "@/forms/ColumnForm";
 import { DeleteIcon, EditIcon } from "@/icons";
-import { IPeerEvaluationColumn, PeerEvaluationColumnStatus, peerEvaluationColumnOrder } from "@/types/module";
+import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
@@ -41,6 +41,8 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
 
   const [selectedRows, setSelectedRows] = useState([]);
 
+  const [dataTableColumns, setDataTableColumns] = useState<IPeerEvaluationColumn[]>(meta.value);
+
   const [isCreateModuleColumnOpen, setCreateModuleColumnOpen] = useState(false);
 
   const [isUpdateModuleColumnOpen, setUpdateModuleColumnOpen] = useState(false);
@@ -64,7 +66,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
   const onSubmitAddColumn = ({ description }: IColumnFormValue) => {
     const newColumn = {
       id: `column-${Math.random}`,
-      status: PeerEvaluationColumnStatus.NEW,
+      status: FieldStatus.NEW,
       description: description,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -84,8 +86,8 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
 
     const columnToUpdate = columns.filter(({ id }) => id === updateColumn?.id);
 
-    if (columnToUpdate[0].status != PeerEvaluationColumnStatus.NEW) {
-      columnToUpdate[0].status = PeerEvaluationColumnStatus.UPDATED;
+    if (columnToUpdate[0].status != FieldStatus.NEW) {
+      columnToUpdate[0].status = FieldStatus.UPDATED;
     }
 
     columnToUpdate[0].description = description;
@@ -106,12 +108,13 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
 
     const columnToUpdate = columns.filter(({ id }) => id === deleteModuleColumn?.id);
 
-    if (columnToUpdate[0].status != PeerEvaluationColumnStatus.NEW) {
-      columnToUpdate[0].status = PeerEvaluationColumnStatus.DELETED;
+    if (columnToUpdate[0].status != FieldStatus.NEW) {
+      columnToUpdate[0].status = FieldStatus.DELETED;
       setColumns([...columnsUnchanged, ...columnToUpdate]);
     } else {
       setColumns(columnsUnchanged);
     }
+
     setSelectedRows([]);
 
     onDeleteModuleColumnConfirmationClose();
@@ -147,15 +150,6 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
       },
     },
     {
-      name: "status",
-      label: "Status",
-      options: {
-        filter: true,
-        sort: true,
-        filterType: "dropdown",
-      },
-    },
-    {
       name: "createdAt",
       label: "Created",
       options: {
@@ -177,6 +171,16 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
         customBodyRender: (date: string) => {
           return new Date(date).toLocaleString("en-GB");
         },
+      },
+    },
+    {
+      name: "status",
+      label: "Status",
+      options: {
+        display: "excluded",
+        filter: true,
+        sort: true,
+        filterType: "dropdown",
       },
     },
   ];
@@ -232,6 +236,17 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
     setFieldValue(name, columns);
   }, [columns, name, setFieldValue]);
 
+  useEffect(() => {
+    const sanitizeDataTable = () => {
+      const data = meta.value as IPeerEvaluationColumn[];
+
+      const dataFilteredByNotDelete = data.filter((item) => item.status !== FieldStatus.DELETED);
+      setDataTableColumns(dataFilteredByNotDelete);
+    };
+
+    sanitizeDataTable();
+  }, [meta.value]);
+
   const isError = meta.error != undefined;
 
   return (
@@ -240,7 +255,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
         testId={"peer-evaluation-column-management-datatable"}
         isVisible
         title={"Columns"}
-        data={columns}
+        data={dataTableColumns}
         columns={tableColumns}
         options={tableOptions}
       />
