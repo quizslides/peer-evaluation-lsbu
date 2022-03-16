@@ -10,7 +10,7 @@ import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnMan
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdateColumnForm from "@/containers/UpdateColumnForm";
-import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm";
+import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateModuleMemberForm";
 import UpdateUserForm from "@/containers/UpdateUserForm/";
 
 export {

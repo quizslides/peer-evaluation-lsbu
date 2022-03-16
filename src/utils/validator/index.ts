@@ -1,4 +1,4 @@
-import { array, date, mixed, number, ref, string } from "yup";
+import { array, date, mixed, number, object, ref, string } from "yup";
 
 import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
@@ -121,7 +121,25 @@ const moduleColumnsValidator = {
 };
 
 const moduleMembersValidator = {
-  moduleMembers: array().min(1, content.moduleMembers.minLength),
+  moduleMembers: array()
+    .of(
+      object().shape({
+        permission: string(),
+      })
+    )
+    .test({
+      name: "one-owner",
+      message: content.moduleMembers.minLength,
+      test: (values) => {
+        const isOwnerPermission = (currentValue: string) => currentValue === "OWNER";
+
+        if (values && values.length) {
+          return values.some(({ permission }) => isOwnerPermission(permission || ""));
+        }
+
+        return false;
+      },
+    }),
 };
 
 const moduleMemberPermissionValidator = {

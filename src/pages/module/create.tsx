@@ -7,6 +7,8 @@ import CreateModuleForm from "@/containers/CreateModuleForm";
 import { RoleScope } from "@/utils";
 
 const CreateModule: NextPage = () => {
+  // If it is redirect, show arrow, otherwise menu
+
   // const [isCreateModuleFormOpen, setCreateModuleFormOpen] = useState(false);
 
   return (

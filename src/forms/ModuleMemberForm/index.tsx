@@ -12,21 +12,23 @@ import { AutocompleteFieldForm, Button, SelectFieldForm, TextField } from "@/com
 import { TOptions } from "@/components/AutocompleteFieldForm/AutocompleteFieldForm";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
-import { ModuleMember, ModuleMemberPermissions } from "@/types/module";
+import { ModuleMember, ModuleMemberPermissions, ModuleMemberPermissionsNoOwner } from "@/types/module";
+import { JSONStringNumber } from "@/types/object";
 import { IUserData } from "@/types/user";
 import { moduleMemberNameValidator, moduleMemberPermissionValidator, userEmailValidator } from "@/utils";
 
 interface IModuleMemberForm {
   state: boolean;
   formTitle: string;
-  updateFormState: (state: boolean) => void;
-  onSubmitForm: (data: ModuleMember) => void;
+  isModuleMemberOwner: boolean;
   users: IUserData[];
   data: {
     name: string;
     email: string;
     permission: ModuleMemberPermissions;
   };
+  updateFormState: (state: boolean) => void;
+  onSubmitForm: (data: ModuleMember) => void;
 }
 
 const ModuleMemberForm = ({
@@ -35,6 +37,7 @@ const ModuleMemberForm = ({
   updateFormState,
   onSubmitForm,
   users,
+  isModuleMemberOwner,
   ...moduleMemberFormData
 }: IModuleMemberForm) => {
   const [userEmailAutocomplete, setUserEmailAutocomplete] = useState<TOptions[]>();
@@ -49,6 +52,8 @@ const ModuleMemberForm = ({
 
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
+  const [scopeModuleMemberPermissions, setScopeModuleMemberPermissions] = useState<JSONStringNumber | null>(null);
+
   const validationSchema = object({
     ...userEmailValidator,
     ...moduleMemberNameValidator,
@@ -62,11 +67,23 @@ const ModuleMemberForm = ({
 
   const sanitizeUserAutocomplete = (users: IUserData[]) => users.map(({ email }) => ({ label: email }));
 
-  const getModuleMemberName = (email: string) => users?.filter((data) => data.email === email)[0].name;
+  const getModuleMemberName = (email: string) => {
+    let user = users?.filter((data) => data.email === email);
+    if (user.length) {
+      return user[0].name;
+    }
+
+    return "";
+  };
 
   useEffect(() => {
     setUserEmailAutocomplete(sanitizeUserAutocomplete(users));
   }, [users]);
+
+  useEffect(() => {
+    const permissions = isModuleMemberOwner ? ModuleMemberPermissions : ModuleMemberPermissionsNoOwner;
+    setScopeModuleMemberPermissions(permissions);
+  }, [isModuleMemberOwner]);
 
   return (
     <Dialog fullWidth maxWidth={"sm"} open={state} onClose={(_, reason) => handleCloseDialog(reason)}>
@@ -120,17 +137,19 @@ const ModuleMemberForm = ({
                       />
                     </FieldWrapper>
                     <FieldWrapper>
-                      <SelectFieldForm
-                        name="permission"
-                        options={ModuleMemberPermissions}
-                        props={{
-                          required: true,
-                          label: content.containers.moduleMemberForm.form.permission.label,
-                          helperText: content.containers.moduleMemberForm.form.permission.helperText,
-                          fullWidth: true,
-                        }}
-                        testId="module-member-form-permission-field"
-                      />
+                      {scopeModuleMemberPermissions && (
+                        <SelectFieldForm
+                          name="permission"
+                          options={scopeModuleMemberPermissions}
+                          props={{
+                            required: true,
+                            label: content.containers.moduleMemberForm.form.permission.label,
+                            helperText: content.containers.moduleMemberForm.form.permission.helperText,
+                            fullWidth: true,
+                          }}
+                          testId="module-member-form-permission-field"
+                        />
+                      )}
                     </FieldWrapper>
                   </Grid>
                 </Grid>

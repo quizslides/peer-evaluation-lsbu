@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 
 import { LoadingContainer } from "@/containers";
@@ -26,18 +27,17 @@ const CreateModuleForm = ({ updateFormState }: ICreateUserForm) => {
 
   useEffect(() => {
     if (session) {
-      let moduleValuesUpdated = moduleValues;
-      moduleValuesUpdated.moduleMembers[0].email = typeof session.user.email === "string" ? session.user.email : "";
-      moduleValuesUpdated.moduleMembers[0].name = typeof session.user.name === "string" ? session.user.name : "";
-      setModuleValues(moduleValuesUpdated);
+      const setCurrentUserAsOwner = (moduleData: IModuleData, session: Session) => {
+        moduleData.moduleMembers[0].email = typeof session.user.email === "string" ? session.user.email : "";
+        moduleData.moduleMembers[0].name = typeof session.user.name === "string" ? session.user.name : "";
+        setModuleValues(moduleData);
+      };
+
+      const moduleValuesUpdated = moduleValues;
+
+      setCurrentUserAsOwner(moduleValuesUpdated, session);
     }
   }, [session, moduleValues]);
-
-  // useEffect(() => {
-  //   if (data && !loading) {
-  //     updateFormState(false);
-  //   }
-  // }, [data, loading, reset, updateFormState]);
 
   if (loading) {
     return <LoadingContainer loading={loading} />;
@@ -45,6 +45,7 @@ const CreateModuleForm = ({ updateFormState }: ICreateUserForm) => {
 
   return (
     <ModuleForm
+      isNewModule={true}
       title={moduleValues.title}
       moduleCode={moduleValues.moduleCode}
       schools={moduleValues.schools}
@@ -58,7 +59,6 @@ const CreateModuleForm = ({ updateFormState }: ICreateUserForm) => {
       criteriaScoreRangeMax={moduleValues.criteriaScoreRangeMax}
       columns={moduleValues.columns}
       moduleMembers={moduleValues.moduleMembers}
-      isNewModule={true}
       updateFormState={updateFormState}
       onSubmitForm={submitForm}
     />

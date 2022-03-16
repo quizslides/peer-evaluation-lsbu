@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
+import { User } from "@generated/type-graphql";
 import { FormControl, FormHelperText, Grid } from "@mui/material";
+import { Role } from "@prisma/client";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { useSession } from "next-auth/react";
 
-import { ConfirmationDialog, DataTable, DataTableAddColumnToolbarIcon, IconButtonWrapper } from "@/components";
-import Button from "@/components/Button/Button";
+import {
+  Button,
+  ConfirmationDialog,
+  DataTable,
+  DataTableAddColumnToolbarIcon,
+  Error,
+  IconButtonWrapper,
+} from "@/components";
 import CreateModuleMemberForm from "@/containers/CreateModuleMemberForm";
 import LoadingContainer from "@/containers/LoadingContainer";
-import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm";
+import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateModuleMemberForm";
 import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
-import { ModuleMember, moduleMemberColumnOrder } from "@/types/module";
+import { ModuleMember, ModuleMemberPermissions, moduleMemberColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
 import { IUserData } from "@/types/user";
+import { errorNotification } from "@/utils";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
 interface IModuleMemberContainer {
@@ -36,15 +46,14 @@ const BottomRight = styled.div`
   right: 0;
 `;
 
-const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContainer) => {
-  // List of users from the backend
+const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberContainer) => {
+  const { data: session } = useSession();
 
   const { setFieldValue } = useFormikContext();
 
   const [field, meta] = useField(name);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, loading, error } = useGetLecturerUsers();
+  const { data, loading, error: errorRequest } = useGetLecturerUsers();
 
   const [currentModuleMembers, setCurrentModuleMembers] = useState<ModuleMember[]>(field.value);
 
@@ -60,9 +69,14 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
 
   const [updateModuleMember, setUpdateModuleMember] = useState<ModuleMember | null>(null);
 
+  const [isCurrentUserModuleOwner, setCurrentUserModuleOwner] = useState<boolean>(false);
+
   const [selectedRows, setSelectedRows] = useState([]);
 
   const isError = meta.error != undefined;
+
+  const isOwnerModuleMemberChangeAllow = (permission: ModuleMemberPermissions) =>
+    !isCurrentUserModuleOwner && permission === ModuleMemberPermissions.OWNER;
 
   const onAddModuleMember = () => {
     setCreateModuleMemberOpen(true);
@@ -74,11 +88,17 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
 
   const onModuleMemberUpdateSelection = (data: ArrayObject) => {
     const dataRow = getMergedKeyValuesObject(moduleMemberColumnOrder, data) as unknown as ModuleMember;
+
+    if (isOwnerModuleMemberChangeAllow(dataRow.permission)) {
+      errorNotification("Whoops... You cannot edit an owner of a module");
+      setSelectedRows([]);
+      return undefined;
+    }
+
     setUpdateModuleMember(dataRow);
     setUpdateModuleMemberOpen(true);
   };
 
-  // TODO - Block Lecturer main account
   const onSubmitUpdateModuleMember = (data: ModuleMember) => {
     const columnsUnchanged = currentModuleMembers.filter(({ email }) => email !== data.email);
 
@@ -97,6 +117,13 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
 
   const onModuleMemberDeleteSelection = (data: ArrayObject) => {
     const dataRow = getMergedKeyValuesObject(moduleMemberColumnOrder, data) as unknown as ModuleMember;
+
+    if (isOwnerModuleMemberChangeAllow(dataRow.permission)) {
+      errorNotification("Whoops... You cannot delete an owner of a module");
+      setSelectedRows([]);
+      return undefined;
+    }
+
     setDeleteModuleMember(dataRow);
     setDeleteModuleMemberConfirmationOpen(true);
   };
@@ -193,15 +220,38 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
   };
 
   useEffect(() => {
-    if (data) {
-      let moduleMembersAvailable = data.users;
+    const filterModuleMembersAvailable = (data: User[]) => {
+      let moduleMembersAvailable = data;
 
       for (const currentModuleMember of meta.value) {
         moduleMembersAvailable = moduleMembersAvailable.filter(({ email }) => email !== currentModuleMember.email);
       }
       setModuleMembersAvailable(moduleMembersAvailable);
+    };
+
+    const isUserModuleOwner = () => {
+      if (session?.user.role == Role.ADMIN) {
+        return true;
+      }
+
+      const listOfModuleMembers = meta.value as ModuleMember[];
+
+      const userModuleMember = listOfModuleMembers.filter(({ email }) => email === session?.user.email);
+
+      if (userModuleMember.length) {
+        return userModuleMember[0].permission === ModuleMemberPermissions.OWNER;
+      }
+
+      return false;
+    };
+
+    if (data && !loading) {
+      const listOfUsers = data.users;
+
+      filterModuleMembersAvailable(listOfUsers);
+      setCurrentUserModuleOwner(isUserModuleOwner());
     }
-  }, [data, meta.value]);
+  }, [data, session, loading, meta.value]);
 
   useEffect(() => {
     setFieldValue(name, currentModuleMembers);
@@ -209,6 +259,10 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
 
   if (loading && moduleMembersAvailable) {
     return <LoadingContainer loading={loading} />;
+  }
+
+  if (errorRequest) {
+    return <Error />;
   }
 
   return (
@@ -236,10 +290,12 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
           onSubmit={onSubmitUpdateModuleMember}
           users={moduleMembersAvailable}
           updateModuleMember={updateModuleMember}
+          isModuleMemberOwner={isCurrentUserModuleOwner}
         />
       )}
 
       <FormHelperText>{isError ? meta.error : helperText}</FormHelperText>
+
       <Wrapper>
         <BottomRight>
           <Button size="small" onClick={resetModuleMembers} testId={`${testId}-reset-button`} variant={"outlined"}>
@@ -262,4 +318,4 @@ const ModuleMemberContainer = ({ testId, helperText, name }: IModuleMemberContai
   );
 };
 
-export default ModuleMemberContainer;
+export default ModuleMemberFormWrapper;

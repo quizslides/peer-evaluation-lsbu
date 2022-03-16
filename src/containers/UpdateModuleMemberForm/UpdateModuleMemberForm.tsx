@@ -6,16 +6,18 @@ import { IUserData } from "@/types/user";
 
 interface IUpdateModuleMemberForm {
   state: boolean;
-  updateFormState: (state: boolean) => void;
-  onSubmit: (data: ModuleMember) => void;
   users: IUserData[];
   updateModuleMember: ModuleMember;
+  isModuleMemberOwner: boolean;
+  updateFormState: (state: boolean) => void;
+  onSubmit: (data: ModuleMember) => void;
 }
 
 const UpdateModuleMemberForm = ({
   state,
   users,
   updateModuleMember,
+  isModuleMemberOwner,
   updateFormState,
   onSubmit,
 }: IUpdateModuleMemberForm) => {
@@ -36,6 +38,7 @@ const UpdateModuleMemberForm = ({
       onSubmitForm={submitForm}
       data={updateModuleMember}
       users={users}
+      isModuleMemberOwner={isModuleMemberOwner}
     />
   );
 };

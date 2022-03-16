@@ -29,6 +29,7 @@ const CreateModuleMemberForm = ({ state, users, updateFormState, onSubmit }: ICr
       onSubmitForm={submitForm}
       data={initialModuleMember}
       users={users}
+      isModuleMemberOwner={true}
     />
   );
 };

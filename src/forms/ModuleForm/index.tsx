@@ -13,7 +13,7 @@ import {
   TextFieldForm,
   WYSIWYGForm,
 } from "@/components";
-import ModuleMember from "@/containers/ModuleMember";
+import ModuleMemberFormWrapper from "@/components/ModuleMemberFormWrapper";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
@@ -41,7 +41,6 @@ interface IModuleForm extends IModuleData {
   isNewModule: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ModuleForm = ({ updateFormState, onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
   const handleCloseDialog = (reason?: string) => {
     if (reason === "backdropClick") {
@@ -256,7 +255,7 @@ const ModuleForm = ({ updateFormState, onSubmitForm, isNewModule = false, ...mod
             <Divider>Module Members</Divider>
 
             <FieldWrapper marginBottom="3em">
-              <ModuleMember
+              <ModuleMemberFormWrapper
                 helperText={content.containers.moduleForm.form.moduleMembers.helperText}
                 testId={"module-form-module-member-field"}
                 name={"moduleMembers"}

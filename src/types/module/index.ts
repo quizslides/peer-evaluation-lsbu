@@ -34,6 +34,11 @@ enum ModuleMemberPermissions {
   VIEWER = "VIEWER",
 }
 
+enum ModuleMemberPermissionsNoOwner {
+  EDITOR = "EDITOR",
+  VIEWER = "VIEWER",
+}
+
 enum Schools {
   SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES = "SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES",
   SCHOOL_OF_APPLIED_SCIENCES = "SCHOOL_OF_APPLIED_SCIENCES",
@@ -158,6 +163,7 @@ export {
   initialModuleState,
   moduleMemberColumnOrder,
   ModuleMemberPermissions,
+  ModuleMemberPermissionsNoOwner,
   ModuleStatus,
   peerEvaluationColumnOrder,
   PeerEvaluationColumnStatus,

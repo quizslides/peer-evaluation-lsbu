@@ -82,7 +82,7 @@ const validatorContent = {
     minLength: "One Column is required in the peer evaluation",
   },
   moduleMembers: {
-    minLength: "One module member is required in the module",
+    minLength: "One owner of the module is required",
   },
   moduleMemberPermission: {
     required: "Select a permission for the module member",

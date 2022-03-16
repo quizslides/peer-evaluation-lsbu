@@ -36,16 +36,19 @@ const AutocompleteFieldForm: FC<IAutocompleteFieldForm> = ({
 
   return (
     <AutocompleteMUI
-      value={meta.value}
       data-testid={testId}
       options={options}
       onChange={(_, value) => {
-        setFieldValue(name, value?.label);
+        if (value) {
+          setFieldValue(name, value.label);
 
-        if (dependantField && getDependantFieldValue) {
-          setFieldValue(dependantField, getDependantFieldValue(value?.label));
+          if (dependantField && getDependantFieldValue) {
+            setFieldValue(dependantField, getDependantFieldValue(value.label));
+          }
         }
       }}
+      // Note: This is a hack to avoid having a uncontrolled component on init
+      defaultValue={meta.initialValue}
       renderInput={(params) => (
         <TextField testId={`${testId}-text-field`} props={{ ...params, ...textFieldProps, ...field }} />
       )}
