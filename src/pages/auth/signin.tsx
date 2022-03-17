@@ -103,7 +103,7 @@ const SignIn: NextPage = () => {
         <EmailSentContainer maxWidth="xs">
           <EmailSentEmoji height="5rem" width="5rem" testId={"signin-email-link-sent-emoji"} />
           <Typography variant="subtitle1" testId="signin-email-link-sent">
-            {content.pages.auth.signIn.linkSent.description1} <TextBold>{valuesForm.email}</TextBold>
+            {content.pages.auth.signIn.linkSent.description1} <TextBold>{valuesForm.email}</TextBold>{" "}
             {content.pages.auth.signIn.linkSent.description2}
           </Typography>
 
