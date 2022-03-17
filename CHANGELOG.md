@@ -2,6 +2,36 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.4...v1.0.0-staging.5) (2022-03-17)
+
+
+### Features
+
+* adding check module member editing constraint ([e701295](https://github.com/quizslides/peer-evaluation-lsbu/commit/e7012959e0421f83656140435d9aff4fe1129567))
+* adding create module container and refactoring ([ea239ca](https://github.com/quizslides/peer-evaluation-lsbu/commit/ea239cac1bd475446a17faa5ca4c2e08967cdb0e))
+* adding custom column management and wysiwyg module ([8490599](https://github.com/quizslides/peer-evaluation-lsbu/commit/849059978c08512dd660359140d0b7aca1c8991d))
+* adding field status to module members ([3db95b7](https://github.com/quizslides/peer-evaluation-lsbu/commit/3db95b7e88636dad8b8171064d74a5ef2446548a))
+* adding module member operations of a module ([d8933e9](https://github.com/quizslides/peer-evaluation-lsbu/commit/d8933e94012269ee449c3efc40a56f5170fd4d75))
+* adding module peer evaluation migration ([de6e650](https://github.com/quizslides/peer-evaluation-lsbu/commit/de6e65059956fee96ea7abdd3b7ed3c77630fda5))
+* getting only LECTURER for the module members dropdown list ([31ec290](https://github.com/quizslides/peer-evaluation-lsbu/commit/31ec29000152035a89ac70a56853bf40932287a5))
+* sign out as top item menu ([d348175](https://github.com/quizslides/peer-evaluation-lsbu/commit/d3481757f3648e3909a904e171704d80c3dcfd33))
+* updating sign in message with more informationn ([213e979](https://github.com/quizslides/peer-evaluation-lsbu/commit/213e979bdffcfe1942cc09b7dce427c1cdc4c067))
+* wip: adding schema of the user, module and module members ([e486a4b](https://github.com/quizslides/peer-evaluation-lsbu/commit/e486a4ba9cd761254677b62f0e12920373b54671))
+
+
+### Bug Fixes
+
+* adding a fix for SSR for the WYSIWYG ([0e6087c](https://github.com/quizslides/peer-evaluation-lsbu/commit/0e6087c6d2e0e3a5b36a97e49fa7adc49acab113))
+* adding white space after the email ([ade4246](https://github.com/quizslides/peer-evaluation-lsbu/commit/ade4246b929d3286736e7d90bb5169959f20fe2b))
+* fixing migration deleting wrong unique constraint ([4c581de](https://github.com/quizslides/peer-evaluation-lsbu/commit/4c581deffe24114836db5efc26e04918566fc8a8))
+* fixing missing imports for production ([5b42fd2](https://github.com/quizslides/peer-evaluation-lsbu/commit/5b42fd2b912e39647d0047561fd568cbe40742ae))
+
+
+### Code Refactoring
+
+* removing old gh action workflow ([0dd9457](https://github.com/quizslides/peer-evaluation-lsbu/commit/0dd94579f8410ba593ff9a4eb92e9817d0289d4b))
+* updating email body variable to peerEvaluationUrl ([357c453](https://github.com/quizslides/peer-evaluation-lsbu/commit/357c453ea8b5db22417af38ff54b2b99ebe31046))
+
 ## [1.0.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.3...v1.0.0-staging.4) (2022-03-06)
 
 
