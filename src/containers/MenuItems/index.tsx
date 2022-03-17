@@ -28,14 +28,6 @@ interface IMenuItemList {
 }
 
 const menuExpandableItems: IMenuItemList = {
-  account: {
-    scope: [RoleScope.AUTHENTICATED],
-    menuTitle: "Your Account",
-    menuDescription: "Manage your account",
-    menuItemList: [
-      { icon: <LogoutIcon testId={"menu-expandable-account"} />, label: "Sign out", pathname: routing.auth.signOut },
-    ],
-  },
   admin: {
     scope: [RoleScope.ADMIN],
     menuTitle: "Administrator",
@@ -61,14 +53,6 @@ const menuExpandableItems: IMenuItemList = {
       },
     ],
   },
-  // sharedModules: {
-  //   scope: [RoleScope.ADMIN, RoleScope.LECTURER],
-  //   menuTitle: "Shared Modules",
-  //   menuDescription: "List of shared modules with me",
-  //   menuItemList: [
-  //     { icon: <People testId={"menu-expandable-user-shared-modules"} />, label: "sharedModules1", pathname: "/" },
-  //   ],
-  // },
 };
 
 const menuTopItems = [
