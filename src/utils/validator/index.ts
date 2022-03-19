@@ -57,7 +57,6 @@ const moduleCodeValidator = {
       test: async (values) => {
         if (values) {
           const { data } = await moduleExist(client, values);
-          console.log(data.moduleExist.exist);
           return !!!data.moduleExist.exist;
         }
 
