@@ -21,7 +21,7 @@ import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateMo
 import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
-import { FieldStatus, ModuleMember, ModuleMemberPermissions, moduleMemberColumnOrder } from "@/types/module";
+import { FieldStatus, ModuleMember, ModuleMemberPermissions, moduleMemberDataTableColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
 import { IUserData } from "@/types/user";
 import { Role, errorNotification } from "@/utils";
@@ -88,7 +88,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
   };
 
   const onModuleMemberUpdateSelection = (data: ArrayObject) => {
-    const dataRow = getMergedKeyValuesObject(moduleMemberColumnOrder, data) as unknown as ModuleMember;
+    const dataRow = getMergedKeyValuesObject(moduleMemberDataTableColumnOrder, data) as unknown as ModuleMember;
 
     if (isOwnerModuleMemberChangeAllow(dataRow.permission)) {
       errorNotification("Whoops... You cannot edit an owner of a module");
@@ -121,7 +121,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
   };
 
   const onModuleMemberDeleteSelection = (data: ArrayObject) => {
-    const dataRow = getMergedKeyValuesObject(moduleMemberColumnOrder, data) as unknown as ModuleMember;
+    const dataRow = getMergedKeyValuesObject(moduleMemberDataTableColumnOrder, data) as unknown as ModuleMember;
 
     if (isOwnerModuleMemberChangeAllow(dataRow.permission)) {
       errorNotification("Whoops... You cannot delete an owner of a module");

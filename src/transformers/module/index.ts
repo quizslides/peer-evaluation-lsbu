@@ -1,17 +1,28 @@
 import {
   EmailCreateNestedOneWithoutModuleInput,
   EmailUpdateOneWithoutModuleInput,
+  Module,
   ModuleCreateInput,
   ModuleMemberCreateWithoutModuleInput,
+  ModuleMember as ModuleMemberPrisma,
   ModuleMemberUpdateWithWhereUniqueWithoutModuleInput,
   ModuleMemberWhereUniqueInput,
   ModuleUpdateInput,
+  PeerEvaluationColumn,
   PeerEvaluationColumnCreateWithoutModuleInput,
   PeerEvaluationColumnUpdateWithWhereUniqueWithoutModuleInput,
   PeerEvaluationColumnWhereUniqueInput,
 } from "@generated/type-graphql";
 
-import { IModuleData, IPeerEvaluationColumn, ModuleMember, ModuleMemberPermissions } from "@/types/module";
+import {
+  FieldStatus,
+  IModuleData,
+  IPeerEvaluationColumn,
+  ModuleMember,
+  ModuleMemberPermissions,
+  ModuleStatus,
+  Schools,
+} from "@/types/module";
 
 type ColumnCreateMany = PeerEvaluationColumnCreateWithoutModuleInput[];
 
@@ -45,6 +56,25 @@ const sanitizeEmailReminderDataOnUpdate = (title: string, body: string): EmailUp
       },
     },
   };
+};
+
+const sanitizeColumnsDataOnFetch = (columnsFetch: PeerEvaluationColumn[]): IPeerEvaluationColumn[] => {
+  const getSanitizeColumnsOnFetch = ({
+    id,
+    description,
+    createdAt,
+    updatedAt,
+  }: PeerEvaluationColumn): IPeerEvaluationColumn => {
+    return {
+      id,
+      description,
+      createdAt,
+      updatedAt,
+      status: FieldStatus.SAVED,
+    };
+  };
+
+  return columnsFetch.map((column) => getSanitizeColumnsOnFetch(column));
 };
 
 const sanitizeColumnsDataOnCreate = (columns: IPeerEvaluationColumn[]): ColumnCreateMany => {
@@ -109,6 +139,22 @@ const sanitizeColumnsDataOnDelete = (columns: IPeerEvaluationColumn[]): ColumnsD
   });
 
   return deleteManyColumns;
+};
+
+const sanitizeModuleTeachingMemberOnFetch = (moduleTeachingMembersFetched: ModuleMemberPrisma[]): ModuleMember[] => {
+  const getSanitizeModuleTeachingMemberOnFetch = (moduleTeachingMember: ModuleMemberPrisma): ModuleMember => {
+    return {
+      id: moduleTeachingMember.id,
+      name: moduleTeachingMember.user?.name || "",
+      email: moduleTeachingMember.user?.email || "",
+      status: FieldStatus.SAVED,
+      permission: moduleTeachingMember.permission as ModuleMemberPermissions,
+    };
+  };
+
+  return moduleTeachingMembersFetched.map((moduleTeachingMember) =>
+    getSanitizeModuleTeachingMemberOnFetch(moduleTeachingMember)
+  );
 };
 
 const sanitizeModuleTeachingMemberOnCreate = (
@@ -301,4 +347,43 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
   };
 };
 
-export { sanitizeModuleDataOnCreate, sanitizeModuleDataOnUpdate };
+// TODO
+const sanitizeModuleDataOnFetch = (data: Module): IModuleData | undefined => {
+  const {
+    title,
+    moduleCode,
+    status,
+    maxGradeIncrease,
+    maxGradeDecrease,
+    submissionsLockDate,
+    criteriaScoreRangeMin,
+    criteriaScoreRangeMax,
+    schools,
+    reminderEmail,
+    moduleMembers,
+    columns,
+  } = data;
+
+  if (moduleMembers && columns) {
+    return {
+      ...data,
+      title: title,
+      moduleCode: moduleCode,
+      status: status as ModuleStatus,
+      maxGradeIncrease: maxGradeIncrease,
+      maxGradeDecrease: maxGradeDecrease,
+      submissionsLockDate: submissionsLockDate,
+      criteriaScoreRangeMin: criteriaScoreRangeMin,
+      criteriaScoreRangeMax: criteriaScoreRangeMax,
+      emailTitleReminder: reminderEmail?.title || "",
+      emailBodyReminder: reminderEmail?.body || "",
+      schools: schools as Schools[],
+      moduleMembers: sanitizeModuleTeachingMemberOnFetch(moduleMembers),
+      columns: sanitizeColumnsDataOnFetch(columns),
+    };
+  }
+
+  return undefined;
+};
+
+export { sanitizeModuleDataOnCreate, sanitizeModuleDataOnFetch, sanitizeModuleDataOnUpdate };

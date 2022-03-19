@@ -8,13 +8,12 @@ import CreateModuleForm from "@/containers/CreateModuleForm";
 import routing from "@/routing";
 import { RoleScope } from "@/utils";
 
-// HERE - Left here Add redirect from admin to this page
 const CreateModule: NextPage = () => {
   const router = useRouter();
 
   const [isRedirecting, setRedirecting] = useState(false);
 
-  const getRedirectUrlOnSubmit = () => {
+  const getRedirectUrlOnAction = () => {
     if (typeof router.query.redirectUrl === "string") {
       return router.query.redirectUrl;
     }
@@ -22,15 +21,23 @@ const CreateModule: NextPage = () => {
     return routing.dashboard;
   };
 
-  const onSubmitCreateForm = () => {
+  const onSubmitCreateModule = () => {
+    redirectUserOnAction();
+  };
+
+  const onCancelCreateModule = () => {
+    redirectUserOnAction();
+  };
+
+  const redirectUserOnAction = () => {
     setRedirecting(true);
-    router.push(getRedirectUrlOnSubmit());
+    router.push(getRedirectUrlOnAction());
   };
 
   return (
     <Base topLeftComponent="menu" loading={isRedirecting}>
       <PageTitle title={"Create Module"} testId="page-create-module-title" variant="h4" margin="2em" />
-      <CreateModuleForm onSubmit={onSubmitCreateForm} />
+      <CreateModuleForm onSubmit={onSubmitCreateModule} onCancel={onCancelCreateModule} />
     </Base>
   );
 };

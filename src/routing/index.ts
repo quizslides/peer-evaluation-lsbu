@@ -14,6 +14,7 @@ const routing = {
   },
   module: {
     create: "/module/create",
+    edit: "/module/edit",
   },
   backendEndpoint: "/api/graphql",
 };

@@ -13,13 +13,21 @@ interface IModuleData {
   status: ModuleStatus;
   maxGradeIncrease: number;
   maxGradeDecrease: number;
-  submissionsLockDate: null | Date;
+  submissionsLockDate: Date | null | undefined;
   emailTitleReminder: string;
   emailBodyReminder: string;
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
   moduleMembers: ModuleMember[];
+}
+
+interface IModuleDataTable extends IModuleData {
+  id: string;
+  moduleMembersCount: number;
+  columnsCount: number;
+  studentsCount: number;
+  schoolsDataTable: Schools[];
 }
 
 interface ModuleMember {
@@ -171,14 +179,33 @@ const initialColumnState = {
   description: "",
 };
 
-const moduleMemberColumnOrder = ["name", "email", "permission"];
+const moduleMemberDataTableColumnOrder = ["name", "email", "permission"];
+
+const moduleDataTableColumnOrder = [
+  "id",
+  "title",
+  "createdAt",
+  "updatedAt",
+  "moduleCode",
+  "status",
+  "maxGradeIncrease",
+  "maxGradeDecrease",
+  "submissionsLockDate",
+  "criteriaScoreRangeMin",
+  "criteriaScoreRangeMax",
+  "moduleMembersCount",
+  "columnsCount",
+  "studentsCount",
+  "schools",
+];
 
 export {
   FieldStatus,
   initialColumnState,
   initialModuleMember,
   initialModuleState,
-  moduleMemberColumnOrder,
+  moduleDataTableColumnOrder,
+  moduleMemberDataTableColumnOrder,
   ModuleMemberPermissions,
   ModuleMemberPermissionsNoOwner,
   ModuleStatus,
@@ -189,4 +216,4 @@ export {
   SchoolsDropdown,
 };
 
-export type { IModuleData, IPeerEvaluationColumn, ModuleMember };
+export type { IModuleData, IModuleDataTable, IPeerEvaluationColumn, ModuleMember };

@@ -13,9 +13,10 @@ import { errorNotification, loadingNotification, successNotification } from "@/u
 
 interface ICreateUserForm {
   onSubmit: () => void;
+  onCancel: () => void;
 }
 
-const CreateModuleForm = ({ onSubmit }: ICreateUserForm) => {
+const CreateModuleForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
   const { data: session, status } = useSession();
 
   const apolloClient = useApolloClient();
@@ -77,6 +78,7 @@ const CreateModuleForm = ({ onSubmit }: ICreateUserForm) => {
       columns={moduleValues.columns}
       moduleMembers={moduleValues.moduleMembers}
       onSubmitForm={submitForm}
+      onCancelForm={onCancel}
     />
   );
 };

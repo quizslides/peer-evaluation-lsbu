@@ -10,8 +10,9 @@ import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnMan
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdateColumnForm from "@/containers/UpdateColumnForm";
+import UpdateModuleForm from "@/containers/UpdateModuleForm";
 import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateModuleMemberForm";
-import UpdateUserForm from "@/containers/UpdateUserForm/";
+import UpdateUserForm from "@/containers/UpdateUserForm";
 
 export {
   CreateColumnForm,
@@ -26,6 +27,7 @@ export {
   SignInWrapper,
   UnauthorizedContainer,
   UpdateColumnForm,
+  UpdateModuleForm,
   UpdateModuleMemberForm,
   UpdateUserForm,
 };

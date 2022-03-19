@@ -95,6 +95,12 @@ const content = {
           cancel: "cancel",
         },
       },
+      confirmationOnCancel: {
+        title: "Cancel",
+        bodyText: "If you cancel data all the will be lost. Are you sure you want to cancel?",
+        acceptText: "OK",
+        closeText: "Cancel",
+      },
     },
     columnForm: {
       form: {
@@ -191,6 +197,17 @@ const content = {
     unauthorized: {
       text: "Looks like you do not have permission to visit this page...",
       button: "Go to my dashboard",
+    },
+    admin: {
+      module: {
+        confirmationOnDelete: {
+          title: "Are you really sure?",
+          bodyText:
+            "If you delete the module all the related data will be lost! Are you sure you want to delete the module?",
+          acceptText: "Yes",
+          closeText: "No",
+        },
+      },
     },
   },
 };
