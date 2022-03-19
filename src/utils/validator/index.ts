@@ -1,9 +1,7 @@
-import { ApolloClient } from "@apollo/client";
 import { array, date, mixed, number, object, ref, string } from "yup";
 
-import { ModuleExistResponse } from "@/pages/api/resolvers/module";
+import client from "@/graphql/client";
 import moduleExist from "@/requests/direct/query/moduleExist";
-import { MODULE_EXIST } from "@/requests/schema/modules";
 import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
@@ -56,11 +54,10 @@ const moduleCodeValidator = {
     .test({
       name: "unique-module-code",
       message: content.moduleCode.unique,
-      test: async (values, props) => {
-        const apolloClient = props.options.context?.apolloClient as ApolloClient<object>;
-
+      test: async (values) => {
         if (values) {
-          const { data } = await moduleExist(apolloClient, values);
+          const { data } = await moduleExist(client, values);
+          console.log(data.moduleExist.exist);
           return !!!data.moduleExist.exist;
         }
 

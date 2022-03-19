@@ -81,16 +81,7 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
       initialValues={{
         ...moduleData,
       }}
-      validate={(values) =>
-        validationSchema
-          .validate(values, {
-            abortEarly: false,
-            context: { apolloClient },
-          })
-          .catch((err) => {
-            return yupToFormErrors(err);
-          })
-      }
+      validationSchema={validationSchema}
       onSubmit={submitForm}
     >
       {() => (
