@@ -80,6 +80,7 @@ const permissions = shield(
       "*": allow,
       // users: isAdmin,
       // groupByUser: isAdmin,
+      // isModuleExist: isTrue,
     },
     Mutation: {
       "*": allow,

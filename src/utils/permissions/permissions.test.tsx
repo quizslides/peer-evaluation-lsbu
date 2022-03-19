@@ -12,7 +12,7 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User is not unauthenticated", () => {
-    const scope = [RoleScope.UNAUTHENTICATED];
+    const scope = RoleScope.UNAUTHENTICATED;
 
     const role = undefined;
 
@@ -22,7 +22,7 @@ describe("Permissions test by different scopes", () => {
   });
 
   it("User as admin is authenticated and scope is authenticated", () => {
-    const scope = [RoleScope.AUTHENTICATED];
+    const scope = RoleScope.AUTHENTICATED;
 
     const role = RoleScope.ADMIN;
 

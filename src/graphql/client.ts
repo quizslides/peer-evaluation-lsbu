@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
 import routing from "@/routing";
-import { errorNotification } from "@/utils";
+import { errorNotification } from "@/utils/notifications";
 
 const httpLink = new HttpLink({
   uri: routing.backendEndpoint,

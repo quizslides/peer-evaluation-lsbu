@@ -73,4 +73,12 @@ const CREATE_MODULE = gql`
   }
 `;
 
-export { CREATE_MODULE, GET_MODULES };
+const MODULE_EXIST = gql`
+  query Query($where: ModuleExistWhereInput!) {
+    moduleExist(where: $where) {
+      exist
+    }
+  }
+`;
+
+export { CREATE_MODULE, GET_MODULES, MODULE_EXIST };

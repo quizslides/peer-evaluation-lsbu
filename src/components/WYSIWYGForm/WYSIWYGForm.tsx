@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import styled from "@emotion/styled";
 import { FormControl, FormHelperText } from "@mui/material";
@@ -89,4 +89,4 @@ const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWY
   );
 };
 
-export default WYSIWYGForm;
+export default memo(WYSIWYGForm);

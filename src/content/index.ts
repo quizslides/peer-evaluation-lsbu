@@ -46,6 +46,7 @@ const content = {
         moduleCode: {
           label: "Module code",
           placeholder: "Module code must be unique",
+          helperText: "Module code must be unique, uppercase and only underscore is allowed between words",
         },
         moduleSchools: {
           label: "Schools module",
@@ -75,11 +76,11 @@ const content = {
           label: "Criteria Score Range Max",
           helperText: "Criteria Score Range Max",
         },
-        reminderEmailTitle: {
+        emailTitleReminder: {
           label: "Email title",
           placeholder: "Title of the reminder email",
         },
-        reminderEmailBody: {
+        emailBodyReminder: {
           helperText: "Email body of the reminder",
           resetButtonText: "Reset Email Body",
         },

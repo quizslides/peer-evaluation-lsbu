@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 
+import { User } from "@generated/type-graphql";
 import { Container, Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -14,14 +15,18 @@ import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { ModuleMember, ModuleMemberPermissions, ModuleMemberPermissionsNoOwner } from "@/types/module";
 import { JSONStringNumber } from "@/types/object";
-import { IUserData } from "@/types/user";
-import { moduleMemberNameValidator, moduleMemberPermissionValidator, userEmailValidator } from "@/utils";
+import {
+  moduleMemberIdValidator,
+  moduleMemberNameValidator,
+  moduleMemberPermissionValidator,
+  userEmailValidator,
+} from "@/utils";
 
 interface IModuleMemberForm {
   state: boolean;
   formTitle: string;
   isModuleMemberOwner: boolean;
-  users: IUserData[];
+  users: User[];
   data: ModuleMember;
   updateFormState: (state: boolean) => void;
   onSubmitForm: (data: ModuleMember) => void;
@@ -51,6 +56,7 @@ const ModuleMemberForm = ({
   const [scopeModuleMemberPermissions, setScopeModuleMemberPermissions] = useState<JSONStringNumber | null>(null);
 
   const validationSchema = object({
+    ...moduleMemberIdValidator,
     ...userEmailValidator,
     ...moduleMemberNameValidator,
     ...moduleMemberPermissionValidator,
@@ -58,15 +64,25 @@ const ModuleMemberForm = ({
 
   const submitForm = (formData: ModuleMember) => {
     setSubmitting(true);
+    formData.id = getSubmittedUserId(formData.email);
     onSubmitForm(formData);
   };
 
-  const sanitizeUserAutocomplete = (users: IUserData[]) => users.map(({ email }) => ({ label: email }));
+  const sanitizeUserAutocomplete = (users: User[]) => users.map(({ email }) => ({ label: email }));
 
   const getModuleMemberName = (email: string) => {
     let user = users?.filter((data) => data.email === email);
     if (user.length) {
       return user[0].name;
+    }
+
+    return "";
+  };
+
+  const getSubmittedUserId = (email: string) => {
+    let user = users?.filter((data) => data.email === email);
+    if (user.length) {
+      return user[0].id;
     }
 
     return "";

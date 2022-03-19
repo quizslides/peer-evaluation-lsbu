@@ -2,7 +2,7 @@ const validatorContent = {
   userEmail: {
     defaultValue: "",
     invalid: "Invalid email address",
-    invalidDomain: "Email must end with @lsbu.ac.uk",
+    invalidDomainRegex: "Email must end with @lsbu.ac.uk",
     required: "Enter an email",
     regex: /@((gmail)\.com|(lsbupeerevaluation)\.software|(lsbu)\.ac.uk)$/,
     // regex: /@(lsbu)\.ac.uk$/, TODO: update rules to use only @lsbu.ac.uk and @lsbupeerevaluation.software
@@ -26,6 +26,9 @@ const validatorContent = {
     required: "Module code is required",
     minLength: "Module code must be longer than one character",
     maxLength: "Module code cannot be longer than 20 characters",
+    unique: "Module code must be unique",
+    regex: /^[A-Z]+(?:_[A-Z]+)*$/,
+    messageRegex: "Uppercase and underscores allowed between words",
   },
   moduleSchools: {
     required: "A school is required",
@@ -62,14 +65,14 @@ const validatorContent = {
     min: "Criteria score range max must be higher than criteria score range min value",
     max: "Criteria score range min value is higher than max value",
   },
-  reminderEmailTitle: {
+  emailTitleReminder: {
     matchModuleCodeRegex: /{{moduleCode}}/,
     matchModuleCode: "Email title must contain {{moduleCode}}",
     required: "Email title is required",
     minLength: "Email title must be longer than one character",
     maxLength: "Email title cannot be longer than 70 characters",
   },
-  reminderEmailBody: {
+  emailBodyReminder: {
     matchUrlRegex: /{{peerEvaluationUrl}}/,
     matchUrl: "Email body must contain {{peerEvaluationUrl}} for the URL of the peer evaluation",
   },

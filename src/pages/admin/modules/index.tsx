@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 
-import { Base, DataTable, DataTableRefreshToolbarIcon, IconButtonWrapper, PageTitle } from "@/components";
+import {
+  Base,
+  DataTable,
+  DataTableAddColumnToolbarIcon,
+  DataTableRefreshToolbarIcon,
+  IconButtonWrapper,
+  PageTitle,
+} from "@/components";
 import { DeleteIcon, EditIcon } from "@/icons";
 import useGetModules from "@/requests/hooks/query/useGetModules";
-import { SchoolAcronyms, Schools } from "@/types/module";
+import routing from "@/routing";
+import { SchoolAcronyms, Schools, SchoolsDropdown } from "@/types/module";
 import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 const Container = styled.div`
@@ -17,11 +26,29 @@ const Container = styled.div`
 `;
 
 const Modules: NextPage = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const router = useRouter();
+
   const { data, loading, error, refetch: runRefreshModules } = useGetModules();
 
+  const [isRedirecting, setRedirecting] = useState(false);
+
   // useEffect(() => {
-  //   console.log(data);
+  //   if (data) {
+  //     let moduleData = data?.modules;
+
+  //     for (let index in moduleData) {
+  //       // if (module.columns) {
+  //       // moduleData[index].schools = ;
+  //       let schools = moduleData[index].schools.map((school) => SchoolsDropdown[school]);
+  //       console.log(moduleData[index].schools);
+  //       moduleData[index].newSchools = {};
+  //       // }
+  //     }
+  //   }
+
+  //   // if (data) {
+  //   //   console.log(data.modules[0].schools);
+  //   // }
   // });
 
   /**
@@ -40,7 +67,27 @@ const Modules: NextPage = () => {
     }
   };
 
+  const onAddModule = () => {
+    setRedirecting(true);
+    router.push({
+      pathname: routing.module.create,
+      query: {
+        redirectUrl: routing.admin.modules,
+      },
+    });
+  };
+
   const tableColumns: MUIDataTableColumnDef[] = [
+    {
+      name: "id",
+      label: "ID",
+      options: {
+        display: "false",
+        filter: true,
+        sort: true,
+        filterType: "textField",
+      },
+    },
     {
       name: "title",
       label: "Title",
@@ -186,7 +233,7 @@ const Modules: NextPage = () => {
     },
     responsive: "simple",
     tableBodyMaxHeight: "100%",
-    selectableRows: "multiple",
+    selectableRows: "single",
     selectableRowsHeader: true,
     rowHover: true,
     download: true,
@@ -206,7 +253,10 @@ const Modules: NextPage = () => {
     },
     enableNestedDataAccess: ".",
     customToolbar: (_) => (
-      <DataTableRefreshToolbarIcon onClick={onRefreshModules} testId={"refresh-admin-module-table"} />
+      <>
+        <DataTableRefreshToolbarIcon onClick={onRefreshModules} testId={"refresh-admin-module-table"} />
+        <DataTableAddColumnToolbarIcon onClick={onAddModule} testId={"module-member-add"} />
+      </>
     ),
     customToolbarSelect: (selectedRows, displayData) => (
       <Container>
@@ -232,13 +282,21 @@ const Modules: NextPage = () => {
     ),
   };
 
+  // On delete
+  // Check the status
+  // Check the total students
+
+  // Get
+  // Get all modules that I owned
+  // Get all modules I am a teaching module member
+
   return (
-    <Base topLeftComponent="menu" loading={false}>
+    <Base topLeftComponent="menu" loading={loading || isRedirecting} error={!!error}>
       <PageTitle title={"Modules"} testId="page-admin-modules-title" variant="h4" margin="2em" />
       <DataTable
         testId={"admin-modules-datatable"}
-        isVisible={!loading}
-        title={"Modules"}
+        isVisible={!!data}
+        title={""}
         data={data ? data.modules : []}
         columns={tableColumns}
         options={tableOptions}

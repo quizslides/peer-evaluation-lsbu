@@ -30,7 +30,7 @@ const TextBold = styled.a`
 const SignIn: NextPage = () => {
   const router = useRouter();
 
-  const [callBackUrl, setCallBackUrl] = useState<string | null>(null);
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
 
   const { data: session, status } = useSession();
 
@@ -55,7 +55,7 @@ const SignIn: NextPage = () => {
       await signIn("email", {
         email: valuesForm.email,
         redirect: false,
-        callbackUrl: callBackUrl || `${window.location.origin}${routing.dashboard}`,
+        redirectUrl: redirectUrl || `${window.location.origin}${routing.dashboard}`,
       });
 
       setLinkSent(true);
@@ -79,18 +79,18 @@ const SignIn: NextPage = () => {
   const loading = status === "loading";
 
   const getAuthenticatedRedirect = () => {
-    if (typeof router.query.callbackUrl === "string") {
-      return router.query.callbackUrl;
+    if (typeof router.query.redirectUrl === "string") {
+      return router.query.redirectUrl;
     }
 
     return routing.dashboard;
   };
 
   useEffect(() => {
-    if (router.query.callbackUrl && typeof router.query.callbackUrl === "string") {
-      setCallBackUrl(router.query.callbackUrl);
+    if (router.query.redirectUrl && typeof router.query.redirectUrl === "string") {
+      setRedirectUrl(router.query.redirectUrl);
     }
-  }, [router.query.callbackUrl]);
+  }, [router.query.redirectUrl]);
 
   if (!loading && session) {
     router.push(getAuthenticatedRedirect());

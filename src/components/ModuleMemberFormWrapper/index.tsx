@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { User } from "@generated/type-graphql";
 import { FormControl, FormHelperText, Grid } from "@mui/material";
-import { Role } from "@prisma/client";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { useSession } from "next-auth/react";
@@ -25,7 +24,7 @@ import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
 import { FieldStatus, ModuleMember, ModuleMemberPermissions, moduleMemberColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
 import { IUserData } from "@/types/user";
-import { errorNotification } from "@/utils";
+import { Role, errorNotification } from "@/utils";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
 interface IModuleMemberContainer {
@@ -59,7 +58,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
 
   const [currentModuleMembers, setCurrentModuleMembers] = useState<ModuleMember[]>(field.value);
 
-  const [moduleMembersAvailable, setModuleMembersAvailable] = useState<IUserData[]>([]);
+  const [moduleMembersAvailable, setModuleMembersAvailable] = useState<User[]>([]);
 
   const [isCreateModuleMemberOpen, setCreateModuleMemberOpen] = useState(false);
 
@@ -250,6 +249,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
       for (const currentModuleMember of meta.value) {
         moduleMembersAvailable = moduleMembersAvailable.filter(({ email }) => email !== currentModuleMember.email);
       }
+
       setModuleMembersAvailable(moduleMembersAvailable);
     };
 
@@ -293,7 +293,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
   }, [meta.value]);
 
   if (loading && moduleMembersAvailable) {
-    return <LoadingContainer loading={loading} />;
+    return <LoadingContainer loading={loading} centeredAbsolute={false} />;
   }
 
   if (errorRequest) {

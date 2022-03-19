@@ -6,7 +6,7 @@ import { ElementChildren } from "@/types";
 import { RoleScope, isScopeAuthorized } from "@/utils/permissions";
 
 interface IAuthScopeContainer extends ElementChildren {
-  scope?: RoleScope[] | undefined;
+  scope?: RoleScope | RoleScope[] | undefined;
 }
 
 const AuthScopeContainer = ({ scope, children }: IAuthScopeContainer) => {

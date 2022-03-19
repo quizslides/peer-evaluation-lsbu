@@ -13,10 +13,9 @@ interface ISelectFieldForm {
   name: string;
   props: TextFieldProps;
   options: SelectOptions;
-  answerMapper?: SelectOptions;
 }
 
-const SelectMultipleFieldForm = ({ testId, name, options, answerMapper, props }: ISelectFieldForm) => {
+const SelectMultipleFieldForm = ({ testId, name, options, props }: ISelectFieldForm) => {
   const [field, meta] = useField(name);
 
   const config = {
@@ -38,7 +37,7 @@ const SelectMultipleFieldForm = ({ testId, name, options, answerMapper, props }:
     <TextField data-testid={testId} {...config}>
       {Object.keys(options).map((item) => (
         <MenuItem key={item} value={item}>
-          {answerMapper ? answerMapper[options[item]] : options[item]}
+          {options[item]}
         </MenuItem>
       ))}
     </TextField>

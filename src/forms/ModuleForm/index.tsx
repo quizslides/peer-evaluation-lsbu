@@ -1,7 +1,10 @@
 import React, { memo, useState } from "react";
 
-import { Container, Stack } from "@mui/material";
-import { Form, Formik } from "formik";
+import { useApolloClient } from "@apollo/client";
+import styled from "@emotion/styled";
+import { Container, Stack, ThemeProvider, createTheme } from "@mui/material";
+import { red } from "@mui/material/colors";
+import { Form, Formik, yupToFormErrors } from "formik";
 import { object } from "yup";
 
 import {
@@ -17,6 +20,7 @@ import ModuleMemberFormWrapper from "@/components/ModuleMemberFormWrapper";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
+import { theme } from "@/styles";
 import { IModuleData, ModuleStatus, SchoolAcronyms, SchoolsDropdown } from "@/types/module";
 import {
   moduleCodeValidator,
@@ -41,6 +45,8 @@ interface IModuleForm extends IModuleData {
 }
 
 const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModuleForm) => {
+  const apolloClient = useApolloClient();
+
   const handleCloseDialog = (reason?: string) => {
     if (reason === "backdropClick") {
       return;
@@ -75,14 +81,23 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
       initialValues={{
         ...moduleData,
       }}
-      validationSchema={validationSchema}
+      validate={(values) =>
+        validationSchema
+          .validate(values, {
+            abortEarly: false,
+            context: { apolloClient },
+          })
+          .catch((err) => {
+            return yupToFormErrors(err);
+          })
+      }
       onSubmit={submitForm}
     >
       {() => (
         <Form>
           <Container maxWidth="lg">
             <Divider>Information</Divider>
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <TextFieldForm
                 testId="module-form-title-field"
                 name="title"
@@ -97,7 +112,7 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
               />
             </FieldWrapper>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <TextFieldForm
                 testId="module-form-module-code-field"
                 name="moduleCode"
@@ -108,15 +123,23 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
                   type: "text",
                   variant: "outlined",
                   placeholder: content.containers.moduleForm.form.moduleCode.placeholder,
+                  helperText: content.containers.moduleForm.form.moduleCode.helperText,
+                  sx: {
+                    input: {
+                      textTransform: "uppercase",
+                      "&::placeholder": {
+                        textTransform: "none",
+                      },
+                    },
+                  },
                 }}
               />
             </FieldWrapper>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <SelectMultipleFieldForm
                 name="schools"
-                options={SchoolAcronyms}
-                answerMapper={SchoolsDropdown}
+                options={SchoolsDropdown}
                 props={{
                   required: true,
                   label: content.containers.moduleForm.form.moduleSchools.label,
@@ -129,7 +152,7 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
 
             <Divider>Peer Evaluation</Divider>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <SelectFieldForm
                 name="status"
                 options={ModuleStatus}
@@ -185,7 +208,7 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
               />
             </FieldWrapper>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <PeerEvaluationColumnManagement
                 name="columns"
                 helperText={content.containers.moduleForm.form.columnManagement.helperText}
@@ -195,27 +218,27 @@ const ModuleForm = ({ onSubmitForm, isNewModule = false, ...moduleData }: IModul
 
             <Divider>Email Reminder</Divider>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <TextFieldForm
                 testId="module-form-email-title-field"
-                name="reminderEmailTitle"
+                name="emailTitleReminder"
                 props={{
                   required: true,
                   fullWidth: true,
-                  label: content.containers.moduleForm.form.reminderEmailTitle.label,
+                  label: content.containers.moduleForm.form.emailTitleReminder.label,
                   type: "text",
                   variant: "outlined",
-                  placeholder: content.containers.moduleForm.form.reminderEmailTitle.placeholder,
+                  placeholder: content.containers.moduleForm.form.emailTitleReminder.placeholder,
                 }}
               />
             </FieldWrapper>
 
-            <FieldWrapper>
+            <FieldWrapper marginBottom="3em">
               <WYSIWYGForm
                 testId={"module-form-email-body-field"}
-                helperText={content.containers.moduleForm.form.reminderEmailBody.helperText}
-                fieldName={"reminderEmailBody"}
-                resetButtonText={content.containers.moduleForm.form.reminderEmailBody.resetButtonText}
+                helperText={content.containers.moduleForm.form.emailBodyReminder.helperText}
+                fieldName={"emailBodyReminder"}
+                resetButtonText={content.containers.moduleForm.form.emailBodyReminder.resetButtonText}
               />
             </FieldWrapper>
 

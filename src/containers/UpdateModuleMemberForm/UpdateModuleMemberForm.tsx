@@ -1,12 +1,13 @@
 import React, { memo } from "react";
 
+import { User } from "@generated/type-graphql";
+
 import ModuleMemberForm from "@/forms/ModuleMemberForm";
 import { ModuleMember } from "@/types/module";
-import { IUserData } from "@/types/user";
 
 interface IUpdateModuleMemberForm {
   state: boolean;
-  users: IUserData[];
+  users: User[];
   updateModuleMember: ModuleMember;
   isModuleMemberOwner: boolean;
   updateFormState: (state: boolean) => void;

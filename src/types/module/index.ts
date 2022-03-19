@@ -14,8 +14,8 @@ interface IModuleData {
   maxGradeIncrease: number;
   maxGradeDecrease: number;
   submissionsLockDate: null | Date;
-  reminderEmailTitle: string;
-  reminderEmailBody: string | null;
+  emailTitleReminder: string;
+  emailBodyReminder: string;
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
@@ -23,10 +23,11 @@ interface IModuleData {
 }
 
 interface ModuleMember {
-  permission: ModuleMemberPermissions;
+  id: string;
   email: string;
   name: string;
   status: FieldStatus;
+  permission: ModuleMemberPermissions;
 }
 
 enum ModuleMemberPermissions {
@@ -75,13 +76,23 @@ const SchoolAcronyms = {
 };
 
 const SchoolsDropdown = {
-  ACI: "School of Arts and Creative Industries",
-  APS: "School of Applied Sciences",
-  BEA: "School of The Built Environment and Architecture",
-  BUS: "LSBU Business School",
-  ENG: "School of Engineering",
-  LSS: "School of Law and Social Sciences",
-  HSC: "Institute of Health and Social Care",
+  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "School of Arts and Creative Industries",
+  SCHOOL_OF_APPLIED_SCIENCES: "School of Applied Sciences",
+  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: "School of The Built Environment and Architecture",
+  LSBU_BUSINESS_SCHOOL: "LSBU Business School",
+  SCHOOL_OF_ENGINEERING: "School of Engineering",
+  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: "School of Law and Social Sciences",
+  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "Institute of Health and Social Care",
+};
+
+const SchoolsDataTable = {
+  "School of Arts and Creative Industries": "ACI",
+  "School of Applied Sciences": "APS",
+  "School of The Built Environment and Architecture": "BEA",
+  "LSBU Business School": "BUS",
+  "School of Engineering": "ENG",
+  "School of Law and Social Sciences": "LSS",
+  "Institute of Health and Social Care": "HSC",
 };
 
 const peerEvaluationColumnOrder = ["id", "description", "createdAt", "updatedAt", "status"];
@@ -132,13 +143,14 @@ const initialModuleState: IModuleData = {
   maxGradeIncrease: 10,
   maxGradeDecrease: 100,
   submissionsLockDate: null,
-  reminderEmailTitle: "Peer Evaluation Reminder - {{moduleCode}}",
-  reminderEmailBody: "Email body {{peerEvaluationUrl}}",
+  emailTitleReminder: "Peer Evaluation Reminder - {{moduleCode}}",
+  emailBodyReminder: "Email body {{peerEvaluationUrl}}",
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
   columns: defaultPeerEvaluationColumns,
   moduleMembers: [
     {
+      id: "",
       name: "",
       email: "",
       permission: ModuleMemberPermissions.OWNER,
@@ -148,6 +160,7 @@ const initialModuleState: IModuleData = {
 };
 
 const initialModuleMember: ModuleMember = {
+  id: "",
   name: "",
   email: "",
   permission: ModuleMemberPermissions.VIEWER,
@@ -172,6 +185,7 @@ export {
   peerEvaluationColumnOrder,
   SchoolAcronyms,
   Schools,
+  SchoolsDataTable,
   SchoolsDropdown,
 };
 

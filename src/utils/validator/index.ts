@@ -1,5 +1,9 @@
+import { ApolloClient } from "@apollo/client";
 import { array, date, mixed, number, object, ref, string } from "yup";
 
+import { ModuleExistResponse } from "@/pages/api/resolvers/module";
+import moduleExist from "@/requests/direct/query/moduleExist";
+import { MODULE_EXIST } from "@/requests/schema/modules";
 import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
@@ -9,7 +13,7 @@ const userEmailValidator = {
   email: string()
     .default(content.userEmail.defaultValue)
     .email(content.userEmail.invalid)
-    .matches(content.userEmail.regex, content.userEmail.invalidDomain)
+    .matches(content.userEmail.regex, content.userEmail.invalidDomainRegex)
     .required(content.userEmail.required),
 };
 
@@ -21,6 +25,10 @@ const userNameValidator = {
 };
 
 const moduleMemberNameValidator = {
+  name: string(),
+};
+
+const moduleMemberIdValidator = {
   name: string(),
 };
 
@@ -41,7 +49,28 @@ const moduleCodeValidator = {
   moduleCode: string()
     .min(2, content.moduleCode.minLength)
     .max(70, content.moduleCode.maxLength)
-    .required(content.moduleCode.required),
+    .required(content.moduleCode.required)
+    .matches(content.moduleCode.regex, {
+      message: content.moduleCode.messageRegex,
+    })
+    .test({
+      name: "unique-module-code",
+      message: content.moduleCode.unique,
+      test: async (values, props) => {
+        const apolloClient = props.options.context?.apolloClient as ApolloClient<object>;
+
+        if (values) {
+          const { data } = await moduleExist(apolloClient, values);
+          return !!!data.moduleExist.exist;
+        }
+
+        // If backend is not or has not responded, the validation should return false as the input will be invalid
+        return false;
+      },
+    })
+    .transform((value) => {
+      return value && value.toUpperCase();
+    }),
 };
 
 const moduleSchoolValidator = {
@@ -94,18 +123,18 @@ const moduleCriteriaScoreRangeMaxValidator = {
 };
 
 const moduleEmailTitleValidator = {
-  reminderEmailTitle: string()
-    .matches(content.reminderEmailTitle.matchModuleCodeRegex, {
-      message: content.reminderEmailTitle.matchModuleCode,
+  emailTitleReminder: string()
+    .matches(content.emailTitleReminder.matchModuleCodeRegex, {
+      message: content.emailTitleReminder.matchModuleCode,
     })
-    .min(2, content.reminderEmailTitle.minLength)
-    .max(70, content.reminderEmailTitle.maxLength)
-    .required(content.reminderEmailTitle.required),
+    .min(2, content.emailTitleReminder.minLength)
+    .max(70, content.emailTitleReminder.maxLength)
+    .required(content.emailTitleReminder.required),
 };
 
 const moduleEmailBodyValidator = {
-  reminderEmailBody: string().matches(content.reminderEmailBody.matchUrlRegex, {
-    message: content.reminderEmailBody.matchUrl,
+  emailBodyReminder: string().matches(content.emailBodyReminder.matchUrlRegex, {
+    message: content.emailBodyReminder.matchUrl,
   }),
 };
 
@@ -128,7 +157,7 @@ const moduleMembersValidator = {
       })
     )
     .test({
-      name: "one-owner",
+      name: "one-owner-teaching-module-member",
       message: content.moduleMembers.minLength,
       test: (values) => {
         const isOwnerPermission = (currentValue: string) => currentValue === "OWNER";
@@ -158,6 +187,7 @@ export {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
+  moduleMemberIdValidator,
   moduleMemberNameValidator,
   moduleMemberPermissionValidator,
   moduleMembersValidator,

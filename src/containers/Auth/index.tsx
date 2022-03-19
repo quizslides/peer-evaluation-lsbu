@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { LoadingContainer } from "@/containers";
 import routing from "@/routing";
 import { ElementChildren } from "@/types";
-import { RoleScope } from "@/utils/permissions";
+import { RoleScope, isScopeAuthorized } from "@/utils/permissions";
 
 interface IAuthenticatedRoute extends ElementChildren {
   roles?: RoleScope[];
@@ -28,9 +28,15 @@ const AuthenticatedRoute = ({ children, roles }: IAuthenticatedRoute) => {
   useEffect(() => {
     if (!loading) {
       if (!hasUser && window.location.pathname !== routing.auth.signIn) {
-        router.push(`${routing.auth.signIn}?callbackUrl=${window.location.pathname}`);
+        router.push({
+          pathname: routing.auth.signIn,
+          query: {
+            redirectUrl: window.location.pathname,
+          },
+        });
+
         setRedirecting(true);
-      } else if (session && roles && !roles.includes(session.user.role as unknown as RoleScope)) {
+      } else if (session && roles && !isScopeAuthorized(roles, session.user.role as unknown as RoleScope)) {
         router.push(routing.unauthorized);
         setRedirecting(true);
       }

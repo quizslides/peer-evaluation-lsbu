@@ -1,5 +1,7 @@
 import React, { memo } from "react";
 
+import { User } from "@generated/type-graphql";
+
 import ModuleMemberForm from "@/forms/ModuleMemberForm";
 import { ModuleMember, initialModuleMember } from "@/types/module";
 import { IUserData } from "@/types/user";
@@ -8,7 +10,7 @@ interface ICreateModuleMemberForm {
   state: boolean;
   updateFormState: (state: boolean) => void;
   onSubmit: (data: ModuleMember) => void;
-  users: IUserData[];
+  users: User[];
 }
 
 const CreateModuleMemberForm = ({ state, users, updateFormState, onSubmit }: ICreateModuleMemberForm) => {
