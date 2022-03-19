@@ -27,7 +27,7 @@ const validatorContent = {
     minLength: "Module code must be longer than one character",
     maxLength: "Module code cannot be longer than 20 characters",
     unique: "Module code must be unique",
-    regex: /^[A-Z]+(?:_[A-Z]+)*$/,
+    regex: /^[A-Z0-9]+(?:_[A-Z0-9]+)*$/,
     messageRegex: "Uppercase and underscores allowed between words",
   },
   moduleSchools: {
