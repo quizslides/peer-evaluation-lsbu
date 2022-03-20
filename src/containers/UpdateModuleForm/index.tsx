@@ -9,8 +9,8 @@ import { ModuleForm } from "@/forms";
 import updateModule from "@/requests/direct/mutation/updateModule";
 import useGetModule from "@/requests/hooks/query/useGetModule";
 import { sanitizeModuleDataOnFetch, sanitizeModuleDataOnUpdate } from "@/transformers/module";
-import { IModuleData, initialModuleState } from "@/types/module";
-import { errorNotification, loadingNotification, successNotification } from "@/utils";
+import { IModuleData, ModuleMember, ModuleMemberPermissions, initialModuleState } from "@/types/module";
+import { Role, blankNotification, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface IUpdateUserForm {
   onSubmit: () => void;
@@ -24,14 +24,18 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
 
   const [moduleValues, setModuleValues] = useState<IModuleData | null>(null);
 
-  const [module, { loading, error, data }] = useGetModule("UpdateModule");
+  const [isModuleViewOnly, setModuleViewOnly] = useState<boolean>(true);
+
+  const [module, { loading: loadingFetch, error, data }] = useGetModule("UpdateModule");
+
+  const { data: session, status } = useSession();
 
   const submitForm = async (valuesForm: IModuleData) => {
-    loadingNotification("Creating module", "UpdateModuleForm");
+    loadingNotification("Updating module", "UpdateModuleForm");
 
     const moduleDataSanitizedOnUpdate = sanitizeModuleDataOnUpdate(valuesForm);
 
-    const { errors } = await updateModule(apolloClient, moduleDataSanitizedOnUpdate);
+    const { errors } = await updateModule(apolloClient, moduleDataSanitizedOnUpdate, moduleId);
 
     if (!errors) {
       successNotification("Module updated successfully", "UpdateModuleForm");
@@ -42,6 +46,23 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
 
     onSubmit();
   };
+
+  const isTeachingModuleMemberViewOnly = (moduleMember: ModuleMember[] | undefined, session: Session) => {
+    if (session.user.role == Role.ADMIN) {
+      return false;
+    }
+
+    if (moduleMember) {
+      const userModuleMember = moduleMember.filter(({ email }) => email === session?.user.email);
+      if (userModuleMember.length) {
+        return userModuleMember[0].permission === ModuleMemberPermissions.VIEWER;
+      }
+    }
+
+    return false;
+  };
+
+  const isLoading = status === "loading" || loadingFetch || !moduleValues;
 
   useEffect(() => {
     module({
@@ -60,13 +81,18 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
   }, [error, setError]);
 
   useEffect(() => {
-    if (data) {
+    if (data && session) {
       const sanitizedModuleDataOnFetch = sanitizeModuleDataOnFetch(data.module);
       setModuleValues(sanitizedModuleDataOnFetch || null);
+      setModuleViewOnly(isTeachingModuleMemberViewOnly(sanitizedModuleDataOnFetch?.moduleMembers, session));
     }
-  }, [data]);
+  }, [data, session]);
 
-  const isLoading = loading || !moduleValues;
+  useEffect(() => {
+    if (isModuleViewOnly) {
+      blankNotification("You have only view permission of this module");
+    }
+  }, [isModuleViewOnly]);
 
   if (isLoading) {
     return <LoadingContainer loading={isLoading} />;
@@ -75,6 +101,7 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
   return (
     <ModuleForm
       isNewModule={false}
+      isViewOnly={isModuleViewOnly}
       title={moduleValues.title}
       moduleCode={moduleValues.moduleCode}
       schools={moduleValues.schools}

@@ -1,10 +1,10 @@
 import { resolvers } from "@generated/type-graphql";
 import { buildSchema } from "type-graphql";
 
-import { ModuleExist } from "@/pages/api/resolvers/module";
+import { ModuleExist, ModulesByLecturer } from "@/pages/api/resolvers/module";
 
 const schemaDefinitions = await buildSchema({
-  resolvers: [...resolvers, ModuleExist],
+  resolvers: [...resolvers, ModuleExist, ModulesByLecturer],
 });
 
 export default schemaDefinitions;

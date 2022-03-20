@@ -64,6 +64,7 @@ const CreateModuleForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
   return (
     <ModuleForm
       isNewModule={true}
+      isViewOnly={false}
       title={moduleValues.title}
       moduleCode={moduleValues.moduleCode}
       schools={moduleValues.schools}

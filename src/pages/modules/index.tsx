@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ModuleMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import {
@@ -21,9 +23,11 @@ import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import deleteModule from "@/requests/direct/mutation/deleteModule";
 import useGetModules from "@/requests/hooks/query/useGetModules";
+import useGetModulesByLecturer from "@/requests/hooks/query/useGetModulesByLecturer";
 import routing from "@/routing";
 import {
   IModuleDataTable,
+  ModuleMemberPermissions,
   Schools,
   SchoolsDataTable,
   SchoolsDropdown,
@@ -38,9 +42,14 @@ const Container = styled.div`
 const Modules: NextPage = () => {
   const router = useRouter();
 
+  const { data: session, status } = useSession();
+
   const apolloClient = useApolloClient();
 
-  const { data, loading, error, refetch: runRefreshModules } = useGetModules();
+  const [module, { loading: loadingQuery, error, data, refetch: runRefreshModules }] =
+    useGetModulesByLecturer("AllModules");
+
+  const loading = status === "loading" || loadingQuery;
 
   const [isRedirecting, setRedirecting] = useState(false);
 
@@ -48,7 +57,7 @@ const Modules: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      let moduleData = data?.modules as unknown as IModuleDataTable[];
+      let moduleData = data?.moduleByLecturer as unknown as IModuleDataTable[];
       for (let index in moduleData) {
         moduleData[index].schoolsDataTable = moduleData[index].schools.map(
           (school) => SchoolsDropdown[school]
@@ -91,7 +100,7 @@ const Modules: NextPage = () => {
     router.push({
       pathname: `${routing.modules.edit}/${moduleToUpdate.id}`,
       query: {
-        redirectUrl: routing.admin.modules,
+        redirectUrl: routing.modules.list,
       },
     });
   };
@@ -102,6 +111,18 @@ const Modules: NextPage = () => {
 
   const onDeleteModuleConfirmation = (values: string[]) => {
     const moduleToDelete = getModuleObject(values);
+
+    const moduleDataToDelete = modulesData.filter((moduleData) => moduleData.id === moduleToDelete.id)[0];
+
+    const moduleMembers = moduleDataToDelete.moduleMembers as unknown as ModuleMember[];
+
+    const userDeletingModule = moduleMembers.filter((moduleMembers) => moduleMembers.userId === session?.user.id)[0];
+
+    if (userDeletingModule.permission !== ModuleMemberPermissions.OWNER) {
+      errorNotification("You do not have enough permissions to delete this module");
+      return null;
+    }
+
     setDeleteModuleConfirmationOpen(true);
     setDeleteModuleId(moduleToDelete.id);
   };
@@ -330,6 +351,18 @@ const Modules: NextPage = () => {
     ),
   };
 
+  useEffect(() => {
+    if (session && session.user.email) {
+      module({
+        variables: {
+          where: {
+            email: session.user.email,
+          },
+        },
+      });
+    }
+  }, [module, session]);
+
   return (
     <Base topLeftComponent="menu" loading={loading || isRedirecting} error={!!error}>
       <PageTitle title={"Modules"} testId="page-admin-modules-title" variant="h4" margin="2em" />
@@ -359,7 +392,7 @@ export const getStaticProps = () => {
   return {
     props: {
       protected: true,
-      roles: [RoleScope.ADMIN],
+      roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
   };
 };

@@ -64,7 +64,11 @@ const ModuleMemberForm = ({
 
   const submitForm = (formData: ModuleMember) => {
     setSubmitting(true);
-    formData.id = getSubmittedUserId(formData.email);
+
+    formData.id = moduleMemberFormData.data.id.length
+      ? moduleMemberFormData.data.id
+      : getSubmittedUserId(formData.email);
+
     onSubmitForm(formData);
   };
 

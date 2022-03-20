@@ -73,16 +73,6 @@ enum FieldStatus {
   DELETED = "DELETED",
 }
 
-const SchoolAcronyms = {
-  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "ACI",
-  SCHOOL_OF_APPLIED_SCIENCES: "APS",
-  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: "BEA",
-  LSBU_BUSINESS_SCHOOL: "BUS",
-  SCHOOL_OF_ENGINEERING: "ENG",
-  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: "LSS",
-  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "HSC",
-};
-
 const SchoolsDropdown = {
   SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "School of Arts and Creative Industries",
   SCHOOL_OF_APPLIED_SCIENCES: "School of Applied Sciences",
@@ -93,7 +83,11 @@ const SchoolsDropdown = {
   INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "Institute of Health and Social Care",
 };
 
-const SchoolsDataTable = {
+interface ISchoolsDataTable {
+  [key: string]: string;
+}
+
+const SchoolsDataTable: ISchoolsDataTable = {
   "School of Arts and Creative Industries": "ACI",
   "School of Applied Sciences": "APS",
   "School of The Built Environment and Architecture": "BEA",
@@ -176,10 +170,11 @@ const initialModuleMember: ModuleMember = {
 };
 
 const initialColumnState = {
+  id: "",
   description: "",
 };
 
-const moduleMemberDataTableColumnOrder = ["name", "email", "permission"];
+const moduleMemberDataTableColumnOrder = ["name", "email", "permission", "status", "id"];
 
 const moduleDataTableColumnOrder = [
   "id",
@@ -210,7 +205,6 @@ export {
   ModuleMemberPermissionsNoOwner,
   ModuleStatus,
   peerEvaluationColumnOrder,
-  SchoolAcronyms,
   Schools,
   SchoolsDataTable,
   SchoolsDropdown,

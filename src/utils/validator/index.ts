@@ -141,6 +141,10 @@ const moduleColumnValidator = {
     .required(content.column.required),
 };
 
+const moduleColumnIdValidator = {
+  description: string(),
+};
+
 const moduleColumnsValidator = {
   columns: array().min(1, content.columns.minLength),
 };
@@ -175,6 +179,7 @@ const moduleMemberPermissionValidator = {
 
 export {
   moduleCodeValidator,
+  moduleColumnIdValidator,
   moduleColumnsValidator,
   moduleColumnValidator,
   moduleCriteriaScoreRangeMaxValidator,

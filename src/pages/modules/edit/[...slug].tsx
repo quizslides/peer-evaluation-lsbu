@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
 import { UpdateModuleForm } from "@/containers";
-import CreateModuleForm from "@/containers/CreateModuleForm";
-import useGetModule from "@/requests/hooks/query/useGetModule";
 import routing from "@/routing";
 import { RoleScope } from "@/utils";
 

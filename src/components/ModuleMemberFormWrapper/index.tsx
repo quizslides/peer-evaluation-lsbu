@@ -31,6 +31,7 @@ interface IModuleMemberContainer {
   helperText: string;
   testId: string;
   name: string;
+  isDisabled: boolean;
 }
 
 const Wrapper = styled.div`
@@ -45,7 +46,7 @@ const BottomRight = styled.div`
   right: 0;
 `;
 
-const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberContainer) => {
+const ModuleMemberFormWrapper = ({ testId, helperText, name, isDisabled }: IModuleMemberContainer) => {
   const { data: session } = useSession();
 
   const { setFieldValue } = useFormikContext();
@@ -191,9 +192,15 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
       label: "Status",
       options: {
         display: "excluded",
-        filter: true,
-        sort: true,
-        filterType: "dropdown",
+        filter: false,
+      },
+    },
+    {
+      name: "id",
+      label: "ID",
+      options: {
+        display: "excluded",
+        filter: false,
       },
     },
   ];
@@ -206,7 +213,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
     },
     responsive: "simple",
     tableBodyMaxHeight: "100%",
-    selectableRows: "single",
+    selectableRows: isDisabled ? "none" : "single",
     selectableRowsHeader: true,
     rowHover: true,
     download: false,
@@ -217,7 +224,8 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
     viewColumns: false,
     print: false,
     rowsPerPage: 100,
-    customToolbar: (_) => <DataTableAddColumnToolbarIcon onClick={onAddModuleMember} testId={"module-member-add"} />,
+    customToolbar: (_) =>
+      !isDisabled && <DataTableAddColumnToolbarIcon onClick={onAddModuleMember} testId={"module-member-add"} />,
     rowsSelected: selectedRows,
     onRowSelectionChange: (rowsSelectedData, allRows, rowsSelected) => {
       setSelectedRows(rowsSelected as []);
@@ -274,6 +282,7 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
 
       filterModuleMembersAvailable(listOfUsers);
       setCurrentUserModuleOwner(isUserModuleOwner());
+      // IsOnlyViewTeachingModuleMember()
     }
   }, [data, session, loading, meta.value]);
 
@@ -333,7 +342,13 @@ const ModuleMemberFormWrapper = ({ testId, helperText, name }: IModuleMemberCont
 
       <Wrapper>
         <BottomRight>
-          <Button size="small" onClick={resetModuleMembers} testId={`${testId}-reset-button`} variant={"outlined"}>
+          <Button
+            size="small"
+            disabled={isDisabled}
+            onClick={resetModuleMembers}
+            testId={`${testId}-reset-button`}
+            variant={"outlined"}
+          >
             {content.containers.moduleMember.resetButton}
           </Button>
         </BottomRight>

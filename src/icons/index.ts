@@ -12,6 +12,7 @@ import HappyFaceEmoji from "@/icons/HappyFaceEmoji/HappyFaceEmoji";
 import HelpOutlineIcon from "@/icons/HelpOutlineIcon/HelpOutlineIcon";
 import HomeIcon from "@/icons/HomeIcon/HomeIcon";
 import KeyboardArrowDown from "@/icons/KeyboardArrowDown/KeyboardArrowDown";
+import ListIcon from "@/icons/ListIcon/ListIcon";
 import LoginIcon from "@/icons/LoginIcon/LoginIcon";
 import LogoutIcon from "@/icons/LogoutIcon/LogoutIcon";
 import MenuIcon from "@/icons/MenuIcon/MenuIcon";
@@ -40,6 +41,7 @@ export {
   HelpOutlineIcon,
   HomeIcon,
   KeyboardArrowDown,
+  ListIcon,
   LoginIcon,
   LogoutIcon,
   MenuIcon,

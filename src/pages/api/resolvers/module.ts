@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import { Module } from "@generated/type-graphql";
 import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
@@ -45,4 +46,48 @@ class ModuleExist {
   }
 }
 
-export { ModuleExist, ModuleExistResponse };
+@InputType({
+  isAbstract: true,
+  description: "Modules by Lecturer input",
+})
+class ModulesByLecturerWhereInput {
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Lecturers email",
+  })
+  email!: string;
+}
+
+@Resolver()
+class ModulesByLecturer {
+  @Query((_returns) => [Module])
+  async moduleByLecturer(
+    @Ctx() ctx: { prisma: PrismaClient },
+    @Arg("where") where: ModulesByLecturerWhereInput
+  ): Promise<Module[]> {
+    const result = await ctx.prisma.module.findMany({
+      where: {
+        moduleMembers: {
+          some: {
+            user: {
+              is: {
+                email: {
+                  equals: where.email,
+                },
+              },
+            },
+          },
+        },
+      },
+      include: {
+        _count: {
+          select: { moduleMembers: true, columns: true, students: true },
+        },
+      },
+    });
+
+    return result;
+  }
+}
+
+export { ModuleExist, ModuleExistResponse, ModulesByLecturer, ModulesByLecturerWhereInput };

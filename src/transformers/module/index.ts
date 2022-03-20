@@ -49,10 +49,10 @@ const sanitizeEmailReminderDataOnUpdate = (title: string, body: string): EmailUp
   return {
     update: {
       title: {
-        set: body,
+        set: title,
       },
       body: {
-        set: title,
+        set: body,
       },
     },
   };
@@ -297,7 +297,79 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
     columns,
   } = data;
 
-  return {
+  const getModuleMemberVariables = () => {
+    const moduleMemberVariables: { [key: string]: object } = {
+      create: {},
+      update: {},
+      delete: {},
+    };
+
+    const onCreate = sanitizeModuleTeachingMemberOnCreate(moduleMembers);
+
+    const onUpdate = sanitizeModuleTeachingMemberOnUpdate(moduleMembers);
+
+    const onDelete = sanitizeModuleTeachingMemberOnDelete(moduleMembers);
+
+    if (onCreate.length) {
+      moduleMemberVariables.create = onCreate;
+    } else {
+      delete moduleMemberVariables.create;
+    }
+
+    if (onUpdate.length) {
+      moduleMemberVariables.update = onUpdate;
+    } else {
+      delete moduleMemberVariables.update;
+    }
+
+    if (onDelete.length) {
+      moduleMemberVariables.delete = onDelete;
+    } else {
+      delete moduleMemberVariables.delete;
+    }
+
+    return moduleMemberVariables;
+  };
+
+  const getColumnVariables = () => {
+    const columnVariables: { [key: string]: object } = {
+      create: {},
+      update: {},
+      delete: {},
+    };
+
+    const onCreate = sanitizeColumnsDataOnCreate(columns);
+
+    const onUpdate = sanitizeColumnsDataOnUpdate(columns);
+
+    const onDelete = sanitizeColumnsDataOnDelete(columns);
+
+    if (onCreate.length) {
+      columnVariables.create = onCreate;
+    } else {
+      delete columnVariables.create;
+    }
+
+    if (onUpdate.length) {
+      columnVariables.update = onUpdate;
+    } else {
+      delete columnVariables.update;
+    }
+
+    if (onDelete.length) {
+      columnVariables.delete = onDelete;
+    } else {
+      delete columnVariables.delete;
+    }
+
+    return columnVariables;
+  };
+
+  const moduleMemberVariables = getModuleMemberVariables();
+
+  const columnVariables = getColumnVariables();
+
+  const updateData: { [key: string]: object } = {
     title: {
       set: title,
     },
@@ -329,25 +401,28 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
       ...sanitizeEmailReminderDataOnUpdate(emailTitleReminder, emailBodyReminder),
     },
     moduleMembers: {
-      create: {
-        ...sanitizeModuleTeachingMemberOnCreate(moduleMembers),
-      },
-      update: {
-        ...sanitizeModuleTeachingMemberOnUpdate(moduleMembers),
-      },
-      delete: {
-        ...sanitizeModuleTeachingMemberOnDelete(moduleMembers),
-      },
+      ...moduleMemberVariables,
     },
     columns: {
-      create: sanitizeColumnsDataOnCreate(columns),
-      update: sanitizeColumnsDataOnUpdate(columns),
-      delete: sanitizeColumnsDataOnDelete(columns),
+      ...columnVariables,
     },
   };
+
+  if (!submissionsLockDate) {
+    delete updateData.submissionsLockDate;
+  }
+
+  if (!Object.keys(moduleMemberVariables).length) {
+    delete updateData.moduleMembers;
+  }
+
+  if (!Object.keys(columnVariables).length) {
+    delete updateData.columns;
+  }
+
+  return updateData;
 };
 
-// TODO
 const sanitizeModuleDataOnFetch = (data: Module): IModuleData | undefined => {
   const {
     title,

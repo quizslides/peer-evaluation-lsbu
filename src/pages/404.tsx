@@ -3,6 +3,7 @@ import React from "react";
 import Error from "next/error";
 
 const NotFound = () => {
+  // TODO: 404 page
   return <Error statusCode={404} />;
 };
 

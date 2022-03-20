@@ -21,8 +21,7 @@ import ModuleMemberFormWrapper from "@/components/ModuleMemberFormWrapper";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
-import { theme } from "@/styles";
-import { IModuleData, ModuleStatus, SchoolAcronyms, SchoolsDropdown } from "@/types/module";
+import { IModuleData, ModuleStatus, SchoolsDropdown } from "@/types/module";
 import {
   moduleCodeValidator,
   moduleColumnsValidator,
@@ -44,16 +43,30 @@ interface IModuleForm extends IModuleData {
   onSubmitForm: (data: IModuleData) => void;
   onCancelForm: () => void;
   isNewModule: boolean;
+  isViewOnly: boolean;
 }
 
-const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...moduleData }: IModuleForm) => {
+const ModuleForm = ({
+  onSubmitForm,
+  onCancelForm,
+  isViewOnly = false,
+  isNewModule = false,
+  ...moduleData
+}: IModuleForm) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
   const [isCancelDialogOpen, setCancelDialogOpen] = useState(false);
 
+  const validatorOnAction = () => {
+    if (isNewModule) {
+      return moduleCodeValidator;
+    }
+
+    return {};
+  };
+
   const validationSchema = object({
     ...moduleTitleValidator,
-    ...moduleCodeValidator,
     ...moduleSchoolValidator,
     ...moduleStatusValidator,
     ...moduleMaxGradeIncreaseValidator,
@@ -65,6 +78,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
     ...moduleEmailBodyValidator,
     ...moduleColumnsValidator,
     ...moduleMembersValidator,
+    ...validatorOnAction(),
   });
 
   const submitForm = (userValuesForm: IModuleData) => {
@@ -77,6 +91,8 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
   const onCancelDialogAccept = () => onCancelForm();
 
   const onCancelDialogClose = () => setCancelDialogOpen(false);
+
+  const onViewOnlyGoBack = () => onCancelForm();
 
   return (
     <>
@@ -102,6 +118,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     type: "text",
                     variant: "outlined",
                     placeholder: content.containers.moduleForm.form.title.placeholder,
+                    disabled: isViewOnly,
                   }}
                 />
               </FieldWrapper>
@@ -116,6 +133,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.moduleCode.label,
                     type: "text",
                     variant: "outlined",
+                    disabled: !isNewModule || isViewOnly,
                     placeholder: content.containers.moduleForm.form.moduleCode.placeholder,
                     helperText: content.containers.moduleForm.form.moduleCode.helperText,
                     sx: {
@@ -139,6 +157,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.moduleSchools.label,
                     helperText: content.containers.moduleForm.form.moduleSchools.helperText,
                     fullWidth: true,
+                    disabled: isViewOnly,
                   }}
                   testId="module-form-module-school-field"
                 />
@@ -155,7 +174,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.moduleStatus.label,
                     helperText: content.containers.moduleForm.form.moduleStatus.helperText,
                     fullWidth: true,
-                    disabled: isNewModule,
+                    disabled: isViewOnly || isNewModule,
                   }}
                   testId="module-form-module-status-field"
                 />
@@ -170,6 +189,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.maxGradeIncrease.label,
                     helperText: content.containers.moduleForm.form.maxGradeIncrease.helperText,
                     fullWidth: true,
+                    disabled: isViewOnly,
                   }}
                   testId="module-form-module-max-grade-increase-field"
                 />
@@ -184,6 +204,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.maxGradeDecrease.label,
                     helperText: content.containers.moduleForm.form.maxGradeDecrease.helperText,
                     fullWidth: true,
+                    disabled: isViewOnly,
                   }}
                   testId="module-form-module-max-grade-increase-field"
                 />
@@ -194,6 +215,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                   testId="module-form-module-submissions-lock-date-field"
                   name="submissionsLockDate"
                   disablePast
+                  disabled={isViewOnly}
                   label={content.containers.moduleForm.form.submissionsLockDate.label}
                   props={{
                     helperText: content.containers.moduleForm.form.submissionsLockDate.helperText,
@@ -207,6 +229,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                   name="columns"
                   helperText={content.containers.moduleForm.form.columnManagement.helperText}
                   testId={"module-form-module-peer-evaluation-column-management-field"}
+                  isDisabled={isViewOnly}
                 />
               </FieldWrapper>
 
@@ -223,6 +246,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     type: "text",
                     variant: "outlined",
                     placeholder: content.containers.moduleForm.form.emailTitleReminder.placeholder,
+                    disabled: isViewOnly,
                   }}
                 />
               </FieldWrapper>
@@ -233,6 +257,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                   helperText={content.containers.moduleForm.form.emailBodyReminder.helperText}
                   fieldName={"emailBodyReminder"}
                   resetButtonText={content.containers.moduleForm.form.emailBodyReminder.resetButtonText}
+                  isDisabled={isViewOnly}
                 />
               </FieldWrapper>
 
@@ -247,6 +272,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.criteriaScoreRangeMin.label,
                     helperText: content.containers.moduleForm.form.criteriaScoreRangeMin.helperText,
                     fullWidth: true,
+                    disabled: isViewOnly,
                   }}
                   testId="module-form-module-criteria-score-range-min-field"
                 />
@@ -261,6 +287,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                     label: content.containers.moduleForm.form.criteriaScoreRangeMax.label,
                     helperText: content.containers.moduleForm.form.criteriaScoreRangeMax.helperText,
                     fullWidth: true,
+                    disabled: isViewOnly,
                   }}
                   testId="module-form-module-criteria-score-range-max-field"
                 />
@@ -273,16 +300,30 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isNewModule = false, ...module
                   helperText={content.containers.moduleForm.form.moduleMembers.helperText}
                   testId={"module-form-module-member-field"}
                   name={"moduleMembers"}
+                  isDisabled={isViewOnly}
                 />
               </FieldWrapper>
 
               <Stack direction="column" spacing={3}>
-                <Button onClick={onCancelConfirmation} testId="module-form-cancel-button" variant="outlined">
-                  {content.containers.moduleForm.form.button.cancel}
-                </Button>
-                <Button disabled={isSubmitting} testId="module-form-submit-button" variant="contained" type="submit">
-                  {content.containers.moduleForm.form.button.submit}
-                </Button>
+                {isViewOnly ? (
+                  <Button onClick={onViewOnlyGoBack} testId="module-form-view-only-go-back-button" variant="outlined">
+                    {content.containers.moduleForm.form.button.viewOnlyGoBack}
+                  </Button>
+                ) : (
+                  <>
+                    <Button onClick={onCancelConfirmation} testId="module-form-cancel-button" variant="outlined">
+                      {content.containers.moduleForm.form.button.cancel}
+                    </Button>
+                    <Button
+                      disabled={isSubmitting}
+                      testId="module-form-submit-button"
+                      variant="contained"
+                      type="submit"
+                    >
+                      {content.containers.moduleForm.form.button.submit}
+                    </Button>
+                  </>
+                )}
               </Stack>
             </Container>
           </Form>

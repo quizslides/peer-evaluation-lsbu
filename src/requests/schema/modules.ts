@@ -31,6 +31,61 @@ const GET_MODULES = gql`
   }
 `;
 
+const GET_MODULES_BY_LECTURER = gql`
+  query ModuleByLecturer($where: ModulesByLecturerWhereInput!) {
+    moduleByLecturer(where: $where) {
+      id
+      updatedAt
+      createdAt
+      title
+      schools
+      maxGradeIncrease
+      status
+      moduleCode
+      maxGradeDecrease
+      submissionsLockDate
+      criteriaScoreRangeMin
+      criteriaScoreRangeMax
+      _count {
+        columns
+        moduleMembers
+        students
+      }
+      moduleMembers {
+        id
+        createdAt
+        updatedAt
+        permission
+        moduleId
+        userId
+        user {
+          role
+          email
+          name
+          id
+          createdAt
+          updatedAt
+        }
+      }
+      reminderEmail {
+        title
+        body
+        updatedAt
+        createdAt
+        id
+        moduleId
+      }
+      columns {
+        createdAt
+        id
+        updatedAt
+        description
+        moduleId
+      }
+    }
+  }
+`;
+
 const GET_MODULE = gql`
   query Module($where: ModuleWhereUniqueInput!) {
     module(where: $where) {
@@ -52,6 +107,11 @@ const GET_MODULE = gql`
       moduleMembers {
         user {
           email
+          name
+          updatedAt
+          createdAt
+          id
+          role
         }
         createdAt
         updatedAt
@@ -204,4 +264,4 @@ const MODULE_EXIST = gql`
   }
 `;
 
-export { CREATE_MODULE, DELETE_MODULE, GET_MODULE, GET_MODULES, MODULE_EXIST, UPDATE_MODULE };
+export { CREATE_MODULE, DELETE_MODULE, GET_MODULE, GET_MODULES, GET_MODULES_BY_LECTURER, MODULE_EXIST, UPDATE_MODULE };

@@ -10,6 +10,7 @@ import {
 import { IRoleScope, Role, RoleScope, isScopeAuthorized } from "@/utils/permissions";
 import {
   moduleCodeValidator,
+  moduleColumnIdValidator,
   moduleColumnValidator,
   moduleColumnsValidator,
   moduleCriteriaScoreRangeMaxValidator,
@@ -40,6 +41,7 @@ export {
   isScopeAuthorized,
   loadingNotification,
   moduleCodeValidator,
+  moduleColumnIdValidator,
   moduleColumnsValidator,
   moduleColumnValidator,
   moduleCriteriaScoreRangeMaxValidator,

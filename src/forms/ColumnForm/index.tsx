@@ -12,7 +12,7 @@ import { Button, TextFieldForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { IPeerEvaluationColumn } from "@/types/module";
-import { moduleColumnValidator } from "@/utils";
+import { moduleColumnIdValidator, moduleColumnValidator } from "@/utils";
 
 type IColumnFormValue = Pick<IPeerEvaluationColumn, "description">;
 
@@ -35,6 +35,7 @@ const ColumnForm = ({ formTitle, state, updateFormState, onSubmitForm, ...column
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
   const validationSchema = object({
+    ...moduleColumnIdValidator,
     ...moduleColumnValidator,
   });
 

@@ -93,6 +93,7 @@ const content = {
         button: {
           submit: "submit",
           cancel: "cancel",
+          viewOnlyGoBack: "Go Back",
         },
       },
       confirmationOnCancel: {
