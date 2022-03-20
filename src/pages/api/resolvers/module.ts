@@ -67,7 +67,7 @@ class ModulesByLecturer {
   ): Promise<Module[]> {
     const result = await ctx.prisma.module.findMany({
       where: {
-        moduleMembers: {
+        moduleTeachingMembers: {
           some: {
             user: {
               is: {
@@ -81,7 +81,7 @@ class ModulesByLecturer {
       },
       include: {
         _count: {
-          select: { moduleMembers: true, columns: true, students: true },
+          select: { moduleTeachingMembers: true, columns: true, students: true },
         },
       },
     });

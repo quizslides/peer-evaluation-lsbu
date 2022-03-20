@@ -45,9 +45,9 @@ const CreateModuleForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
   useEffect(() => {
     if (session) {
       const setCurrentUserAsOwner = (moduleData: IModuleData, session: Session) => {
-        moduleData.moduleMembers[0].email = typeof session.user.email === "string" ? session.user.email : "";
-        moduleData.moduleMembers[0].name = typeof session.user.name === "string" ? session.user.name : "";
-        moduleData.moduleMembers[0].id = typeof session.user.id === "string" ? session.user.id : "";
+        moduleData.moduleTeachingMembers[0].email = typeof session.user.email === "string" ? session.user.email : "";
+        moduleData.moduleTeachingMembers[0].name = typeof session.user.name === "string" ? session.user.name : "";
+        moduleData.moduleTeachingMembers[0].id = typeof session.user.id === "string" ? session.user.id : "";
         setModuleValues(moduleData);
       };
 
@@ -77,7 +77,7 @@ const CreateModuleForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
       criteriaScoreRangeMin={moduleValues.criteriaScoreRangeMin}
       criteriaScoreRangeMax={moduleValues.criteriaScoreRangeMax}
       columns={moduleValues.columns}
-      moduleMembers={moduleValues.moduleMembers}
+      moduleTeachingMembers={moduleValues.moduleTeachingMembers}
       onSubmitForm={submitForm}
       onCancelForm={onCancel}
     />

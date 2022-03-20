@@ -14,7 +14,7 @@ import {
   TextFieldForm,
   WYSIWYGForm,
 } from "@/components";
-import ModuleMemberFormWrapper from "@/components/ModuleMemberFormWrapper";
+import ModuleTeachingMemberFormWrapper from "@/components/ModuleTeachingMemberFormWrapper";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
@@ -28,10 +28,10 @@ import {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
-  moduleMembersValidator,
   moduleSchoolValidator,
   moduleStatusValidator,
   moduleSubmissionsLockDateValidator,
+  moduleTeachingMembersValidator,
   moduleTitleValidator,
 } from "@/utils";
 import { arrayToObject, rangeNumber } from "@/utils/form";
@@ -43,13 +43,7 @@ interface IModuleForm extends IModuleData {
   isViewOnly: boolean;
 }
 
-const ModuleForm = ({
-  onSubmitForm,
-  onCancelForm,
-  isViewOnly = false,
-  isNewModule = false,
-  ...moduleData
-}: IModuleForm) => {
+const ModuleForm = ({ onSubmitForm, onCancelForm, isViewOnly, isNewModule, ...moduleData }: IModuleForm) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
   const [isCancelDialogOpen, setCancelDialogOpen] = useState(false);
@@ -74,7 +68,7 @@ const ModuleForm = ({
     ...moduleEmailTitleValidator,
     ...moduleEmailBodyValidator,
     ...moduleColumnsValidator,
-    ...moduleMembersValidator,
+    ...moduleTeachingMembersValidator,
     ...validatorOnAction(),
   });
 
@@ -290,13 +284,13 @@ const ModuleForm = ({
                 />
               </FieldWrapper>
 
-              <Divider>Module Members</Divider>
+              <Divider>Module Teaching Members</Divider>
 
               <FieldWrapper marginBottom="3em">
-                <ModuleMemberFormWrapper
-                  helperText={content.containers.moduleForm.form.moduleMembers.helperText}
+                <ModuleTeachingMemberFormWrapper
+                  helperText={content.containers.moduleForm.form.moduleTeachingMembers.helperText}
                   testId={"module-form-module-member-field"}
-                  name={"moduleMembers"}
+                  name={"moduleTeachingMembers"}
                   isDisabled={isViewOnly}
                 />
               </FieldWrapper>

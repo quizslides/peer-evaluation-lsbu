@@ -13,34 +13,34 @@ import { AutocompleteFieldForm, Button, SelectFieldForm, TextField } from "@/com
 import { TOptions } from "@/components/AutocompleteFieldForm/AutocompleteFieldForm";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
-import { ModuleMember, ModuleMemberPermissions, ModuleMemberPermissionsNoOwner } from "@/types/module";
+import { ModuleTeachingMember, ModuleTeachingMemberRoles, ModuleTeachingMemberRolesNoOwner } from "@/types/module";
 import { JSONStringNumber } from "@/types/object";
 import {
-  moduleMemberIdValidator,
-  moduleMemberNameValidator,
-  moduleMemberPermissionValidator,
+  moduleTeachingMemberIdValidator,
+  moduleTeachingMemberNameValidator,
+  moduleTeachingMemberRoleValidator,
   userEmailValidator,
 } from "@/utils";
 
-interface IModuleMemberForm {
+interface IModuleTeachingMemberForm {
   state: boolean;
   formTitle: string;
-  isModuleMemberOwner: boolean;
+  isModuleTeachingMemberOwner: boolean;
   users: User[];
-  data: ModuleMember;
+  data: ModuleTeachingMember;
   updateFormState: (state: boolean) => void;
-  onSubmitForm: (data: ModuleMember) => void;
+  onSubmitForm: (data: ModuleTeachingMember) => void;
 }
 
-const ModuleMemberForm = ({
+const ModuleTeachingMemberForm = ({
   formTitle,
   state,
   updateFormState,
   onSubmitForm,
   users,
-  isModuleMemberOwner,
-  ...moduleMemberFormData
-}: IModuleMemberForm) => {
+  isModuleTeachingMemberOwner,
+  ...moduleTeachingMemberFormData
+}: IModuleTeachingMemberForm) => {
   const [userEmailAutocomplete, setUserEmailAutocomplete] = useState<TOptions[]>();
 
   const handleCloseDialog = (reason?: string) => {
@@ -53,20 +53,20 @@ const ModuleMemberForm = ({
 
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
-  const [scopeModuleMemberPermissions, setScopeModuleMemberPermissions] = useState<JSONStringNumber | null>(null);
+  const [scopeModuleTeachingMemberRoles, setScopeModuleTeachingMemberRoles] = useState<JSONStringNumber | null>(null);
 
   const validationSchema = object({
-    ...moduleMemberIdValidator,
+    ...moduleTeachingMemberIdValidator,
     ...userEmailValidator,
-    ...moduleMemberNameValidator,
-    ...moduleMemberPermissionValidator,
+    ...moduleTeachingMemberNameValidator,
+    ...moduleTeachingMemberRoleValidator,
   });
 
-  const submitForm = (formData: ModuleMember) => {
+  const submitForm = (formData: ModuleTeachingMember) => {
     setSubmitting(true);
 
-    formData.id = moduleMemberFormData.data.id.length
-      ? moduleMemberFormData.data.id
+    formData.id = moduleTeachingMemberFormData.data.id.length
+      ? moduleTeachingMemberFormData.data.id
       : getSubmittedUserId(formData.email);
 
     onSubmitForm(formData);
@@ -74,7 +74,7 @@ const ModuleMemberForm = ({
 
   const sanitizeUserAutocomplete = (users: User[]) => users.map(({ email }) => ({ label: email }));
 
-  const getModuleMemberName = (email: string) => {
+  const getModuleTeachingMemberName = (email: string) => {
     let user = users?.filter((data) => data.email === email);
     if (user.length) {
       return user[0].name;
@@ -97,16 +97,16 @@ const ModuleMemberForm = ({
   }, [users]);
 
   useEffect(() => {
-    const permissions = isModuleMemberOwner ? ModuleMemberPermissions : ModuleMemberPermissionsNoOwner;
-    setScopeModuleMemberPermissions(permissions);
-  }, [isModuleMemberOwner]);
+    const roles = isModuleTeachingMemberOwner ? ModuleTeachingMemberRoles : ModuleTeachingMemberRolesNoOwner;
+    setScopeModuleTeachingMemberRoles(roles);
+  }, [isModuleTeachingMemberOwner]);
 
   return (
     <Dialog fullWidth maxWidth={"sm"} open={state} onClose={(_, reason) => handleCloseDialog(reason)}>
       <DialogTitle>{formTitle}</DialogTitle>
       <Formik
         initialValues={{
-          ...moduleMemberFormData.data,
+          ...moduleTeachingMemberFormData.data,
         }}
         validationSchema={validationSchema}
         onSubmit={submitForm}
@@ -123,15 +123,15 @@ const ModuleMemberForm = ({
                         name="email"
                         options={userEmailAutocomplete || []}
                         dependantField="name"
-                        getDependantFieldValue={getModuleMemberName}
+                        getDependantFieldValue={getModuleTeachingMemberName}
                         textFieldProps={{
                           required: true,
                           fullWidth: true,
-                          label: content.containers.moduleMemberForm.form.email.label,
+                          label: content.containers.moduleTeachingMemberForm.form.email.label,
                           type: "text",
                           variant: "outlined",
-                          placeholder: content.containers.moduleMemberForm.form.email.placeholder,
-                          helperText: content.containers.moduleMemberForm.form.email.helperText,
+                          placeholder: content.containers.moduleTeachingMemberForm.form.email.placeholder,
+                          helperText: content.containers.moduleTeachingMemberForm.form.email.helperText,
                         }}
                       />
                     </FieldWrapper>
@@ -144,26 +144,26 @@ const ModuleMemberForm = ({
                           value: props.values.name,
                           disabled: true,
                           fullWidth: true,
-                          label: content.containers.moduleMemberForm.form.name.label,
+                          label: content.containers.moduleTeachingMemberForm.form.name.label,
                           type: "text",
                           variant: "outlined",
-                          placeholder: content.containers.moduleMemberForm.form.name.placeholder,
-                          helperText: content.containers.moduleMemberForm.form.name.helperText,
+                          placeholder: content.containers.moduleTeachingMemberForm.form.name.placeholder,
+                          helperText: content.containers.moduleTeachingMemberForm.form.name.helperText,
                         }}
                       />
                     </FieldWrapper>
                     <FieldWrapper>
-                      {scopeModuleMemberPermissions && (
+                      {scopeModuleTeachingMemberRoles && (
                         <SelectFieldForm
-                          name="permission"
-                          options={scopeModuleMemberPermissions}
+                          name="role"
+                          options={scopeModuleTeachingMemberRoles}
                           props={{
                             required: true,
-                            label: content.containers.moduleMemberForm.form.permission.label,
-                            helperText: content.containers.moduleMemberForm.form.permission.helperText,
+                            label: content.containers.moduleTeachingMemberForm.form.role.label,
+                            helperText: content.containers.moduleTeachingMemberForm.form.role.helperText,
                             fullWidth: true,
                           }}
-                          testId="module-member-form-permission-field"
+                          testId="module-member-form-role-field"
                         />
                       )}
                     </FieldWrapper>
@@ -173,7 +173,7 @@ const ModuleMemberForm = ({
             </DialogContent>
             <DialogActions>
               <Button onClick={() => handleCloseDialog()} testId="module-member-form-cancel-button" variant="outlined">
-                {content.containers.moduleMemberForm.form.button.cancel}
+                {content.containers.moduleTeachingMemberForm.form.button.cancel}
               </Button>
               <Button
                 disabled={isSubmitting}
@@ -181,7 +181,7 @@ const ModuleMemberForm = ({
                 variant="contained"
                 type="submit"
               >
-                {content.containers.moduleMemberForm.form.button.submit}
+                {content.containers.moduleTeachingMemberForm.form.button.submit}
               </Button>
             </DialogActions>
           </Form>
@@ -191,4 +191,4 @@ const ModuleMemberForm = ({
   );
 };
 
-export default memo(ModuleMemberForm);
+export default memo(ModuleTeachingMemberForm);

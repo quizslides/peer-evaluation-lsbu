@@ -12,16 +12,16 @@ generator typegraphql {
 }
 
 model User {
-  id             String         @id @default(cuid())
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @default(now()) @updatedAt
-  name           String
-  email          String         @unique
-  sessions       Session[]
-  role           Role           @default(STUDENT)
-  moduleMember   ModuleMember[]
-  emailVerified  DateTime?
-  moduleStudents Student[]
+  id                    String                 @id @default(cuid())
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @default(now()) @updatedAt
+  name                  String
+  email                 String                 @unique
+  sessions              Session[]
+  role                  Role                   @default(STUDENT)
+  moduleTeachingMembers ModuleTeachingMember[]
+  emailVerified         DateTime?
+  moduleStudents        Student[]
 }
 
 model VerificationToken {
@@ -51,7 +51,7 @@ model Module {
   maxGradeIncrease      Int                    @default(10)
   maxGradeDecrease      Int                    @default(100)
   submissionsLockDate   DateTime?
-  moduleMembers         ModuleMember[]
+  moduleTeachingMembers ModuleTeachingMember[]
   reminderEmail         Email?
   columns               PeerEvaluationColumn[]
   criteriaScoreRangeMin Int                    @default(1)
@@ -74,9 +74,9 @@ model Student {
   systemCalculatedMark             Decimal?
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
-  lecturerAdjustedMarkByUser       ModuleMember?            @relation(fields: [moduleMemberId], references: [id]) // Lecturer that edited the adjusted mark
-  moduleMemberId                   String?
-  peerEvaluationReviewed           PeerEvaluation? // Peer evaluation that the studnet is reviewing
+  lecturerAdjustedMarkByUser       ModuleTeachingMember?    @relation(fields: [moduleTeachingMemberId], references: [id]) // Lecturer that edited the adjusted mark
+  moduleTeachingMemberId           String?
+  peerEvaluationReviewed           PeerEvaluation? // Peer evaluation that the student is reviewing
   PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
 }
 
@@ -125,14 +125,14 @@ model StudentTeam {
   mark      Decimal
 }
 
-model ModuleMember {
-  id                   String                  @id @default(cuid())
-  createdAt            DateTime                @default(now())
-  updatedAt            DateTime                @default(now()) @updatedAt
-  permission           ModuleMemberPermissions @default(VIEWER)
-  module               Module                  @relation(references: [id], fields: [moduleId], onDelete: Cascade)
+model ModuleTeachingMember {
+  id                   String                    @id @default(cuid())
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @default(now()) @updatedAt
+  role                 ModuleTeachingMemberRoles @default(VIEWER)
+  module               Module                    @relation(references: [id], fields: [moduleId], onDelete: Cascade)
   moduleId             String
-  user                 User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId               String
   studentsMarkAdjusted Student[]
 
@@ -174,7 +174,7 @@ enum ModuleStatus {
   SUBMISSIONS_LOCKED
 }
 
-enum ModuleMemberPermissions {
+enum ModuleTeachingMemberRoles {
   OWNER
   EDITOR
   VIEWER

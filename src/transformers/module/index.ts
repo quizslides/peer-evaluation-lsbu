@@ -3,10 +3,10 @@ import {
   EmailUpdateOneWithoutModuleInput,
   Module,
   ModuleCreateInput,
-  ModuleMemberCreateWithoutModuleInput,
-  ModuleMember as ModuleMemberPrisma,
-  ModuleMemberUpdateWithWhereUniqueWithoutModuleInput,
-  ModuleMemberWhereUniqueInput,
+  ModuleTeachingMemberCreateWithoutModuleInput,
+  ModuleTeachingMember as ModuleTeachingMemberPrisma,
+  ModuleTeachingMemberUpdateWithWhereUniqueWithoutModuleInput,
+  ModuleTeachingMemberWhereUniqueInput,
   ModuleUpdateInput,
   PeerEvaluationColumn,
   PeerEvaluationColumnCreateWithoutModuleInput,
@@ -18,9 +18,9 @@ import {
   FieldStatus,
   IModuleData,
   IPeerEvaluationColumn,
-  ModuleMember,
-  ModuleMemberPermissions,
   ModuleStatus,
+  ModuleTeachingMember,
+  ModuleTeachingMemberRoles,
   Schools,
 } from "@/types/module";
 
@@ -30,11 +30,11 @@ type ColumnUpdateMany = PeerEvaluationColumnUpdateWithWhereUniqueWithoutModuleIn
 
 type ColumnsDeleteMany = PeerEvaluationColumnWhereUniqueInput[];
 
-type TeachingModuleMemberCreateMany = ModuleMemberCreateWithoutModuleInput[];
+type ModuleTeachingMemberCreateMany = ModuleTeachingMemberCreateWithoutModuleInput[];
 
-type TeachingModuleMemberUpdateMany = ModuleMemberUpdateWithWhereUniqueWithoutModuleInput[];
+type ModuleTeachingMemberUpdateMany = ModuleTeachingMemberUpdateWithWhereUniqueWithoutModuleInput[];
 
-type TeachingModuleMemberDeleteMany = ModuleMemberWhereUniqueInput[];
+type ModuleTeachingMemberDeleteMany = ModuleTeachingMemberWhereUniqueInput[];
 
 const sanitizeEmailReminderDataOnCreate = (title: string, body: string): EmailCreateNestedOneWithoutModuleInput => {
   return {
@@ -141,14 +141,18 @@ const sanitizeColumnsDataOnDelete = (columns: IPeerEvaluationColumn[]): ColumnsD
   return deleteManyColumns;
 };
 
-const sanitizeModuleTeachingMemberOnFetch = (moduleTeachingMembersFetched: ModuleMemberPrisma[]): ModuleMember[] => {
-  const getSanitizeModuleTeachingMemberOnFetch = (moduleTeachingMember: ModuleMemberPrisma): ModuleMember => {
+const sanitizeModuleTeachingMemberOnFetch = (
+  moduleTeachingMembersFetched: ModuleTeachingMemberPrisma[]
+): ModuleTeachingMember[] => {
+  const getSanitizeModuleTeachingMemberOnFetch = (
+    moduleTeachingMember: ModuleTeachingMemberPrisma
+  ): ModuleTeachingMember => {
     return {
       id: moduleTeachingMember.id,
       name: moduleTeachingMember.user?.name || "",
       email: moduleTeachingMember.user?.email || "",
       status: FieldStatus.SAVED,
-      permission: moduleTeachingMember.permission as ModuleMemberPermissions,
+      role: moduleTeachingMember.role as ModuleTeachingMemberRoles,
     };
   };
 
@@ -158,28 +162,28 @@ const sanitizeModuleTeachingMemberOnFetch = (moduleTeachingMembersFetched: Modul
 };
 
 const sanitizeModuleTeachingMemberOnCreate = (
-  moduleTeachingMembers: ModuleMember[]
-): TeachingModuleMemberCreateMany => {
-  const moduleTeachingMemberCreateMany: TeachingModuleMemberCreateMany = [];
+  moduleTeachingMembers: ModuleTeachingMember[]
+): ModuleTeachingMemberCreateMany => {
+  const moduleTeachingMemberCreateMany: ModuleTeachingMemberCreateMany = [];
 
   const getCreateManyModuleTeachingMemberObject = (
     email: string,
-    permission: ModuleMemberPermissions
-  ): ModuleMemberCreateWithoutModuleInput => {
+    role: ModuleTeachingMemberRoles
+  ): ModuleTeachingMemberCreateWithoutModuleInput => {
     return {
       user: {
         connect: {
           email,
         },
       },
-      permission,
+      role,
     };
   };
 
   moduleTeachingMembers.forEach((moduleTeachingMember) => {
     if (moduleTeachingMember.status === "NEW") {
       moduleTeachingMemberCreateMany.push(
-        getCreateManyModuleTeachingMemberObject(moduleTeachingMember.email, moduleTeachingMember.permission)
+        getCreateManyModuleTeachingMemberObject(moduleTeachingMember.email, moduleTeachingMember.role)
       );
     }
   });
@@ -188,18 +192,18 @@ const sanitizeModuleTeachingMemberOnCreate = (
 };
 
 const sanitizeModuleTeachingMemberOnUpdate = (
-  moduleTeachingMembers: ModuleMember[]
-): TeachingModuleMemberUpdateMany => {
-  const moduleTeachingMemberUpdateMany: TeachingModuleMemberUpdateMany = [];
+  moduleTeachingMembers: ModuleTeachingMember[]
+): ModuleTeachingMemberUpdateMany => {
+  const moduleTeachingMemberUpdateMany: ModuleTeachingMemberUpdateMany = [];
 
   const getUpdateManyModuleTeachingMemberObject = (
     id: string,
-    permission: ModuleMemberPermissions
-  ): ModuleMemberUpdateWithWhereUniqueWithoutModuleInput => {
+    role: ModuleTeachingMemberRoles
+  ): ModuleTeachingMemberUpdateWithWhereUniqueWithoutModuleInput => {
     return {
       data: {
-        permission: {
-          set: permission,
+        role: {
+          set: role,
         },
       },
       where: {
@@ -211,7 +215,7 @@ const sanitizeModuleTeachingMemberOnUpdate = (
   moduleTeachingMembers.forEach((moduleTeachingMember) => {
     if (moduleTeachingMember.status === "UPDATED") {
       moduleTeachingMemberUpdateMany.push(
-        getUpdateManyModuleTeachingMemberObject(moduleTeachingMember.id, moduleTeachingMember.permission)
+        getUpdateManyModuleTeachingMemberObject(moduleTeachingMember.id, moduleTeachingMember.role)
       );
     }
   });
@@ -220,11 +224,11 @@ const sanitizeModuleTeachingMemberOnUpdate = (
 };
 
 const sanitizeModuleTeachingMemberOnDelete = (
-  moduleTeachingMembers: ModuleMember[]
-): TeachingModuleMemberDeleteMany => {
-  const moduleTeachingMemberUpdateMany: TeachingModuleMemberDeleteMany = [];
+  moduleTeachingMembers: ModuleTeachingMember[]
+): ModuleTeachingMemberDeleteMany => {
+  const moduleTeachingMemberUpdateMany: ModuleTeachingMemberDeleteMany = [];
 
-  const getDeleteManyModuleTeachingMemberObject = (id: string): ModuleMemberWhereUniqueInput => {
+  const getDeleteManyModuleTeachingMemberObject = (id: string): ModuleTeachingMemberWhereUniqueInput => {
     return {
       id,
     };
@@ -252,7 +256,7 @@ const sanitizeModuleDataOnCreate = (data: IModuleData): ModuleCreateInput => {
     schools,
     emailTitleReminder,
     emailBodyReminder,
-    moduleMembers,
+    moduleTeachingMembers,
     columns,
   } = data;
 
@@ -271,8 +275,8 @@ const sanitizeModuleDataOnCreate = (data: IModuleData): ModuleCreateInput => {
     reminderEmail: {
       ...sanitizeEmailReminderDataOnCreate(emailTitleReminder, emailBodyReminder),
     },
-    moduleMembers: {
-      create: sanitizeModuleTeachingMemberOnCreate(moduleMembers),
+    moduleTeachingMembers: {
+      create: sanitizeModuleTeachingMemberOnCreate(moduleTeachingMembers),
     },
     columns: {
       create: sanitizeColumnsDataOnCreate(columns),
@@ -293,42 +297,42 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
     schools,
     emailTitleReminder,
     emailBodyReminder,
-    moduleMembers,
+    moduleTeachingMembers,
     columns,
   } = data;
 
-  const getModuleMemberVariables = () => {
-    const moduleMemberVariables: { [key: string]: object } = {
+  const getModuleTeachingMemberVariables = () => {
+    const moduleTeachingMemberVariables: { [key: string]: object } = {
       create: {},
       update: {},
       delete: {},
     };
 
-    const onCreate = sanitizeModuleTeachingMemberOnCreate(moduleMembers);
+    const onCreate = sanitizeModuleTeachingMemberOnCreate(moduleTeachingMembers);
 
-    const onUpdate = sanitizeModuleTeachingMemberOnUpdate(moduleMembers);
+    const onUpdate = sanitizeModuleTeachingMemberOnUpdate(moduleTeachingMembers);
 
-    const onDelete = sanitizeModuleTeachingMemberOnDelete(moduleMembers);
+    const onDelete = sanitizeModuleTeachingMemberOnDelete(moduleTeachingMembers);
 
     if (onCreate.length) {
-      moduleMemberVariables.create = onCreate;
+      moduleTeachingMemberVariables.create = onCreate;
     } else {
-      delete moduleMemberVariables.create;
+      delete moduleTeachingMemberVariables.create;
     }
 
     if (onUpdate.length) {
-      moduleMemberVariables.update = onUpdate;
+      moduleTeachingMemberVariables.update = onUpdate;
     } else {
-      delete moduleMemberVariables.update;
+      delete moduleTeachingMemberVariables.update;
     }
 
     if (onDelete.length) {
-      moduleMemberVariables.delete = onDelete;
+      moduleTeachingMemberVariables.delete = onDelete;
     } else {
-      delete moduleMemberVariables.delete;
+      delete moduleTeachingMemberVariables.delete;
     }
 
-    return moduleMemberVariables;
+    return moduleTeachingMemberVariables;
   };
 
   const getColumnVariables = () => {
@@ -365,7 +369,7 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
     return columnVariables;
   };
 
-  const moduleMemberVariables = getModuleMemberVariables();
+  const moduleTeachingMemberVariables = getModuleTeachingMemberVariables();
 
   const columnVariables = getColumnVariables();
 
@@ -400,8 +404,8 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
     reminderEmail: {
       ...sanitizeEmailReminderDataOnUpdate(emailTitleReminder, emailBodyReminder),
     },
-    moduleMembers: {
-      ...moduleMemberVariables,
+    moduleTeachingMembers: {
+      ...moduleTeachingMemberVariables,
     },
     columns: {
       ...columnVariables,
@@ -412,8 +416,8 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
     delete updateData.submissionsLockDate;
   }
 
-  if (!Object.keys(moduleMemberVariables).length) {
-    delete updateData.moduleMembers;
+  if (!Object.keys(moduleTeachingMemberVariables).length) {
+    delete updateData.moduleTeachingMembers;
   }
 
   if (!Object.keys(columnVariables).length) {
@@ -435,11 +439,11 @@ const sanitizeModuleDataOnFetch = (data: Module): IModuleData | undefined => {
     criteriaScoreRangeMax,
     schools,
     reminderEmail,
-    moduleMembers,
+    moduleTeachingMembers,
     columns,
   } = data;
 
-  if (moduleMembers && columns) {
+  if (moduleTeachingMembers && columns) {
     return {
       ...data,
       title: title,
@@ -453,7 +457,7 @@ const sanitizeModuleDataOnFetch = (data: Module): IModuleData | undefined => {
       emailTitleReminder: reminderEmail?.title || "",
       emailBodyReminder: reminderEmail?.body || "",
       schools: schools as Schools[],
-      moduleMembers: sanitizeModuleTeachingMemberOnFetch(moduleMembers),
+      moduleTeachingMembers: sanitizeModuleTeachingMemberOnFetch(moduleTeachingMembers),
       columns: sanitizeColumnsDataOnFetch(columns),
     };
   }

@@ -87,8 +87,8 @@ const content = {
         columnManagement: {
           helperText: "List of columns of the peer evaluation",
         },
-        moduleMembers: {
-          helperText: "Members of the module",
+        moduleTeachingMembers: {
+          helperText: "Teaching module teaching members",
         },
         button: {
           submit: "submit",
@@ -125,16 +125,16 @@ const content = {
         closeText: "Cancel",
       },
     },
-    moduleMember: {
-      resetButton: "Reset module members",
+    moduleTeachingMember: {
+      resetButton: "Reset teaching module teaching members",
       confirmationDeleteColumn: {
-        title: "Delete module member",
-        bodyText: "Are you sure you want to delete the module member?",
+        title: "Delete module teaching member",
+        bodyText: "Are you sure you want to delete the module teaching member?",
         acceptText: "OK",
         closeText: "Cancel",
       },
     },
-    moduleMemberForm: {
+    moduleTeachingMemberForm: {
       form: {
         email: {
           label: "Lecturer email",
@@ -146,10 +146,10 @@ const content = {
           helperText: "",
           placeholder: "Lecturer name",
         },
-        permission: {
-          label: "Permission",
-          helperText: "Permission of the lecturer in the module",
-          placeholder: "Permission of the lecturer in the module",
+        role: {
+          label: "Role",
+          helperText: "Role of the lecturer in the module",
+          placeholder: "Role of the lecturer in the module",
         },
         button: {
           submit: "submit",

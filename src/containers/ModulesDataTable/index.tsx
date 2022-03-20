@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import styled from "@emotion/styled";
-import { ModuleMember } from "@generated/type-graphql";
+import { ModuleTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
@@ -24,7 +24,7 @@ import deleteModule from "@/requests/direct/mutation/deleteModule";
 import routing from "@/routing";
 import {
   IModuleDataTable,
-  ModuleMemberPermissions,
+  ModuleTeachingMemberRoles,
   SchoolsDataTable,
   moduleDataTableColumnOrder,
 } from "@/types/module";
@@ -106,11 +106,13 @@ const ModulesDataTable = ({
 
     const moduleDataToDelete = modulesData.filter((moduleData) => moduleData.id === moduleToDelete.id)[0];
 
-    const moduleMembers = moduleDataToDelete.moduleMembers as unknown as ModuleMember[];
+    const moduleTeachingMembers = moduleDataToDelete.moduleTeachingMembers as unknown as ModuleTeachingMember[];
 
-    const userDeletingModule = moduleMembers.filter((moduleMembers) => moduleMembers.userId === session?.user.id)[0];
+    const userDeletingModule = moduleTeachingMembers.filter(
+      (moduleTeachingMembers) => moduleTeachingMembers.userId === session?.user.id
+    )[0];
 
-    if (userDeletingModule.permission !== ModuleMemberPermissions.OWNER) {
+    if (userDeletingModule.role !== ModuleTeachingMemberRoles.OWNER) {
       errorNotification("You do not have enough permissions to delete this module");
       return null;
     }
@@ -251,8 +253,8 @@ const ModulesDataTable = ({
       },
     },
     {
-      name: "_count.moduleMembers",
-      label: "Total Module Members",
+      name: "_count.moduleTeachingMembers",
+      label: "Total Module Teaching Members",
       options: {
         filter: true,
         sort: true,

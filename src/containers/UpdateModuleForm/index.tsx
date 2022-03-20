@@ -9,7 +9,7 @@ import { ModuleForm } from "@/forms";
 import updateModule from "@/requests/direct/mutation/updateModule";
 import useGetModule from "@/requests/hooks/query/useGetModule";
 import { sanitizeModuleDataOnFetch, sanitizeModuleDataOnUpdate } from "@/transformers/module";
-import { IModuleData, ModuleMember, ModuleMemberPermissions } from "@/types/module";
+import { IModuleData, ModuleTeachingMember, ModuleTeachingMemberRoles } from "@/types/module";
 import { Role, blankNotification, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface IUpdateUserForm {
@@ -24,7 +24,7 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
 
   const [moduleValues, setModuleValues] = useState<IModuleData | null>(null);
 
-  const [isModuleViewOnly, setModuleViewOnly] = useState<boolean>(true);
+  const [isModuleViewOnly, setModuleViewOnly] = useState<boolean | null>(null);
 
   const [module, { loading: loadingFetch, error, data }] = useGetModule("UpdateModule");
 
@@ -47,15 +47,18 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
     onSubmit();
   };
 
-  const isTeachingModuleMemberViewOnly = (moduleMember: ModuleMember[] | undefined, session: Session) => {
-    if (session.user.role == Role.ADMIN) {
+  const isModuleTeachingMemberViewOnly = (
+    moduleTeachingMember: ModuleTeachingMember[] | undefined,
+    session: Session
+  ) => {
+    if (session.user.role === Role.ADMIN) {
       return false;
     }
 
-    if (moduleMember) {
-      const userModuleMember = moduleMember.filter(({ email }) => email === session?.user.email);
-      if (userModuleMember.length) {
-        return userModuleMember[0].permission === ModuleMemberPermissions.VIEWER;
+    if (moduleTeachingMember) {
+      const userModuleTeachingMember = moduleTeachingMember.filter(({ email }) => email === session?.user.email);
+      if (userModuleTeachingMember.length) {
+        return userModuleTeachingMember[0].role === ModuleTeachingMemberRoles.VIEWER;
       }
     }
 
@@ -84,13 +87,13 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
     if (data && session) {
       const sanitizedModuleDataOnFetch = sanitizeModuleDataOnFetch(data.module);
       setModuleValues(sanitizedModuleDataOnFetch || null);
-      setModuleViewOnly(isTeachingModuleMemberViewOnly(sanitizedModuleDataOnFetch?.moduleMembers, session));
+      setModuleViewOnly(isModuleTeachingMemberViewOnly(sanitizedModuleDataOnFetch?.moduleTeachingMembers, session));
     }
   }, [data, session]);
 
   useEffect(() => {
     if (isModuleViewOnly) {
-      blankNotification("You have only view permission of this module");
+      blankNotification("You have permission view only permission view only of this module");
     }
   }, [isModuleViewOnly]);
 
@@ -101,7 +104,7 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
   return (
     <ModuleForm
       isNewModule={false}
-      isViewOnly={isModuleViewOnly}
+      isViewOnly={!!isModuleViewOnly}
       title={moduleValues.title}
       moduleCode={moduleValues.moduleCode}
       schools={moduleValues.schools}
@@ -114,7 +117,7 @@ const UpdateModuleForm = ({ onSubmit, onCancel, setError, moduleId }: IUpdateUse
       criteriaScoreRangeMin={moduleValues.criteriaScoreRangeMin}
       criteriaScoreRangeMax={moduleValues.criteriaScoreRangeMax}
       columns={moduleValues.columns}
-      moduleMembers={moduleValues.moduleMembers}
+      moduleTeachingMembers={moduleValues.moduleTeachingMembers}
       onSubmitForm={submitForm}
       onCancelForm={onCancel}
     />

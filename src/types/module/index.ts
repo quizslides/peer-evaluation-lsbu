@@ -19,32 +19,32 @@ interface IModuleData {
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
-  moduleMembers: ModuleMember[];
+  moduleTeachingMembers: ModuleTeachingMember[];
 }
 
 interface IModuleDataTable extends IModuleData {
   id: string;
-  moduleMembersCount: number;
+  moduleTeachingMembersCount: number;
   columnsCount: number;
   studentsCount: number;
   schoolsDataTable: Schools[];
 }
 
-interface ModuleMember {
+interface ModuleTeachingMember {
   id: string;
   email: string;
   name: string;
   status: FieldStatus;
-  permission: ModuleMemberPermissions;
+  role: ModuleTeachingMemberRoles;
 }
 
-enum ModuleMemberPermissions {
+enum ModuleTeachingMemberRoles {
   OWNER = "OWNER",
   EDITOR = "EDITOR",
   VIEWER = "VIEWER",
 }
 
-enum ModuleMemberPermissionsNoOwner {
+enum ModuleTeachingMemberRolesNoOwner {
   EDITOR = "EDITOR",
   VIEWER = "VIEWER",
 }
@@ -150,22 +150,22 @@ const initialModuleState: IModuleData = {
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
   columns: defaultPeerEvaluationColumns,
-  moduleMembers: [
+  moduleTeachingMembers: [
     {
       id: "",
       name: "",
       email: "",
-      permission: ModuleMemberPermissions.OWNER,
+      role: ModuleTeachingMemberRoles.OWNER,
       status: FieldStatus.NEW,
     },
   ],
 };
 
-const initialModuleMember: ModuleMember = {
+const initialModuleTeachingMember: ModuleTeachingMember = {
   id: "",
   name: "",
   email: "",
-  permission: ModuleMemberPermissions.VIEWER,
+  role: ModuleTeachingMemberRoles.VIEWER,
   status: FieldStatus.NEW,
 };
 
@@ -174,7 +174,7 @@ const initialColumnState = {
   description: "",
 };
 
-const moduleMemberDataTableColumnOrder = ["name", "email", "permission", "status", "id"];
+const moduleTeachingMemberDataTableColumnOrder = ["name", "email", "role", "status", "id"];
 
 const moduleDataTableColumnOrder = [
   "id",
@@ -188,7 +188,7 @@ const moduleDataTableColumnOrder = [
   "submissionsLockDate",
   "criteriaScoreRangeMin",
   "criteriaScoreRangeMax",
-  "moduleMembersCount",
+  "moduleTeachingMembersCount",
   "columnsCount",
   "studentsCount",
   "schools",
@@ -197,17 +197,17 @@ const moduleDataTableColumnOrder = [
 export {
   FieldStatus,
   initialColumnState,
-  initialModuleMember,
   initialModuleState,
+  initialModuleTeachingMember,
   moduleDataTableColumnOrder,
-  moduleMemberDataTableColumnOrder,
-  ModuleMemberPermissions,
-  ModuleMemberPermissionsNoOwner,
   ModuleStatus,
+  moduleTeachingMemberDataTableColumnOrder,
+  ModuleTeachingMemberRoles,
+  ModuleTeachingMemberRolesNoOwner,
   peerEvaluationColumnOrder,
   Schools,
   SchoolsDataTable,
   SchoolsDropdown,
 };
 
-export type { IModuleData, IModuleDataTable, IPeerEvaluationColumn, ModuleMember };
+export type { IModuleData, IModuleDataTable, IPeerEvaluationColumn, ModuleTeachingMember };

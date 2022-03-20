@@ -16,7 +16,7 @@ const GET_MODULES = gql`
       criteriaScoreRangeMin
       criteriaScoreRangeMax
       _count {
-        moduleMembers
+        moduleTeachingMembers
         columns
         students
       }
@@ -48,14 +48,14 @@ const GET_MODULES_BY_LECTURER = gql`
       criteriaScoreRangeMax
       _count {
         columns
-        moduleMembers
+        moduleTeachingMembers
         students
       }
-      moduleMembers {
+      moduleTeachingMembers {
         id
         createdAt
         updatedAt
-        permission
+        role
         moduleId
         userId
         user {
@@ -100,11 +100,11 @@ const GET_MODULE = gql`
       criteriaScoreRangeMin
       criteriaScoreRangeMax
       _count {
-        moduleMembers
+        moduleTeachingMembers
         columns
         students
       }
-      moduleMembers {
+      moduleTeachingMembers {
         user {
           email
           name
@@ -115,7 +115,7 @@ const GET_MODULE = gql`
         }
         createdAt
         updatedAt
-        permission
+        role
         userId
         _count {
           studentsMarkAdjusted
@@ -161,7 +161,7 @@ const CREATE_MODULE = gql`
       criteriaScoreRangeMin
       criteriaScoreRangeMax
       _count {
-        moduleMembers
+        moduleTeachingMembers
         columns
         students
       }
@@ -176,8 +176,8 @@ const CREATE_MODULE = gql`
         id
         description
       }
-      moduleMembers {
-        permission
+      moduleTeachingMembers {
+        role
         user {
           email
           name
@@ -203,14 +203,14 @@ const UPDATE_MODULE = gql`
       criteriaScoreRangeMin
       criteriaScoreRangeMax
       _count {
-        moduleMembers
+        moduleTeachingMembers
         columns
         students
       }
-      moduleMembers {
+      moduleTeachingMembers {
         userId
         moduleId
-        permission
+        role
         updatedAt
         createdAt
         id

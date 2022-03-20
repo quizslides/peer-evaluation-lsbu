@@ -53,7 +53,7 @@ export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { 
 /**
  * Module Owner
  * Module Viewer
- * Module Member
+ * Module Teaching Member
  * Module Editor
  *
  * Peer Evaluation Reviewer

@@ -2,7 +2,7 @@ import { array, date, mixed, number, object, ref, string } from "yup";
 
 import client from "@/graphql/client";
 import moduleExist from "@/requests/direct/query/moduleExist";
-import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
+import { ModuleStatus, ModuleTeachingMemberRoles, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
@@ -22,11 +22,11 @@ const userNameValidator = {
     .required(content.userName.required),
 };
 
-const moduleMemberNameValidator = {
+const moduleTeachingMemberNameValidator = {
   name: string(),
 };
 
-const moduleMemberIdValidator = {
+const moduleTeachingMemberIdValidator = {
   name: string(),
 };
 
@@ -149,21 +149,21 @@ const moduleColumnsValidator = {
   columns: array().min(1, content.columns.minLength),
 };
 
-const moduleMembersValidator = {
-  moduleMembers: array()
+const moduleTeachingMembersValidator = {
+  moduleTeachingMembers: array()
     .of(
       object().shape({
-        permission: string(),
+        role: string(),
       })
     )
     .test({
       name: "one-owner-teaching-module-member",
-      message: content.moduleMembers.minLength,
+      message: content.moduleTeachingMembers.minLength,
       test: (values) => {
-        const isOwnerPermission = (currentValue: string) => currentValue === "OWNER";
+        const isOwnerRole = (currentValue: string) => currentValue === "OWNER";
 
         if (values && values.length) {
-          return values.some(({ permission }) => isOwnerPermission(permission || ""));
+          return values.some(({ role }) => isOwnerRole(role || ""));
         }
 
         return false;
@@ -171,10 +171,10 @@ const moduleMembersValidator = {
     }),
 };
 
-const moduleMemberPermissionValidator = {
-  permission: mixed()
-    .oneOf([...Object.keys(ModuleMemberPermissions)], content.moduleMemberPermission.oneOf)
-    .required(content.moduleMemberPermission.required),
+const moduleTeachingMemberRoleValidator = {
+  role: mixed()
+    .oneOf([...Object.keys(ModuleTeachingMemberRoles)], content.moduleTeachingMemberRole.oneOf)
+    .required(content.moduleTeachingMemberRole.required),
 };
 
 export {
@@ -188,13 +188,13 @@ export {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
-  moduleMemberIdValidator,
-  moduleMemberNameValidator,
-  moduleMemberPermissionValidator,
-  moduleMembersValidator,
   moduleSchoolValidator,
   moduleStatusValidator,
   moduleSubmissionsLockDateValidator,
+  moduleTeachingMemberIdValidator,
+  moduleTeachingMemberNameValidator,
+  moduleTeachingMemberRoleValidator,
+  moduleTeachingMembersValidator,
   moduleTitleValidator,
   userEmailValidator,
   userNameValidator,
