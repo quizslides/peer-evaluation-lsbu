@@ -9,7 +9,7 @@ import { ModuleForm } from "@/forms";
 import updateModule from "@/requests/direct/mutation/updateModule";
 import useGetModule from "@/requests/hooks/query/useGetModule";
 import { sanitizeModuleDataOnFetch, sanitizeModuleDataOnUpdate } from "@/transformers/module";
-import { IModuleData, ModuleMember, ModuleMemberPermissions, initialModuleState } from "@/types/module";
+import { IModuleData, ModuleMember, ModuleMemberPermissions } from "@/types/module";
 import { Role, blankNotification, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface IUpdateUserForm {

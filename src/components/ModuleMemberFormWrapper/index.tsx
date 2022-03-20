@@ -23,7 +23,6 @@ import { DeleteIcon, EditIcon } from "@/icons";
 import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
 import { FieldStatus, ModuleMember, ModuleMemberPermissions, moduleMemberDataTableColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
-import { IUserData } from "@/types/user";
 import { Role, errorNotification } from "@/utils";
 import { getMergedKeyValuesObject } from "@/utils/form";
 

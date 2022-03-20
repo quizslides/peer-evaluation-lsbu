@@ -22,7 +22,6 @@ import {
 import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import deleteModule from "@/requests/direct/mutation/deleteModule";
-import useGetModules from "@/requests/hooks/query/useGetModules";
 import useGetModulesByLecturer from "@/requests/hooks/query/useGetModulesByLecturer";
 import routing from "@/routing";
 import {

@@ -1,5 +1,3 @@
-import { ModuleUpdateInput } from "@generated/type-graphql";
-
 import { TApolloClientType } from "@/graphql/client";
 import { DELETE_MODULE } from "@/requests/schema/modules";
 

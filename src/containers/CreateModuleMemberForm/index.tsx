@@ -4,7 +4,6 @@ import { User } from "@generated/type-graphql";
 
 import ModuleMemberForm from "@/forms/ModuleMemberForm";
 import { ModuleMember, initialModuleMember } from "@/types/module";
-import { IUserData } from "@/types/user";
 
 interface ICreateModuleMemberForm {
   state: boolean;
