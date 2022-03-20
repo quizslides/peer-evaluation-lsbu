@@ -4,21 +4,37 @@ const GET_MODULES = gql`
   query Modules {
     modules {
       id
-      createdAt
       updatedAt
+      createdAt
       title
       schools
-      moduleCode
-      status
       maxGradeIncrease
+      status
+      moduleCode
       maxGradeDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
       _count {
-        moduleTeachingMembers
         columns
+        moduleTeachingMembers
         students
+      }
+      moduleTeachingMembers {
+        id
+        createdAt
+        updatedAt
+        role
+        moduleId
+        userId
+        user {
+          role
+          email
+          name
+          id
+          createdAt
+          updatedAt
+        }
       }
       reminderEmail {
         title
@@ -26,6 +42,14 @@ const GET_MODULES = gql`
         updatedAt
         createdAt
         id
+        moduleId
+      }
+      columns {
+        createdAt
+        id
+        updatedAt
+        description
+        moduleId
       }
     }
   }
