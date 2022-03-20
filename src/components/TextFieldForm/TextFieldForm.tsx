@@ -16,7 +16,7 @@ const TextFieldForm = ({ testId, name, props }: ITextFieldForm) => {
     props.helperText = meta.error;
   }
 
-  return <TextField testId={testId} props={{ ...props, ...field }} />;
+  return <TextField testId={testId} props={{ ...field, ...props }} />;
 };
 
 export default memo(TextFieldForm);

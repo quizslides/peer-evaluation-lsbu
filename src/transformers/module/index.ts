@@ -264,11 +264,11 @@ const sanitizeModuleDataOnCreate = (data: IModuleData): ModuleCreateInput => {
     title: title,
     moduleCode: moduleCode,
     status: status,
-    maxGradeIncrease: maxGradeIncrease,
-    maxGradeDecrease: maxGradeDecrease,
+    maxGradeIncrease: Number(maxGradeIncrease),
+    maxGradeDecrease: Number(maxGradeDecrease),
     submissionsLockDate: submissionsLockDate ? new Date(submissionsLockDate) : undefined,
-    criteriaScoreRangeMin: criteriaScoreRangeMin,
-    criteriaScoreRangeMax: criteriaScoreRangeMax,
+    criteriaScoreRangeMin: Number(criteriaScoreRangeMin),
+    criteriaScoreRangeMax: Number(criteriaScoreRangeMax),
     schools: {
       set: schools,
     },
@@ -384,19 +384,19 @@ const sanitizeModuleDataOnUpdate = (data: IModuleData): ModuleUpdateInput => {
       set: status,
     },
     maxGradeIncrease: {
-      set: maxGradeIncrease,
+      set: Number(maxGradeIncrease),
     },
     maxGradeDecrease: {
-      set: maxGradeDecrease,
+      set: Number(maxGradeDecrease),
     },
     submissionsLockDate: {
       set: submissionsLockDate ? new Date(submissionsLockDate) : undefined,
     },
     criteriaScoreRangeMin: {
-      set: criteriaScoreRangeMin,
+      set: Number(criteriaScoreRangeMin),
     },
     criteriaScoreRangeMax: {
-      set: criteriaScoreRangeMax,
+      set: Number(criteriaScoreRangeMax),
     },
     schools: {
       set: schools,

@@ -94,7 +94,7 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isViewOnly, isNewModule, ...mo
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {() => (
+        {({ setFieldValue }) => (
           <Form>
             <Container maxWidth="lg">
               <Divider>Information</Divider>
@@ -127,6 +127,10 @@ const ModuleForm = ({ onSubmitForm, onCancelForm, isViewOnly, isNewModule, ...mo
                     disabled: !isNewModule || isViewOnly,
                     placeholder: content.containers.moduleForm.form.moduleCode.placeholder,
                     helperText: content.containers.moduleForm.form.moduleCode.helperText,
+                    onChange: (event) => {
+                      const value = event.target.value || "";
+                      setFieldValue("moduleCode", value.toUpperCase());
+                    },
                     sx: {
                       input: {
                         textTransform: "uppercase",
