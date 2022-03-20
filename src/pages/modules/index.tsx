@@ -21,7 +21,7 @@ const Modules: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      let moduleData = data?.moduleByLecturer as unknown as IModuleDataTable[];
+      let moduleData = data?.modulesByLecturer as unknown as IModuleDataTable[];
       for (let index in moduleData) {
         moduleData[index].schoolsDataTable = moduleData[index].schools.map(
           (school) => SchoolsDropdown[school]

@@ -61,7 +61,7 @@ class ModulesByLecturerWhereInput {
 @Resolver()
 class ModulesByLecturer {
   @Query((_returns) => [Module])
-  async moduleByLecturer(
+  async modulesByLecturer(
     @Ctx() ctx: { prisma: PrismaClient },
     @Arg("where") where: ModulesByLecturerWhereInput
   ): Promise<Module[]> {

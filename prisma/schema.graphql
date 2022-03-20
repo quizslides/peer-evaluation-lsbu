@@ -384,7 +384,7 @@ type Query {
     skip: Int
   ): [VerificationTokenGroupBy!]!
   moduleExist(where: ModuleExistWhereInput!): ModuleExistResponse!
-  moduleByLecturer(where: ModulesByLecturerWhereInput!): [Module!]!
+  modulesByLecturer(where: ModulesByLecturerWhereInput!): [Module!]!
 }
 
 type Email {

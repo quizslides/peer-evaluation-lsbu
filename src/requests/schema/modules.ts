@@ -32,8 +32,8 @@ const GET_MODULES = gql`
 `;
 
 const GET_MODULES_BY_LECTURER = gql`
-  query ModuleByLecturer($where: ModulesByLecturerWhereInput!) {
-    moduleByLecturer(where: $where) {
+  query ModulesByLecturer($where: ModulesByLecturerWhereInput!) {
+    modulesByLecturer(where: $where) {
       id
       updatedAt
       createdAt

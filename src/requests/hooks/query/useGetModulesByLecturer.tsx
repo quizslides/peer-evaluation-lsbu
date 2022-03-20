@@ -6,15 +6,18 @@ import { GET_MODULES_BY_LECTURER } from "@/requests/schema/modules";
 import { errorNotification, successNotification } from "@/utils";
 
 const useGetModulesByLecturer = (notificationsId: string) => {
-  return useLazyQuery<{ moduleByLecturer: Module[] }, { where: ModulesByLecturerWhereInput }>(GET_MODULES_BY_LECTURER, {
-    fetchPolicy: "no-cache",
-    onError: (error) => {
-      errorNotification(error.message, notificationsId);
-    },
-    onCompleted: () => {
-      successNotification("Module fetched successfully", notificationsId);
-    },
-  });
+  return useLazyQuery<{ modulesByLecturer: Module[] }, { where: ModulesByLecturerWhereInput }>(
+    GET_MODULES_BY_LECTURER,
+    {
+      fetchPolicy: "no-cache",
+      onError: (error) => {
+        errorNotification(error.message, notificationsId);
+      },
+      onCompleted: () => {
+        successNotification("Module fetched successfully", notificationsId);
+      },
+    }
+  );
 };
 
 export default useGetModulesByLecturer;
