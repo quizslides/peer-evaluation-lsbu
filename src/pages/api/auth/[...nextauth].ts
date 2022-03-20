@@ -3,7 +3,7 @@ import { NextApiHandler } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
-import { getUserSessionWithRole, isAccountCreated } from "@/pages/api/auth/utils";
+import { getUserSessionWithAdditionalDetails, isAccountCreated } from "@/pages/api/auth/utils";
 import { sendSignInEmail } from "@/pages/api/email/index";
 import prisma from "@/pages/api/prisma";
 import routing from "@/routing";
@@ -36,7 +36,7 @@ const options: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     signIn: async ({ user }) => await isAccountCreated(user.email),
-    session: async ({ user, session }) => await getUserSessionWithRole(user, session),
+    session: async ({ user, session }) => await getUserSessionWithAdditionalDetails(user, session),
   },
 };
 

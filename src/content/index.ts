@@ -46,6 +46,7 @@ const content = {
         moduleCode: {
           label: "Module code",
           placeholder: "Module code must be unique",
+          helperText: "Module code must be unique, uppercase and only underscore is allowed between words",
         },
         moduleSchools: {
           label: "Schools module",
@@ -75,24 +76,31 @@ const content = {
           label: "Criteria Score Range Max",
           helperText: "Criteria Score Range Max",
         },
-        reminderEmailTitle: {
+        emailTitleReminder: {
           label: "Email title",
           placeholder: "Title of the reminder email",
         },
-        reminderEmailBody: {
+        emailBodyReminder: {
           helperText: "Email body of the reminder",
           resetButtonText: "Reset Email Body",
         },
         columnManagement: {
           helperText: "List of columns of the peer evaluation",
         },
-        moduleMembers: {
-          helperText: "Members of the module",
+        moduleTeachingMembers: {
+          helperText: "Teaching module teaching members",
         },
         button: {
           submit: "submit",
           cancel: "cancel",
+          viewOnlyGoBack: "Go Back",
         },
+      },
+      confirmationOnCancel: {
+        title: "Cancel",
+        bodyText: "If you cancel data all the will be lost. Are you sure you want to cancel?",
+        acceptText: "OK",
+        closeText: "Cancel",
       },
     },
     columnForm: {
@@ -117,16 +125,16 @@ const content = {
         closeText: "Cancel",
       },
     },
-    moduleMember: {
-      resetButton: "Reset module members",
+    moduleTeachingMember: {
+      resetButton: "Reset teaching module teaching members",
       confirmationDeleteColumn: {
-        title: "Delete module member",
-        bodyText: "Are you sure you want to delete the module member?",
+        title: "Delete module teaching member",
+        bodyText: "Are you sure you want to delete the module teaching member?",
         acceptText: "OK",
         closeText: "Cancel",
       },
     },
-    moduleMemberForm: {
+    moduleTeachingMemberForm: {
       form: {
         email: {
           label: "Lecturer email",
@@ -138,15 +146,24 @@ const content = {
           helperText: "",
           placeholder: "Lecturer name",
         },
-        permission: {
-          label: "Permission",
-          helperText: "Permission of the lecturer in the module",
-          placeholder: "Permission of the lecturer in the module",
+        role: {
+          label: "Role",
+          helperText: "Role of the lecturer in the module",
+          placeholder: "Role of the lecturer in the module",
         },
         button: {
           submit: "submit",
           cancel: "cancel",
         },
+      },
+    },
+    modulesDataTable: {
+      confirmationOnDelete: {
+        title: "Are you really sure?",
+        bodyText:
+          "If you delete the module all the related data will be lost! Are you sure you want to delete the module?",
+        acceptText: "Yes",
+        closeText: "No",
       },
     },
   },

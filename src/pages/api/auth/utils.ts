@@ -29,14 +29,15 @@ const getUserData = async (userEmail: string) => {
   return result;
 };
 
-const getUserSessionWithRole = async (user: User, session: Session) => {
+const getUserSessionWithAdditionalDetails = async (user: User, session: Session) => {
   if (user.email) {
     const response = await getUserData(user.email);
     session.user.role = response?.role as Role;
+    session.user.id = response?.id as string;
     return session;
   }
 
   return session;
 };
 
-export { getUserData, getUserSessionWithRole, isAccountCreated };
+export { getUserData, getUserSessionWithAdditionalDetails, isAccountCreated };

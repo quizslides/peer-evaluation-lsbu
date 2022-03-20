@@ -1,11 +1,14 @@
 import { ServerResponse } from "http";
 
+import { ModuleWhereInput, ModuleWhereUniqueInput } from "@generated/type-graphql";
 import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, rule, shield } from "graphql-shield";
+import { allow, deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
+
+import { ModulesByLecturerWhereInput } from "../resolvers/module";
 
 import { Role } from "@/utils/permissions";
 
@@ -15,12 +18,13 @@ export interface Context {
   req: MicroRequest;
 }
 
-export const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
   return Boolean(session);
 });
 
-export const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
+const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
   if (session?.user.role === Role.ADMIN) {
@@ -30,7 +34,7 @@ export const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { re
   return false;
 });
 
-export const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
+const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
   if (session?.user.role === Role.LECTURER) {
@@ -40,7 +44,8 @@ export const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, {
   return false;
 });
 
-export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
   if (session?.user.role === Role.STUDENT) {
@@ -50,43 +55,180 @@ export const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { 
   return false;
 });
 
-/**
- * Module Owner
- * Module Viewer
- * Module Member
- * Module Editor
- *
- * Peer Evaluation Reviewer
- * Peer Evaluation Reviewees
- *
- *
- */
+const isModuleTeachingMember = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: ModuleWhereInput }, { req, prisma }: Context) => {
+    const session = await getSession({ req });
 
-/**
- * TODO: Module Owner or Collaborator
- * Student with access to a module and live or editable
- */
-export const isFalse = rule()(() => {
-  return false;
-});
+    const moduleId = _args.where.id as unknown as string;
 
-export const isTrue = rule()(() => {
-  return true;
-});
+    if (moduleId && session?.user.email) {
+      const result = await prisma.module.findFirst({
+        where: {
+          moduleTeachingMembers: {
+            some: {
+              user: {
+                is: {
+                  email: {
+                    equals: session?.user.email,
+                  },
+                },
+              },
+            },
+          },
+          id: {
+            equals: moduleId,
+          },
+        },
+      });
+
+      return !!result;
+    }
+
+    return false;
+  }
+);
+
+const isModuleTeachingMemberOwner = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+    const session = await getSession({ req });
+
+    const moduleId = _args.where.id as unknown as string;
+
+    if (moduleId && session?.user.email) {
+      const result = await prisma.module.findFirst({
+        where: {
+          moduleTeachingMembers: {
+            some: {
+              user: {
+                is: {
+                  email: {
+                    equals: session?.user.email,
+                  },
+                },
+              },
+              role: {
+                equals: "OWNER",
+              },
+            },
+          },
+          id: {
+            equals: moduleId,
+          },
+        },
+      });
+
+      return !!result;
+    }
+
+    return false;
+  }
+);
+
+const isModuleTeachingMemberEditor = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+    const session = await getSession({ req });
+
+    const moduleId = _args.where.id as unknown as string;
+
+    if (moduleId && session?.user.email) {
+      const result = await prisma.module.findFirst({
+        where: {
+          moduleTeachingMembers: {
+            some: {
+              user: {
+                is: {
+                  email: {
+                    equals: session?.user.email,
+                  },
+                },
+              },
+              role: {
+                equals: "EDITOR",
+              },
+            },
+          },
+          id: {
+            equals: moduleId,
+          },
+        },
+      });
+
+      return !!result;
+    }
+
+    return false;
+  }
+);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isModuleTeachingMemberViewer = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+    const session = await getSession({ req });
+
+    const moduleId = _args.where.id as unknown as string;
+
+    if (moduleId && session?.user.email) {
+      const result = await prisma.module.findFirst({
+        where: {
+          moduleTeachingMembers: {
+            some: {
+              user: {
+                is: {
+                  email: {
+                    equals: session?.user.email,
+                  },
+                },
+              },
+              role: {
+                equals: "VIEWER",
+              },
+            },
+          },
+          id: {
+            equals: moduleId,
+          },
+        },
+      });
+
+      return !!result;
+    }
+
+    return false;
+  }
+);
+
+const isUserRequestedModuleTeachingMemberModule = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: ModulesByLecturerWhereInput }, { req }: Context) => {
+    const session = await getSession({ req });
+
+    if (session?.user.email === _args.where.email) {
+      return true;
+    }
+
+    return false;
+  }
+);
 
 const permissions = shield(
   {
     Query: {
-      "*": allow,
-      // users: isAdmin,
-      // groupByUser: isAdmin,
+      "*": deny,
+      users: or(isAdmin, isLecturer),
+      groupByUser: or(isAdmin, isLecturer),
+      moduleExist: or(isAdmin, isLecturer),
+      modules: isAdmin,
+      modulesByLecturer: or(isAdmin, isUserRequestedModuleTeachingMemberModule),
+      module: or(isAdmin, isModuleTeachingMember),
     },
     Mutation: {
-      "*": allow,
-      // createManyUser: isAdmin,
-      // updateUser: isAdmin,
-      // deleteManyUser: isAdmin,
-      // createUser: isAdmin,
+      "*": deny,
+      createManyUser: isAdmin,
+      updateUser: isAdmin,
+      deleteManyUser: isAdmin,
+      createUser: isAdmin,
+      createModule: or(isAdmin, isLecturer),
+      updateModule: or(isAdmin, isModuleTeachingMemberOwner, isModuleTeachingMemberEditor),
+      deleteModule: or(isAdmin, isModuleTeachingMemberOwner),
     },
   },
   {

@@ -12,15 +12,16 @@ type DatePickerPropsPartial = Pick<DatePickerProps, "disablePast" | "minDate" | 
 interface IDatePickerForm extends DatePickerPropsPartial {
   testId: string;
   name: string;
+  disabled?: boolean;
   props: TextFieldProps;
 }
 
-const DatePickerForm = ({ testId, name, label, props, ...datePickerProps }: IDatePickerForm) => {
+const DatePickerForm = ({ testId, name, label, disabled, props, ...datePickerProps }: IDatePickerForm) => {
   const { setFieldValue } = useFormikContext();
 
-  const [dateValue, setDateValue] = useState<Date | null>(null);
-
   const [field, meta] = useField(name);
+
+  const [dateValue, setDateValue] = useState<Date | null>(meta.initialValue);
 
   const configDatePicker = {
     fullWidth: true,
@@ -41,6 +42,7 @@ const DatePickerForm = ({ testId, name, label, props, ...datePickerProps }: IDat
       {...datePickerProps}
       value={dateValue}
       label={label}
+      disabled={disabled}
       inputFormat="dd/MM/yyyy"
       minDate={tomorrowDate()}
       onChange={(newValue) => {

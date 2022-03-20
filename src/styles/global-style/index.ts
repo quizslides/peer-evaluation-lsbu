@@ -8,6 +8,10 @@ const CenteredContent = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const CenteredScope = styled.div`
+  text-align: center;
+`;
+
 const TopLeft = styled.div`
   position: absolute;
   top: 1em;
@@ -32,4 +36,4 @@ const BottomLeft = styled.div`
   left: 1em;
 `;
 
-export { BottomLeft, BottomRight, CenteredContent, TopLeft, TopRight };
+export { BottomLeft, BottomRight, CenteredContent, CenteredScope, TopLeft, TopRight };

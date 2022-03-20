@@ -13,29 +13,38 @@ interface IModuleData {
   status: ModuleStatus;
   maxGradeIncrease: number;
   maxGradeDecrease: number;
-  submissionsLockDate: null | Date;
-  reminderEmailTitle: string;
-  reminderEmailBody: string | null;
+  submissionsLockDate: Date | null | undefined;
+  emailTitleReminder: string;
+  emailBodyReminder: string;
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
-  moduleMembers: ModuleMember[];
+  moduleTeachingMembers: ModuleTeachingMember[];
 }
 
-interface ModuleMember {
-  permission: ModuleMemberPermissions;
+interface IModuleDataTable extends IModuleData {
+  id: string;
+  moduleTeachingMembersCount: number;
+  columnsCount: number;
+  studentsCount: number;
+  schoolsDataTable: Schools[];
+}
+
+interface ModuleTeachingMember {
+  id: string;
   email: string;
   name: string;
   status: FieldStatus;
+  role: ModuleTeachingMemberRoles;
 }
 
-enum ModuleMemberPermissions {
+enum ModuleTeachingMemberRoles {
   OWNER = "OWNER",
   EDITOR = "EDITOR",
   VIEWER = "VIEWER",
 }
 
-enum ModuleMemberPermissionsNoOwner {
+enum ModuleTeachingMemberRolesNoOwner {
   EDITOR = "EDITOR",
   VIEWER = "VIEWER",
 }
@@ -64,24 +73,28 @@ enum FieldStatus {
   DELETED = "DELETED",
 }
 
-const SchoolAcronyms = {
-  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "ACI",
-  SCHOOL_OF_APPLIED_SCIENCES: "APS",
-  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: "BEA",
-  LSBU_BUSINESS_SCHOOL: "BUS",
-  SCHOOL_OF_ENGINEERING: "ENG",
-  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: "LSS",
-  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "HSC",
+const SchoolsDropdown = {
+  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "School of Arts and Creative Industries",
+  SCHOOL_OF_APPLIED_SCIENCES: "School of Applied Sciences",
+  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: "School of The Built Environment and Architecture",
+  LSBU_BUSINESS_SCHOOL: "LSBU Business School",
+  SCHOOL_OF_ENGINEERING: "School of Engineering",
+  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: "School of Law and Social Sciences",
+  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "Institute of Health and Social Care",
 };
 
-const SchoolsDropdown = {
-  ACI: "School of Arts and Creative Industries",
-  APS: "School of Applied Sciences",
-  BEA: "School of The Built Environment and Architecture",
-  BUS: "LSBU Business School",
-  ENG: "School of Engineering",
-  LSS: "School of Law and Social Sciences",
-  HSC: "Institute of Health and Social Care",
+interface ISchoolsDataTable {
+  [key: string]: string;
+}
+
+const SchoolsDataTable: ISchoolsDataTable = {
+  "School of Arts and Creative Industries": "ACI",
+  "School of Applied Sciences": "APS",
+  "School of The Built Environment and Architecture": "BEA",
+  "LSBU Business School": "BUS",
+  "School of Engineering": "ENG",
+  "School of Law and Social Sciences": "LSS",
+  "Institute of Health and Social Care": "HSC",
 };
 
 const peerEvaluationColumnOrder = ["id", "description", "createdAt", "updatedAt", "status"];
@@ -132,47 +145,69 @@ const initialModuleState: IModuleData = {
   maxGradeIncrease: 10,
   maxGradeDecrease: 100,
   submissionsLockDate: null,
-  reminderEmailTitle: "Peer Evaluation Reminder - {{moduleCode}}",
-  reminderEmailBody: "Email body {{peerEvaluationUrl}}",
+  emailTitleReminder: "Peer Evaluation Reminder - {{moduleCode}}",
+  emailBodyReminder: "Email body {{peerEvaluationUrl}}",
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
   columns: defaultPeerEvaluationColumns,
-  moduleMembers: [
+  moduleTeachingMembers: [
     {
+      id: "",
       name: "",
       email: "",
-      permission: ModuleMemberPermissions.OWNER,
+      role: ModuleTeachingMemberRoles.OWNER,
       status: FieldStatus.NEW,
     },
   ],
 };
 
-const initialModuleMember: ModuleMember = {
+const initialModuleTeachingMember: ModuleTeachingMember = {
+  id: "",
   name: "",
   email: "",
-  permission: ModuleMemberPermissions.VIEWER,
+  role: ModuleTeachingMemberRoles.VIEWER,
   status: FieldStatus.NEW,
 };
 
 const initialColumnState = {
+  id: "",
   description: "",
 };
 
-const moduleMemberColumnOrder = ["name", "email", "permission"];
+const moduleTeachingMemberDataTableColumnOrder = ["name", "email", "role", "status", "id"];
+
+const moduleDataTableColumnOrder = [
+  "id",
+  "title",
+  "createdAt",
+  "updatedAt",
+  "moduleCode",
+  "status",
+  "maxGradeIncrease",
+  "maxGradeDecrease",
+  "submissionsLockDate",
+  "criteriaScoreRangeMin",
+  "criteriaScoreRangeMax",
+  "moduleTeachingMembersCount",
+  "columnsCount",
+  "studentsCount",
+  "schools",
+];
 
 export {
   FieldStatus,
   initialColumnState,
-  initialModuleMember,
   initialModuleState,
-  moduleMemberColumnOrder,
-  ModuleMemberPermissions,
-  ModuleMemberPermissionsNoOwner,
+  initialModuleTeachingMember,
+  moduleDataTableColumnOrder,
   ModuleStatus,
+  moduleTeachingMemberDataTableColumnOrder,
+  ModuleTeachingMemberRoles,
+  ModuleTeachingMemberRolesNoOwner,
   peerEvaluationColumnOrder,
-  SchoolAcronyms,
   Schools,
+  SchoolsDataTable,
   SchoolsDropdown,
 };
 
-export type { IModuleData, IPeerEvaluationColumn, ModuleMember };
+export type { IModuleData, IModuleDataTable, IPeerEvaluationColumn, ModuleTeachingMember };

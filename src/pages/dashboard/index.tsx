@@ -18,7 +18,7 @@ export const getStaticProps = () => {
   return {
     props: {
       protected: true,
-      roles: [RoleScope.ADMIN],
+      roles: [RoleScope.AUTHENTICATED],
     },
   };
 };

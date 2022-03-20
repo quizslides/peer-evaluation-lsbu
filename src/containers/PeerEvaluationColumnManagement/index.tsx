@@ -20,6 +20,7 @@ interface IPeerEvaluationColumnManagement {
   helperText: string;
   testId: string;
   name: string;
+  isDisabled: boolean;
 }
 
 const Wrapper = styled.div`
@@ -34,7 +35,7 @@ const BottomRight = styled.div`
   right: 0;
 `;
 
-const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvaluationColumnManagement) => {
+const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }: IPeerEvaluationColumnManagement) => {
   const { setFieldValue } = useFormikContext();
 
   const [field, meta] = useField(name);
@@ -65,7 +66,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
 
   const onSubmitAddColumn = ({ description }: IColumnFormValue) => {
     const newColumn = {
-      id: `column-${Math.random}`,
+      id: `column-${Math.random()}`,
       status: FieldStatus.NEW,
       description: description,
       createdAt: new Date(),
@@ -135,9 +136,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
       label: "ID",
       options: {
         display: "excluded",
-        filter: true,
-        sort: true,
-        filterType: "dropdown",
+        filter: false,
       },
     },
     {
@@ -178,9 +177,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
       label: "Status",
       options: {
         display: "excluded",
-        filter: true,
-        sort: true,
-        filterType: "dropdown",
+        filter: false,
       },
     },
   ];
@@ -193,7 +190,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
     },
     responsive: "simple",
     tableBodyMaxHeight: "100%",
-    selectableRows: "single",
+    selectableRows: isDisabled ? "none" : "single",
     selectableRowsHeader: true,
     rowHover: true,
     download: false,
@@ -205,9 +202,10 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
     viewColumns: false,
     print: false,
     rowsPerPage: 100,
-    customToolbar: (_) => (
-      <DataTableAddColumnToolbarIcon onClick={onAddColumn} testId={"peer-evaluation-column-management-add-column"} />
-    ),
+    customToolbar: (_) =>
+      !isDisabled && (
+        <DataTableAddColumnToolbarIcon onClick={onAddColumn} testId={"peer-evaluation-column-management-add-column"} />
+      ),
     rowsSelected: selectedRows,
     onRowSelectionChange: (rowsSelectedData, allRows, rowsSelected) => {
       setSelectedRows(rowsSelected as []);
@@ -264,7 +262,13 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name }: IPeerEvalu
 
       <Wrapper>
         <BottomRight>
-          <Button size="small" onClick={resetDefault} testId={`${testId}-reset-button`} variant={"outlined"}>
+          <Button
+            size="small"
+            disabled={isDisabled}
+            onClick={resetDefault}
+            testId={`${testId}-reset-button`}
+            variant={"outlined"}
+          >
             {content.containers.peerEvaluationColumnManagement.resetButton}
           </Button>
         </BottomRight>

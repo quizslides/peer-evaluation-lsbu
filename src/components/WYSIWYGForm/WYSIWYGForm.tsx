@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import styled from "@emotion/styled";
 import { FormControl, FormHelperText } from "@mui/material";
@@ -12,6 +12,7 @@ interface IWYSIWYGForm {
   helperText: string;
   fieldName: string;
   resetButtonText: string;
+  isDisabled?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -26,7 +27,7 @@ const BottomRight = styled.div`
   right: 0;
 `;
 
-const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWYGForm) => {
+const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText, isDisabled }: IWYSIWYGForm) => {
   const { setFieldValue } = useFormikContext();
 
   const [field, meta] = useField(fieldName);
@@ -76,11 +77,24 @@ const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWY
 
   return (
     <FormControl error={isError} variant="standard" fullWidth data-testid={testId}>
-      <WYSIWYG theme="snow" value={convertedText} onChange={onEditorChange} modules={modules} formats={formats} />
+      <WYSIWYG
+        theme="snow"
+        value={convertedText}
+        onChange={onEditorChange}
+        modules={modules}
+        formats={formats}
+        readOnly={isDisabled}
+      />
       <FormHelperText>{isError ? meta.error : helperText}</FormHelperText>
       <Wrapper>
         <BottomRight>
-          <Button size="small" onClick={resetWYSIWYGToDefault} testId={`${testId}-reset-button`} variant={"outlined"}>
+          <Button
+            size="small"
+            disabled={isDisabled}
+            onClick={resetWYSIWYGToDefault}
+            testId={`${testId}-reset-button`}
+            variant={"outlined"}
+          >
             {resetButtonText}
           </Button>
         </BottomRight>
@@ -89,4 +103,4 @@ const WYSIWYGForm = ({ testId, helperText, fieldName, resetButtonText }: IWYSIWY
   );
 };
 
-export default WYSIWYGForm;
+export default memo(WYSIWYGForm);

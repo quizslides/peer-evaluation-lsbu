@@ -12,8 +12,10 @@ const routing = {
     users: "/admin/users",
     modules: "/admin/modules",
   },
-  module: {
-    create: "/module/create",
+  modules: {
+    create: "/modules/create",
+    edit: "/modules/edit",
+    list: "/modules",
   },
   backendEndpoint: "/api/graphql",
 };

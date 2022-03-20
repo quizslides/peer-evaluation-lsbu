@@ -63,38 +63,38 @@ type Query {
     take: Int
     skip: Int
   ): [ModuleGroupBy!]!
-  moduleMember(where: ModuleMemberWhereUniqueInput!): ModuleMember
-  findFirstModuleMember(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithRelationInput!]
-    cursor: ModuleMemberWhereUniqueInput
+  moduleTeachingMember(where: ModuleTeachingMemberWhereUniqueInput!): ModuleTeachingMember
+  findFirstModuleTeachingMember(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithRelationInput!]
+    cursor: ModuleTeachingMemberWhereUniqueInput
     take: Int
     skip: Int
-    distinct: [ModuleMemberScalarFieldEnum!]
-  ): ModuleMember
-  moduleMembers(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithRelationInput!]
-    cursor: ModuleMemberWhereUniqueInput
+    distinct: [ModuleTeachingMemberScalarFieldEnum!]
+  ): ModuleTeachingMember
+  moduleTeachingMembers(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithRelationInput!]
+    cursor: ModuleTeachingMemberWhereUniqueInput
     take: Int
     skip: Int
-    distinct: [ModuleMemberScalarFieldEnum!]
-  ): [ModuleMember!]!
-  aggregateModuleMember(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithRelationInput!]
-    cursor: ModuleMemberWhereUniqueInput
+    distinct: [ModuleTeachingMemberScalarFieldEnum!]
+  ): [ModuleTeachingMember!]!
+  aggregateModuleTeachingMember(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithRelationInput!]
+    cursor: ModuleTeachingMemberWhereUniqueInput
     take: Int
     skip: Int
-  ): AggregateModuleMember!
-  groupByModuleMember(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithAggregationInput!]
-    by: [ModuleMemberScalarFieldEnum!]!
-    having: ModuleMemberScalarWhereWithAggregatesInput
+  ): AggregateModuleTeachingMember!
+  groupByModuleTeachingMember(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithAggregationInput!]
+    by: [ModuleTeachingMemberScalarFieldEnum!]!
+    having: ModuleTeachingMemberScalarWhereWithAggregatesInput
     take: Int
     skip: Int
-  ): [ModuleMemberGroupBy!]!
+  ): [ModuleTeachingMemberGroupBy!]!
   peerEvaluation(where: PeerEvaluationWhereUniqueInput!): PeerEvaluation
   findFirstPeerEvaluation(
     where: PeerEvaluationWhereInput
@@ -383,6 +383,8 @@ type Query {
     take: Int
     skip: Int
   ): [VerificationTokenGroupBy!]!
+  moduleExist(where: ModuleExistWhereInput!): ModuleExistResponse!
+  modulesByLecturer(where: ModulesByLecturerWhereInput!): [Module!]!
 }
 
 type Email {
@@ -414,14 +416,14 @@ type Module {
   criteriaScoreRangeMin: Int!
   criteriaScoreRangeMax: Int!
   _count: ModuleCount
-  moduleMembers(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithRelationInput!]
-    cursor: ModuleMemberWhereUniqueInput
+  moduleTeachingMembers(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithRelationInput!]
+    cursor: ModuleTeachingMemberWhereUniqueInput
     take: Int
     skip: Int
-    distinct: [ModuleMemberScalarFieldEnum!]
-  ): [ModuleMember!]!
+    distinct: [ModuleTeachingMemberScalarFieldEnum!]
+  ): [ModuleTeachingMember!]!
   reminderEmail: Email
   columns(
     where: PeerEvaluationColumnWhereInput
@@ -459,19 +461,19 @@ enum ModuleStatus {
 }
 
 type ModuleCount {
-  moduleMembers: Int!
+  moduleTeachingMembers: Int!
   columns: Int!
   students: Int!
 }
 
-type ModuleMember {
+type ModuleTeachingMember {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  permission: ModuleMemberPermissions!
+  role: ModuleTeachingMemberRoles!
   moduleId: String!
   userId: String!
-  _count: ModuleMemberCount
+  _count: ModuleTeachingMemberCount
   module: Module!
   user: User!
   studentsMarkAdjusted(
@@ -484,13 +486,13 @@ type ModuleMember {
   ): [Student!]!
 }
 
-enum ModuleMemberPermissions {
+enum ModuleTeachingMemberRoles {
   OWNER
   EDITOR
   VIEWER
 }
 
-type ModuleMemberCount {
+type ModuleTeachingMemberCount {
   studentsMarkAdjusted: Int!
 }
 
@@ -511,14 +513,14 @@ type User {
     skip: Int
     distinct: [SessionScalarFieldEnum!]
   ): [Session!]!
-  moduleMember(
-    where: ModuleMemberWhereInput
-    orderBy: [ModuleMemberOrderByWithRelationInput!]
-    cursor: ModuleMemberWhereUniqueInput
+  moduleTeachingMembers(
+    where: ModuleTeachingMemberWhereInput
+    orderBy: [ModuleTeachingMemberOrderByWithRelationInput!]
+    cursor: ModuleTeachingMemberWhereUniqueInput
     take: Int
     skip: Int
-    distinct: [ModuleMemberScalarFieldEnum!]
-  ): [ModuleMember!]!
+    distinct: [ModuleTeachingMemberScalarFieldEnum!]
+  ): [ModuleTeachingMember!]!
   moduleStudents(
     where: StudentWhereInput
     orderBy: [StudentOrderByWithRelationInput!]
@@ -537,7 +539,7 @@ enum Role {
 
 type UserCount {
   sessions: Int!
-  moduleMember: Int!
+  moduleTeachingMembers: Int!
   moduleStudents: Int!
 }
 
@@ -632,7 +634,7 @@ input UserWhereInput {
   email: StringFilter
   sessions: SessionListRelationFilter
   role: EnumRoleFilter
-  moduleMember: ModuleMemberListRelationFilter
+  moduleTeachingMembers: ModuleTeachingMemberListRelationFilter
   emailVerified: DateTimeNullableFilter
   moduleStudents: StudentListRelationFilter
 }
@@ -657,20 +659,20 @@ input NestedEnumRoleFilter {
   not: NestedEnumRoleFilter
 }
 
-input ModuleMemberListRelationFilter {
-  every: ModuleMemberWhereInput
-  some: ModuleMemberWhereInput
-  none: ModuleMemberWhereInput
+input ModuleTeachingMemberListRelationFilter {
+  every: ModuleTeachingMemberWhereInput
+  some: ModuleTeachingMemberWhereInput
+  none: ModuleTeachingMemberWhereInput
 }
 
-input ModuleMemberWhereInput {
-  AND: [ModuleMemberWhereInput!]
-  OR: [ModuleMemberWhereInput!]
-  NOT: [ModuleMemberWhereInput!]
+input ModuleTeachingMemberWhereInput {
+  AND: [ModuleTeachingMemberWhereInput!]
+  OR: [ModuleTeachingMemberWhereInput!]
+  NOT: [ModuleTeachingMemberWhereInput!]
   id: StringFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
-  permission: EnumModuleMemberPermissionsFilter
+  role: EnumModuleTeachingMemberRolesFilter
   module: ModuleRelationFilter
   moduleId: StringFilter
   user: UserRelationFilter
@@ -678,18 +680,18 @@ input ModuleMemberWhereInput {
   studentsMarkAdjusted: StudentListRelationFilter
 }
 
-input EnumModuleMemberPermissionsFilter {
-  equals: ModuleMemberPermissions
-  in: [ModuleMemberPermissions!]
-  notIn: [ModuleMemberPermissions!]
-  not: NestedEnumModuleMemberPermissionsFilter
+input EnumModuleTeachingMemberRolesFilter {
+  equals: ModuleTeachingMemberRoles
+  in: [ModuleTeachingMemberRoles!]
+  notIn: [ModuleTeachingMemberRoles!]
+  not: NestedEnumModuleTeachingMemberRolesFilter
 }
 
-input NestedEnumModuleMemberPermissionsFilter {
-  equals: ModuleMemberPermissions
-  in: [ModuleMemberPermissions!]
-  notIn: [ModuleMemberPermissions!]
-  not: NestedEnumModuleMemberPermissionsFilter
+input NestedEnumModuleTeachingMemberRolesFilter {
+  equals: ModuleTeachingMemberRoles
+  in: [ModuleTeachingMemberRoles!]
+  notIn: [ModuleTeachingMemberRoles!]
+  not: NestedEnumModuleTeachingMemberRolesFilter
 }
 
 input ModuleRelationFilter {
@@ -711,7 +713,7 @@ input ModuleWhereInput {
   maxGradeIncrease: IntFilter
   maxGradeDecrease: IntFilter
   submissionsLockDate: DateTimeNullableFilter
-  moduleMembers: ModuleMemberListRelationFilter
+  moduleTeachingMembers: ModuleTeachingMemberListRelationFilter
   reminderEmail: EmailRelationFilter
   columns: PeerEvaluationColumnListRelationFilter
   criteriaScoreRangeMin: IntFilter
@@ -916,8 +918,8 @@ input StudentWhereInput {
   systemCalculatedMark: DecimalNullableFilter
   systemAdjustedMark: DecimalNullableFilter
   lecturerAdjustedMark: DecimalNullableFilter
-  lecturerAdjustedMarkByUser: ModuleMemberRelationFilter
-  moduleMemberId: StringNullableFilter
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberRelationFilter
+  moduleTeachingMemberId: StringNullableFilter
   peerEvaluationReviewed: PeerEvaluationRelationFilter
   PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
 }
@@ -994,9 +996,9 @@ input NestedDecimalNullableFilter {
   not: NestedDecimalNullableFilter
 }
 
-input ModuleMemberRelationFilter {
-  is: ModuleMemberWhereInput
-  isNot: ModuleMemberWhereInput
+input ModuleTeachingMemberRelationFilter {
+  is: ModuleTeachingMemberWhereInput
+  isNot: ModuleTeachingMemberWhereInput
 }
 
 input PeerEvaluationRelationFilter {
@@ -1060,7 +1062,7 @@ input UserOrderByWithRelationInput {
   email: SortOrder
   sessions: SessionOrderByRelationAggregateInput
   role: SortOrder
-  moduleMember: ModuleMemberOrderByRelationAggregateInput
+  moduleTeachingMembers: ModuleTeachingMemberOrderByRelationAggregateInput
   emailVerified: SortOrder
   moduleStudents: StudentOrderByRelationAggregateInput
 }
@@ -1069,7 +1071,7 @@ input SessionOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input ModuleMemberOrderByRelationAggregateInput {
+input ModuleTeachingMemberOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
@@ -1089,11 +1091,11 @@ enum SessionScalarFieldEnum {
   userId
 }
 
-input ModuleMemberOrderByWithRelationInput {
+input ModuleTeachingMemberOrderByWithRelationInput {
   id: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
-  permission: SortOrder
+  role: SortOrder
   module: ModuleOrderByWithRelationInput
   moduleId: SortOrder
   user: UserOrderByWithRelationInput
@@ -1112,7 +1114,7 @@ input ModuleOrderByWithRelationInput {
   maxGradeIncrease: SortOrder
   maxGradeDecrease: SortOrder
   submissionsLockDate: SortOrder
-  moduleMembers: ModuleMemberOrderByRelationAggregateInput
+  moduleTeachingMembers: ModuleTeachingMemberOrderByRelationAggregateInput
   reminderEmail: EmailOrderByWithRelationInput
   columns: PeerEvaluationColumnOrderByRelationAggregateInput
   criteriaScoreRangeMin: SortOrder
@@ -1134,21 +1136,21 @@ input PeerEvaluationColumnOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input ModuleMemberWhereUniqueInput {
+input ModuleTeachingMemberWhereUniqueInput {
   id: String
-  userId_moduleId: ModuleMemberUserIdModuleIdCompoundUniqueInput
+  userId_moduleId: ModuleTeachingMemberUserIdModuleIdCompoundUniqueInput
 }
 
-input ModuleMemberUserIdModuleIdCompoundUniqueInput {
+input ModuleTeachingMemberUserIdModuleIdCompoundUniqueInput {
   userId: String!
   moduleId: String!
 }
 
-enum ModuleMemberScalarFieldEnum {
+enum ModuleTeachingMemberScalarFieldEnum {
   id
   createdAt
   updatedAt
-  permission
+  role
   moduleId
   userId
 }
@@ -1165,12 +1167,12 @@ type Student {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
   _count: StudentCount
   user: User
   module: Module
   studentTeam: StudentTeam
-  lecturerAdjustedMarkByUser: ModuleMember
+  lecturerAdjustedMarkByUser: ModuleTeachingMember
   peerEvaluationReviewed: PeerEvaluation
   PeerEvaluationReviewees(
     where: PeerEvaluationRevieweeWhereInput
@@ -1222,8 +1224,8 @@ input StudentOrderByWithRelationInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  lecturerAdjustedMarkByUser: ModuleMemberOrderByWithRelationInput
-  moduleMemberId: SortOrder
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberOrderByWithRelationInput
+  moduleTeachingMemberId: SortOrder
   peerEvaluationReviewed: PeerEvaluationOrderByWithRelationInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
 }
@@ -1268,7 +1270,7 @@ enum StudentScalarFieldEnum {
   systemCalculatedMark
   systemAdjustedMark
   lecturerAdjustedMark
-  moduleMemberId
+  moduleTeachingMemberId
 }
 
 type PeerEvaluation {
@@ -1422,7 +1424,6 @@ enum PeerEvaluationRevieweeScalarFieldEnum {
 
 input PeerEvaluationColumnWhereUniqueInput {
   id: String
-  moduleId: String
   id_moduleId: PeerEvaluationColumnIdModuleIdCompoundUniqueInput
 }
 
@@ -1951,121 +1952,121 @@ input NestedDateTimeNullableWithAggregatesFilter {
   _max: NestedDateTimeNullableFilter
 }
 
-type AggregateModuleMember {
-  _count: ModuleMemberCountAggregate
-  _min: ModuleMemberMinAggregate
-  _max: ModuleMemberMaxAggregate
+type AggregateModuleTeachingMember {
+  _count: ModuleTeachingMemberCountAggregate
+  _min: ModuleTeachingMemberMinAggregate
+  _max: ModuleTeachingMemberMaxAggregate
 }
 
-type ModuleMemberCountAggregate {
+type ModuleTeachingMemberCountAggregate {
   id: Int!
   createdAt: Int!
   updatedAt: Int!
-  permission: Int!
+  role: Int!
   moduleId: Int!
   userId: Int!
   _all: Int!
 }
 
-type ModuleMemberMinAggregate {
+type ModuleTeachingMemberMinAggregate {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
+  role: ModuleTeachingMemberRoles
   moduleId: String
   userId: String
 }
 
-type ModuleMemberMaxAggregate {
+type ModuleTeachingMemberMaxAggregate {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
+  role: ModuleTeachingMemberRoles
   moduleId: String
   userId: String
 }
 
-type ModuleMemberGroupBy {
+type ModuleTeachingMemberGroupBy {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  permission: ModuleMemberPermissions!
+  role: ModuleTeachingMemberRoles!
   moduleId: String!
   userId: String!
-  _count: ModuleMemberCountAggregate
-  _min: ModuleMemberMinAggregate
-  _max: ModuleMemberMaxAggregate
+  _count: ModuleTeachingMemberCountAggregate
+  _min: ModuleTeachingMemberMinAggregate
+  _max: ModuleTeachingMemberMaxAggregate
 }
 
-input ModuleMemberOrderByWithAggregationInput {
+input ModuleTeachingMemberOrderByWithAggregationInput {
   id: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
-  permission: SortOrder
+  role: SortOrder
   moduleId: SortOrder
   userId: SortOrder
-  _count: ModuleMemberCountOrderByAggregateInput
-  _max: ModuleMemberMaxOrderByAggregateInput
-  _min: ModuleMemberMinOrderByAggregateInput
+  _count: ModuleTeachingMemberCountOrderByAggregateInput
+  _max: ModuleTeachingMemberMaxOrderByAggregateInput
+  _min: ModuleTeachingMemberMinOrderByAggregateInput
 }
 
-input ModuleMemberCountOrderByAggregateInput {
+input ModuleTeachingMemberCountOrderByAggregateInput {
   id: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
-  permission: SortOrder
-  moduleId: SortOrder
-  userId: SortOrder
-}
-
-input ModuleMemberMaxOrderByAggregateInput {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  permission: SortOrder
+  role: SortOrder
   moduleId: SortOrder
   userId: SortOrder
 }
 
-input ModuleMemberMinOrderByAggregateInput {
+input ModuleTeachingMemberMaxOrderByAggregateInput {
   id: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
-  permission: SortOrder
+  role: SortOrder
   moduleId: SortOrder
   userId: SortOrder
 }
 
-input ModuleMemberScalarWhereWithAggregatesInput {
-  AND: [ModuleMemberScalarWhereWithAggregatesInput!]
-  OR: [ModuleMemberScalarWhereWithAggregatesInput!]
-  NOT: [ModuleMemberScalarWhereWithAggregatesInput!]
+input ModuleTeachingMemberMinOrderByAggregateInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  role: SortOrder
+  moduleId: SortOrder
+  userId: SortOrder
+}
+
+input ModuleTeachingMemberScalarWhereWithAggregatesInput {
+  AND: [ModuleTeachingMemberScalarWhereWithAggregatesInput!]
+  OR: [ModuleTeachingMemberScalarWhereWithAggregatesInput!]
+  NOT: [ModuleTeachingMemberScalarWhereWithAggregatesInput!]
   id: StringWithAggregatesFilter
   createdAt: DateTimeWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
-  permission: EnumModuleMemberPermissionsWithAggregatesFilter
+  role: EnumModuleTeachingMemberRolesWithAggregatesFilter
   moduleId: StringWithAggregatesFilter
   userId: StringWithAggregatesFilter
 }
 
-input EnumModuleMemberPermissionsWithAggregatesFilter {
-  equals: ModuleMemberPermissions
-  in: [ModuleMemberPermissions!]
-  notIn: [ModuleMemberPermissions!]
-  not: NestedEnumModuleMemberPermissionsWithAggregatesFilter
+input EnumModuleTeachingMemberRolesWithAggregatesFilter {
+  equals: ModuleTeachingMemberRoles
+  in: [ModuleTeachingMemberRoles!]
+  notIn: [ModuleTeachingMemberRoles!]
+  not: NestedEnumModuleTeachingMemberRolesWithAggregatesFilter
   _count: NestedIntFilter
-  _min: NestedEnumModuleMemberPermissionsFilter
-  _max: NestedEnumModuleMemberPermissionsFilter
+  _min: NestedEnumModuleTeachingMemberRolesFilter
+  _max: NestedEnumModuleTeachingMemberRolesFilter
 }
 
-input NestedEnumModuleMemberPermissionsWithAggregatesFilter {
-  equals: ModuleMemberPermissions
-  in: [ModuleMemberPermissions!]
-  notIn: [ModuleMemberPermissions!]
-  not: NestedEnumModuleMemberPermissionsWithAggregatesFilter
+input NestedEnumModuleTeachingMemberRolesWithAggregatesFilter {
+  equals: ModuleTeachingMemberRoles
+  in: [ModuleTeachingMemberRoles!]
+  notIn: [ModuleTeachingMemberRoles!]
+  not: NestedEnumModuleTeachingMemberRolesWithAggregatesFilter
   _count: NestedIntFilter
-  _min: NestedEnumModuleMemberPermissionsFilter
-  _max: NestedEnumModuleMemberPermissionsFilter
+  _min: NestedEnumModuleTeachingMemberRolesFilter
+  _max: NestedEnumModuleTeachingMemberRolesFilter
 }
 
 input PeerEvaluationWhereUniqueInput {
@@ -2638,7 +2639,7 @@ type StudentCountAggregate {
   systemCalculatedMark: Int!
   systemAdjustedMark: Int!
   lecturerAdjustedMark: Int!
-  moduleMemberId: Int!
+  moduleTeachingMemberId: Int!
   _all: Int!
 }
 
@@ -2670,7 +2671,7 @@ type StudentMinAggregate {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
 type StudentMaxAggregate {
@@ -2685,7 +2686,7 @@ type StudentMaxAggregate {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
 type StudentGroupBy {
@@ -2700,7 +2701,7 @@ type StudentGroupBy {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
   _count: StudentCountAggregate
   _avg: StudentAvgAggregate
   _sum: StudentSumAggregate
@@ -2720,7 +2721,7 @@ input StudentOrderByWithAggregationInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  moduleMemberId: SortOrder
+  moduleTeachingMemberId: SortOrder
   _count: StudentCountOrderByAggregateInput
   _avg: StudentAvgOrderByAggregateInput
   _max: StudentMaxOrderByAggregateInput
@@ -2740,7 +2741,7 @@ input StudentCountOrderByAggregateInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  moduleMemberId: SortOrder
+  moduleTeachingMemberId: SortOrder
 }
 
 input StudentAvgOrderByAggregateInput {
@@ -2763,7 +2764,7 @@ input StudentMaxOrderByAggregateInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  moduleMemberId: SortOrder
+  moduleTeachingMemberId: SortOrder
 }
 
 input StudentMinOrderByAggregateInput {
@@ -2778,7 +2779,7 @@ input StudentMinOrderByAggregateInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  moduleMemberId: SortOrder
+  moduleTeachingMemberId: SortOrder
 }
 
 input StudentSumOrderByAggregateInput {
@@ -2804,7 +2805,7 @@ input StudentScalarWhereWithAggregatesInput {
   systemCalculatedMark: DecimalNullableWithAggregatesFilter
   systemAdjustedMark: DecimalNullableWithAggregatesFilter
   lecturerAdjustedMark: DecimalNullableWithAggregatesFilter
-  moduleMemberId: StringNullableWithAggregatesFilter
+  moduleTeachingMemberId: StringNullableWithAggregatesFilter
 }
 
 input DecimalNullableWithAggregatesFilter {
@@ -3241,6 +3242,30 @@ input VerificationTokenScalarWhereWithAggregatesInput {
   expires: DateTimeWithAggregatesFilter
 }
 
+type ModuleExistResponse {
+  exist: Boolean
+}
+
+"""
+Module exist input
+"""
+input ModuleExistWhereInput {
+  """
+  Module code unique value
+  """
+  moduleCode: String!
+}
+
+"""
+Modules by Lecturer input
+"""
+input ModulesByLecturerWhereInput {
+  """
+  Lecturers email
+  """
+  email: String!
+}
+
 type Mutation {
   createEmail(data: EmailCreateInput!): Email!
   createManyEmail(data: [EmailCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -3256,17 +3281,26 @@ type Mutation {
   deleteManyModule(where: ModuleWhereInput): AffectedRowsOutput!
   updateManyModule(data: ModuleUpdateManyMutationInput!, where: ModuleWhereInput): AffectedRowsOutput!
   upsertModule(where: ModuleWhereUniqueInput!, create: ModuleCreateInput!, update: ModuleUpdateInput!): Module!
-  createModuleMember(data: ModuleMemberCreateInput!): ModuleMember!
-  createManyModuleMember(data: [ModuleMemberCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  deleteModuleMember(where: ModuleMemberWhereUniqueInput!): ModuleMember
-  updateModuleMember(data: ModuleMemberUpdateInput!, where: ModuleMemberWhereUniqueInput!): ModuleMember
-  deleteManyModuleMember(where: ModuleMemberWhereInput): AffectedRowsOutput!
-  updateManyModuleMember(data: ModuleMemberUpdateManyMutationInput!, where: ModuleMemberWhereInput): AffectedRowsOutput!
-  upsertModuleMember(
-    where: ModuleMemberWhereUniqueInput!
-    create: ModuleMemberCreateInput!
-    update: ModuleMemberUpdateInput!
-  ): ModuleMember!
+  createModuleTeachingMember(data: ModuleTeachingMemberCreateInput!): ModuleTeachingMember!
+  createManyModuleTeachingMember(
+    data: [ModuleTeachingMemberCreateManyInput!]!
+    skipDuplicates: Boolean
+  ): AffectedRowsOutput!
+  deleteModuleTeachingMember(where: ModuleTeachingMemberWhereUniqueInput!): ModuleTeachingMember
+  updateModuleTeachingMember(
+    data: ModuleTeachingMemberUpdateInput!
+    where: ModuleTeachingMemberWhereUniqueInput!
+  ): ModuleTeachingMember
+  deleteManyModuleTeachingMember(where: ModuleTeachingMemberWhereInput): AffectedRowsOutput!
+  updateManyModuleTeachingMember(
+    data: ModuleTeachingMemberUpdateManyMutationInput!
+    where: ModuleTeachingMemberWhereInput
+  ): AffectedRowsOutput!
+  upsertModuleTeachingMember(
+    where: ModuleTeachingMemberWhereUniqueInput!
+    create: ModuleTeachingMemberCreateInput!
+    update: ModuleTeachingMemberUpdateInput!
+  ): ModuleTeachingMember!
   createPeerEvaluation(data: PeerEvaluationCreateInput!): PeerEvaluation!
   createManyPeerEvaluation(data: [PeerEvaluationCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   deletePeerEvaluation(where: PeerEvaluationWhereUniqueInput!): PeerEvaluation
@@ -3420,7 +3454,7 @@ input ModuleCreateWithoutReminderEmailInput {
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
   schools: ModuleCreateschoolsInput
-  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutModuleInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
   students: StudentCreateNestedManyWithoutModuleInput
 }
@@ -3429,29 +3463,29 @@ input ModuleCreateschoolsInput {
   set: [Schools!]!
 }
 
-input ModuleMemberCreateNestedManyWithoutModuleInput {
-  create: [ModuleMemberCreateWithoutModuleInput!]
-  connectOrCreate: [ModuleMemberCreateOrConnectWithoutModuleInput!]
-  createMany: ModuleMemberCreateManyModuleInputEnvelope
-  connect: [ModuleMemberWhereUniqueInput!]
+input ModuleTeachingMemberCreateNestedManyWithoutModuleInput {
+  create: [ModuleTeachingMemberCreateWithoutModuleInput!]
+  connectOrCreate: [ModuleTeachingMemberCreateOrConnectWithoutModuleInput!]
+  createMany: ModuleTeachingMemberCreateManyModuleInputEnvelope
+  connect: [ModuleTeachingMemberWhereUniqueInput!]
 }
 
-input ModuleMemberCreateWithoutModuleInput {
+input ModuleTeachingMemberCreateWithoutModuleInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
-  user: UserCreateNestedOneWithoutModuleMemberInput!
+  role: ModuleTeachingMemberRoles
+  user: UserCreateNestedOneWithoutModuleTeachingMembersInput!
   studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
 }
 
-input UserCreateNestedOneWithoutModuleMemberInput {
-  create: UserCreateWithoutModuleMemberInput
-  connectOrCreate: UserCreateOrConnectWithoutModuleMemberInput
+input UserCreateNestedOneWithoutModuleTeachingMembersInput {
+  create: UserCreateWithoutModuleTeachingMembersInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleTeachingMembersInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutModuleMemberInput {
+input UserCreateWithoutModuleTeachingMembersInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -3510,7 +3544,7 @@ input StudentCreateWithoutUserInput {
   lecturerAdjustedMark: Decimal
   module: ModuleCreateNestedOneWithoutStudentsInput
   studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
@@ -3534,7 +3568,7 @@ input ModuleCreateWithoutStudentsInput {
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
   schools: ModuleCreateschoolsInput
-  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutModuleInput
   reminderEmail: EmailCreateNestedOneWithoutModuleInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
 }
@@ -3623,7 +3657,7 @@ input StudentCreateWithoutPeerEvaluationRevieweesInput {
   user: UserCreateNestedOneWithoutModuleStudentsInput
   module: ModuleCreateNestedOneWithoutStudentsInput
   studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
 }
 
@@ -3642,32 +3676,32 @@ input UserCreateWithoutModuleStudentsInput {
   role: Role
   emailVerified: DateTime
   sessions: SessionCreateNestedManyWithoutUserInput
-  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutUserInput
 }
 
-input ModuleMemberCreateNestedManyWithoutUserInput {
-  create: [ModuleMemberCreateWithoutUserInput!]
-  connectOrCreate: [ModuleMemberCreateOrConnectWithoutUserInput!]
-  createMany: ModuleMemberCreateManyUserInputEnvelope
-  connect: [ModuleMemberWhereUniqueInput!]
+input ModuleTeachingMemberCreateNestedManyWithoutUserInput {
+  create: [ModuleTeachingMemberCreateWithoutUserInput!]
+  connectOrCreate: [ModuleTeachingMemberCreateOrConnectWithoutUserInput!]
+  createMany: ModuleTeachingMemberCreateManyUserInputEnvelope
+  connect: [ModuleTeachingMemberWhereUniqueInput!]
 }
 
-input ModuleMemberCreateWithoutUserInput {
+input ModuleTeachingMemberCreateWithoutUserInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
-  module: ModuleCreateNestedOneWithoutModuleMembersInput!
+  role: ModuleTeachingMemberRoles
+  module: ModuleCreateNestedOneWithoutModuleTeachingMembersInput!
   studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
 }
 
-input ModuleCreateNestedOneWithoutModuleMembersInput {
-  create: ModuleCreateWithoutModuleMembersInput
-  connectOrCreate: ModuleCreateOrConnectWithoutModuleMembersInput
+input ModuleCreateNestedOneWithoutModuleTeachingMembersInput {
+  create: ModuleCreateWithoutModuleTeachingMembersInput
+  connectOrCreate: ModuleCreateOrConnectWithoutModuleTeachingMembersInput
   connect: ModuleWhereUniqueInput
 }
 
-input ModuleCreateWithoutModuleMembersInput {
+input ModuleCreateWithoutModuleTeachingMembersInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -3703,7 +3737,7 @@ input StudentCreateWithoutModuleInput {
   lecturerAdjustedMark: Decimal
   user: UserCreateNestedOneWithoutModuleStudentsInput
   studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
@@ -3727,24 +3761,24 @@ input StudentTeamCreateOrConnectWithoutStudentsInput {
   create: StudentTeamCreateWithoutStudentsInput!
 }
 
-input ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput {
-  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput
-  connectOrCreate: ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
-  connect: ModuleMemberWhereUniqueInput
+input ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput {
+  create: ModuleTeachingMemberCreateWithoutStudentsMarkAdjustedInput
+  connectOrCreate: ModuleTeachingMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
+  connect: ModuleTeachingMemberWhereUniqueInput
 }
 
-input ModuleMemberCreateWithoutStudentsMarkAdjustedInput {
+input ModuleTeachingMemberCreateWithoutStudentsMarkAdjustedInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
-  module: ModuleCreateNestedOneWithoutModuleMembersInput!
-  user: UserCreateNestedOneWithoutModuleMemberInput!
+  role: ModuleTeachingMemberRoles
+  module: ModuleCreateNestedOneWithoutModuleTeachingMembersInput!
+  user: UserCreateNestedOneWithoutModuleTeachingMembersInput!
 }
 
-input ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput {
-  where: ModuleMemberWhereUniqueInput!
-  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput!
+input ModuleTeachingMemberCreateOrConnectWithoutStudentsMarkAdjustedInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  create: ModuleTeachingMemberCreateWithoutStudentsMarkAdjustedInput!
 }
 
 input PeerEvaluationCreateNestedOneWithoutStudentInput {
@@ -3828,7 +3862,7 @@ input ModuleCreateWithoutColumnsInput {
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
   schools: ModuleCreateschoolsInput
-  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutModuleInput
   reminderEmail: EmailCreateNestedOneWithoutModuleInput
   students: StudentCreateNestedManyWithoutModuleInput
 }
@@ -3936,7 +3970,7 @@ input StudentCreateWithoutPeerEvaluationReviewedInput {
   user: UserCreateNestedOneWithoutModuleStudentsInput
   module: ModuleCreateNestedOneWithoutStudentsInput
   studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
@@ -3990,12 +4024,12 @@ input StudentCreateManyModuleInput {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
-input ModuleCreateOrConnectWithoutModuleMembersInput {
+input ModuleCreateOrConnectWithoutModuleTeachingMembersInput {
   where: ModuleWhereUniqueInput!
-  create: ModuleCreateWithoutModuleMembersInput!
+  create: ModuleCreateWithoutModuleTeachingMembersInput!
 }
 
 input StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput {
@@ -4045,21 +4079,21 @@ input StudentCreateManyLecturerAdjustedMarkByUserInput {
   lecturerAdjustedMark: Decimal
 }
 
-input ModuleMemberCreateOrConnectWithoutUserInput {
-  where: ModuleMemberWhereUniqueInput!
-  create: ModuleMemberCreateWithoutUserInput!
+input ModuleTeachingMemberCreateOrConnectWithoutUserInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  create: ModuleTeachingMemberCreateWithoutUserInput!
 }
 
-input ModuleMemberCreateManyUserInputEnvelope {
-  data: [ModuleMemberCreateManyUserInput!]!
+input ModuleTeachingMemberCreateManyUserInputEnvelope {
+  data: [ModuleTeachingMemberCreateManyUserInput!]!
   skipDuplicates: Boolean
 }
 
-input ModuleMemberCreateManyUserInput {
+input ModuleTeachingMemberCreateManyUserInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
+  role: ModuleTeachingMemberRoles
   moduleId: String!
 }
 
@@ -4140,29 +4174,29 @@ input StudentCreateManyUserInput {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
-input UserCreateOrConnectWithoutModuleMemberInput {
+input UserCreateOrConnectWithoutModuleTeachingMembersInput {
   where: UserWhereUniqueInput!
-  create: UserCreateWithoutModuleMemberInput!
+  create: UserCreateWithoutModuleTeachingMembersInput!
 }
 
-input ModuleMemberCreateOrConnectWithoutModuleInput {
-  where: ModuleMemberWhereUniqueInput!
-  create: ModuleMemberCreateWithoutModuleInput!
+input ModuleTeachingMemberCreateOrConnectWithoutModuleInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  create: ModuleTeachingMemberCreateWithoutModuleInput!
 }
 
-input ModuleMemberCreateManyModuleInputEnvelope {
-  data: [ModuleMemberCreateManyModuleInput!]!
+input ModuleTeachingMemberCreateManyModuleInputEnvelope {
+  data: [ModuleTeachingMemberCreateManyModuleInput!]!
   skipDuplicates: Boolean
 }
 
-input ModuleMemberCreateManyModuleInput {
+input ModuleTeachingMemberCreateManyModuleInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
+  role: ModuleTeachingMemberRoles
   userId: String!
 }
 
@@ -4229,7 +4263,7 @@ input ModuleUpdateWithoutReminderEmailInput {
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
   schools: ModuleUpdateschoolsInput
-  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutModuleInput
   columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
   students: StudentUpdateManyWithoutModuleInput
 }
@@ -4255,53 +4289,53 @@ input ModuleUpdateschoolsInput {
   push: [Schools!]
 }
 
-input ModuleMemberUpdateManyWithoutModuleInput {
-  create: [ModuleMemberCreateWithoutModuleInput!]
-  connectOrCreate: [ModuleMemberCreateOrConnectWithoutModuleInput!]
-  upsert: [ModuleMemberUpsertWithWhereUniqueWithoutModuleInput!]
-  createMany: ModuleMemberCreateManyModuleInputEnvelope
-  set: [ModuleMemberWhereUniqueInput!]
-  disconnect: [ModuleMemberWhereUniqueInput!]
-  delete: [ModuleMemberWhereUniqueInput!]
-  connect: [ModuleMemberWhereUniqueInput!]
-  update: [ModuleMemberUpdateWithWhereUniqueWithoutModuleInput!]
-  updateMany: [ModuleMemberUpdateManyWithWhereWithoutModuleInput!]
-  deleteMany: [ModuleMemberScalarWhereInput!]
+input ModuleTeachingMemberUpdateManyWithoutModuleInput {
+  create: [ModuleTeachingMemberCreateWithoutModuleInput!]
+  connectOrCreate: [ModuleTeachingMemberCreateOrConnectWithoutModuleInput!]
+  upsert: [ModuleTeachingMemberUpsertWithWhereUniqueWithoutModuleInput!]
+  createMany: ModuleTeachingMemberCreateManyModuleInputEnvelope
+  set: [ModuleTeachingMemberWhereUniqueInput!]
+  disconnect: [ModuleTeachingMemberWhereUniqueInput!]
+  delete: [ModuleTeachingMemberWhereUniqueInput!]
+  connect: [ModuleTeachingMemberWhereUniqueInput!]
+  update: [ModuleTeachingMemberUpdateWithWhereUniqueWithoutModuleInput!]
+  updateMany: [ModuleTeachingMemberUpdateManyWithWhereWithoutModuleInput!]
+  deleteMany: [ModuleTeachingMemberScalarWhereInput!]
 }
 
-input ModuleMemberUpsertWithWhereUniqueWithoutModuleInput {
-  where: ModuleMemberWhereUniqueInput!
-  update: ModuleMemberUpdateWithoutModuleInput!
-  create: ModuleMemberCreateWithoutModuleInput!
+input ModuleTeachingMemberUpsertWithWhereUniqueWithoutModuleInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  update: ModuleTeachingMemberUpdateWithoutModuleInput!
+  create: ModuleTeachingMemberCreateWithoutModuleInput!
 }
 
-input ModuleMemberUpdateWithoutModuleInput {
+input ModuleTeachingMemberUpdateWithoutModuleInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
-  user: UserUpdateOneRequiredWithoutModuleMemberInput
+  role: EnumModuleTeachingMemberRolesFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutModuleTeachingMembersInput
   studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
 }
 
-input EnumModuleMemberPermissionsFieldUpdateOperationsInput {
-  set: ModuleMemberPermissions
+input EnumModuleTeachingMemberRolesFieldUpdateOperationsInput {
+  set: ModuleTeachingMemberRoles
 }
 
-input UserUpdateOneRequiredWithoutModuleMemberInput {
-  create: UserCreateWithoutModuleMemberInput
-  connectOrCreate: UserCreateOrConnectWithoutModuleMemberInput
-  upsert: UserUpsertWithoutModuleMemberInput
+input UserUpdateOneRequiredWithoutModuleTeachingMembersInput {
+  create: UserCreateWithoutModuleTeachingMembersInput
+  connectOrCreate: UserCreateOrConnectWithoutModuleTeachingMembersInput
+  upsert: UserUpsertWithoutModuleTeachingMembersInput
   connect: UserWhereUniqueInput
-  update: UserUpdateWithoutModuleMemberInput
+  update: UserUpdateWithoutModuleTeachingMembersInput
 }
 
-input UserUpsertWithoutModuleMemberInput {
-  update: UserUpdateWithoutModuleMemberInput!
-  create: UserCreateWithoutModuleMemberInput!
+input UserUpsertWithoutModuleTeachingMembersInput {
+  update: UserUpdateWithoutModuleTeachingMembersInput!
+  create: UserCreateWithoutModuleTeachingMembersInput!
 }
 
-input UserUpdateWithoutModuleMemberInput {
+input UserUpdateWithoutModuleTeachingMembersInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -4400,7 +4434,7 @@ input StudentUpdateWithoutUserInput {
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   module: ModuleUpdateOneWithoutStudentsInput
   studentTeam: StudentTeamUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
@@ -4441,7 +4475,7 @@ input ModuleUpdateWithoutStudentsInput {
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
   schools: ModuleUpdateschoolsInput
-  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutModuleInput
   reminderEmail: EmailUpdateOneWithoutModuleInput
   columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
 }
@@ -4578,7 +4612,7 @@ input StudentUpdateWithoutPeerEvaluationRevieweesInput {
   user: UserUpdateOneWithoutModuleStudentsInput
   module: ModuleUpdateOneWithoutStudentsInput
   studentTeam: StudentTeamUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
 }
 
@@ -4606,52 +4640,52 @@ input UserUpdateWithoutModuleStudentsInput {
   role: EnumRoleFieldUpdateOperationsInput
   emailVerified: NullableDateTimeFieldUpdateOperationsInput
   sessions: SessionUpdateManyWithoutUserInput
-  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutUserInput
 }
 
-input ModuleMemberUpdateManyWithoutUserInput {
-  create: [ModuleMemberCreateWithoutUserInput!]
-  connectOrCreate: [ModuleMemberCreateOrConnectWithoutUserInput!]
-  upsert: [ModuleMemberUpsertWithWhereUniqueWithoutUserInput!]
-  createMany: ModuleMemberCreateManyUserInputEnvelope
-  set: [ModuleMemberWhereUniqueInput!]
-  disconnect: [ModuleMemberWhereUniqueInput!]
-  delete: [ModuleMemberWhereUniqueInput!]
-  connect: [ModuleMemberWhereUniqueInput!]
-  update: [ModuleMemberUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [ModuleMemberUpdateManyWithWhereWithoutUserInput!]
-  deleteMany: [ModuleMemberScalarWhereInput!]
+input ModuleTeachingMemberUpdateManyWithoutUserInput {
+  create: [ModuleTeachingMemberCreateWithoutUserInput!]
+  connectOrCreate: [ModuleTeachingMemberCreateOrConnectWithoutUserInput!]
+  upsert: [ModuleTeachingMemberUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: ModuleTeachingMemberCreateManyUserInputEnvelope
+  set: [ModuleTeachingMemberWhereUniqueInput!]
+  disconnect: [ModuleTeachingMemberWhereUniqueInput!]
+  delete: [ModuleTeachingMemberWhereUniqueInput!]
+  connect: [ModuleTeachingMemberWhereUniqueInput!]
+  update: [ModuleTeachingMemberUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ModuleTeachingMemberUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [ModuleTeachingMemberScalarWhereInput!]
 }
 
-input ModuleMemberUpsertWithWhereUniqueWithoutUserInput {
-  where: ModuleMemberWhereUniqueInput!
-  update: ModuleMemberUpdateWithoutUserInput!
-  create: ModuleMemberCreateWithoutUserInput!
+input ModuleTeachingMemberUpsertWithWhereUniqueWithoutUserInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  update: ModuleTeachingMemberUpdateWithoutUserInput!
+  create: ModuleTeachingMemberCreateWithoutUserInput!
 }
 
-input ModuleMemberUpdateWithoutUserInput {
+input ModuleTeachingMemberUpdateWithoutUserInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
+  role: EnumModuleTeachingMemberRolesFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleTeachingMembersInput
   studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
 }
 
-input ModuleUpdateOneRequiredWithoutModuleMembersInput {
-  create: ModuleCreateWithoutModuleMembersInput
-  connectOrCreate: ModuleCreateOrConnectWithoutModuleMembersInput
-  upsert: ModuleUpsertWithoutModuleMembersInput
+input ModuleUpdateOneRequiredWithoutModuleTeachingMembersInput {
+  create: ModuleCreateWithoutModuleTeachingMembersInput
+  connectOrCreate: ModuleCreateOrConnectWithoutModuleTeachingMembersInput
+  upsert: ModuleUpsertWithoutModuleTeachingMembersInput
   connect: ModuleWhereUniqueInput
-  update: ModuleUpdateWithoutModuleMembersInput
+  update: ModuleUpdateWithoutModuleTeachingMembersInput
 }
 
-input ModuleUpsertWithoutModuleMembersInput {
-  update: ModuleUpdateWithoutModuleMembersInput!
-  create: ModuleCreateWithoutModuleMembersInput!
+input ModuleUpsertWithoutModuleTeachingMembersInput {
+  update: ModuleUpdateWithoutModuleTeachingMembersInput!
+  create: ModuleCreateWithoutModuleTeachingMembersInput!
 }
 
-input ModuleUpdateWithoutModuleMembersInput {
+input ModuleUpdateWithoutModuleTeachingMembersInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -4700,7 +4734,7 @@ input StudentUpdateWithoutModuleInput {
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   user: UserUpdateOneWithoutModuleStudentsInput
   studentTeam: StudentTeamUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
@@ -4736,28 +4770,28 @@ input DecimalFieldUpdateOperationsInput {
   divide: Decimal
 }
 
-input ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput {
-  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput
-  connectOrCreate: ModuleMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
-  upsert: ModuleMemberUpsertWithoutStudentsMarkAdjustedInput
+input ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput {
+  create: ModuleTeachingMemberCreateWithoutStudentsMarkAdjustedInput
+  connectOrCreate: ModuleTeachingMemberCreateOrConnectWithoutStudentsMarkAdjustedInput
+  upsert: ModuleTeachingMemberUpsertWithoutStudentsMarkAdjustedInput
   disconnect: Boolean
   delete: Boolean
-  connect: ModuleMemberWhereUniqueInput
-  update: ModuleMemberUpdateWithoutStudentsMarkAdjustedInput
+  connect: ModuleTeachingMemberWhereUniqueInput
+  update: ModuleTeachingMemberUpdateWithoutStudentsMarkAdjustedInput
 }
 
-input ModuleMemberUpsertWithoutStudentsMarkAdjustedInput {
-  update: ModuleMemberUpdateWithoutStudentsMarkAdjustedInput!
-  create: ModuleMemberCreateWithoutStudentsMarkAdjustedInput!
+input ModuleTeachingMemberUpsertWithoutStudentsMarkAdjustedInput {
+  update: ModuleTeachingMemberUpdateWithoutStudentsMarkAdjustedInput!
+  create: ModuleTeachingMemberCreateWithoutStudentsMarkAdjustedInput!
 }
 
-input ModuleMemberUpdateWithoutStudentsMarkAdjustedInput {
+input ModuleTeachingMemberUpdateWithoutStudentsMarkAdjustedInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
-  user: UserUpdateOneRequiredWithoutModuleMemberInput
+  role: EnumModuleTeachingMemberRolesFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleTeachingMembersInput
+  user: UserUpdateOneRequiredWithoutModuleTeachingMembersInput
 }
 
 input PeerEvaluationUpdateOneWithoutStudentInput {
@@ -4890,7 +4924,7 @@ input ModuleUpdateWithoutColumnsInput {
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
   schools: ModuleUpdateschoolsInput
-  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutModuleInput
   reminderEmail: EmailUpdateOneWithoutModuleInput
   students: StudentUpdateManyWithoutModuleInput
 }
@@ -5036,7 +5070,7 @@ input StudentUpdateWithoutPeerEvaluationReviewedInput {
   user: UserUpdateOneWithoutModuleStudentsInput
   module: ModuleUpdateOneWithoutStudentsInput
   studentTeam: StudentTeamUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
@@ -5075,7 +5109,7 @@ input StudentScalarWhereInput {
   systemCalculatedMark: DecimalNullableFilter
   systemAdjustedMark: DecimalNullableFilter
   lecturerAdjustedMark: DecimalNullableFilter
-  moduleMemberId: StringNullableFilter
+  moduleTeachingMemberId: StringNullableFilter
 }
 
 input StudentUpdateManyMutationInput {
@@ -5135,33 +5169,33 @@ input StudentUpdateManyWithWhereWithoutLecturerAdjustedMarkByUserInput {
   data: StudentUpdateManyMutationInput!
 }
 
-input ModuleMemberUpdateWithWhereUniqueWithoutUserInput {
-  where: ModuleMemberWhereUniqueInput!
-  data: ModuleMemberUpdateWithoutUserInput!
+input ModuleTeachingMemberUpdateWithWhereUniqueWithoutUserInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  data: ModuleTeachingMemberUpdateWithoutUserInput!
 }
 
-input ModuleMemberUpdateManyWithWhereWithoutUserInput {
-  where: ModuleMemberScalarWhereInput!
-  data: ModuleMemberUpdateManyMutationInput!
+input ModuleTeachingMemberUpdateManyWithWhereWithoutUserInput {
+  where: ModuleTeachingMemberScalarWhereInput!
+  data: ModuleTeachingMemberUpdateManyMutationInput!
 }
 
-input ModuleMemberScalarWhereInput {
-  AND: [ModuleMemberScalarWhereInput!]
-  OR: [ModuleMemberScalarWhereInput!]
-  NOT: [ModuleMemberScalarWhereInput!]
+input ModuleTeachingMemberScalarWhereInput {
+  AND: [ModuleTeachingMemberScalarWhereInput!]
+  OR: [ModuleTeachingMemberScalarWhereInput!]
+  NOT: [ModuleTeachingMemberScalarWhereInput!]
   id: StringFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
-  permission: EnumModuleMemberPermissionsFilter
+  role: EnumModuleTeachingMemberRolesFilter
   moduleId: StringFilter
   userId: StringFilter
 }
 
-input ModuleMemberUpdateManyMutationInput {
+input ModuleTeachingMemberUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
+  role: EnumModuleTeachingMemberRolesFieldUpdateOperationsInput
 }
 
 input PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationColumnInput {
@@ -5212,14 +5246,14 @@ input StudentUpdateManyWithWhereWithoutUserInput {
   data: StudentUpdateManyMutationInput!
 }
 
-input ModuleMemberUpdateWithWhereUniqueWithoutModuleInput {
-  where: ModuleMemberWhereUniqueInput!
-  data: ModuleMemberUpdateWithoutModuleInput!
+input ModuleTeachingMemberUpdateWithWhereUniqueWithoutModuleInput {
+  where: ModuleTeachingMemberWhereUniqueInput!
+  data: ModuleTeachingMemberUpdateWithoutModuleInput!
 }
 
-input ModuleMemberUpdateManyWithWhereWithoutModuleInput {
-  where: ModuleMemberScalarWhereInput!
-  data: ModuleMemberUpdateManyMutationInput!
+input ModuleTeachingMemberUpdateManyWithWhereWithoutModuleInput {
+  where: ModuleTeachingMemberScalarWhereInput!
+  data: ModuleTeachingMemberUpdateManyMutationInput!
 }
 
 input EmailUpdateManyMutationInput {
@@ -5243,7 +5277,7 @@ input ModuleCreateInput {
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
   schools: ModuleCreateschoolsInput
-  moduleMembers: ModuleMemberCreateNestedManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutModuleInput
   reminderEmail: EmailCreateNestedOneWithoutModuleInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutModuleInput
   students: StudentCreateNestedManyWithoutModuleInput
@@ -5281,7 +5315,7 @@ input ModuleUpdateInput {
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
   schools: ModuleUpdateschoolsInput
-  moduleMembers: ModuleMemberUpdateManyWithoutModuleInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutModuleInput
   reminderEmail: EmailUpdateOneWithoutModuleInput
   columns: PeerEvaluationColumnUpdateManyWithoutModuleInput
   students: StudentUpdateManyWithoutModuleInput
@@ -5302,32 +5336,32 @@ input ModuleUpdateManyMutationInput {
   schools: ModuleUpdateschoolsInput
 }
 
-input ModuleMemberCreateInput {
+input ModuleTeachingMemberCreateInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
-  module: ModuleCreateNestedOneWithoutModuleMembersInput!
-  user: UserCreateNestedOneWithoutModuleMemberInput!
+  role: ModuleTeachingMemberRoles
+  module: ModuleCreateNestedOneWithoutModuleTeachingMembersInput!
+  user: UserCreateNestedOneWithoutModuleTeachingMembersInput!
   studentsMarkAdjusted: StudentCreateNestedManyWithoutLecturerAdjustedMarkByUserInput
 }
 
-input ModuleMemberCreateManyInput {
+input ModuleTeachingMemberCreateManyInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  permission: ModuleMemberPermissions
+  role: ModuleTeachingMemberRoles
   moduleId: String!
   userId: String!
 }
 
-input ModuleMemberUpdateInput {
+input ModuleTeachingMemberUpdateInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  permission: EnumModuleMemberPermissionsFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutModuleMembersInput
-  user: UserUpdateOneRequiredWithoutModuleMemberInput
+  role: EnumModuleTeachingMemberRolesFieldUpdateOperationsInput
+  module: ModuleUpdateOneRequiredWithoutModuleTeachingMembersInput
+  user: UserUpdateOneRequiredWithoutModuleTeachingMembersInput
   studentsMarkAdjusted: StudentUpdateManyWithoutLecturerAdjustedMarkByUserInput
 }
 
@@ -5477,7 +5511,7 @@ input UserCreateWithoutSessionsInput {
   email: String!
   role: Role
   emailVerified: DateTime
-  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutUserInput
   moduleStudents: StudentCreateNestedManyWithoutUserInput
 }
 
@@ -5521,7 +5555,7 @@ input UserUpdateWithoutSessionsInput {
   email: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   emailVerified: NullableDateTimeFieldUpdateOperationsInput
-  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutUserInput
   moduleStudents: StudentUpdateManyWithoutUserInput
 }
 
@@ -5537,7 +5571,7 @@ input StudentCreateInput {
   user: UserCreateNestedOneWithoutModuleStudentsInput
   module: ModuleCreateNestedOneWithoutStudentsInput
   studentTeam: StudentTeamCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
@@ -5554,7 +5588,7 @@ input StudentCreateManyInput {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
 input StudentUpdateInput {
@@ -5569,7 +5603,7 @@ input StudentUpdateInput {
   user: UserUpdateOneWithoutModuleStudentsInput
   module: ModuleUpdateOneWithoutStudentsInput
   studentTeam: StudentTeamUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
@@ -5601,7 +5635,7 @@ input StudentCreateWithoutStudentTeamInput {
   lecturerAdjustedMark: Decimal
   user: UserCreateNestedOneWithoutModuleStudentsInput
   module: ModuleCreateNestedOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberCreateNestedOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationCreateNestedOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
@@ -5627,7 +5661,7 @@ input StudentCreateManyStudentTeamInput {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  moduleMemberId: String
+  moduleTeachingMemberId: String
 }
 
 input StudentTeamCreateManyInput {
@@ -5678,7 +5712,7 @@ input StudentUpdateWithoutStudentTeamInput {
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   user: UserUpdateOneWithoutModuleStudentsInput
   module: ModuleUpdateOneWithoutStudentsInput
-  lecturerAdjustedMarkByUser: ModuleMemberUpdateOneWithoutStudentsMarkAdjustedInput
+  lecturerAdjustedMarkByUser: ModuleTeachingMemberUpdateOneWithoutStudentsMarkAdjustedInput
   peerEvaluationReviewed: PeerEvaluationUpdateOneWithoutStudentInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
@@ -5710,7 +5744,7 @@ input UserCreateInput {
   role: Role
   emailVerified: DateTime
   sessions: SessionCreateNestedManyWithoutUserInput
-  moduleMember: ModuleMemberCreateNestedManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberCreateNestedManyWithoutUserInput
   moduleStudents: StudentCreateNestedManyWithoutUserInput
 }
 
@@ -5733,7 +5767,7 @@ input UserUpdateInput {
   role: EnumRoleFieldUpdateOperationsInput
   emailVerified: NullableDateTimeFieldUpdateOperationsInput
   sessions: SessionUpdateManyWithoutUserInput
-  moduleMember: ModuleMemberUpdateManyWithoutUserInput
+  moduleTeachingMembers: ModuleTeachingMemberUpdateManyWithoutUserInput
   moduleStudents: StudentUpdateManyWithoutUserInput
 }
 

@@ -1,6 +1,8 @@
 import { array, date, mixed, number, object, ref, string } from "yup";
 
-import { ModuleMemberPermissions, ModuleStatus, Schools } from "@/types/module";
+import client from "@/graphql/client";
+import moduleExist from "@/requests/direct/query/moduleExist";
+import { ModuleStatus, ModuleTeachingMemberRoles, Schools } from "@/types/module";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
@@ -9,7 +11,7 @@ const userEmailValidator = {
   email: string()
     .default(content.userEmail.defaultValue)
     .email(content.userEmail.invalid)
-    .matches(content.userEmail.regex, content.userEmail.invalidDomain)
+    .matches(content.userEmail.regex, content.userEmail.invalidDomainRegex)
     .required(content.userEmail.required),
 };
 
@@ -20,7 +22,11 @@ const userNameValidator = {
     .required(content.userName.required),
 };
 
-const moduleMemberNameValidator = {
+const moduleTeachingMemberNameValidator = {
+  name: string(),
+};
+
+const moduleTeachingMemberIdValidator = {
   name: string(),
 };
 
@@ -41,7 +47,26 @@ const moduleCodeValidator = {
   moduleCode: string()
     .min(2, content.moduleCode.minLength)
     .max(70, content.moduleCode.maxLength)
-    .required(content.moduleCode.required),
+    .required(content.moduleCode.required)
+    .matches(content.moduleCode.regex, {
+      message: content.moduleCode.messageRegex,
+    })
+    .test({
+      name: "unique-module-code",
+      message: content.moduleCode.unique,
+      test: async (values) => {
+        if (values) {
+          const { data } = await moduleExist(client, values);
+          return !!!data.moduleExist.exist;
+        }
+
+        // If backend is not or has not responded, the validation should return false as the input will be invalid
+        return false;
+      },
+    })
+    .transform((value) => {
+      return value && value.toUpperCase();
+    }),
 };
 
 const moduleSchoolValidator = {
@@ -94,18 +119,18 @@ const moduleCriteriaScoreRangeMaxValidator = {
 };
 
 const moduleEmailTitleValidator = {
-  reminderEmailTitle: string()
-    .matches(content.reminderEmailTitle.matchModuleCodeRegex, {
-      message: content.reminderEmailTitle.matchModuleCode,
+  emailTitleReminder: string()
+    .matches(content.emailTitleReminder.matchModuleCodeRegex, {
+      message: content.emailTitleReminder.matchModuleCode,
     })
-    .min(2, content.reminderEmailTitle.minLength)
-    .max(70, content.reminderEmailTitle.maxLength)
-    .required(content.reminderEmailTitle.required),
+    .min(2, content.emailTitleReminder.minLength)
+    .max(70, content.emailTitleReminder.maxLength)
+    .required(content.emailTitleReminder.required),
 };
 
 const moduleEmailBodyValidator = {
-  reminderEmailBody: string().matches(content.reminderEmailBody.matchUrlRegex, {
-    message: content.reminderEmailBody.matchUrl,
+  emailBodyReminder: string().matches(content.emailBodyReminder.matchUrlRegex, {
+    message: content.emailBodyReminder.matchUrl,
   }),
 };
 
@@ -116,25 +141,29 @@ const moduleColumnValidator = {
     .required(content.column.required),
 };
 
+const moduleColumnIdValidator = {
+  description: string(),
+};
+
 const moduleColumnsValidator = {
   columns: array().min(1, content.columns.minLength),
 };
 
-const moduleMembersValidator = {
-  moduleMembers: array()
+const moduleTeachingMembersValidator = {
+  moduleTeachingMembers: array()
     .of(
       object().shape({
-        permission: string(),
+        role: string(),
       })
     )
     .test({
-      name: "one-owner",
-      message: content.moduleMembers.minLength,
+      name: "one-owner-teaching-module-member",
+      message: content.moduleTeachingMembers.minLength,
       test: (values) => {
-        const isOwnerPermission = (currentValue: string) => currentValue === "OWNER";
+        const isOwnerRole = (currentValue: string) => currentValue === "OWNER";
 
         if (values && values.length) {
-          return values.some(({ permission }) => isOwnerPermission(permission || ""));
+          return values.some(({ role }) => isOwnerRole(role || ""));
         }
 
         return false;
@@ -142,14 +171,15 @@ const moduleMembersValidator = {
     }),
 };
 
-const moduleMemberPermissionValidator = {
-  permission: mixed()
-    .oneOf([...Object.keys(ModuleMemberPermissions)], content.moduleMemberPermission.oneOf)
-    .required(content.moduleMemberPermission.required),
+const moduleTeachingMemberRoleValidator = {
+  role: mixed()
+    .oneOf([...Object.keys(ModuleTeachingMemberRoles)], content.moduleTeachingMemberRole.oneOf)
+    .required(content.moduleTeachingMemberRole.required),
 };
 
 export {
   moduleCodeValidator,
+  moduleColumnIdValidator,
   moduleColumnsValidator,
   moduleColumnValidator,
   moduleCriteriaScoreRangeMaxValidator,
@@ -158,12 +188,13 @@ export {
   moduleEmailTitleValidator,
   moduleMaxGradeDecreaseValidator,
   moduleMaxGradeIncreaseValidator,
-  moduleMemberNameValidator,
-  moduleMemberPermissionValidator,
-  moduleMembersValidator,
   moduleSchoolValidator,
   moduleStatusValidator,
   moduleSubmissionsLockDateValidator,
+  moduleTeachingMemberIdValidator,
+  moduleTeachingMemberNameValidator,
+  moduleTeachingMemberRoleValidator,
+  moduleTeachingMembersValidator,
   moduleTitleValidator,
   userEmailValidator,
   userNameValidator,

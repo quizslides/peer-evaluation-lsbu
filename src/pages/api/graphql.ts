@@ -18,7 +18,7 @@ const config: PageConfig = {
 };
 
 prisma.$use(async (params, next) => {
-  if (params.model === "User") {
+  if (params.model === "User" && (params.action === "createMany" || params.action === "create")) {
     await welcomeUserEmailHook(params);
   }
 

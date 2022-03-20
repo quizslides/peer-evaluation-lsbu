@@ -1,31 +1,35 @@
 import CreateColumnForm from "@/containers/CreateColumnForm";
-import CreateModuleMemberForm from "@/containers/CreateModuleMemberForm";
+import CreateModuleTeachingMemberForm from "@/containers/CreateModuleTeachingMemberForm";
 import CreateUserForm from "@/containers/CreateUserForm";
 import ErrorContainer from "@/containers/ErrorContainer";
 import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
+import ModulesDataTable from "@/containers/ModulesDataTable";
 import Navigation from "@/containers/Navigation";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdateColumnForm from "@/containers/UpdateColumnForm";
-import UpdateModuleMemberForm from "@/containers/UpdateModuleMemberForm/UpdateModuleMemberForm";
-import UpdateUserForm from "@/containers/UpdateUserForm/";
+import UpdateModuleForm from "@/containers/UpdateModuleForm";
+import UpdateModuleTeachingMemberForm from "@/containers/UpdateModuleTeachingMemberForm";
+import UpdateUserForm from "@/containers/UpdateUserForm";
 
 export {
   CreateColumnForm,
-  CreateModuleMemberForm,
+  CreateModuleTeachingMemberForm,
   CreateUserForm,
   ErrorContainer,
   HomePage,
   Layout,
   LoadingContainer,
+  ModulesDataTable,
   Navigation,
   PeerEvaluationColumnManagement,
   SignInWrapper,
   UnauthorizedContainer,
   UpdateColumnForm,
-  UpdateModuleMemberForm,
+  UpdateModuleForm,
+  UpdateModuleTeachingMemberForm,
   UpdateUserForm,
 };

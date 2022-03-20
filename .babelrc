@@ -1,4 +1,14 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["istanbul"]
+  "plugins": [
+    "istanbul",
+    "babel-plugin-transform-typescript-metadata",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    ["@babel/plugin-proposal-class-properties"]
+  ]
 }

@@ -58,6 +58,7 @@ const GROUP_BY_USER = gql`
 const GET_LECTURER_USERS = gql`
   query Users($where: UserWhereInput) {
     users(where: $where) {
+      id
       name
       email
       role

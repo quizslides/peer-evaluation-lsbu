@@ -11,7 +11,16 @@ import { NextRouter } from "next/router";
 import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem, { IMenuItem } from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import MenuSingleItems from "@/containers/MenuSingleItems";
-import { AddIcon, GridViewIcon, GroupIcon, LoginIcon, LogoutIcon, VideogameAssetIcon, ViewModuleIcon } from "@/icons";
+import {
+  AddIcon,
+  GridViewIcon,
+  GroupIcon,
+  ListIcon,
+  LoginIcon,
+  LogoutIcon,
+  VideogameAssetIcon,
+  ViewModuleIcon,
+} from "@/icons";
 import routing from "@/routing";
 import { RoleScope } from "@/utils";
 
@@ -28,14 +37,6 @@ interface IMenuItemList {
 }
 
 const menuExpandableItems: IMenuItemList = {
-  account: {
-    scope: [RoleScope.AUTHENTICATED],
-    menuTitle: "Your Account",
-    menuDescription: "Manage your account",
-    menuItemList: [
-      { icon: <LogoutIcon testId={"menu-expandable-account"} />, label: "Sign out", pathname: routing.auth.signOut },
-    ],
-  },
   admin: {
     scope: [RoleScope.ADMIN],
     menuTitle: "Administrator",
@@ -55,20 +56,17 @@ const menuExpandableItems: IMenuItemList = {
     menuDescription: "Modules menu",
     menuItemList: [
       {
+        icon: <ListIcon testId={"menu-expandable-modules-list"} />,
+        label: "List modules",
+        pathname: routing.modules.list,
+      },
+      {
         icon: <AddIcon testId={"menu-expandable-modules-add"} />,
         label: "Create module",
-        pathname: routing.module.create,
+        pathname: routing.modules.create,
       },
     ],
   },
-  // sharedModules: {
-  //   scope: [RoleScope.ADMIN, RoleScope.LECTURER],
-  //   menuTitle: "Shared Modules",
-  //   menuDescription: "List of shared modules with me",
-  //   menuItemList: [
-  //     { icon: <People testId={"menu-expandable-user-shared-modules"} />, label: "sharedModules1", pathname: "/" },
-  //   ],
-  // },
 };
 
 const menuTopItems = [

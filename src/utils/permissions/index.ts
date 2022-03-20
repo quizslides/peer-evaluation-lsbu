@@ -12,23 +12,41 @@ export enum Role {
   STUDENT = "STUDENT",
 }
 
+type TRoleScope = RoleScope | RoleScope[] | undefined;
+
+type TRoleScopeDefined = RoleScope | RoleScope[];
+
 export interface IRoleScope {
-  scope: RoleScope[] | undefined;
+  scope: TRoleScope;
 }
 
-const isRoleAuthenticated = (scope: RoleScope[], role: RoleScope | undefined) => {
-  return role && scope[0] === RoleScope.AUTHENTICATED;
+const isRoleAuthenticated = (scope: TRoleScopeDefined, role: RoleScope | undefined) => {
+  const isScopeAuthorized = isScopeAuthorizedByRoles(scope, RoleScope.AUTHENTICATED);
+
+  return role && isScopeAuthorized;
 };
 
-const isUserUnauthenticated = (scope: RoleScope[], role: RoleScope | undefined) => {
-  return !role && scope[0] === RoleScope.UNAUTHENTICATED;
+const isUserUnauthenticated = (scope: TRoleScopeDefined, role: RoleScope | undefined) => {
+  const isScopeAuthorized = isScopeAuthorizedByRoles(scope, RoleScope.UNAUTHENTICATED);
+
+  return !role && isScopeAuthorized;
 };
 
-const isRoleScopeAuthorized = (scope: RoleScope[], role: RoleScope | undefined) => {
-  return role && scope.includes(role);
+const isRoleScopeAuthorized = (scope: TRoleScopeDefined, role: RoleScope | undefined) => {
+  if (!role) {
+    return false;
+  }
+
+  const isScopeAuthorized = isScopeAuthorizedByRoles(scope, role);
+
+  return isScopeAuthorized || (role === RoleScope.ADMIN && !scope.includes(RoleScope.UNAUTHENTICATED));
 };
 
-export const isScopeAuthorized = (scope: RoleScope[] | undefined, role: RoleScope | undefined): boolean => {
+const isScopeAuthorizedByRoles = (scope: TRoleScopeDefined, role: RoleScope) => {
+  return typeof scope === "string" ? scope === role : scope.includes(role);
+};
+
+export const isScopeAuthorized = (scope: TRoleScope, role: RoleScope | undefined): boolean => {
   if (
     !scope ||
     isRoleAuthenticated(scope, role) ||

@@ -53,7 +53,7 @@ enum BulkUserAction {
   CREATE = "CREATE",
 }
 
-const Users: NextPage = () => {
+const UsersAdmin: NextPage = () => {
   const { data: session } = useSession();
 
   const apolloClient = useApolloClient();
@@ -344,7 +344,7 @@ const Users: NextPage = () => {
     },
   ];
 
-  const columnsOrder = ["name", "email", "role", "status"];
+  const userDataTableColumnsOrder = ["name", "email", "role", "status"];
 
   const createNewUser = () => {
     setUserValuesForm(initialUserState);
@@ -352,7 +352,7 @@ const Users: NextPage = () => {
   };
 
   const getUsersObject = (values: string[]) => {
-    return columnsOrder.reduce((obj, column, index) => {
+    return userDataTableColumnsOrder.reduce((obj, column, index) => {
       return { ...obj, [column]: values[index] };
     }, {}) as IUserData;
   };
@@ -633,4 +633,4 @@ export const getStaticProps = () => {
   };
 };
 
-export default Users;
+export default UsersAdmin;
