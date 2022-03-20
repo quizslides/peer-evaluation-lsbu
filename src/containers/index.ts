@@ -5,6 +5,7 @@ import ErrorContainer from "@/containers/ErrorContainer";
 import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
+import ModulesDataTable from "@/containers/ModulesDataTable";
 import Navigation from "@/containers/Navigation";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import SignInWrapper from "@/containers/SignInWrapper";
@@ -22,6 +23,7 @@ export {
   HomePage,
   Layout,
   LoadingContainer,
+  ModulesDataTable,
   Navigation,
   PeerEvaluationColumnManagement,
   SignInWrapper,

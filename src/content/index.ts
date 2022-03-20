@@ -157,6 +157,15 @@ const content = {
         },
       },
     },
+    modulesDataTable: {
+      confirmationOnDelete: {
+        title: "Are you really sure?",
+        bodyText:
+          "If you delete the module all the related data will be lost! Are you sure you want to delete the module?",
+        acceptText: "Yes",
+        closeText: "No",
+      },
+    },
   },
   pages: {
     homePage: {
@@ -198,17 +207,6 @@ const content = {
     unauthorized: {
       text: "Looks like you do not have permission to visit this page...",
       button: "Go to my dashboard",
-    },
-    admin: {
-      module: {
-        confirmationOnDelete: {
-          title: "Are you really sure?",
-          bodyText:
-            "If you delete the module all the related data will be lost! Are you sure you want to delete the module?",
-          acceptText: "Yes",
-          closeText: "No",
-        },
-      },
     },
   },
 };

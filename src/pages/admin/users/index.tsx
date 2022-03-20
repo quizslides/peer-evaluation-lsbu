@@ -53,7 +53,7 @@ enum BulkUserAction {
   CREATE = "CREATE",
 }
 
-const Users: NextPage = () => {
+const UsersAdmin: NextPage = () => {
   const { data: session } = useSession();
 
   const apolloClient = useApolloClient();
@@ -633,4 +633,4 @@ export const getStaticProps = () => {
   };
 };
 
-export default Users;
+export default UsersAdmin;
