@@ -1,10 +1,9 @@
 import React from "react";
 
-import Error from "next/error";
+import { Error404 } from "@/containers";
 
 const NotFound = () => {
-  // TODO: 404 page
-  return <Error statusCode={404} />;
+  return <Error404 />;
 };
 
 export default NotFound;

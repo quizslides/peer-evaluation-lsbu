@@ -1,9 +1,9 @@
 import React from "react";
 
-import Error from "next/error";
+import { Error500 } from "@/containers";
 
 const ServerError = () => {
-  return <Error statusCode={500} />;
+  return <Error500 />;
 };
 
 export default ServerError;

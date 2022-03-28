@@ -1,3 +1,5 @@
+import routing from "@/routing";
+
 const content = {
   components: {
     base: {
@@ -14,7 +16,17 @@ const content = {
   containers: {
     errorContainer: {
       button: "Click here to refresh",
-      text: "Something went wrong...",
+      text: "Sorry, something went wrong...",
+    },
+    404: {
+      button: "Press here",
+      text: "Sorry, page not found",
+      href: routing.home,
+    },
+    500: {
+      button: "Press here",
+      text: "Sorry, something went wrong...",
+      href: routing.home,
     },
     userForm: {
       form: {

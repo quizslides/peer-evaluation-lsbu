@@ -11,12 +11,14 @@ import { useRouter } from "next/router";
 
 import {
   Base,
+  Button,
   ConfirmationDialog,
   DataTable,
   DataTableAddColumnToolbarIcon,
   DataTableRefreshToolbarIcon,
   IconButtonWrapper,
   PageTitle,
+  Typography,
 } from "@/components";
 import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
@@ -270,10 +272,21 @@ const ModulesDataTable = ({
     },
     {
       name: "_count.students",
-      label: "Total students",
+      label: "Total Students",
       options: {
         filter: true,
         sort: true,
+        customBodyRender: (value: number, rowData) => {
+          return (
+            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+              <Typography testId={`${testId}-total-students`}>{value}</Typography>
+
+              <Button onClick={() => console.log(rowData)} variant={"contained"} testId={`${testId}-edit-students`}>
+                Edit
+              </Button>
+            </Stack>
+          );
+        },
       },
     },
     {
