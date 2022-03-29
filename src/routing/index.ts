@@ -3,6 +3,7 @@ const routing = {
   auth: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
+    error: "/auth/error",
   },
   help: "/help",
   playground: "/playground",

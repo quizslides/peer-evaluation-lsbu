@@ -12,6 +12,7 @@ const options: NextAuthOptions = {
   pages: {
     signIn: routing.auth.signIn,
     signOut: routing.home,
+    error: routing.auth.error,
   },
   session: {
     maxAge: 24 * 60 * 60,

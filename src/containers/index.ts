@@ -3,6 +3,7 @@ import CreateModuleTeachingMemberForm from "@/containers/CreateModuleTeachingMem
 import CreateUserForm from "@/containers/CreateUserForm";
 import Error404 from "@/containers/Error404";
 import Error500 from "@/containers/Error500";
+import ErrorAuth from "@/containers/ErrorAuth";
 import ErrorContainer from "@/containers/ErrorContainer";
 import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
@@ -23,6 +24,7 @@ export {
   CreateUserForm,
   Error404,
   Error500,
+  ErrorAuth,
   ErrorContainer,
   HomePage,
   Layout,

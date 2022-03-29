@@ -28,6 +28,11 @@ const content = {
       text: "Sorry, something went wrong...",
       href: routing.home,
     },
+    errorAuth: {
+      button: "Try again",
+      text: "Error....",
+      href: routing.auth.signIn,
+    },
     userForm: {
       form: {
         email: {
