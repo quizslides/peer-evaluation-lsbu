@@ -312,7 +312,7 @@ const PeerEvaluationsDataTable = ({
   const tableOptions: MUIDataTableOptions = {
     textLabels: {
       body: {
-        noMatch: "Sorry, no peerEvaluations available",
+        noMatch: "Sorry, no peer evaluations available",
       },
     },
     responsive: "simple",
