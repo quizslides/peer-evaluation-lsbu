@@ -18,10 +18,10 @@ model User {
   name                          String
   email                         String                         @unique
   sessions                      Session[]
-  role                          UserRoles                          @default(STUDENT)
+  role                          UserRoles                      @default(STUDENT)
   emailVerified                 DateTime?
   peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
-  peerEvaluationStudentList            PeerEvaluationStudent[]
+  peerEvaluationStudentList     PeerEvaluationStudent[]
 }
 
 model VerificationToken {
@@ -67,15 +67,15 @@ model PeerEvaluationStudent {
   userId                           String?
   peerEvaluation                   PeerEvaluation?               @relation(fields: [peerEvaluationId], references: [id])
   peerEvaluationId                 String?
-  peerEvaluationStudentTeam                      PeerEvaluationStudentTeam?                  @relation(fields: [peerEvaluationStudentTeamId], references: [id])
-  peerEvaluationStudentTeamId                    String?
+  peerEvaluationStudentTeam        PeerEvaluationStudentTeam?    @relation(fields: [peerEvaluationStudentTeamId], references: [id])
+  peerEvaluationStudentTeamId      String?
   averageCriteriaScore             Decimal?
   averageCriteriaScoreByTeamMember Decimal?
   systemCalculatedMark             Decimal?
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
   lecturerAdjustedMarkByUser       PeerEvaluationTeachingMember? @relation(fields: [lecturerAdjustedMarkByUserId], references: [id]) // Lecturer that edited the adjusted mark
-  lecturerAdjustedMarkByUserId   String?
+  lecturerAdjustedMarkByUserId     String?
   peerEvaluationReviewed           PeerEvaluationStudentReview? // Peer evaluation that the student is reviewing
   PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
 
