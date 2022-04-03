@@ -43,7 +43,7 @@
     "prisma:migrate:create": "npx prisma migrate dev",
     "prisma:migrate:reset:create": "npx prisma migrate reset",
     "prisma:db:push": "npx prisma db push",
-    "prisma:format": "npx prisma format",
+    "prisma:reset:prod": "npx prisma migrate reset --skip-seed --force --skip-generate ",
     "prepare": "husky install"
   },
   "nyc": {
