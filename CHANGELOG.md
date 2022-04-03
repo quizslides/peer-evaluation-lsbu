@@ -2,6 +2,44 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.5...v1.0.0-staging.6) (2022-04-03)
+
+
+### Features
+
+* adding 404 and 500 pages ([8167a1d](https://github.com/quizslides/peer-evaluation-lsbu/commit/8167a1dff7abc409839508e888cd2f470542871e))
+* adding checking on real-time module code ([e03f41f](https://github.com/quizslides/peer-evaluation-lsbu/commit/e03f41fa4b5261e59d010f154b4748efc860027f))
+* adding cmd to reset prod db ([8f3bd64](https://github.com/quizslides/peer-evaluation-lsbu/commit/8f3bd6438ca698f54104ad19318c2be8fc2a2164))
+* adding CRUD for a lecturer with only view permissions and editor ([3d8b5df](https://github.com/quizslides/peer-evaluation-lsbu/commit/3d8b5dfb6760babe96bc3aa39793504f4db059a5))
+* adding edit, delete module route ([412c124](https://github.com/quizslides/peer-evaluation-lsbu/commit/412c12499a596ad7608abf8e4e6739122f950241))
+* adding error on auth page ([9d7bee2](https://github.com/quizslides/peer-evaluation-lsbu/commit/9d7bee2f94a0fe64323264d9025267261e4e8a81))
+* adding granular permission for admin, lecturer and module teaching member role ([6a59c4b](https://github.com/quizslides/peer-evaluation-lsbu/commit/6a59c4b9c9d5e8b2bb519c94dc3d49333c0f0142))
+* adding user id to auth context ([ad15791](https://github.com/quizslides/peer-evaluation-lsbu/commit/ad157910051fbee061e200bc6bfd612a2272bf44))
+* improving error on auth to handle when user is logged in ([be75e69](https://github.com/quizslides/peer-evaluation-lsbu/commit/be75e69e4c560da2bf855f844f825284c5ec7562))
+
+
+### Bug Fixes
+
+* adding mock of fetch to run on jest apollo client ([3d5b161](https://github.com/quizslides/peer-evaluation-lsbu/commit/3d5b161c23b54ef6c7ba5dd8e4374017002e8266))
+* fixing bug on yup validation async ([9dd76c7](https://github.com/quizslides/peer-evaluation-lsbu/commit/9dd76c785080a1fdf2d7f1cef49cb85d2c41e31a))
+* fixing deleting modules as admin with module container view ([e5f7dd7](https://github.com/quizslides/peer-evaluation-lsbu/commit/e5f7dd7b7bd51294caaaade81d4340f4494a30f8))
+* fixing number update fields casted as string ([3a9f991](https://github.com/quizslides/peer-evaluation-lsbu/commit/3a9f9911a9af84ba942e36a961ade0031bf4ff84))
+* fixing regex for module code ([97357ba](https://github.com/quizslides/peer-evaluation-lsbu/commit/97357bac0594fe1ecd810c38609cb65d761a6af0))
+* fixing table add icon tooltip ([74a5b72](https://github.com/quizslides/peer-evaluation-lsbu/commit/74a5b72fd3c160176037935b842d0c3bea3ed0a0))
+* fixing typo on peer evaluation table when is empty ([6117227](https://github.com/quizslides/peer-evaluation-lsbu/commit/61172277c5266fcf7c6e245ebe646d6227f44ee4))
+* remove the your account expandable menu ([5cc488f](https://github.com/quizslides/peer-evaluation-lsbu/commit/5cc488ffc7ae51e523b600f102c971e0fca2b2e5))
+
+
+### Code Refactoring
+
+* adding migration of renaming module to peer evaluation ([6520c51](https://github.com/quizslides/peer-evaluation-lsbu/commit/6520c5178e4cd24b4ceb295102c98f73b6804db4))
+* refactoring dockerfile cleaner structure ([204ee5c](https://github.com/quizslides/peer-evaluation-lsbu/commit/204ee5c3d2ce7c02e5a2db3add0e1e326fe19f35))
+* refactoring module container as it is reused by multiple pages ([12a705e](https://github.com/quizslides/peer-evaluation-lsbu/commit/12a705ef8e4a0427e7278584d8d29bacf9ca7432))
+* removing console.log in moduleCodeValidator ([beb9622](https://github.com/quizslides/peer-evaluation-lsbu/commit/beb9622746c15ce31192f44c04bfdef15aa3549b))
+* removing unused imports and variables ([6949543](https://github.com/quizslides/peer-evaluation-lsbu/commit/6949543240221b6410af92b432d693811ba2977a))
+* renaming module member to module teaching member ([9158116](https://github.com/quizslides/peer-evaluation-lsbu/commit/91581162a3eb38ef146a97ed7a8834d350c6465b))
+* renaming module to peer evaluation ([723f5a5](https://github.com/quizslides/peer-evaluation-lsbu/commit/723f5a5ec0f1fec78d3bb1b8deb0312afeeed705))
+
 ## [1.0.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.4...v1.0.0-staging.5) (2022-03-17)
 
 
