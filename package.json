@@ -32,7 +32,7 @@
     "test:cypress:ct:open": "cypress open-ct",
     "test:coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json coverage/jest/coverage-final.json ./coverage/cypress/coverage-final.json",
     "test:coverage:report": "nyc report --reporter=lcov --reporter=text --reporter=text-summary --temp-dir=./coverage/merged --report-dir=./coverage/merged",
-    "test:coverage:check": "yarn test:coverage:merge && yarn test:coverage:report --check-coverage --lines 80",
+    "test:coverage:check": "yarn test:coverage:merge && yarn test:coverage:report --check-coverage --lines 50",
     "test:unit": "concurrently --kill-others --max-processes 1 npm:test:jest:ci npm:test:cypress:ct",
     "prisma:seed": "npx prisma db seed",
     "prisma:seed:prod": "npx ts-node --project ./tsconfig.prisma.json prisma/seed.production.ts",
