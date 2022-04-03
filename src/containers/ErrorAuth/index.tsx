@@ -1,13 +1,16 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 
 import styled from "@emotion/styled";
 import { Stack } from "@mui/material";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";
+import LoadingContainer from "@/containers/LoadingContainer";
 import content from "@/content";
 import { SadFaceEmoji } from "@/icons";
+import routing from "@/routing";
 import { CenteredContent } from "@/styles";
 
 const ErrorMessage = styled(Typography)`
@@ -20,7 +23,21 @@ const ErrorMessage = styled(Typography)`
 const ErrorAuth = () => {
   const router = useRouter();
 
+  const { data: session, status } = useSession();
+
   const onErrorRouting = () => router.push(content.containers.errorAuth.href);
+
+  const loading = status === "loading" || !!session;
+
+  useEffect(() => {
+    if (session) {
+      router.push(routing.dashboard);
+    }
+  }, [router, session]);
+
+  if (loading) {
+    return <LoadingContainer loading={loading} centeredAbsolute />;
+  }
 
   return (
     <CenteredContent>
