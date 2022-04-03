@@ -1,8 +1,8 @@
 import { array, date, mixed, number, object, ref, string } from "yup";
 
 import client from "@/graphql/client";
-import moduleExist from "@/requests/direct/query/moduleExist";
-import { ModuleStatus, ModuleTeachingMemberRoles, Schools } from "@/types/module";
+import peerEvaluationExist from "@/requests/direct/query/peerEvaluationExist";
+import { PeerEvaluationStatus, PeerEvaluationTeachingMemberRoles, Schools } from "@/types/peer-evaluation";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
@@ -22,11 +22,11 @@ const userNameValidator = {
     .required(content.userName.required),
 };
 
-const moduleTeachingMemberNameValidator = {
+const peerEvaluationTeachingMemberNameValidator = {
   name: string(),
 };
 
-const moduleTeachingMemberIdValidator = {
+const peerEvaluationTeachingMemberIdValidator = {
   name: string(),
 };
 
@@ -36,28 +36,28 @@ const userRoleValidator = {
     .required(content.userRole.required),
 };
 
-const moduleTitleValidator = {
+const peerEvaluationTitleValidator = {
   title: string()
-    .min(2, content.moduleTitle.minLength)
-    .max(70, content.moduleTitle.maxLength)
-    .required(content.moduleTitle.required),
+    .min(2, content.peerEvaluationTitle.minLength)
+    .max(70, content.peerEvaluationTitle.maxLength)
+    .required(content.peerEvaluationTitle.required),
 };
 
-const moduleCodeValidator = {
-  moduleCode: string()
-    .min(2, content.moduleCode.minLength)
-    .max(70, content.moduleCode.maxLength)
-    .required(content.moduleCode.required)
-    .matches(content.moduleCode.regex, {
-      message: content.moduleCode.messageRegex,
+const peerEvaluationCodeValidator = {
+  code: string()
+    .min(2, content.code.minLength)
+    .max(70, content.code.maxLength)
+    .required(content.code.required)
+    .matches(content.code.regex, {
+      message: content.code.messageRegex,
     })
     .test({
-      name: "unique-module-code",
-      message: content.moduleCode.unique,
+      name: "unique-peer-evaluation-code",
+      message: content.code.unique,
       test: async (values) => {
         if (values) {
-          const { data } = await moduleExist(client, values);
-          return !!!data.moduleExist.exist;
+          const { data } = await peerEvaluationExist(client, values);
+          return !!!data.peerEvaluationExist.exist;
         }
 
         // If backend is not or has not responded, the validation should return false as the input will be invalid
@@ -69,20 +69,20 @@ const moduleCodeValidator = {
     }),
 };
 
-const moduleSchoolValidator = {
+const peerEvaluationSchoolValidator = {
   schools: array()
     .of(mixed().oneOf([...Object.keys(Schools)]))
-    .min(1, content.moduleSchools.minLength)
-    .required(content.moduleSchools.required),
+    .min(1, content.peerEvaluationSchools.minLength)
+    .required(content.peerEvaluationSchools.required),
 };
 
-const moduleStatusValidator = {
+const peerEvaluationStatusValidator = {
   status: mixed()
-    .oneOf([...Object.keys(ModuleStatus)], content.moduleStatus.oneOf)
-    .required(content.moduleStatus.required),
+    .oneOf([...Object.keys(PeerEvaluationStatus)], content.peerEvaluationStatus.oneOf)
+    .required(content.peerEvaluationStatus.required),
 };
 
-const moduleMaxGradeIncreaseValidator = {
+const peerEvaluationMaxGradeIncreaseValidator = {
   maxGradeIncrease: number()
     .typeError(content.maxGradeIncrease.typeError)
     .required(content.maxGradeIncrease.required)
@@ -90,7 +90,7 @@ const moduleMaxGradeIncreaseValidator = {
     .max(100, content.maxGradeIncrease.max),
 };
 
-const moduleMaxGradeDecreaseValidator = {
+const peerEvaluationMaxGradeDecreaseValidator = {
   maxGradeDecrease: number()
     .typeError(content.maxGradeDecrease.typeError)
     .required(content.maxGradeDecrease.required)
@@ -98,11 +98,11 @@ const moduleMaxGradeDecreaseValidator = {
     .max(100, content.maxGradeDecrease.max),
 };
 
-const moduleSubmissionsLockDateValidator = {
+const peerEvaluationSubmissionsLockDateValidator = {
   submissionsLockDate: date().min(tomorrowDate(), content.submissionsLockDate.min).nullable(),
 };
 
-const moduleCriteriaScoreRangeMinValidator = {
+const peerEvaluationCriteriaScoreRangeMinValidator = {
   criteriaScoreRangeMin: number()
     .typeError(content.criteriaScoreRangeMin.typeError)
     .required(content.criteriaScoreRangeMin.required)
@@ -110,7 +110,7 @@ const moduleCriteriaScoreRangeMinValidator = {
     .max(100, content.criteriaScoreRangeMin.max),
 };
 
-const moduleCriteriaScoreRangeMaxValidator = {
+const peerEvaluationCriteriaScoreRangeMaxValidator = {
   criteriaScoreRangeMax: number()
     .typeError(content.criteriaScoreRangeMax.typeError)
     .required(content.criteriaScoreRangeMax.required)
@@ -118,47 +118,47 @@ const moduleCriteriaScoreRangeMaxValidator = {
     .max(100, content.criteriaScoreRangeMax.max),
 };
 
-const moduleEmailTitleValidator = {
+const peerEvaluationEmailTitleValidator = {
   emailTitleReminder: string()
-    .matches(content.emailTitleReminder.matchModuleCodeRegex, {
-      message: content.emailTitleReminder.matchModuleCode,
+    .matches(content.emailTitleReminder.matchPeerEvaluationCodeRegex, {
+      message: content.emailTitleReminder.matchPeerEvaluationCode,
     })
     .min(2, content.emailTitleReminder.minLength)
     .max(70, content.emailTitleReminder.maxLength)
     .required(content.emailTitleReminder.required),
 };
 
-const moduleEmailBodyValidator = {
+const peerEvaluationEmailBodyValidator = {
   emailBodyReminder: string().matches(content.emailBodyReminder.matchUrlRegex, {
     message: content.emailBodyReminder.matchUrl,
   }),
 };
 
-const moduleColumnValidator = {
+const peerEvaluationColumnValidator = {
   description: string()
     .min(2, content.column.minLength)
     .max(70, content.column.maxLength)
     .required(content.column.required),
 };
 
-const moduleColumnIdValidator = {
+const peerEvaluationColumnIdValidator = {
   description: string(),
 };
 
-const moduleColumnsValidator = {
+const peerEvaluationColumnsValidator = {
   columns: array().min(1, content.columns.minLength),
 };
 
-const moduleTeachingMembersValidator = {
-  moduleTeachingMembers: array()
+const peerEvaluationTeachingMembersValidator = {
+  peerEvaluationTeachingMembers: array()
     .of(
       object().shape({
         role: string(),
       })
     )
     .test({
-      name: "one-owner-teaching-module-member",
-      message: content.moduleTeachingMembers.minLength,
+      name: "one-owner-teaching-peer-evaluation-member",
+      message: content.peerEvaluationTeachingMembers.minLength,
       test: (values) => {
         const isOwnerRole = (currentValue: string) => currentValue === "OWNER";
 
@@ -171,31 +171,31 @@ const moduleTeachingMembersValidator = {
     }),
 };
 
-const moduleTeachingMemberRoleValidator = {
+const peerEvaluationTeachingMemberRoleValidator = {
   role: mixed()
-    .oneOf([...Object.keys(ModuleTeachingMemberRoles)], content.moduleTeachingMemberRole.oneOf)
-    .required(content.moduleTeachingMemberRole.required),
+    .oneOf([...Object.keys(PeerEvaluationTeachingMemberRoles)], content.peerEvaluationTeachingMemberRole.oneOf)
+    .required(content.peerEvaluationTeachingMemberRole.required),
 };
 
 export {
-  moduleCodeValidator,
-  moduleColumnIdValidator,
-  moduleColumnsValidator,
-  moduleColumnValidator,
-  moduleCriteriaScoreRangeMaxValidator,
-  moduleCriteriaScoreRangeMinValidator,
-  moduleEmailBodyValidator,
-  moduleEmailTitleValidator,
-  moduleMaxGradeDecreaseValidator,
-  moduleMaxGradeIncreaseValidator,
-  moduleSchoolValidator,
-  moduleStatusValidator,
-  moduleSubmissionsLockDateValidator,
-  moduleTeachingMemberIdValidator,
-  moduleTeachingMemberNameValidator,
-  moduleTeachingMemberRoleValidator,
-  moduleTeachingMembersValidator,
-  moduleTitleValidator,
+  peerEvaluationCodeValidator,
+  peerEvaluationColumnIdValidator,
+  peerEvaluationColumnsValidator,
+  peerEvaluationColumnValidator,
+  peerEvaluationCriteriaScoreRangeMaxValidator,
+  peerEvaluationCriteriaScoreRangeMinValidator,
+  peerEvaluationEmailBodyValidator,
+  peerEvaluationEmailTitleValidator,
+  peerEvaluationMaxGradeDecreaseValidator,
+  peerEvaluationMaxGradeIncreaseValidator,
+  peerEvaluationSchoolValidator,
+  peerEvaluationStatusValidator,
+  peerEvaluationSubmissionsLockDateValidator,
+  peerEvaluationTeachingMemberIdValidator,
+  peerEvaluationTeachingMemberNameValidator,
+  peerEvaluationTeachingMemberRoleValidator,
+  peerEvaluationTeachingMembersValidator,
+  peerEvaluationTitleValidator,
   userEmailValidator,
   userNameValidator,
   userRoleValidator,

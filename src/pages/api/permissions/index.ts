@@ -1,15 +1,14 @@
 import { ServerResponse } from "http";
 
-import { ModuleWhereInput, ModuleWhereUniqueInput } from "@generated/type-graphql";
+import { PeerEvaluationWhereInput, PeerEvaluationWhereUniqueInput } from "@generated/type-graphql";
 import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, deny, or, rule, shield } from "graphql-shield";
+import { deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
-import { ModulesByLecturerWhereInput } from "../resolvers/module";
-
+import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/peer-evaluation";
 import { Role } from "@/utils/permissions";
 
 export interface Context {
@@ -55,16 +54,16 @@ const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: 
   return false;
 });
 
-const isModuleTeachingMember = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: ModuleWhereInput }, { req, prisma }: Context) => {
+const isPeerEvaluationTeachingMember = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: PeerEvaluationWhereInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
 
-    const moduleId = _args.where.id as unknown as string;
+    const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (moduleId && session?.user.email) {
-      const result = await prisma.module.findFirst({
+    if (peerEvaluationId && session?.user.email) {
+      const result = await prisma.peerEvaluation.findFirst({
         where: {
-          moduleTeachingMembers: {
+          peerEvaluationTeachingMembers: {
             some: {
               user: {
                 is: {
@@ -76,7 +75,7 @@ const isModuleTeachingMember = rule({ cache: "contextual" })(
             },
           },
           id: {
-            equals: moduleId,
+            equals: peerEvaluationId,
           },
         },
       });
@@ -88,16 +87,16 @@ const isModuleTeachingMember = rule({ cache: "contextual" })(
   }
 );
 
-const isModuleTeachingMemberOwner = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+const isPeerEvaluationTeachingMemberOwner = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
 
-    const moduleId = _args.where.id as unknown as string;
+    const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (moduleId && session?.user.email) {
-      const result = await prisma.module.findFirst({
+    if (peerEvaluationId && session?.user.email) {
+      const result = await prisma.peerEvaluation.findFirst({
         where: {
-          moduleTeachingMembers: {
+          peerEvaluationTeachingMembers: {
             some: {
               user: {
                 is: {
@@ -112,7 +111,7 @@ const isModuleTeachingMemberOwner = rule({ cache: "contextual" })(
             },
           },
           id: {
-            equals: moduleId,
+            equals: peerEvaluationId,
           },
         },
       });
@@ -124,16 +123,16 @@ const isModuleTeachingMemberOwner = rule({ cache: "contextual" })(
   }
 );
 
-const isModuleTeachingMemberEditor = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+const isPeerEvaluationTeachingMemberEditor = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
 
-    const moduleId = _args.where.id as unknown as string;
+    const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (moduleId && session?.user.email) {
-      const result = await prisma.module.findFirst({
+    if (peerEvaluationId && session?.user.email) {
+      const result = await prisma.peerEvaluation.findFirst({
         where: {
-          moduleTeachingMembers: {
+          peerEvaluationTeachingMembers: {
             some: {
               user: {
                 is: {
@@ -148,7 +147,7 @@ const isModuleTeachingMemberEditor = rule({ cache: "contextual" })(
             },
           },
           id: {
-            equals: moduleId,
+            equals: peerEvaluationId,
           },
         },
       });
@@ -161,16 +160,16 @@ const isModuleTeachingMemberEditor = rule({ cache: "contextual" })(
 );
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isModuleTeachingMemberViewer = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: ModuleWhereUniqueInput }, { req, prisma }: Context) => {
+const isPeerEvaluationTeachingMemberViewer = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
 
-    const moduleId = _args.where.id as unknown as string;
+    const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (moduleId && session?.user.email) {
-      const result = await prisma.module.findFirst({
+    if (peerEvaluationId && session?.user.email) {
+      const result = await prisma.peerEvaluation.findFirst({
         where: {
-          moduleTeachingMembers: {
+          peerEvaluationTeachingMembers: {
             some: {
               user: {
                 is: {
@@ -185,7 +184,7 @@ const isModuleTeachingMemberViewer = rule({ cache: "contextual" })(
             },
           },
           id: {
-            equals: moduleId,
+            equals: peerEvaluationId,
           },
         },
       });
@@ -197,8 +196,8 @@ const isModuleTeachingMemberViewer = rule({ cache: "contextual" })(
   }
 );
 
-const isUserRequestedModuleTeachingMemberModule = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: ModulesByLecturerWhereInput }, { req }: Context) => {
+const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: "contextual" })(
+  async (_parent, _args: { where: PeerEvaluationsByLecturerWhereInput }, { req }: Context) => {
     const session = await getSession({ req });
 
     if (session?.user.email === _args.where.email) {
@@ -209,16 +208,17 @@ const isUserRequestedModuleTeachingMemberModule = rule({ cache: "contextual" })(
   }
 );
 
+// TODO: Add granular permissions for the student view
 const permissions = shield(
   {
     Query: {
       "*": deny,
       users: or(isAdmin, isLecturer),
       groupByUser: or(isAdmin, isLecturer),
-      moduleExist: or(isAdmin, isLecturer),
-      modules: isAdmin,
-      modulesByLecturer: or(isAdmin, isUserRequestedModuleTeachingMemberModule),
-      module: or(isAdmin, isModuleTeachingMember),
+      peerEvaluationExist: or(isAdmin, isLecturer),
+      peerEvaluations: isAdmin,
+      peerEvaluationsByLecturer: or(isAdmin, isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation),
+      peerEvaluation: or(isAdmin, isPeerEvaluationTeachingMember),
     },
     Mutation: {
       "*": deny,
@@ -226,9 +226,11 @@ const permissions = shield(
       updateUser: isAdmin,
       deleteManyUser: isAdmin,
       createUser: isAdmin,
-      createModule: or(isAdmin, isLecturer),
-      updateModule: or(isAdmin, isModuleTeachingMemberOwner, isModuleTeachingMemberEditor),
-      deleteModule: or(isAdmin, isModuleTeachingMemberOwner),
+      createPeerEvaluation: or(isAdmin, isLecturer),
+      updatePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner, isPeerEvaluationTeachingMemberEditor),
+      deletePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner),
+      // TBC - createManyStudents -> or(isAdmin, isLecturer)
+      // TBC - createStudent -> or(isAdmin, isLecturer)
     },
   },
   {

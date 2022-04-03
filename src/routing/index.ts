@@ -11,12 +11,12 @@ const routing = {
   unauthorized: "/unauthorized",
   admin: {
     users: "/admin/users",
-    modules: "/admin/modules",
+    peerEvaluation: "/admin/peer-evaluation",
   },
-  modules: {
-    create: "/modules/create",
-    edit: "/modules/edit",
-    list: "/modules",
+  peerEvaluation: {
+    create: "/peer-evaluation/create",
+    edit: "/peer-evaluation/edit",
+    list: "/peer-evaluation",
   },
   backendEndpoint: "/api/graphql",
 };

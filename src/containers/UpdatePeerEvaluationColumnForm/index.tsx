@@ -1,15 +1,14 @@
 import React, { memo } from "react";
 
 import PeerEvaluationColumnForm, { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
-import { initialColumnState } from "@/types/peer-evaluation";
 
-interface ICreateColumnForm {
+interface IUpdateColumnForm extends IColumnFormValue {
   state: boolean;
   updateFormState: (state: boolean) => void;
   onSubmit: (data: IColumnFormValue) => void;
 }
 
-const CreateColumnForm = ({ state, updateFormState, onSubmit }: ICreateColumnForm) => {
+const UpdateColumnForm = ({ state, updateFormState, onSubmit, description }: IUpdateColumnForm) => {
   const submitForm = (dataForm: IColumnFormValue) => {
     onSubmit(dataForm);
     updateFormState(false);
@@ -25,9 +24,9 @@ const CreateColumnForm = ({ state, updateFormState, onSubmit }: ICreateColumnFor
       formTitle="New column"
       updateFormState={updateFormState}
       onSubmitForm={submitForm}
-      description={initialColumnState.description}
+      description={description}
     />
   );
 };
 
-export default memo(CreateColumnForm);
+export default memo(UpdateColumnForm);

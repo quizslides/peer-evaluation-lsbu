@@ -1,5 +1,5 @@
 import CreateColumnForm from "@/containers/CreateColumnForm";
-import CreateModuleTeachingMemberForm from "@/containers/CreateModuleTeachingMemberForm";
+import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
 import CreateUserForm from "@/containers/CreateUserForm";
 import Error404 from "@/containers/Error404";
 import Error500 from "@/containers/Error500";
@@ -8,19 +8,19 @@ import ErrorContainer from "@/containers/ErrorContainer";
 import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
-import ModulesDataTable from "@/containers/ModulesDataTable";
 import Navigation from "@/containers/Navigation";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
+import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
-import UpdateColumnForm from "@/containers/UpdateColumnForm";
-import UpdateModuleForm from "@/containers/UpdateModuleForm";
-import UpdateModuleTeachingMemberForm from "@/containers/UpdateModuleTeachingMemberForm";
+import UpdatePeerEvaluationColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
+import UpdatePeerEvaluationForm from "@/containers/UpdatePeerEvaluationForm";
+import UpdatePeerEvaluationTeachingMemberForm from "@/containers/UpdatePeerEvaluationTeachingMemberForm";
 import UpdateUserForm from "@/containers/UpdateUserForm";
 
 export {
   CreateColumnForm,
-  CreateModuleTeachingMemberForm,
+  CreatePeerEvaluationTeachingMemberForm,
   CreateUserForm,
   Error404,
   Error500,
@@ -29,13 +29,13 @@ export {
   HomePage,
   Layout,
   LoadingContainer,
-  ModulesDataTable,
   Navigation,
   PeerEvaluationColumnManagement,
+  PeerEvaluationsDataTable,
   SignInWrapper,
   UnauthorizedContainer,
-  UpdateColumnForm,
-  UpdateModuleForm,
-  UpdateModuleTeachingMemberForm,
+  UpdatePeerEvaluationColumnForm,
+  UpdatePeerEvaluationForm,
+  UpdatePeerEvaluationTeachingMemberForm,
   UpdateUserForm,
 };

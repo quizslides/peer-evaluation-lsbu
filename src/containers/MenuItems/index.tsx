@@ -44,26 +44,26 @@ const menuExpandableItems: IMenuItemList = {
     menuItemList: [
       { icon: <GroupIcon testId={"menu-expandable-admin-users"} />, label: "Users", pathname: routing.admin.users },
       {
-        icon: <ViewModuleIcon testId={"menu-expandable-admin-module"} />,
-        label: "Modules",
-        pathname: routing.admin.modules,
+        icon: <ViewModuleIcon testId={"menu-expandable-admin-peer-evaluations"} />,
+        label: "Peer Evaluations",
+        pathname: routing.admin.peerEvaluation,
       },
     ],
   },
-  modules: {
+  peerEvaluations: {
     scope: [RoleScope.ADMIN, RoleScope.LECTURER],
-    menuTitle: "Modules",
-    menuDescription: "Modules menu",
+    menuTitle: "Peer Evaluations",
+    menuDescription: "Peer Evaluations menu",
     menuItemList: [
       {
-        icon: <ListIcon testId={"menu-expandable-modules-list"} />,
-        label: "List modules",
-        pathname: routing.modules.list,
+        icon: <ListIcon testId={"menu-expandable-peer-evaluations-list"} />,
+        label: "List Peer Evaluations",
+        pathname: routing.peerEvaluation.list,
       },
       {
-        icon: <AddIcon testId={"menu-expandable-modules-add"} />,
-        label: "Create module",
-        pathname: routing.modules.create,
+        icon: <AddIcon testId={"menu-expandable-peer-evaluations-add"} />,
+        label: "Create Peer Evaluation",
+        pathname: routing.peerEvaluation.create,
       },
     ],
   },
@@ -110,6 +110,8 @@ const MenuItems = ({ router }: IMenuItems) => {
         return { ...obj, [menuItemList]: false };
       }, {})
     );
+
+    console.log(router.route);
   }, [router]);
 
   const updateMenuItemState = (id: string) => {

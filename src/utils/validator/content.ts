@@ -17,25 +17,25 @@ const validatorContent = {
     required: "Select a role",
     oneOf: "Invalid role entered",
   },
-  moduleTitle: {
-    required: "Module title is required",
-    minLength: "Module title must be longer than one character",
-    maxLength: "Module title cannot be longer than 70 characters",
+  peerEvaluationTitle: {
+    required: "Peer Evaluation title is required",
+    minLength: "Peer Evaluation title must be longer than one character",
+    maxLength: "Peer Evaluation title cannot be longer than 70 characters",
   },
-  moduleCode: {
-    required: "Module code is required",
-    minLength: "Module code must be longer than one character",
-    maxLength: "Module code cannot be longer than 20 characters",
-    unique: "Module code must be unique",
+  code: {
+    required: "Peer Evaluation code is required",
+    minLength: "Peer Evaluation code must be longer than one character",
+    maxLength: "Peer Evaluation code cannot be longer than 20 characters",
+    unique: "Peer Evaluation code must be unique",
     regex: /^[A-Z0-9]+(?:_[A-Z0-9]+)*$/,
     messageRegex: "Uppercase and underscores allowed between words",
   },
-  moduleSchools: {
+  peerEvaluationSchools: {
     required: "A school is required",
     minLength: "At least one school is required",
   },
-  moduleStatus: {
-    required: "Status module is required",
+  peerEvaluationStatus: {
+    required: "Status peerEvaluation is required",
     oneOf: "Invalid status",
   },
   maxGradeIncrease: {
@@ -66,8 +66,8 @@ const validatorContent = {
     max: "Criteria score range min value is higher than max value",
   },
   emailTitleReminder: {
-    matchModuleCodeRegex: /{{moduleCode}}/,
-    matchModuleCode: "Email title must contain {{moduleCode}}",
+    matchPeerEvaluationCodeRegex: /{{code}}/,
+    matchPeerEvaluationCode: "Email title must contain {{code}}",
     required: "Email title is required",
     minLength: "Email title must be longer than one character",
     maxLength: "Email title cannot be longer than 70 characters",
@@ -84,11 +84,11 @@ const validatorContent = {
   columns: {
     minLength: "One Column is required in the peer evaluation",
   },
-  moduleTeachingMembers: {
-    minLength: "One owner of the module is required",
+  peerEvaluationTeachingMembers: {
+    minLength: "One owner of the peerEvaluation is required",
   },
-  moduleTeachingMemberRole: {
-    required: "Select a role for the module teaching member",
+  peerEvaluationTeachingMemberRole: {
+    required: "Select a role for the peerEvaluation teaching member",
     oneOf: "Invalid role entered",
   },
 };

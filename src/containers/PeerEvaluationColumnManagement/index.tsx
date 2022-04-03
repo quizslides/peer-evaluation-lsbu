@@ -8,12 +8,12 @@ import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { ConfirmationDialog, DataTable, DataTableAddColumnToolbarIcon, IconButtonWrapper } from "@/components";
 import Button from "@/components/Button/Button";
 import CreateColumnForm from "@/containers/CreateColumnForm";
-import UpdateColumnForm from "@/containers/UpdateColumnForm";
+import UpdateColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
 import content from "@/content";
-import { IColumnFormValue } from "@/forms/ColumnForm";
+import { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
 import { DeleteIcon, EditIcon } from "@/icons";
-import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/module";
 import { ArrayObject } from "@/types/object";
+import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/peer-evaluation";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
 interface IPeerEvaluationColumnManagement {
@@ -44,13 +44,13 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
 
   const [dataTableColumns, setDataTableColumns] = useState<IPeerEvaluationColumn[]>(meta.value);
 
-  const [isCreateModuleColumnOpen, setCreateModuleColumnOpen] = useState(false);
+  const [isCreatePeerEvaluationColumnOpen, setCreatePeerEvaluationColumnOpen] = useState(false);
 
-  const [isUpdateModuleColumnOpen, setUpdateModuleColumnOpen] = useState(false);
+  const [isUpdatePeerEvaluationColumnOpen, setUpdatePeerEvaluationColumnOpen] = useState(false);
 
-  const [isDeleteModuleColumnConfirmationOpen, setDeleteModuleColumnConfirmationOpen] = useState(false);
+  const [isDeletePeerEvaluationColumnConfirmationOpen, setDeletePeerEvaluationColumnConfirmationOpen] = useState(false);
 
-  const [deleteModuleColumn, setDeleteModuleColumn] = useState<IPeerEvaluationColumn | null>(null);
+  const [deletePeerEvaluationColumn, setDeletePeerEvaluationColumn] = useState<IPeerEvaluationColumn | null>(null);
 
   const [columns, setColumns] = useState<IPeerEvaluationColumn[]>(field.value);
 
@@ -61,7 +61,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
   };
 
   const onAddColumn = () => {
-    setCreateModuleColumnOpen(true);
+    setCreatePeerEvaluationColumnOpen(true);
   };
 
   const onSubmitAddColumn = ({ description }: IColumnFormValue) => {
@@ -79,7 +79,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
   const onColumnUpdateSelection = (data: ArrayObject) => {
     const dataColumn = getMergedKeyValuesObject(peerEvaluationColumnOrder, data) as unknown as IPeerEvaluationColumn;
     setUpdateColumn(dataColumn);
-    setUpdateModuleColumnOpen(true);
+    setUpdatePeerEvaluationColumnOpen(true);
   };
 
   const onSubmitUpdateColumn = ({ description }: IColumnFormValue) => {
@@ -100,14 +100,14 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
 
   const onColumnDeleteSelection = (data: ArrayObject) => {
     const dataColumn = getMergedKeyValuesObject(peerEvaluationColumnOrder, data) as unknown as IPeerEvaluationColumn;
-    setDeleteModuleColumn(dataColumn);
-    setDeleteModuleColumnConfirmationOpen(true);
+    setDeletePeerEvaluationColumn(dataColumn);
+    setDeletePeerEvaluationColumnConfirmationOpen(true);
   };
 
-  const onDeleteModuleColumnAccept = () => {
-    const columnsUnchanged = columns.filter(({ id }) => id !== deleteModuleColumn?.id);
+  const onDeletePeerEvaluationColumnAccept = () => {
+    const columnsUnchanged = columns.filter(({ id }) => id !== deletePeerEvaluationColumn?.id);
 
-    const columnToUpdate = columns.filter(({ id }) => id === deleteModuleColumn?.id);
+    const columnToUpdate = columns.filter(({ id }) => id === deletePeerEvaluationColumn?.id);
 
     if (columnToUpdate[0].status != FieldStatus.NEW) {
       columnToUpdate[0].status = FieldStatus.DELETED;
@@ -118,16 +118,16 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
 
     setSelectedRows([]);
 
-    onDeleteModuleColumnConfirmationClose();
+    onDeletePeerEvaluationColumnConfirmationClose();
   };
 
-  const onDeleteModuleColumnCancel = () => {
-    onDeleteModuleColumnConfirmationClose();
+  const onDeletePeerEvaluationColumnCancel = () => {
+    onDeletePeerEvaluationColumnConfirmationClose();
   };
 
-  const onDeleteModuleColumnConfirmationClose = () => {
-    setDeleteModuleColumn(null);
-    setDeleteModuleColumnConfirmationOpen(false);
+  const onDeletePeerEvaluationColumnConfirmationClose = () => {
+    setDeletePeerEvaluationColumn(null);
+    setDeletePeerEvaluationColumnConfirmationOpen(false);
   };
 
   const tableColumns: MUIDataTableColumnDef[] = [
@@ -185,7 +185,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
   const tableOptions: MUIDataTableOptions = {
     textLabels: {
       body: {
-        noMatch: "Sorry, no columns in the module",
+        noMatch: "Sorry, no columns in the peer evaluation",
       },
     },
     responsive: "simple",
@@ -275,15 +275,15 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       </Wrapper>
 
       <CreateColumnForm
-        state={isCreateModuleColumnOpen}
-        updateFormState={setCreateModuleColumnOpen}
+        state={isCreatePeerEvaluationColumnOpen}
+        updateFormState={setCreatePeerEvaluationColumnOpen}
         onSubmit={onSubmitAddColumn}
       />
 
       {updateColumn && (
         <UpdateColumnForm
-          state={isUpdateModuleColumnOpen}
-          updateFormState={setUpdateModuleColumnOpen}
+          state={isUpdatePeerEvaluationColumnOpen}
+          updateFormState={setUpdatePeerEvaluationColumnOpen}
           onSubmit={onSubmitUpdateColumn}
           description={updateColumn.description}
         />
@@ -291,11 +291,11 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
 
       <ConfirmationDialog
         testId={"peer-evaluation-column-management-confirmation-delete-column"}
-        isOpen={isDeleteModuleColumnConfirmationOpen}
+        isOpen={isDeletePeerEvaluationColumnConfirmationOpen}
         title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
         textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
-        onAccept={onDeleteModuleColumnAccept}
-        onClose={onDeleteModuleColumnCancel}
+        onAccept={onDeletePeerEvaluationColumnAccept}
+        onClose={onDeletePeerEvaluationColumnCancel}
         closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
         acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
       />

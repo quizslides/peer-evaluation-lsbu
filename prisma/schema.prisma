@@ -12,16 +12,16 @@ generator typegraphql {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @default(now()) @updatedAt
-  name                  String
-  email                 String                 @unique
-  sessions              Session[]
-  role                  Role                   @default(STUDENT)
-  moduleTeachingMembers ModuleTeachingMember[]
-  emailVerified         DateTime?
-  moduleStudents        Student[]
+  id                            String                         @id @default(cuid())
+  createdAt                     DateTime                       @default(now())
+  updatedAt                     DateTime                       @default(now()) @updatedAt
+  name                          String
+  email                         String                         @unique
+  sessions                      Session[]
+  role                          UserRoles                          @default(STUDENT)
+  emailVerified                 DateTime?
+  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
+  peerEvaluationStudentList            PeerEvaluationStudent[]
 }
 
 model VerificationToken {
@@ -40,52 +40,54 @@ model Session {
   userId       String
 }
 
-model Module {
-  id                    String                 @id @default(cuid())
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @default(now()) @updatedAt
-  title                 String
-  schools               Schools[]
-  moduleCode            String                 @unique
-  status                ModuleStatus           @default(DRAFT)
-  maxGradeIncrease      Int                    @default(10)
-  maxGradeDecrease      Int                    @default(100)
-  submissionsLockDate   DateTime?
-  moduleTeachingMembers ModuleTeachingMember[]
-  reminderEmail         Email?
-  columns               PeerEvaluationColumn[]
-  criteriaScoreRangeMin Int                    @default(1)
-  criteriaScoreRangeMax Int                    @default(5)
-  students              Student[]
+model PeerEvaluation {
+  id                            String                         @id @default(cuid())
+  createdAt                     DateTime                       @default(now())
+  updatedAt                     DateTime                       @default(now()) @updatedAt
+  title                         String
+  schools                       Schools[]
+  code                          String                         @unique
+  status                        PeerEvaluationStatuses         @default(DRAFT)
+  maxGradeIncrease              Int                            @default(10)
+  maxGradeDecrease              Int                            @default(100)
+  submissionsLockDate           DateTime?
+  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
+  reminderEmail                 Email?
+  columns                       PeerEvaluationColumn[]
+  criteriaScoreRangeMin         Int                            @default(1)
+  criteriaScoreRangeMax         Int                            @default(5)
+  peerEvaluationStudents        PeerEvaluationStudent[]
 }
 
-model Student {
-  id                               String                   @id @default(cuid())
-  createdAt                        DateTime                 @default(now())
-  updatedAt                        DateTime                 @default(now()) @updatedAt
-  user                             User?                    @relation(fields: [userId], references: [id])
+model PeerEvaluationStudent {
+  id                               String                        @id @default(cuid())
+  createdAt                        DateTime                      @default(now())
+  updatedAt                        DateTime                      @default(now()) @updatedAt
+  user                             User?                         @relation(fields: [userId], references: [id])
   userId                           String?
-  module                           Module?                  @relation(fields: [moduleId], references: [id])
-  moduleId                         String?
-  studentTeam                      StudentTeam?             @relation(fields: [studentTeamId], references: [id])
-  studentTeamId                    String?
+  peerEvaluation                   PeerEvaluation?               @relation(fields: [peerEvaluationId], references: [id])
+  peerEvaluationId                 String?
+  peerEvaluationStudentTeam                      PeerEvaluationStudentTeam?                  @relation(fields: [peerEvaluationStudentTeamId], references: [id])
+  peerEvaluationStudentTeamId                    String?
   averageCriteriaScore             Decimal?
   averageCriteriaScoreByTeamMember Decimal?
   systemCalculatedMark             Decimal?
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
-  lecturerAdjustedMarkByUser       ModuleTeachingMember?    @relation(fields: [moduleTeachingMemberId], references: [id]) // Lecturer that edited the adjusted mark
-  moduleTeachingMemberId           String?
-  peerEvaluationReviewed           PeerEvaluation? // Peer evaluation that the student is reviewing
+  lecturerAdjustedMarkByUser       PeerEvaluationTeachingMember? @relation(fields: [lecturerAdjustedMarkByUserId], references: [id]) // Lecturer that edited the adjusted mark
+  lecturerAdjustedMarkByUserId   String?
+  peerEvaluationReviewed           PeerEvaluationStudentReview? // Peer evaluation that the student is reviewing
   PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
+
+  @@unique([userId, peerEvaluationId])
 }
 
-model PeerEvaluation {
+model PeerEvaluationStudentReview {
   id                      String                   @id @default(cuid())
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @default(now()) @updatedAt
-  student                 Student                  @relation(fields: [studentId], references: [id])
-  studentId               String                   @unique
+  peerEvaluationStudent   PeerEvaluationStudent    @relation(fields: [peerEvaluationStudentId], references: [id])
+  peerEvaluationStudentId String                   @unique
   comment                 String
   PeerEvaluationReviewees PeerEvaluationReviewee[]
   isCompleted             Boolean
@@ -95,12 +97,12 @@ model PeerEvaluationReviewee {
   id                           String                         @id @default(cuid())
   createdAt                    DateTime                       @default(now())
   updatedAt                    DateTime                       @default(now()) @updatedAt
-  studentReviewed              Student                        @relation(fields: [studentId], references: [id])
-  studentId                    String
+  studentReviewed              PeerEvaluationStudent          @relation(fields: [studentReviewedId], references: [id])
+  studentReviewedId            String
   criteriaScore                Int
   revieweeComment              String
-  peerEvaluation               PeerEvaluation?                @relation(fields: [peerEvaluationId], references: [id])
-  peerEvaluationId             String?
+  peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id])
+  peerEvaluationReviewId       String?
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
 }
 
@@ -116,27 +118,27 @@ model PeerEvaluationRevieweeColumn {
   isInvalid                Boolean
 }
 
-model StudentTeam {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
-  name      String
-  students  Student[]
-  mark      Decimal
+model PeerEvaluationStudentTeam {
+  id                        String                  @id @default(cuid())
+  createdAt                 DateTime                @default(now())
+  updatedAt                 DateTime                @default(now()) @updatedAt
+  name                      String
+  peerEvaluationStudentList PeerEvaluationStudent[]
+  mark                      Decimal
 }
 
-model ModuleTeachingMember {
-  id                   String                    @id @default(cuid())
-  createdAt            DateTime                  @default(now())
-  updatedAt            DateTime                  @default(now()) @updatedAt
-  role                 ModuleTeachingMemberRoles @default(VIEWER)
-  module               Module                    @relation(references: [id], fields: [moduleId], onDelete: Cascade)
-  moduleId             String
-  user                 User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+model PeerEvaluationTeachingMember {
+  id                   String                            @id @default(cuid())
+  createdAt            DateTime                          @default(now())
+  updatedAt            DateTime                          @default(now()) @updatedAt
+  role                 PeerEvaluationTeachingMemberRoles @default(VIEWER)
+  peerEvaluation       PeerEvaluation                    @relation(references: [id], fields: [peerEvaluationId], onDelete: Cascade)
+  peerEvaluationId     String
+  user                 User                              @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId               String
-  studentsMarkAdjusted Student[]
+  studentsMarkAdjusted PeerEvaluationStudent[]
 
-  @@unique([userId, moduleId])
+  @@unique([userId, peerEvaluationId])
 }
 
 model PeerEvaluationColumn {
@@ -144,37 +146,37 @@ model PeerEvaluationColumn {
   createdAt                    DateTime                       @default(now())
   updatedAt                    DateTime                       @default(now()) @updatedAt
   description                  String
-  module                       Module                         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  moduleId                     String
+  peerEvaluation               PeerEvaluation                 @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
+  peerEvaluationId             String
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
 
-  @@unique([id, moduleId])
+  @@unique([id, peerEvaluationId])
 }
 
 model Email {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  title     String
-  body      String
-  module    Module?  @relation(fields: [moduleId], references: [id])
-  moduleId  String?  @unique
+  id               String          @id @default(cuid())
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now()) @updatedAt
+  title            String
+  body             String
+  peerEvaluation   PeerEvaluation? @relation(fields: [peerEvaluationId], references: [id])
+  peerEvaluationId String?         @unique
 }
 
-enum Role {
+enum UserRoles {
   ADMIN
   LECTURER
   STUDENT
 }
 
-enum ModuleStatus {
+enum PeerEvaluationStatuses {
   DRAFT
   PUBLISHED
   UNPUBLISHED
   SUBMISSIONS_LOCKED
 }
 
-enum ModuleTeachingMemberRoles {
+enum PeerEvaluationTeachingMemberRoles {
   OWNER
   EDITOR
   VIEWER

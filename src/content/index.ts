@@ -54,24 +54,24 @@ const content = {
         },
       },
     },
-    moduleForm: {
+    peerEvaluationForm: {
       form: {
         title: {
-          label: "Module title",
-          placeholder: "Title of the module",
+          label: "Peer Evaluation title",
+          placeholder: "Title of the peer evaluation",
         },
-        moduleCode: {
-          label: "Module code",
-          placeholder: "Module code must be unique",
-          helperText: "Module code must be unique, uppercase and only underscore is allowed between words",
+        code: {
+          label: "Peer Evaluation code",
+          placeholder: "Peer Evaluation code must be unique",
+          helperText: "Peer Evaluation code must be unique, uppercase and only underscore is allowed between words",
         },
-        moduleSchools: {
-          label: "Schools module",
-          helperText: "Schools that the module is part of",
+        peerEvaluationSchools: {
+          label: "Schools peer evaluation",
+          helperText: "Schools that the peer evaluation is part of",
         },
-        moduleStatus: {
+        peerEvaluationStatus: {
           label: "Status",
-          helperText: "Status of the module peer evaluation",
+          helperText: "Status of the peer evaluation peer evaluation",
         },
         maxGradeIncrease: {
           label: "Max grade increase",
@@ -104,8 +104,8 @@ const content = {
         columnManagement: {
           helperText: "List of columns of the peer evaluation",
         },
-        moduleTeachingMembers: {
-          helperText: "Teaching module teaching members",
+        peerEvaluationTeachingMembers: {
+          helperText: "Teaching peer evaluation teaching members",
         },
         button: {
           submit: "submit",
@@ -142,16 +142,16 @@ const content = {
         closeText: "Cancel",
       },
     },
-    moduleTeachingMember: {
-      resetButton: "Reset teaching module teaching members",
+    peerEvaluationTeachingMember: {
+      resetButton: "Reset teaching peer evaluation teaching members",
       confirmationDeleteColumn: {
-        title: "Delete module teaching member",
-        bodyText: "Are you sure you want to delete the module teaching member?",
+        title: "Delete peer evaluation teaching member",
+        bodyText: "Are you sure you want to delete the peer evaluation teaching member?",
         acceptText: "OK",
         closeText: "Cancel",
       },
     },
-    moduleTeachingMemberForm: {
+    peerEvaluationTeachingMemberForm: {
       form: {
         email: {
           label: "Lecturer email",
@@ -165,8 +165,8 @@ const content = {
         },
         role: {
           label: "Role",
-          helperText: "Role of the lecturer in the module",
-          placeholder: "Role of the lecturer in the module",
+          helperText: "Role of the lecturer in the peer evaluation",
+          placeholder: "Role of the lecturer in the peer evaluation",
         },
         button: {
           submit: "submit",
@@ -174,11 +174,11 @@ const content = {
         },
       },
     },
-    modulesDataTable: {
+    peerEvaluationsDataTable: {
       confirmationOnDelete: {
         title: "Are you really sure?",
         bodyText:
-          "If you delete the module all the related data will be lost! Are you sure you want to delete the module?",
+          "If you delete the peer evaluation all the related data will be lost! Are you sure you want to delete the peer evaluation?",
         acceptText: "Yes",
         closeText: "No",
       },

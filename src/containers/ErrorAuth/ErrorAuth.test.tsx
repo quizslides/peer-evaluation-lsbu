@@ -9,7 +9,7 @@ describe("Testing ErrorAuth container", () => {
   it("renders a ErrorAuth", () => {
     render(<ErrorAuth />);
 
-    const element = screen.getByText(content.containers[404].text);
+    const element = screen.getByText(content.containers.errorAuth.text);
 
     expect(element).toBeInTheDocument();
   });
