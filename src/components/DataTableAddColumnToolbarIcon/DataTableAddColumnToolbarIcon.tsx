@@ -7,11 +7,12 @@ import { AddIcon } from "@/icons";
 interface IDataTableAddColumnToolbarIcon {
   onClick: () => void;
   testId: string;
+  toolTipLabel: string;
 }
 
-const DataTableAddColumnToolbarIcon = ({ onClick, testId }: IDataTableAddColumnToolbarIcon) => {
+const DataTableAddColumnToolbarIcon = ({ onClick, testId, toolTipLabel }: IDataTableAddColumnToolbarIcon) => {
   return (
-    <IconButtonWrapper testId={testId} tooltip={"Add Column"} onClick={onClick}>
+    <IconButtonWrapper testId={testId} tooltip={toolTipLabel} onClick={onClick}>
       <AddIcon testId={`${testId}-icon`} />
     </IconButtonWrapper>
   );

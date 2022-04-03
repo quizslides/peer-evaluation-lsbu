@@ -342,7 +342,11 @@ const PeerEvaluationsDataTable = ({
           onClick={onRefreshPeerEvaluations}
           testId={`${testId}-refresh-peer-evaluation-table`}
         />
-        <DataTableAddColumnToolbarIcon onClick={onAddPeerEvaluation} testId={`${testId}-peer-evaluation-member-add`} />
+        <DataTableAddColumnToolbarIcon
+          onClick={onAddPeerEvaluation}
+          testId={`${testId}-peer-evaluation-member-add`}
+          toolTipLabel={"Add peer evaluation"}
+        />
       </>
     ),
     customToolbarSelect: (selectedRows, displayData) => (

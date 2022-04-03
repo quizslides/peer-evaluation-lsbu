@@ -255,6 +255,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
         <DataTableAddColumnToolbarIcon
           onClick={onAddPeerEvaluationTeachingMember}
           testId={"peer-evaluation-member-add"}
+          toolTipLabel={"Add"}
         />
       ),
     rowsSelected: selectedRows,

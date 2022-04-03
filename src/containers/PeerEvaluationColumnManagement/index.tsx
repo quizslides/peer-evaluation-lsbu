@@ -204,7 +204,11 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     rowsPerPage: 100,
     customToolbar: (_) =>
       !isDisabled && (
-        <DataTableAddColumnToolbarIcon onClick={onAddColumn} testId={"peer-evaluation-column-management-add-column"} />
+        <DataTableAddColumnToolbarIcon
+          onClick={onAddColumn}
+          testId={"peer-evaluation-column-management-add-column"}
+          toolTipLabel={"Add column"}
+        />
       ),
     rowsSelected: selectedRows,
     onRowSelectionChange: (rowsSelectedData, allRows, rowsSelected) => {
