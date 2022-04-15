@@ -177,6 +177,7 @@ const initialColumnState = {
 const peerEvaluationTeachingMemberDataTableColumnOrder = ["name", "email", "role", "status", "id"];
 
 const peerEvaluationDataTableColumnOrder = [
+  "actions",
   "id",
   "title",
   "createdAt",

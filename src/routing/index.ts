@@ -14,9 +14,10 @@ const routing = {
     peerEvaluation: "/admin/peer-evaluation",
   },
   peerEvaluation: {
+    list: "/peer-evaluation",
     create: "/peer-evaluation/create",
     edit: "/peer-evaluation/edit",
-    list: "/peer-evaluation",
+    view: "/peer-evaluation/view",
   },
   backendEndpoint: "/api/graphql",
 };

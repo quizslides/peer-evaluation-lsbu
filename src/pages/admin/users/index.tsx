@@ -13,7 +13,8 @@ import { ValidationError, object } from "yup";
 
 import {
   Base,
-  DataTableRefreshToolbarIcon,
+  DataTable,
+  DataTableRefreshActionButtonIcon,
   Dialog,
   IconButtonWrapper,
   PageTitle,
@@ -22,7 +23,7 @@ import {
   VirtualStringList,
 } from "@/components";
 import { ObjectCSV } from "@/components/UploadButton/UploadButton";
-import { CreateUserForm, UpdateUserForm } from "@/containers";
+import { CreateUserForm, DataTableEditDeleteToolbar, UpdateUserForm } from "@/containers";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
@@ -304,7 +305,7 @@ const UsersAdmin: NextPage = () => {
     setUserDataBulk(null);
   };
 
-  const columns = [
+  const userDataTable = [
     {
       name: "name",
       label: "Name",
@@ -414,7 +415,7 @@ const UsersAdmin: NextPage = () => {
     }
   };
 
-  const tableOptions: MUIDataTableOptions = {
+  const userDataTableOptions: MUIDataTableOptions = {
     textLabels: {
       body: {
         noMatch: "Sorry, no users in the system",
@@ -440,26 +441,27 @@ const UsersAdmin: NextPage = () => {
         tableState.selectedRows.lookup = [];
       }
     },
-    customToolbar: (_) => <DataTableRefreshToolbarIcon onClick={onRefreshUsers} testId={"refresh-admin-users-table"} />,
+    customToolbar: (_) => (
+      <DataTableRefreshActionButtonIcon
+        onClick={onRefreshUsers}
+        testId={"refresh-admin-users-table"}
+        toolTipLabel={"Refresh"}
+      />
+    ),
     customToolbarSelect: (selectedRows, displayData) => (
-      <Container>
-        {selectedRows.data.length === 1 ? (
-          <IconButtonWrapper
-            testId="update-user-button-wrapper"
-            tooltip={"Update"}
-            onClick={() => updateUser(displayData[selectedRows.data[0].index].data)}
-          >
-            <EditIcon testId={"update-user-button-icon"} />
-          </IconButtonWrapper>
-        ) : null}
-        <IconButtonWrapper
-          testId="delete-user-button-wrapper"
-          tooltip={"Delete"}
-          onClick={() => selectDeleteUsers(selectedRows.data, displayData)}
-        >
-          <DeleteIcon testId={"delete-user-button-icon"} />
-        </IconButtonWrapper>
-      </Container>
+      <DataTableEditDeleteToolbar
+        visibleEditButton={selectedRows.data.length === 1}
+        editButton={{
+          testId: "update-user-button-wrapper",
+          toolTipLabel: "Update",
+          onClick: () => updateUser(displayData[selectedRows.data[0].index].data),
+        }}
+        deleteButton={{
+          testId: "delete-user-button-wrapper",
+          toolTipLabel: "Delete",
+          onClick: () => selectDeleteUsers(selectedRows.data, displayData),
+        }}
+      />
     ),
   };
 
@@ -499,7 +501,9 @@ const UsersAdmin: NextPage = () => {
     <Base topLeftComponent="menu" loading={loading || !data} error={!!error}>
       <PageTitle title={"Users"} testId="page-admin-users-title" variant="h4" margin="2em" />
 
-      {data && <MUIDataTable title={"Users"} data={data.users} columns={columns} options={tableOptions} />}
+      {data && (
+        <DataTable data={data.users} columns={userDataTable} options={userDataTableOptions} isVisible testId={""} />
+      )}
 
       <Fab icon={<WidgetsIcon testId={""} />}>
         <Action text="Add user" onClick={createNewUser}>

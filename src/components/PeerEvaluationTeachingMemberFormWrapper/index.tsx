@@ -11,10 +11,11 @@ import {
   Button,
   ConfirmationDialog,
   DataTable,
-  DataTableAddColumnToolbarIcon,
+  DataTableAddActionButtonIcon,
   Error,
   IconButtonWrapper,
 } from "@/components";
+import { DataTableEditDeleteToolbar } from "@/containers";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
 import LoadingContainer from "@/containers/LoadingContainer";
 import UpdatePeerEvaluationTeachingMemberForm from "@/containers/UpdatePeerEvaluationTeachingMemberForm";
@@ -48,6 +49,10 @@ const BottomRight = styled.div`
   position: absolute;
   bottom: 100;
   right: 0;
+`;
+
+const Container = styled.div`
+  margin-right: 2em;
 `;
 
 const PeerEvaluationTeachingMemberFormWrapper = ({
@@ -252,33 +257,29 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
     rowsPerPage: 100,
     customToolbar: (_) =>
       !isDisabled && (
-        <DataTableAddColumnToolbarIcon
+        <DataTableAddActionButtonIcon
           onClick={onAddPeerEvaluationTeachingMember}
           testId={"peer-evaluation-member-add"}
           toolTipLabel={"Add"}
         />
       ),
     rowsSelected: selectedRows,
-    onRowSelectionChange: (rowsSelectedData, allRows, rowsSelected) => {
+    onRowSelectionChange: (_, __, rowsSelected) => {
       setSelectedRows(rowsSelected as []);
     },
     customToolbarSelect: (selectedRows, displayData) => (
-      <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-        <IconButtonWrapper
-          testId="peer-evaluation-member-update"
-          tooltip={"Update peer evaluation teaching member"}
-          onClick={() => onPeerEvaluationTeachingMemberUpdateSelection(displayData[selectedRows.data[0].index].data)}
-        >
-          <EditIcon testId={"peer-evaluation-member-update-button-icon"} />
-        </IconButtonWrapper>
-        <IconButtonWrapper
-          testId="peer-evaluation-member-delete"
-          tooltip={"Update peer evaluation teaching member"}
-          onClick={() => onPeerEvaluationTeachingMemberDeleteSelection(displayData[selectedRows.data[0].index].data)}
-        >
-          <DeleteIcon testId={"peer-evaluation-member-delete-button-icon"} />
-        </IconButtonWrapper>
-      </Grid>
+      <DataTableEditDeleteToolbar
+        editButton={{
+          testId: "peer-evaluation-member-update",
+          toolTipLabel: "Update peer evaluation teaching member",
+          onClick: () => onPeerEvaluationTeachingMemberUpdateSelection(displayData[selectedRows.data[0].index].data),
+        }}
+        deleteButton={{
+          testId: "peer-evaluation-member-delete",
+          toolTipLabel: "Delete peer evaluation teaching member",
+          onClick: () => onPeerEvaluationTeachingMemberDeleteSelection(displayData[selectedRows.data[0].index].data),
+        }}
+      />
     ),
   };
 

@@ -4,8 +4,10 @@ import Base from "@/components/Base/Base";
 import Button from "@/components/Button/Button";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import DataTable from "@/components/DataTable/DataTable";
-import DataTableAddColumnToolbarIcon from "@/components/DataTableAddColumnToolbarIcon/DataTableAddColumnToolbarIcon";
-import DataTableRefreshToolbarIcon from "@/components/DataTableRefreshToolbarIcon/DataTableRefreshToolbarIcon";
+import DataTableAddActionButtonIcon from "@/components/DataTableAddActionButtonIcon/DataTableAddActionButtonIcon";
+import DataTableDeleteActionButtonIcon from "@/components/DataTableDeleteActionButtonIcon/DataTableDeleteActionButtonIcon";
+import DataTableEditActionButtonIcon from "@/components/DataTableEditActionButtonIcon/DataTableEditActionButtonIcon";
+import DataTableRefreshActionButtonIcon from "@/components/DataTableRefreshActionButtonIcon/DataTableRefreshActionButtonIcon";
 import DatePicker from "@/components/DatePicker/DatePicker";
 import DatePickerForm from "@/components/DatePickerForm/DatePickerForm";
 import Dialog from "@/components/Dialog/Dialog";
@@ -36,8 +38,10 @@ export {
   Button,
   ConfirmationDialog,
   DataTable,
-  DataTableAddColumnToolbarIcon,
-  DataTableRefreshToolbarIcon,
+  DataTableAddActionButtonIcon,
+  DataTableDeleteActionButtonIcon,
+  DataTableEditActionButtonIcon,
+  DataTableRefreshActionButtonIcon,
   DatePicker,
   DatePickerForm,
   Dialog,

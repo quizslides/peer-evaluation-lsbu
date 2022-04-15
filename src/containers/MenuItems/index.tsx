@@ -110,8 +110,6 @@ const MenuItems = ({ router }: IMenuItems) => {
         return { ...obj, [menuItemList]: false };
       }, {})
     );
-
-    console.log(router.route);
   }, [router]);
 
   const updateMenuItemState = (id: string) => {

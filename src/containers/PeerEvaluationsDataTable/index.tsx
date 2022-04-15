@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import styled from "@emotion/styled";
@@ -9,13 +9,15 @@ import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 
+import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
+
 import {
   Base,
   Button,
   ConfirmationDialog,
   DataTable,
-  DataTableAddColumnToolbarIcon,
-  DataTableRefreshToolbarIcon,
+  DataTableAddActionButtonIcon,
+  DataTableRefreshActionButtonIcon,
   IconButtonWrapper,
   PageTitle,
   Typography,
@@ -90,7 +92,9 @@ const PeerEvaluationsDataTable = ({
 
   const onEditPeerEvaluation = (values: string[]) => {
     const peerEvaluationToUpdate = getPeerEvaluationObject(values);
+
     setRedirecting(true);
+
     router.push({
       pathname: `${routing.peerEvaluation.edit}/${peerEvaluationToUpdate.id}`,
       query: {
@@ -150,12 +154,42 @@ const PeerEvaluationsDataTable = ({
     setDeletePeerEvaluationId(null);
   };
 
+  const onViewPeerEvaluation = (dataIndex: number) => {
+    setRedirecting(true);
+
+    router.push({
+      pathname: `${routing.peerEvaluation.view}/${peerEvaluationsData[dataIndex].id}`,
+      query: {
+        redirectUrl: redirectUrl,
+      },
+    });
+  };
+
   const tableColumns: MUIDataTableColumnDef[] = [
+    {
+      name: "",
+      options: {
+        filter: false,
+        sort: false,
+        empty: false,
+        customBodyRenderLite: (dataIndex) => {
+          return (
+            <Button
+              onClick={() => onViewPeerEvaluation(dataIndex)}
+              testId={`${testId}-view-action`}
+              variant="contained"
+            >
+              view
+            </Button>
+          );
+        },
+      },
+    },
     {
       name: "id",
       label: "ID",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
         filterType: "textField",
@@ -174,6 +208,7 @@ const PeerEvaluationsDataTable = ({
       name: "createdAt",
       label: "Created",
       options: {
+        display: false,
         filter: true,
         sort: true,
         filterType: "textField",
@@ -186,6 +221,7 @@ const PeerEvaluationsDataTable = ({
       name: "updatedAt",
       label: "Updated",
       options: {
+        display: false,
         filter: true,
         sort: true,
         filterType: "textField",
@@ -196,7 +232,7 @@ const PeerEvaluationsDataTable = ({
     },
     {
       name: "code",
-      label: "Peer Evaluation Code",
+      label: "Code",
       options: {
         filter: true,
         sort: true,
@@ -215,7 +251,7 @@ const PeerEvaluationsDataTable = ({
       name: "maxGradeIncrease",
       label: "Max Grade Increase",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
       },
@@ -224,7 +260,7 @@ const PeerEvaluationsDataTable = ({
       name: "maxGradeDecrease",
       label: "Max Grade Decrease",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
       },
@@ -233,7 +269,7 @@ const PeerEvaluationsDataTable = ({
       name: "submissionsLockDate",
       label: "Submission Lock Date",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
         filterType: "textField",
@@ -243,7 +279,7 @@ const PeerEvaluationsDataTable = ({
       name: "criteriaScoreRangeMin",
       label: "Criterial Score Range Min",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
       },
@@ -252,7 +288,7 @@ const PeerEvaluationsDataTable = ({
       name: "criteriaScoreRangeMax",
       label: "Criterial Score Range Max",
       options: {
-        display: "false",
+        display: false,
         filter: true,
         sort: true,
       },
@@ -263,6 +299,7 @@ const PeerEvaluationsDataTable = ({
       options: {
         filter: true,
         sort: true,
+        display: false,
       },
     },
     {
@@ -271,6 +308,7 @@ const PeerEvaluationsDataTable = ({
       options: {
         filter: true,
         sort: true,
+        display: false,
       },
     },
     {
@@ -279,23 +317,14 @@ const PeerEvaluationsDataTable = ({
       options: {
         filter: true,
         sort: true,
-        customBodyRender: (value: number, rowData) => {
-          return (
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
-              <Typography testId={`${testId}-total-students`}>{value}</Typography>
-
-              <Button onClick={() => console.log(rowData)} variant={"contained"} testId={`${testId}-edit-students`}>
-                Edit
-              </Button>
-            </Stack>
-          );
-        },
+        display: false,
       },
     },
     {
       name: "schoolsDataTable",
       label: "Schools",
       options: {
+        display: false,
         customBodyRender: (schools: string[]) => {
           return (
             <Stack spacing={1} direction={{ xs: "column", sm: "row" }}>
@@ -338,11 +367,12 @@ const PeerEvaluationsDataTable = ({
     enableNestedDataAccess: ".",
     customToolbar: (_) => (
       <>
-        <DataTableRefreshToolbarIcon
+        <DataTableRefreshActionButtonIcon
           onClick={onRefreshPeerEvaluations}
           testId={`${testId}-refresh-peer-evaluation-table`}
+          toolTipLabel={"Refresh"}
         />
-        <DataTableAddColumnToolbarIcon
+        <DataTableAddActionButtonIcon
           onClick={onAddPeerEvaluation}
           testId={`${testId}-peer-evaluation-member-add`}
           toolTipLabel={"Add peer evaluation"}
@@ -350,24 +380,22 @@ const PeerEvaluationsDataTable = ({
       </>
     ),
     customToolbarSelect: (selectedRows, displayData) => (
-      <Container>
-        <IconButtonWrapper
-          testId="update-user-button-wrapper"
-          tooltip={"Update"}
-          onClick={() => onEditPeerEvaluation(displayData[selectedRows.data[0].index].data)}
-        >
-          <EditIcon testId={`${testId}-update-user-button-icon`} />
-        </IconButtonWrapper>
-        <IconButtonWrapper
-          testId="delete-user-button-wrapper"
-          tooltip={"Delete"}
-          onClick={() => onDeletePeerEvaluationConfirmation(displayData[selectedRows.data[0].index].data)}
-        >
-          <DeleteIcon testId={`${testId}-delete-user-button-icon`} />
-        </IconButtonWrapper>
-      </Container>
+      <DataTableEditDeleteToolbar
+        editButton={{
+          testId: "update-user-button-wrapper",
+          toolTipLabel: "Update",
+          onClick: () => onEditPeerEvaluation(displayData[selectedRows.data[0].index].data),
+        }}
+        deleteButton={{
+          testId: "delete-user-button-wrapper",
+          toolTipLabel: "Delete",
+          onClick: () => onDeletePeerEvaluationConfirmation(displayData[selectedRows.data[0].index].data),
+        }}
+      />
     ),
   };
+
+  console.log(JSON.stringify(peerEvaluationsData));
 
   return (
     <Base topLeftComponent="menu" loading={isLoading || isRedirecting} error={isError}>
@@ -394,4 +422,4 @@ const PeerEvaluationsDataTable = ({
   );
 };
 
-export default PeerEvaluationsDataTable;
+export default memo(PeerEvaluationsDataTable);

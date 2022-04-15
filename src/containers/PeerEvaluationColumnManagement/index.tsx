@@ -5,8 +5,12 @@ import { FormControl, FormHelperText, Grid } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 
-import { ConfirmationDialog, DataTable, DataTableAddColumnToolbarIcon, IconButtonWrapper } from "@/components";
+import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
+
+import { ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, IconButtonWrapper } from "@/components";
 import Button from "@/components/Button/Button";
+import DataTableDeleteActionButtonIcon from "@/components/DataTableDeleteActionButtonIcon/DataTableDeleteActionButtonIcon";
+import DataTableEditActionButtonIcon from "@/components/DataTableEditActionButtonIcon/DataTableEditActionButtonIcon";
 import CreateColumnForm from "@/containers/CreateColumnForm";
 import UpdateColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
 import content from "@/content";
@@ -33,6 +37,10 @@ const BottomRight = styled.div`
   position: absolute;
   bottom: 100;
   right: 0;
+`;
+
+const Container = styled.div`
+  margin-right: 2em;
 `;
 
 const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }: IPeerEvaluationColumnManagement) => {
@@ -204,33 +212,29 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     rowsPerPage: 100,
     customToolbar: (_) =>
       !isDisabled && (
-        <DataTableAddColumnToolbarIcon
+        <DataTableAddActionButtonIcon
           onClick={onAddColumn}
           testId={"peer-evaluation-column-management-add-column"}
           toolTipLabel={"Add column"}
         />
       ),
     rowsSelected: selectedRows,
-    onRowSelectionChange: (rowsSelectedData, allRows, rowsSelected) => {
+    onRowSelectionChange: (_, __, rowsSelected) => {
       setSelectedRows(rowsSelected as []);
     },
     customToolbarSelect: (selectedRows, displayData) => (
-      <Grid container direction="row" justifyContent="flex-end" alignItems="center">
-        <IconButtonWrapper
-          testId="peer-evaluation-column-management-update-column"
-          tooltip={"Update column"}
-          onClick={() => onColumnUpdateSelection(displayData[selectedRows.data[0].index].data)}
-        >
-          <EditIcon testId={"peer-evaluation-column-management-update-column-button-icon"} />
-        </IconButtonWrapper>
-        <IconButtonWrapper
-          testId="peer-evaluation-column-management-delete-column"
-          tooltip={"Delete column"}
-          onClick={() => onColumnDeleteSelection(displayData[selectedRows.data[0].index].data)}
-        >
-          <DeleteIcon testId={"peer-evaluation-column-management-delete-column-button-icon"} />
-        </IconButtonWrapper>
-      </Grid>
+      <DataTableEditDeleteToolbar
+        editButton={{
+          testId: "peer-evaluation-column-management-update-column",
+          toolTipLabel: "Update column",
+          onClick: () => onColumnUpdateSelection(displayData[selectedRows.data[0].index].data),
+        }}
+        deleteButton={{
+          testId: "peer-evaluation-column-management-delete-column",
+          toolTipLabel: "Delete column",
+          onClick: () => onColumnDeleteSelection(displayData[selectedRows.data[0].index].data),
+        }}
+      />
     ),
   };
 

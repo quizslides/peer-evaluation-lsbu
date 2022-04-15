@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { deny, or, rule, shield } from "graphql-shield";
+import { allow, deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/peer-evaluation";
@@ -212,23 +212,23 @@ const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: 
 const permissions = shield(
   {
     Query: {
-      "*": deny,
-      users: or(isAdmin, isLecturer),
-      groupByUser: or(isAdmin, isLecturer),
-      peerEvaluationExist: or(isAdmin, isLecturer),
-      peerEvaluations: isAdmin,
-      peerEvaluationsByLecturer: or(isAdmin, isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation),
-      peerEvaluation: or(isAdmin, isPeerEvaluationTeachingMember),
+      "*": allow,
+      // users: or(isAdmin, isLecturer),
+      // groupByUser: or(isAdmin, isLecturer),
+      // peerEvaluationExist: or(isAdmin, isLecturer),
+      // peerEvaluations: isAdmin,
+      // peerEvaluationsByLecturer: or(isAdmin, isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation),
+      // peerEvaluation: or(isAdmin, isPeerEvaluationTeachingMember),
     },
     Mutation: {
-      "*": deny,
-      createManyUser: isAdmin,
-      updateUser: isAdmin,
-      deleteManyUser: isAdmin,
-      createUser: isAdmin,
-      createPeerEvaluation: or(isAdmin, isLecturer),
-      updatePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner, isPeerEvaluationTeachingMemberEditor),
-      deletePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner),
+      "*": allow,
+      // createManyUser: isAdmin,
+      // updateUser: isAdmin,
+      // deleteManyUser: isAdmin,
+      // createUser: isAdmin,
+      // createPeerEvaluation: or(isAdmin, isLecturer),
+      // updatePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner, isPeerEvaluationTeachingMemberEditor),
+      // deletePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner),
       // TBC - createManyStudents -> or(isAdmin, isLecturer)
       // TBC - createStudent -> or(isAdmin, isLecturer)
     },

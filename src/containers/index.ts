@@ -1,6 +1,7 @@
 import CreateColumnForm from "@/containers/CreateColumnForm";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
 import CreateUserForm from "@/containers/CreateUserForm";
+import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
 import Error404 from "@/containers/Error404";
 import Error500 from "@/containers/Error500";
 import ErrorAuth from "@/containers/ErrorAuth";
@@ -22,6 +23,7 @@ export {
   CreateColumnForm,
   CreatePeerEvaluationTeachingMemberForm,
   CreateUserForm,
+  DataTableEditDeleteToolbar,
   Error404,
   Error500,
   ErrorAuth,

@@ -5,7 +5,7 @@ import MUIDataTable, { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-da
 
 interface IDataTable {
   isVisible: boolean;
-  title: string;
+  title?: string;
   data: Array<object | number[] | string[]>;
   columns: MUIDataTableColumnDef[];
   options: MUIDataTableOptions | undefined;
