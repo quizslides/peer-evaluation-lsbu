@@ -395,8 +395,6 @@ const PeerEvaluationsDataTable = ({
     ),
   };
 
-  console.log(JSON.stringify(peerEvaluationsData));
-
   return (
     <Base topLeftComponent="menu" loading={isLoading || isRedirecting} error={isError}>
       <PageTitle title={"Peer Evaluations"} testId={`${testId}-title`} variant="h4" margin="2em" />

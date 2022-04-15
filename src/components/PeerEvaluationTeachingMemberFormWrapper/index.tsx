@@ -15,8 +15,8 @@ import {
   Error,
   IconButtonWrapper,
 } from "@/components";
-import { DataTableEditDeleteToolbar } from "@/containers";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
+import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
 import LoadingContainer from "@/containers/LoadingContainer";
 import UpdatePeerEvaluationTeachingMemberForm from "@/containers/UpdatePeerEvaluationTeachingMemberForm";
 import content from "@/content";

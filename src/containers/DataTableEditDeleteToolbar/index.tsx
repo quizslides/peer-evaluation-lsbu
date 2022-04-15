@@ -13,7 +13,7 @@ interface IDataTableEditActionButtonIcon {
 }
 
 const Container = styled.div`
-  margin-right: 2em;
+  margin-right: 1em;
 `;
 
 const DataTableEditDeleteToolbar = ({
