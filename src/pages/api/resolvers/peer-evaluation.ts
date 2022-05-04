@@ -90,7 +90,76 @@ class PeerEvaluationsByLecturer {
   }
 }
 
+@InputType({
+  isAbstract: true,
+  description: "PeerEvaluation dashboard input",
+})
+class PeerEvaluationDashboardWhereInput {
+  @Field((_type) => String, {
+    nullable: false,
+    description: "PeerEvaluation id value",
+  })
+  id!: string;
+}
+
+@ObjectType({
+  isAbstract: true,
+  description: "PeerEvaluation Dashboard Object",
+})
+class PeerEvaluationDashboard extends PeerEvaluation {
+  @Field((_type) => Number, {
+    nullable: true,
+    description: undefined,
+  })
+  totalCompletedPeerEvaluations: number | undefined;
+}
+
+@Resolver()
+class PeerEvaluationDashboardQuery {
+  @Query((_returns) => PeerEvaluationDashboard || null, {
+    nullable: true,
+  })
+  async peerEvaluationDashboard(
+    @Ctx() ctx: { prisma: PrismaClient },
+    @Arg("where") where: PeerEvaluationDashboardWhereInput
+  ): Promise<PeerEvaluationDashboard | null> {
+    const peerEvaluationData = await ctx.prisma.peerEvaluation.findFirst({
+      where: {
+        id: where.id,
+      },
+      include: {
+        _count: {
+          select: { peerEvaluationTeachingMembers: true, columns: true, peerEvaluationStudents: true },
+        },
+      },
+    });
+
+    const peerEvaluationRevieweeData = await ctx.prisma.peerEvaluationReviewee.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        peerEvaluationReview: {
+          isCompleted: true,
+        },
+        studentReviewed: {
+          peerEvaluationId: where.id,
+        },
+      },
+    });
+
+    const result = {
+      ...(peerEvaluationData as PeerEvaluation),
+      totalCompletedPeerEvaluations: peerEvaluationRevieweeData._count.id,
+    };
+
+    return result;
+  }
+}
+
 export {
+  PeerEvaluationDashboardQuery,
+  PeerEvaluationDashboardWhereInput,
   PeerEvaluationExist,
   PeerEvaluationExistResponse,
   PeerEvaluationsByLecturer,

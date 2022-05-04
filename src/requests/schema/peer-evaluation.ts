@@ -141,9 +141,6 @@ const GET_PEER_EVALUATION = gql`
         updatedAt
         role
         userId
-        _count {
-          studentsMarkAdjusted
-        }
         peerEvaluationId
         id
       }
