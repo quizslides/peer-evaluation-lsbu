@@ -112,6 +112,12 @@ class PeerEvaluationDashboard extends PeerEvaluation {
     description: undefined,
   })
   totalCompletedPeerEvaluations: number | undefined;
+
+  @Field((_type) => Number, {
+    nullable: true,
+    description: undefined,
+  })
+  totalPeerEvaluationTeams: number | undefined;
 }
 
 @Resolver()
@@ -148,9 +154,23 @@ class PeerEvaluationDashboardQuery {
       },
     });
 
+    const peerEvaluationStudentTeamData = await ctx.prisma.peerEvaluationStudentTeam.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        peerEvaluationStudentList: {
+          every: {
+            peerEvaluationId: where.id,
+          },
+        },
+      },
+    });
+
     const result = {
       ...(peerEvaluationData as PeerEvaluation),
       totalCompletedPeerEvaluations: peerEvaluationRevieweeData._count.id,
+      totalPeerEvaluationTeams: peerEvaluationStudentTeamData._count.id,
     };
 
     return result;
@@ -158,6 +178,7 @@ class PeerEvaluationDashboardQuery {
 }
 
 export {
+  PeerEvaluationDashboard,
   PeerEvaluationDashboardQuery,
   PeerEvaluationDashboardWhereInput,
   PeerEvaluationExist,

@@ -285,12 +285,36 @@ const PEER_EVALUATION_EXIST = gql`
   }
 `;
 
+const PEER_EVALUATION_DASHBOARD = gql`
+  query PeerEvaluationDashboard($where: PeerEvaluationDashboardWhereInput!) {
+    peerEvaluationDashboard(where: $where) {
+      title
+      id
+      schools
+      code
+      status
+      maxGradeIncrease
+      maxGradeDecrease
+      submissionsLockDate
+      _count {
+        peerEvaluationStudents
+        peerEvaluationTeachingMembers
+      }
+      createdAt
+      updatedAt
+      totalCompletedPeerEvaluations
+      totalPeerEvaluationTeams
+    }
+  }
+`;
+
 export {
   CREATE_PEER_EVALUATION,
   DELETE_PEER_EVALUATION,
   GET_PEER_EVALUATION,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,
+  PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
   UPDATE_PEER_EVALUATION,
 };
