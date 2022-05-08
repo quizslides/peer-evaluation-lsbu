@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.6...v1.0.0-staging.7) (2022-04-03)
+
+
+### Bug Fixes
+
+* fixing dockerfile configuration ([1f083aa](https://github.com/quizslides/peer-evaluation-lsbu/commit/1f083aa0ec3dbc88ae531c05d7683d5b65cc2d23))
+
 ## [1.0.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.5...v1.0.0-staging.6) (2022-04-03)
 
 
