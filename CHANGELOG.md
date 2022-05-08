@@ -2,6 +2,15 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.7...v1.0.0-staging.8) (2022-05-08)
+
+
+### Features
+
+* adding peer evaluation dashboard ([81466b9](https://github.com/quizslides/peer-evaluation-lsbu/commit/81466b9d99c6e37b4ae0d17ac85646c779496f1d))
+* adding resolver for peer evaluation dashboard ([604afb2](https://github.com/quizslides/peer-evaluation-lsbu/commit/604afb2cab1e91e2594d915e6ee5c46506e3702c))
+* adding total peer evaluation teams to the resolver ([365d8c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/365d8c5cd38e2f82582039f3b2d942c793db93a2))
+
 ## [1.0.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.6...v1.0.0-staging.7) (2022-04-03)
 
 
