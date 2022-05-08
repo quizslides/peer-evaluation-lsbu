@@ -37,7 +37,7 @@ const GET_PEER_EVALUATIONS = gql`
         }
       }
       reminderEmail {
-        title
+        subject
         body
         updatedAt
         createdAt
@@ -51,6 +51,24 @@ const GET_PEER_EVALUATIONS = gql`
         description
         peerEvaluationId
       }
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_EMAIL_REMINDER = gql`
+  query Email(
+    $whereEmail: EmailWhereUniqueInput!
+    $whereTeachingMemberRole: PeerEvaluationTeachingMemberWhereUniqueInput!
+  ) {
+    email(where: $whereEmail) {
+      createdAt
+      id
+      updatedAt
+      subject
+      body
+    }
+    peerEvaluationTeachingMember(where: $whereTeachingMemberRole) {
+      role
     }
   }
 `;
@@ -92,7 +110,7 @@ const GET_PEER_EVALUATIONS_BY_LECTURER = gql`
         }
       }
       reminderEmail {
-        title
+        subject
         body
         updatedAt
         createdAt
@@ -145,7 +163,7 @@ const GET_PEER_EVALUATION = gql`
         id
       }
       reminderEmail {
-        title
+        subject
         body
         peerEvaluationId
         id
@@ -189,7 +207,7 @@ const CREATE_PEER_EVALUATION = gql`
       reminderEmail {
         id
         body
-        title
+        subject
         updatedAt
         createdAt
       }
@@ -235,9 +253,6 @@ const UPDATE_PEER_EVALUATION = gql`
         updatedAt
         createdAt
         id
-        _count {
-          studentsMarkAdjusted
-        }
         user {
           email
           name
@@ -251,7 +266,7 @@ const UPDATE_PEER_EVALUATION = gql`
         id
         createdAt
         updatedAt
-        title
+        subject
         body
         peerEvaluationId
       }
@@ -265,6 +280,15 @@ const UPDATE_PEER_EVALUATION = gql`
           PeerEvaluationRevieweeColumn
         }
       }
+    }
+  }
+`;
+
+const UPDATE_PEER_EVALUATION_EMAIL = gql`
+  mutation UpdateEmail($data: EmailUpdateInput!, $where: EmailWhereUniqueInput!) {
+    updateEmail(data: $data, where: $where) {
+      subject
+      body
     }
   }
 `;
@@ -312,9 +336,11 @@ export {
   CREATE_PEER_EVALUATION,
   DELETE_PEER_EVALUATION,
   GET_PEER_EVALUATION,
+  GET_PEER_EVALUATION_EMAIL_REMINDER,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,
   PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
   UPDATE_PEER_EVALUATION,
+  UPDATE_PEER_EVALUATION_EMAIL,
 };

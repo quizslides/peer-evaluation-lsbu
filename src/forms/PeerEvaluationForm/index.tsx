@@ -25,7 +25,7 @@ import {
   peerEvaluationCriteriaScoreRangeMaxValidator,
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
-  peerEvaluationEmailTitleValidator,
+  peerEvaluationEmailSubjectValidator,
   peerEvaluationMaxGradeDecreaseValidator,
   peerEvaluationMaxGradeIncreaseValidator,
   peerEvaluationSchoolValidator,
@@ -67,7 +67,7 @@ const PeerEvaluationForm = ({
     ...peerEvaluationCriteriaScoreRangeMaxValidator,
     ...peerEvaluationCriteriaScoreRangeMinValidator,
     ...peerEvaluationEmailBodyValidator,
-    ...peerEvaluationEmailTitleValidator,
+    ...peerEvaluationEmailSubjectValidator,
     ...peerEvaluationMaxGradeDecreaseValidator,
     ...peerEvaluationMaxGradeIncreaseValidator,
     ...peerEvaluationSchoolValidator,
@@ -238,15 +238,15 @@ const PeerEvaluationForm = ({
 
               <FieldWrapper marginBottom="3em">
                 <TextFieldForm
-                  testId="peer-evaluation-form-email-title-field"
-                  name="emailTitleReminder"
+                  testId="peer-evaluation-form-email-subject-field"
+                  name="emailSubjectReminder"
                   props={{
                     required: true,
                     fullWidth: true,
-                    label: content.containers.peerEvaluationForm.form.emailTitleReminder.label,
+                    label: content.containers.peerEvaluationForm.form.emailSubjectReminder.label,
                     type: "text",
                     variant: "outlined",
-                    placeholder: content.containers.peerEvaluationForm.form.emailTitleReminder.placeholder,
+                    placeholder: content.containers.peerEvaluationForm.form.emailSubjectReminder.placeholder,
                     disabled: isViewOnly,
                   }}
                 />

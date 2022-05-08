@@ -6,27 +6,23 @@ import { useSession } from "next-auth/react";
 import { PeerEvaluationsDataTable } from "@/containers";
 import useGetPeerEvaluationsByLecturer from "@/requests/hooks/query/useGetPeerEvaluationsByLecturer";
 import routing from "@/routing";
-import { IPeerEvaluationDataTable, Schools, SchoolsDropdown } from "@/types/peer-evaluation";
+import { sanitizePeerEvaluationsDataOnFetch } from "@/transformers/peer-evaluation";
+import { IPeerEvaluationData, Schools, SchoolsDropdown } from "@/types/peer-evaluation";
 import { RoleScope } from "@/utils";
 
 const PeerEvaluations: NextPage = () => {
   const { data: session, status } = useSession();
 
   const [getPeerEvaluations, { loading: loadingQuery, error, data, refetch: runRefreshPeerEvaluations }] =
-    useGetPeerEvaluationsByLecturer("AllPeerEvaluations");
+    useGetPeerEvaluationsByLecturer("GetPeerEvaluationsByLecturer");
 
   const loading = status === "loading" || loadingQuery;
 
-  const [peerEvaluationsData, setPeerEvaluationsData] = useState<IPeerEvaluationDataTable[]>([]);
+  const [peerEvaluationsData, setPeerEvaluationsData] = useState<IPeerEvaluationData[]>([]);
 
   useEffect(() => {
     if (data) {
-      const peerEvaluationData = data?.peerEvaluationsByLecturer as unknown as IPeerEvaluationDataTable[];
-      for (let index in peerEvaluationData) {
-        peerEvaluationData[index].schoolsDataTable = peerEvaluationData[index].schools.map(
-          (school) => SchoolsDropdown[school]
-        ) as Schools[];
-      }
+      const peerEvaluationData = sanitizePeerEvaluationsDataOnFetch(data?.peerEvaluationsByLecturer);
 
       setPeerEvaluationsData(peerEvaluationData);
     }

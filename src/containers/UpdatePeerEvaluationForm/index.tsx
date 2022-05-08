@@ -92,7 +92,9 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
   useEffect(() => {
     if (data && session) {
       const sanitizedPeerEvaluationDataOnFetch = sanitizePeerEvaluationDataOnFetch(data.peerEvaluation);
+
       setPeerEvaluationValues(sanitizedPeerEvaluationDataOnFetch || null);
+
       setPeerEvaluationViewOnly(
         isPeerEvaluationTeachingMemberViewOnly(
           sanitizedPeerEvaluationDataOnFetch?.peerEvaluationTeachingMembers,
@@ -114,6 +116,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
 
   return (
     <PeerEvaluationForm
+      id={peerEvaluationValues.id}
       isNewPeerEvaluation={false}
       isViewOnly={!!isPeerEvaluationViewOnly}
       title={peerEvaluationValues.title}
@@ -123,7 +126,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
       maxGradeIncrease={peerEvaluationValues.maxGradeIncrease}
       maxGradeDecrease={peerEvaluationValues.maxGradeDecrease}
       submissionsLockDate={peerEvaluationValues.submissionsLockDate}
-      emailTitleReminder={peerEvaluationValues.emailTitleReminder}
+      emailSubjectReminder={peerEvaluationValues.emailSubjectReminder}
       emailBodyReminder={peerEvaluationValues.emailBodyReminder}
       criteriaScoreRangeMin={peerEvaluationValues.criteriaScoreRangeMin}
       criteriaScoreRangeMax={peerEvaluationValues.criteriaScoreRangeMax}

@@ -5,11 +5,13 @@ import styled from "@emotion/styled";
 import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 
 import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
+import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";
 
 import {
   Base,
@@ -26,8 +28,10 @@ import content from "@/content";
 import { DeleteIcon, EditIcon } from "@/icons";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
+import { sanitizeSubmissionLockDate } from "@/transformers/peer-evaluation";
 import {
-  IPeerEvaluationDataTable,
+  IPeerEvaluationData,
+  PeerEvaluationStatus,
   PeerEvaluationTeachingMemberRoles,
   SchoolsDataTable,
   peerEvaluationDataTableColumnOrder,
@@ -41,7 +45,7 @@ const Container = styled.div`
 interface IPeerEvaluationsDataTable {
   redirectUrl: string;
   isLoading: boolean;
-  peerEvaluationsData: IPeerEvaluationDataTable[];
+  peerEvaluationsData: IPeerEvaluationData[];
   isError: boolean;
   session: Session | null;
   testId: string;
@@ -66,7 +70,7 @@ const PeerEvaluationsDataTable = ({
   const getPeerEvaluationObject = (values: string[]) => {
     return peerEvaluationDataTableColumnOrder.reduce((obj, column, index) => {
       return { ...obj, [column]: values[index] };
-    }, {}) as IPeerEvaluationDataTable;
+    }, {}) as IPeerEvaluationData;
   };
 
   const onRefreshPeerEvaluations = () => {
@@ -169,6 +173,7 @@ const PeerEvaluationsDataTable = ({
     {
       name: "",
       options: {
+        viewColumns: false,
         filter: false,
         sort: false,
         empty: false,
@@ -245,6 +250,9 @@ const PeerEvaluationsDataTable = ({
       options: {
         filter: true,
         sort: true,
+        customBodyRender: (status: PeerEvaluationStatus) => {
+          return <PeerEvaluationStatusContainer status={status} />;
+        },
       },
     },
     {
@@ -267,12 +275,13 @@ const PeerEvaluationsDataTable = ({
     },
     {
       name: "submissionsLockDate",
-      label: "Submission Lock Date",
+      label: "Submissions Lock Date",
       options: {
         display: false,
         filter: true,
         sort: true,
         filterType: "textField",
+        customBodyRender: (date: Date) => sanitizeSubmissionLockDate(date),
       },
     },
     {
@@ -321,7 +330,7 @@ const PeerEvaluationsDataTable = ({
       },
     },
     {
-      name: "schoolsDataTable",
+      name: "schools",
       label: "Schools",
       options: {
         display: false,

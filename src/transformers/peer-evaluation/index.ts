@@ -14,6 +14,7 @@ import {
   PeerEvaluationUpdateInput,
 } from "@generated/type-graphql";
 
+import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
 import {
   FieldStatus,
   IPeerEvaluationColumn,
@@ -22,6 +23,8 @@ import {
   PeerEvaluationTeachingMember,
   PeerEvaluationTeachingMemberRoles,
   Schools,
+  SchoolsDataTable,
+  SchoolsDropdown,
 } from "@/types/peer-evaluation";
 
 type ColumnCreateMany = PeerEvaluationColumnCreateWithoutPeerEvaluationInput[];
@@ -37,23 +40,38 @@ type PeerEvaluationTeachingMemberUpdateMany =
 
 type PeerEvaluationTeachingMemberDeleteMany = PeerEvaluationTeachingMemberWhereUniqueInput[];
 
+const sanitizeSchoolsOnFetch = (data: PeerEvaluation): PeerEvaluation => {
+  data.schools = data.schools.map((school) => SchoolsDropdown[school]) as Schools[];
+
+  return data;
+};
+
+const sanitizeSchoolsOnFetchPeerEvaluationView = (data: PeerEvaluationDashboard): PeerEvaluationDashboard => {
+  data.schools = data.schools.map((school) => SchoolsDataTable[SchoolsDropdown[school]]) as Schools[];
+
+  return data;
+};
+
+const sanitizeSubmissionLockDate = (date: Date | null): string =>
+  date ? new Date(date).toLocaleDateString("en-GB") : "Not set";
+
 const sanitizeEmailReminderDataOnCreate = (
-  title: string,
+  subject: string,
   body: string
 ): EmailCreateNestedOneWithoutPeerEvaluationInput => {
   return {
     create: {
-      title: title,
+      subject: subject,
       body: body,
     },
   };
 };
 
-const sanitizeEmailReminderDataOnUpdate = (title: string, body: string): EmailUpdateOneWithoutPeerEvaluationInput => {
+const sanitizeEmailReminderDataOnUpdate = (subject: string, body: string): EmailUpdateOneWithoutPeerEvaluationInput => {
   return {
     update: {
-      title: {
-        set: title,
+      subject: {
+        set: subject,
       },
       body: {
         set: body,
@@ -268,7 +286,7 @@ const sanitizePeerEvaluationDataOnCreate = (data: IPeerEvaluationData): PeerEval
     criteriaScoreRangeMin,
     criteriaScoreRangeMax,
     schools,
-    emailTitleReminder,
+    emailSubjectReminder,
     emailBodyReminder,
     peerEvaluationTeachingMembers,
     columns,
@@ -287,7 +305,7 @@ const sanitizePeerEvaluationDataOnCreate = (data: IPeerEvaluationData): PeerEval
       set: schools,
     },
     reminderEmail: {
-      ...sanitizeEmailReminderDataOnCreate(emailTitleReminder, emailBodyReminder),
+      ...sanitizeEmailReminderDataOnCreate(emailSubjectReminder, emailBodyReminder),
     },
     peerEvaluationTeachingMembers: {
       create: sanitizePeerEvaluationTeachingMemberOnCreate(peerEvaluationTeachingMembers),
@@ -309,7 +327,7 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
     criteriaScoreRangeMin,
     criteriaScoreRangeMax,
     schools,
-    emailTitleReminder,
+    emailSubjectReminder,
     emailBodyReminder,
     peerEvaluationTeachingMembers,
     columns,
@@ -416,7 +434,7 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
       set: schools,
     },
     reminderEmail: {
-      ...sanitizeEmailReminderDataOnUpdate(emailTitleReminder, emailBodyReminder),
+      ...sanitizeEmailReminderDataOnUpdate(emailSubjectReminder, emailBodyReminder),
     },
     peerEvaluationTeachingMembers: {
       ...peerEvaluationTeachingMemberVariables,
@@ -468,7 +486,7 @@ const sanitizePeerEvaluationDataOnFetch = (data: PeerEvaluation): IPeerEvaluatio
       submissionsLockDate: submissionsLockDate,
       criteriaScoreRangeMin: criteriaScoreRangeMin,
       criteriaScoreRangeMax: criteriaScoreRangeMax,
-      emailTitleReminder: reminderEmail?.title || "",
+      emailSubjectReminder: reminderEmail?.subject || "",
       emailBodyReminder: reminderEmail?.body || "",
       schools: schools as Schools[],
       peerEvaluationTeachingMembers: sanitizePeerEvaluationTeachingMemberOnFetch(peerEvaluationTeachingMembers),
@@ -479,4 +497,25 @@ const sanitizePeerEvaluationDataOnFetch = (data: PeerEvaluation): IPeerEvaluatio
   return undefined;
 };
 
-export { sanitizePeerEvaluationDataOnCreate, sanitizePeerEvaluationDataOnFetch, sanitizePeerEvaluationDataOnUpdate };
+const sanitizePeerEvaluationsDataOnFetch = (data: PeerEvaluation[]): IPeerEvaluationData[] => {
+  for (let index in data) {
+    data[index] = sanitizeSchoolsOnFetch(data[index]);
+  }
+
+  return data as unknown as IPeerEvaluationData[];
+};
+
+const sanitizePeerEvaluationViewDataOnFetch = (data: PeerEvaluationDashboard): PeerEvaluationDashboard => {
+  data = sanitizeSchoolsOnFetchPeerEvaluationView(data);
+
+  return data;
+};
+
+export {
+  sanitizePeerEvaluationDataOnCreate,
+  sanitizePeerEvaluationDataOnFetch,
+  sanitizePeerEvaluationDataOnUpdate,
+  sanitizePeerEvaluationsDataOnFetch,
+  sanitizePeerEvaluationViewDataOnFetch,
+  sanitizeSubmissionLockDate,
+};

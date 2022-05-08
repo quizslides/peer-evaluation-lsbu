@@ -7,27 +7,20 @@ interface IPeerEvaluationColumn {
 }
 
 interface IPeerEvaluationData {
+  id: string;
   title: string;
   code: string;
   schools: Schools[];
   status: PeerEvaluationStatus;
   maxGradeIncrease: number;
   maxGradeDecrease: number;
-  submissionsLockDate: Date | null | undefined;
-  emailTitleReminder: string;
+  submissionsLockDate: Date | null | string | undefined;
+  emailSubjectReminder: string;
   emailBodyReminder: string;
   criteriaScoreRangeMin: number;
   criteriaScoreRangeMax: number;
   columns: IPeerEvaluationColumn[];
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMember[];
-}
-
-interface IPeerEvaluationDataTable extends IPeerEvaluationData {
-  id: string;
-  peerEvaluationTeachingMembersCount: number;
-  columnsCount: number;
-  peerEvaluationStudents: number;
-  schoolsDataTable: Schools[];
 }
 
 interface PeerEvaluationTeachingMember {
@@ -64,6 +57,13 @@ enum PeerEvaluationStatus {
   PUBLISHED = "PUBLISHED",
   UNPUBLISHED = "UNPUBLISHED",
   SUBMISSIONS_LOCKED = "SUBMISSIONS_LOCKED",
+}
+
+enum PeerEvaluationStatusDefinition {
+  DRAFT = "Not visible to students",
+  PUBLISHED = "Visible to students and accepting submissions",
+  UNPUBLISHED = "Not visible to students",
+  SUBMISSIONS_LOCKED = "Visible but not accepting submissions",
 }
 
 enum FieldStatus {
@@ -138,6 +138,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
 ];
 
 const initialPeerEvaluationState: IPeerEvaluationData = {
+  id: "",
   title: "",
   code: "",
   schools: [],
@@ -145,7 +146,7 @@ const initialPeerEvaluationState: IPeerEvaluationData = {
   maxGradeIncrease: 10,
   maxGradeDecrease: 100,
   submissionsLockDate: null,
-  emailTitleReminder: "Peer Evaluation Reminder - {{code}}",
+  emailSubjectReminder: "Peer Evaluation Reminder - {{code}}",
   emailBodyReminder: "Email body {{peerEvaluationUrl}}",
   criteriaScoreRangeMin: 1,
   criteriaScoreRangeMax: 5,
@@ -203,6 +204,7 @@ export {
   peerEvaluationColumnOrder,
   peerEvaluationDataTableColumnOrder,
   PeerEvaluationStatus,
+  PeerEvaluationStatusDefinition,
   peerEvaluationTeachingMemberDataTableColumnOrder,
   PeerEvaluationTeachingMemberRoles,
   PeerEvaluationTeachingMemberRolesNoOwner,
@@ -211,4 +213,4 @@ export {
   SchoolsDropdown,
 };
 
-export type { IPeerEvaluationColumn, IPeerEvaluationData, IPeerEvaluationDataTable, PeerEvaluationTeachingMember };
+export type { IPeerEvaluationColumn, IPeerEvaluationData, PeerEvaluationTeachingMember };

@@ -65,7 +65,7 @@ const validatorContent = {
     min: "Criteria score range max must be higher than criteria score range min value",
     max: "Criteria score range min value is higher than max value",
   },
-  emailTitleReminder: {
+  emailSubjectReminder: {
     matchPeerEvaluationCodeRegex: /{{code}}/,
     matchPeerEvaluationCode: "Email title must contain {{code}}",
     required: "Email title is required",

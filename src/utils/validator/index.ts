@@ -118,14 +118,14 @@ const peerEvaluationCriteriaScoreRangeMaxValidator = {
     .max(100, content.criteriaScoreRangeMax.max),
 };
 
-const peerEvaluationEmailTitleValidator = {
-  emailTitleReminder: string()
-    .matches(content.emailTitleReminder.matchPeerEvaluationCodeRegex, {
-      message: content.emailTitleReminder.matchPeerEvaluationCode,
+const peerEvaluationEmailSubjectValidator = {
+  emailSubjectReminder: string()
+    .matches(content.emailSubjectReminder.matchPeerEvaluationCodeRegex, {
+      message: content.emailSubjectReminder.matchPeerEvaluationCode,
     })
-    .min(2, content.emailTitleReminder.minLength)
-    .max(70, content.emailTitleReminder.maxLength)
-    .required(content.emailTitleReminder.required),
+    .min(2, content.emailSubjectReminder.minLength)
+    .max(70, content.emailSubjectReminder.maxLength)
+    .required(content.emailSubjectReminder.required),
 };
 
 const peerEvaluationEmailBodyValidator = {
@@ -185,7 +185,7 @@ export {
   peerEvaluationCriteriaScoreRangeMaxValidator,
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
-  peerEvaluationEmailTitleValidator,
+  peerEvaluationEmailSubjectValidator,
   peerEvaluationMaxGradeDecreaseValidator,
   peerEvaluationMaxGradeIncreaseValidator,
   peerEvaluationSchoolValidator,

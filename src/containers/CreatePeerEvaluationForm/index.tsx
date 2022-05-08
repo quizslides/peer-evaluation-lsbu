@@ -66,6 +66,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
 
   return (
     <PeerEvaluationForm
+      id={peerEvaluationValues.id}
       isNewPeerEvaluation={true}
       isViewOnly={false}
       title={peerEvaluationValues.title}
@@ -75,7 +76,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
       maxGradeIncrease={peerEvaluationValues.maxGradeIncrease}
       maxGradeDecrease={peerEvaluationValues.maxGradeDecrease}
       submissionsLockDate={peerEvaluationValues.submissionsLockDate}
-      emailTitleReminder={peerEvaluationValues.emailTitleReminder}
+      emailSubjectReminder={peerEvaluationValues.emailSubjectReminder}
       emailBodyReminder={peerEvaluationValues.emailBodyReminder}
       criteriaScoreRangeMin={peerEvaluationValues.criteriaScoreRangeMin}
       criteriaScoreRangeMax={peerEvaluationValues.criteriaScoreRangeMax}

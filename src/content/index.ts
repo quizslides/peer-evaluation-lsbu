@@ -82,7 +82,7 @@ const content = {
           helperText: "The max grade decrease automatically by the system",
         },
         submissionsLockDate: {
-          label: "Submission lock date",
+          label: "Submissions lock date",
           helperText: "The date when the peer evaluations submissions will be locked automatically",
         },
         criteriaScoreRangeMin: {
@@ -93,7 +93,7 @@ const content = {
           label: "Criteria Score Range Max",
           helperText: "Criteria Score Range Max",
         },
-        emailTitleReminder: {
+        emailSubjectReminder: {
           label: "Email title",
           placeholder: "Title of the reminder email",
         },
@@ -131,6 +131,31 @@ const content = {
           submit: "submit",
           cancel: "cancel",
         },
+      },
+    },
+    peerEvaluationEmailReminderForm: {
+      form: {
+        emailSubjectReminder: {
+          label: "Email title",
+          placeholder: "Title of the reminder email",
+        },
+        emailBodyReminder: {
+          helperText: "Email body of the reminder",
+          resetButtonText: "Reset Email Body",
+        },
+
+        button: {
+          submit: "Save",
+          send: "Send Reminder",
+          cancel: "Cancel and go back",
+          viewOnlyGoBack: "Go Back",
+        },
+      },
+      confirmationOnCancel: {
+        title: "Cancel",
+        bodyText: "If you cancel data all the will be lost. Are you sure you want to cancel?",
+        acceptText: "OK",
+        closeText: "Cancel",
       },
     },
     peerEvaluationColumnManagement: {

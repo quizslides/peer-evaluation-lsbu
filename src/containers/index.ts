@@ -12,6 +12,7 @@ import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
+import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdatePeerEvaluationColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
@@ -34,6 +35,7 @@ export {
   Navigation,
   PeerEvaluationColumnManagement,
   PeerEvaluationsDataTable,
+  PeerEvaluationStatusContainer,
   SignInWrapper,
   UnauthorizedContainer,
   UpdatePeerEvaluationColumnForm,

@@ -156,7 +156,7 @@ model Email {
   id               String          @id @default(cuid())
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @default(now()) @updatedAt
-  title            String
+  subject          String
   body             String
   peerEvaluation   PeerEvaluation? @relation(fields: [peerEvaluationId], references: [id])
   peerEvaluationId String?         @unique

@@ -4,31 +4,29 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 
 import { PeerEvaluationsDataTable } from "@/containers";
-import useGetPeerEvaluations from "@/requests/hooks/query/useGetPeerEvaluations";
+import useGetPeerEvaluationsAdmin from "@/requests/hooks/query/useGetPeerEvaluationsAdmin";
 import routing from "@/routing";
-import { IPeerEvaluationDataTable, Schools, SchoolsDropdown } from "@/types/peer-evaluation";
+import { sanitizePeerEvaluationsDataOnFetch } from "@/transformers/peer-evaluation";
+import { IPeerEvaluationData, Schools, SchoolsDropdown } from "@/types/peer-evaluation";
 import { RoleScope } from "@/utils";
 
 const PeerEvaluationsAdmin: NextPage = () => {
   const { data: session, status } = useSession();
 
-  const { data, loading: loadingQuery, error, refetch: runRefreshPeerEvaluations } = useGetPeerEvaluations();
+  const {
+    data,
+    loading: loadingQuery,
+    error,
+    refetch: runRefreshPeerEvaluations,
+  } = useGetPeerEvaluationsAdmin("GetPeerEvaluationsAdmin");
 
   const loading = status === "loading" || loadingQuery;
 
-  const [peerEvaluationsData, setPeerEvaluationsData] = useState<IPeerEvaluationDataTable[]>([]);
+  const [peerEvaluationsData, setPeerEvaluationsData] = useState<IPeerEvaluationData[]>([]);
 
   useEffect(() => {
     if (data) {
-      const peerEvaluationData = data?.peerEvaluations as unknown as IPeerEvaluationDataTable[];
-
-      console.log(peerEvaluationData[0]);
-
-      for (let index in peerEvaluationData) {
-        peerEvaluationData[index].schoolsDataTable = peerEvaluationData[index].schools.map(
-          (school) => SchoolsDropdown[school]
-        ) as Schools[];
-      }
+      const peerEvaluationData = sanitizePeerEvaluationsDataOnFetch(data?.peerEvaluations);
 
       setPeerEvaluationsData(peerEvaluationData);
     }

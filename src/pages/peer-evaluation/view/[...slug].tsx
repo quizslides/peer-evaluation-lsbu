@@ -13,10 +13,14 @@ import { useRouter } from "next/router";
 import { Base, ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, PageTitle } from "@/components";
 import { UpdatePeerEvaluationForm } from "@/containers";
 import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
+import PeerEvaluationsDashboard from "@/containers/PeerEvaluationsDashboard";
 import content from "@/content";
+import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
+import useGetPeerEvaluationDashboard from "@/requests/hooks/query/useGetPeerEvaluationDashboard";
 import routing from "@/routing";
 import { theme } from "@/styles/index";
+import { sanitizePeerEvaluationViewDataOnFetch } from "@/transformers/peer-evaluation";
 import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
 
 const ViewPeerEvaluation: NextPage = () => {
@@ -27,6 +31,11 @@ const ViewPeerEvaluation: NextPage = () => {
   const [isRedirecting, setRedirecting] = useState(false);
 
   const [peerEvaluationId, setPeerEvaluationId] = useState<string | null>(null);
+
+  const [peerEvaluationData, setPeerEvaluationData] = useState<PeerEvaluationDashboard | null>(null);
+
+  const [getPeerEvaluationDashboard, { loading: loadingFetch, error, data }] =
+    useGetPeerEvaluationDashboard("PeerEvaluationDashboard");
 
   const [isDeletePeerEvaluationOpen, setDeletePeerEvaluationConfirmationOpen] = useState(false);
 
@@ -100,126 +109,38 @@ const ViewPeerEvaluation: NextPage = () => {
     const slug = query.slug;
 
     if (Array.isArray(slug)) {
-      setPeerEvaluationId(slug[0]);
+      const peerEvaluationId = slug[0];
+
+      setPeerEvaluationId(peerEvaluationId);
+
+      getPeerEvaluationDashboard({
+        variables: {
+          where: {
+            id: peerEvaluationId,
+          },
+        },
+      });
     }
-  }, [query.slug]);
+  }, [getPeerEvaluationDashboard, query.slug]);
 
-  const data = [
-    {
-      id: "Test",
-      title: "Test",
-      code: "Test",
-      totalStudents: 10,
-      totalTeams: 10,
-      marks: "null",
-      status: "DRAFT",
-      schools: ["Test"],
-      totalCompletedPeerEvaluations: 10,
-      reminder: "true",
-      submissionsLockDate: new Date().toLocaleDateString(),
-      maxGradeIncrease: "maxGradeIncrease",
-      maxGradeDecrease: "maxGradeDecrease",
-    },
-  ];
-
-  const tableColumns: MUIDataTableColumnDef[] = [
-    {
-      name: "id",
-      label: "ID",
-    },
-    {
-      name: "title",
-      label: "Title",
-    },
-    {
-      name: "code",
-      label: "Peer Evaluation Code",
-    },
-    {
-      name: "totalStudents",
-      label: "totalStudents",
-    },
-    {
-      name: "totalTeams",
-      label: "totalTeams",
-    },
-    {
-      name: "marks",
-      label: "marks",
-    },
-    {
-      name: "status",
-      label: "status",
-    },
-    {
-      name: "schools",
-      label: "schools",
-    },
-    {
-      name: "totalCompletedPeerEvaluations",
-      label: "totalCompletedPeerEvaluations",
-    },
-    {
-      name: "reminder",
-      label: "reminder",
-    },
-    {
-      name: "submissionsLockDate",
-      label: "submissionsLockDate",
-    },
-    {
-      name: "maxGradeIncrease",
-      label: "maxGradeIncrease",
-    },
-    {
-      name: "maxGradeDecrease",
-      label: "maxGradeDecrease",
-    },
-  ];
-
-  const tableOptions: MUIDataTableOptions = {
-    textLabels: {
-      body: {
-        noMatch: "Sorry, no teaching peer evaluation teaching members in the peer evaluation",
-      },
-    },
-    responsive: "vertical",
-    tableBodyMaxHeight: "100%",
-    selectableRows: "none",
-    selectableRowsHeader: false,
-    rowHover: false,
-    download: false,
-    draggableColumns: {
-      enabled: false,
-    },
-    filter: false,
-    search: false,
-    viewColumns: false,
-    print: false,
-    pagination: false,
-    customToolbar: (_) => (
-      <DataTableEditDeleteToolbar
-        editButton={{
-          testId: "peer-evaluation-view-update",
-          toolTipLabel: "Update",
-          onClick: onRedirectEditPeerEvaluation,
-        }}
-        visibleDeleteButton={isOwnerRole}
-        deleteButton={{
-          testId: "peer-evaluation-view-delete",
-          toolTipLabel: "Delete",
-          onClick: onDeletePeerEvaluationConfirmation,
-        }}
-      />
-    ),
-  };
+  useEffect(() => {
+    if (data?.peerEvaluationDashboard) {
+      setPeerEvaluationData(sanitizePeerEvaluationViewDataOnFetch(data.peerEvaluationDashboard));
+    }
+  }, [data]);
 
   return (
-    <Base topLeftComponent="menu" loading={isRedirecting || isFallback || !peerEvaluationId} error={isError}>
-      <PageTitle title={"Peer Evaluation"} testId="page-view-peer-evaluation-title" variant="h4" margin="2em" />
+    <Base topLeftComponent="menu" loading={isRedirecting || isFallback || !peerEvaluationId || !data} error={isError}>
+      <PageTitle
+        title={`Peer Evaluation - ${data?.peerEvaluationDashboard.code}`}
+        testId="page-view-peer-evaluation-title"
+        variant="h4"
+        margin="2em"
+      />
       <Container maxWidth="lg">
         <ThemeProvider
           theme={createTheme({
+            ...theme,
             breakpoints: {
               values: {
                 xs: 0,
@@ -231,20 +152,9 @@ const ViewPeerEvaluation: NextPage = () => {
             },
           })}
         >
-          <DataTable data={data} columns={tableColumns} options={tableOptions} isVisible testId={""} />
+          {peerEvaluationData && <PeerEvaluationsDashboard data={peerEvaluationData} />}
         </ThemeProvider>
       </Container>
-
-      <ConfirmationDialog
-        testId={"page-view-peer-evaluation-title-datatable-on-delete"}
-        isOpen={isDeletePeerEvaluationOpen}
-        title={content.containers.peerEvaluationsDataTable.confirmationOnDelete.title}
-        textContent={content.containers.peerEvaluationsDataTable.confirmationOnDelete.bodyText}
-        onAccept={onDeleteDialogAccept}
-        onClose={onDeleteDialogClose}
-        closeText={content.containers.peerEvaluationsDataTable.confirmationOnDelete.closeText}
-        acceptText={content.containers.peerEvaluationsDataTable.confirmationOnDelete.acceptText}
-      />
     </Base>
   );
 };
