@@ -81,7 +81,12 @@ class PeerEvaluationsByLecturer {
       },
       include: {
         _count: {
-          select: { peerEvaluationTeachingMembers: true, columns: true, peerEvaluationStudents: true },
+          select: {
+            peerEvaluationTeachingMembers: true,
+            columns: true,
+            peerEvaluationStudents: true,
+            PeerEvaluationStudentTeam: true,
+          },
         },
       },
     });

@@ -58,6 +58,7 @@ model PeerEvaluation {
   criteriaScoreRangeMin         Int                            @default(1)
   criteriaScoreRangeMax         Int                            @default(5)
   peerEvaluationStudents        PeerEvaluationStudent[]
+  PeerEvaluationStudentTeam     PeerEvaluationStudentTeam[]
 }
 
 // The peer evaluation data of each student
@@ -125,6 +126,11 @@ model PeerEvaluationStudentTeam {
   name                      String
   peerEvaluationStudentList PeerEvaluationStudent[]
   mark                      Decimal
+  peerEvaluation            PeerEvaluation?         @relation(fields: [peerEvaluationId], references: [id])
+  peerEvaluationId          String?
+
+
+  @@unique([name, peerEvaluationId])
 }
 
 model PeerEvaluationTeachingMember {
