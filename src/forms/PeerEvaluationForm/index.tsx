@@ -135,7 +135,7 @@ const PeerEvaluationForm = ({
                     helperText: content.containers.peerEvaluationForm.form.code.helperText,
                     onChange: (event) => {
                       const value = event.target.value || "";
-                      setFieldValue("code", value.toUpperCase());
+                      setFieldValue("code", value.toUpperCase().replace(/ /g, "_"));
                     },
                     sx: {
                       input: {
