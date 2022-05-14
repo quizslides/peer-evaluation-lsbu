@@ -23,6 +23,7 @@ import NavigationExpandableItem from "@/components/NavigationExpandableItem/Navi
 import PageTitle from "@/components/PageTitle/PageTitle";
 import SelectFieldForm from "@/components/SelectFieldForm/SelectFieldForm";
 import SelectMultipleFieldForm from "@/components/SelectMultipleFieldForm/SelectMultipleFieldForm";
+import selectUserScoring from "@/components/SelectUserScoring/SelectUserScoring";
 import TextField from "@/components/TextField/TextField";
 import TextFieldForm from "@/components/TextFieldForm/TextFieldForm";
 import Typography from "@/components/Typography/Typography";
@@ -57,6 +58,7 @@ export {
   PageTitle,
   SelectFieldForm,
   SelectMultipleFieldForm,
+  selectUserScoring,
   TextField,
   TextFieldForm,
   Typography,
