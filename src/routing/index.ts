@@ -19,6 +19,8 @@ const routing = {
     edit: "/peer-evaluation/edit",
     view: "/peer-evaluation/view",
     email: "/peer-evaluation/email",
+    students: "/peer-evaluation/students",
+    teams: "/peer-evaluation/teams",
   },
   backendEndpoint: "/api/graphql",
 };

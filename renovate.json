@@ -1,4 +1,24 @@
 {
-  "extends": ["config:base"],
-  "schedule": ["before 5am on the first day of the month"]
+  "extends": [
+    "config:base"
+  ],
+  "schedule": [
+    "before 5:00am on sunday"
+  ],
+  "groupName": "all dependencies",
+  "separateMajorMinor": false,
+  "groupSlug": "renovate-dependencies",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "groupName": "all dependencies",
+      "groupSlug": "renovate-dependencies"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": null
+  }
 }

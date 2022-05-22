@@ -1,5 +1,54 @@
 import { gql } from "@apollo/client";
 
+const GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE = gql`
+  query PeerEvaluationTeachingMember($where: PeerEvaluationTeachingMemberWhereUniqueInput!) {
+    peerEvaluationTeachingMember(where: $where) {
+      role
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_STATUS = gql`
+  query PeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
+    peerEvaluation(where: $where) {
+      status
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_STUDENT_TEAM_EXIST = gql`
+  query PeerEvaluationStudentTeamExist($where: PeerEvaluationStudentTeamExistWhereInput!) {
+    peerEvaluationStudentTeamExist(where: $where) {
+      studentList {
+        email
+        id
+      }
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
+  query GroupByPeerEvaluationStudentTeam(
+    $orderBy: [PeerEvaluationStudentTeamOrderByWithAggregationInput!]
+    $by: [PeerEvaluationStudentTeamScalarFieldEnum!]!
+    $where: PeerEvaluationStudentTeamWhereInput
+  ) {
+    groupByPeerEvaluationStudentTeam(orderBy: $orderBy, by: $by, where: $where) {
+      name
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_COLUMNS = gql`
+  query PeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
+    peerEvaluation(where: $where) {
+      columns {
+        id
+      }
+    }
+  }
+`;
+
 const GET_PEER_EVALUATIONS = gql`
   query PeerEvaluations {
     peerEvaluations {
@@ -74,7 +123,7 @@ const GET_PEER_EVALUATION_EMAIL_REMINDER = gql`
 `;
 
 const GET_PEER_EVALUATIONS_BY_LECTURER = gql`
-  query PeerEvaluationsByLecturer($where: PeerEvaluationsByLecturerWhereInput!) {
+  query PeerEvaluationsByLecturerQuery($where: PeerEvaluationsByLecturerWhereInput!) {
     peerEvaluationsByLecturer(where: $where) {
       id
       updatedAt
@@ -302,7 +351,7 @@ const DELETE_PEER_EVALUATION = gql`
 `;
 
 const PEER_EVALUATION_EXIST = gql`
-  query PeerEvaluationExist($where: PeerEvaluationExistWhereInput!) {
+  query PeerEvaluationExistQuery($where: PeerEvaluationExistWhereInput!) {
     peerEvaluationExist(where: $where) {
       exist
     }
@@ -328,19 +377,97 @@ const PEER_EVALUATION_DASHBOARD = gql`
       updatedAt
       totalCompletedPeerEvaluations
       totalPeerEvaluationTeams
+      peerEvaluationTeachingMembers {
+        role
+      }
+    }
+  }
+`;
+
+const PEER_EVALUATION_STUDENTS = gql`
+  query PeerEvaluationStudents(
+    $where: PeerEvaluationStudentWhereInput
+    $orderBy: [PeerEvaluationStudentOrderByWithRelationInput!]
+  ) {
+    peerEvaluationStudents(where: $where, orderBy: $orderBy) {
+      id
+      createdAt
+      updatedAt
+      userId
+      peerEvaluationId
+      peerEvaluationStudentTeamId
+      averageCriteriaScore
+      averageCriteriaScoreByTeamMember
+      systemCalculatedMark
+      systemAdjustedMark
+      lecturerAdjustedMark
+      mark
+      user {
+        name
+        email
+        emailVerified
+      }
+      peerEvaluationStudentTeam {
+        name
+        mark
+        createdAt
+        updatedAt
+      }
+      peerEvaluationReviewed {
+        isCompleted
+      }
+    }
+  }
+`;
+
+const CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS = gql`
+  mutation CreateManyPeerEvaluationStudentTeam(
+    $data: [PeerEvaluationStudentTeamCreateManyInput!]!
+    $skipDuplicates: Boolean
+  ) {
+    createManyPeerEvaluationStudentTeam(data: $data, skipDuplicates: $skipDuplicates) {
+      count
+    }
+  }
+`;
+
+const UPDATE_PEER_EVALUATION_STUDENT = gql`
+  mutation UpdatePeerEvaluationStudent(
+    $data: PeerEvaluationStudentUpdateInput!
+    $where: PeerEvaluationStudentWhereUniqueInput!
+  ) {
+    updatePeerEvaluationStudent(data: $data, where: $where) {
+      updatedAt
+    }
+  }
+`;
+
+const CREATE_PEER_EVALUATION_STUDENT = gql`
+  mutation CreatePeerEvaluationStudent($data: PeerEvaluationStudentCreateInput!) {
+    createPeerEvaluationStudent(data: $data) {
+      id
     }
   }
 `;
 
 export {
+  CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
+  CREATE_PEER_EVALUATION_STUDENT,
   DELETE_PEER_EVALUATION,
   GET_PEER_EVALUATION,
+  GET_PEER_EVALUATION_COLUMNS,
   GET_PEER_EVALUATION_EMAIL_REMINDER,
+  GET_PEER_EVALUATION_STATUS,
+  GET_PEER_EVALUATION_STUDENT_TEAM_EXIST,
+  GET_PEER_EVALUATION_STUDENT_TEAMS,
+  GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,
   PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
+  PEER_EVALUATION_STUDENTS,
   UPDATE_PEER_EVALUATION,
   UPDATE_PEER_EVALUATION_EMAIL,
+  UPDATE_PEER_EVALUATION_STUDENT,
 };

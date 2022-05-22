@@ -360,7 +360,7 @@ const PeerEvaluationsDataTable = ({
     rowHover: true,
     download: true,
     downloadOptions: {
-      filename: `peerEvaluations-${new Date().getTime()}.csv`,
+      filename: `peer_evaluations_${new Date().getTime()}.csv`,
     },
     draggableColumns: {
       enabled: true,

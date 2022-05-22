@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 import CreateColumnForm from "@/containers/CreateColumnForm";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
 import CreateUserForm from "@/containers/CreateUserForm";
@@ -10,15 +12,20 @@ import HomePage from "@/containers/HomePage";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
+import PeerEvaluationCard from "@/containers/PeerEvaluationCard";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
 import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
+import PeerEvaluationStudentsDataTable from "@/containers/PeerEvaluationStudentsDataTable";
+import PeerEvaluationStudentTeamActionsDialog from "@/containers/PeerEvaluationStudentTeamActionsDialog";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
 import UpdatePeerEvaluationColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
 import UpdatePeerEvaluationForm from "@/containers/UpdatePeerEvaluationForm";
 import UpdatePeerEvaluationTeachingMemberForm from "@/containers/UpdatePeerEvaluationTeachingMemberForm";
 import UpdateUserForm from "@/containers/UpdateUserForm";
+
+const PeerEvaluationNavigationFab = dynamic(() => import("@/containers/PeerEvaluationNavigationFab"), { ssr: false });
 
 export {
   CreateColumnForm,
@@ -33,9 +40,13 @@ export {
   Layout,
   LoadingContainer,
   Navigation,
+  PeerEvaluationCard,
   PeerEvaluationColumnManagement,
+  PeerEvaluationNavigationFab,
   PeerEvaluationsDataTable,
   PeerEvaluationStatusContainer,
+  PeerEvaluationStudentsDataTable,
+  PeerEvaluationStudentTeamActionsDialog,
   SignInWrapper,
   UnauthorizedContainer,
   UpdatePeerEvaluationColumnForm,

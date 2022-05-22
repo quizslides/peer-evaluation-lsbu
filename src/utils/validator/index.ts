@@ -177,6 +177,23 @@ const peerEvaluationTeachingMemberRoleValidator = {
     .required(content.peerEvaluationTeachingMemberRole.required),
 };
 
+const studentEmailValidator = {
+  studentEmail: string()
+    .default(content.userEmail.defaultValue)
+    .email(content.userEmail.invalid)
+    .matches(content.userEmail.regex, content.userEmail.invalidDomainRegex)
+    .required(content.userEmail.required),
+};
+
+const teamNameValidator = {
+  teamName: string().nullable(),
+};
+
+const peerEvaluationStudentsTeams = object({
+  ...studentEmailValidator,
+  ...teamNameValidator,
+});
+
 export {
   peerEvaluationCodeValidator,
   peerEvaluationColumnIdValidator,
@@ -190,6 +207,7 @@ export {
   peerEvaluationMaxGradeIncreaseValidator,
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
+  peerEvaluationStudentsTeams,
   peerEvaluationSubmissionsLockDateValidator,
   peerEvaluationTeachingMemberIdValidator,
   peerEvaluationTeachingMemberNameValidator,

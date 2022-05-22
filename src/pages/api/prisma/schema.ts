@@ -3,12 +3,19 @@ import { buildSchema } from "type-graphql";
 
 import {
   PeerEvaluationDashboardQuery,
-  PeerEvaluationExist,
-  PeerEvaluationsByLecturer,
+  PeerEvaluationExistQuery,
+  PeerEvaluationStudentTeamExistQuery,
+  PeerEvaluationsByLecturerQuery,
 } from "@/pages/api/resolvers/peer-evaluation";
 
 const schemaDefinitions = await buildSchema({
-  resolvers: [...resolvers, PeerEvaluationExist, PeerEvaluationDashboardQuery, PeerEvaluationsByLecturer],
+  resolvers: [
+    ...resolvers,
+    PeerEvaluationStudentTeamExistQuery,
+    PeerEvaluationExistQuery,
+    PeerEvaluationDashboardQuery,
+    PeerEvaluationsByLecturerQuery,
+  ],
 });
 
 export default schemaDefinitions;

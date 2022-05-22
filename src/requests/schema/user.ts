@@ -51,6 +51,7 @@ const GROUP_BY_USER = gql`
   query GroupByUser($by: [UserScalarFieldEnum!]!, $where: UserWhereInput) {
     groupByUser(by: $by, where: $where) {
       email
+      id
     }
   }
 `;

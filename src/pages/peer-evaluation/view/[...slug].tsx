@@ -11,7 +11,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { Base, ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, PageTitle } from "@/components";
-import { UpdatePeerEvaluationForm } from "@/containers";
+import { PeerEvaluationNavigationFab, UpdatePeerEvaluationForm } from "@/containers";
 import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
 import PeerEvaluationsDashboard from "@/containers/PeerEvaluationsDashboard";
 import content from "@/content";
@@ -130,7 +130,11 @@ const ViewPeerEvaluation: NextPage = () => {
   }, [data]);
 
   return (
-    <Base topLeftComponent="menu" loading={isRedirecting || isFallback || !peerEvaluationId || !data} error={isError}>
+    <Base
+      topLeftComponent="backArrow"
+      loading={isRedirecting || isFallback || !peerEvaluationId || !data}
+      error={isError}
+    >
       <PageTitle
         title={`Peer Evaluation - ${data?.peerEvaluationDashboard.code}`}
         testId="page-view-peer-evaluation-title"
@@ -155,6 +159,7 @@ const ViewPeerEvaluation: NextPage = () => {
           {peerEvaluationData && <PeerEvaluationsDashboard data={peerEvaluationData} />}
         </ThemeProvider>
       </Container>
+      <PeerEvaluationNavigationFab setRedirecting={() => setRedirecting(true)} />
     </Base>
   );
 };

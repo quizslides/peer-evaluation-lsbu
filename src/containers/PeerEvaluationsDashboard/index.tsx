@@ -4,6 +4,7 @@ import { useApolloClient } from "@apollo/client";
 import styled from "@emotion/styled";
 import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
@@ -58,21 +59,9 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
 
   const [isDeletePeerEvaluationOpen, setDeletePeerEvaluationConfirmationOpen] = useState(false);
 
-  const [isError, setIsError] = useState<boolean>(false);
-
-  const isOwnerRole = true;
-
-  const setError = () => {
-    setIsError(true);
-  };
-
-  const getRedirectUrlOnAction = () => {
-    if (typeof query.redirectUrl === "string") {
-      return query.redirectUrl;
-    }
-
-    return routing.dashboard;
-  };
+  const isOwnerRole = data.peerEvaluationTeachingMembers
+    ? data.peerEvaluationTeachingMembers[0].role === "OWNER"
+    : false;
 
   const onRedirectEditPeerEvaluationEmail = () => {
     setRedirecting(true);
@@ -83,14 +72,6 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
         redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
       },
     });
-  };
-
-  const onSubmitUpdatePeerEvaluation = () => {
-    redirectUserOnAction();
-  };
-
-  const onCancelUpdatePeerEvaluation = () => {
-    redirectUserOnAction();
   };
 
   const onRedirectEditPeerEvaluation = () => {
@@ -104,13 +85,19 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     });
   };
 
-  const onDeletePeerEvaluationConfirmation = () => {
-    setDeletePeerEvaluationConfirmationOpen(true);
+  const onRedirectEditPeerEvaluationStudents = () => {
+    setRedirecting(true);
+
+    push({
+      pathname: `${routing.peerEvaluation.students}/${peerEvaluationId}`,
+      query: {
+        redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
+      },
+    });
   };
 
-  const redirectUserOnAction = () => {
-    setRedirecting(true);
-    push(getRedirectUrlOnAction());
+  const onDeletePeerEvaluationConfirmation = () => {
+    setDeletePeerEvaluationConfirmationOpen(true);
   };
 
   const onDeleteDialogClose = () => {
@@ -151,14 +138,59 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     {
       name: "_count.peerEvaluationStudents",
       label: "Total Students",
+      options: {
+        // eslint-disable-next-line react/no-multi-comp
+        customBodyRender: (total) => {
+          return (
+            <Button
+              variant={"outlined"}
+              testId={"peer-evaluation-dashboard-email-reminder"}
+              onClick={onRedirectEditPeerEvaluationStudents}
+              size="medium"
+            >
+              {total} Edit
+            </Button>
+          );
+        },
+      },
     },
     {
       name: "_count.peerEvaluationTeachingMembers",
       label: "Total Teaching Members",
+      options: {
+        // eslint-disable-next-line react/no-multi-comp
+        customBodyRender: (total) => {
+          return (
+            <Button
+              variant={"outlined"}
+              testId={"peer-evaluation-dashboard-email-reminder"}
+              onClick={() => console.log("peerEvaluationTeachingMembers")}
+              size="medium"
+            >
+              {total} Edit
+            </Button>
+          );
+        },
+      },
     },
     {
       name: "totalPeerEvaluationTeams",
       label: "Total Teams",
+      options: {
+        // eslint-disable-next-line react/no-multi-comp
+        customBodyRender: (total) => {
+          return (
+            <Button
+              variant={"outlined"}
+              testId={"peer-evaluation-dashboard-email-reminder"}
+              onClick={() => console.log("totalPeerEvaluationTeams")}
+              size="medium"
+            >
+              {total} Edit
+            </Button>
+          );
+        },
+      },
     },
     {
       name: "marks",
@@ -206,7 +238,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
           return (
             <Button
               variant={"outlined"}
-              testId={"page-view-peer-evaluation-email-reminder"}
+              testId={"peer-evaluation-dashboard-email-reminder"}
               onClick={onRedirectEditPeerEvaluationEmail}
               size="small"
             >
@@ -293,7 +325,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     <>
       <DataTable data={[data]} columns={tableColumns} options={tableOptions} isVisible testId={""} />
       <ConfirmationDialog
-        testId={"page-view-peer-evaluation-title-datatable-on-delete"}
+        testId={"peer-evaluation-dashboard-title-datatable-on-delete"}
         isOpen={isDeletePeerEvaluationOpen}
         title={content.containers.peerEvaluationsDataTable.confirmationOnDelete.title}
         textContent={content.containers.peerEvaluationsDataTable.confirmationOnDelete.bodyText}

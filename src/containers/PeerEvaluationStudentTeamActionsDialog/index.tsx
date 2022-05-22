@@ -1,0 +1,186 @@
+/* eslint-disable react/no-multi-comp */
+import React, { memo } from "react";
+
+import { PeerEvaluation } from "@generated/type-graphql";
+import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+
+import PeerEvaluationCard from "../PeerEvaluationCard";
+
+import { DataTable, Dialog } from "@/components";
+
+enum EditBulkAction {
+  UPDATE = "UPDATE",
+  CREATE = "CREATE",
+}
+
+interface IPeerEvaluationStudentTeamActionsDialog {
+  isOpen: boolean;
+  peerEvaluationStatus: PeerEvaluation["status"];
+  studentTeamToCreate: ITeamToCreateBulk[];
+  studentToCreate: IStudentTeamToEditBulk[];
+  studentToUpdate: IStudentTeamToEditBulk[];
+  onCancel: () => void;
+  onAccept: () => void;
+}
+
+interface ITeamToCreateBulk {
+  action: EditBulkAction;
+  teamName: string;
+}
+
+interface IStudentTeamToEditBulk {
+  action: EditBulkAction;
+  studentEmail: string;
+  teamName: string;
+}
+
+interface IDataTableTeamsToCreate {
+  studentTeamToCreate: ITeamToCreateBulk[];
+}
+
+interface IDataTableStudentsBulkCreateUpdate {
+  studentToCreate: IStudentTeamToEditBulk[];
+  studentToUpdate: IStudentTeamToEditBulk[];
+}
+
+const DataTableTeamsToCreate = ({ studentTeamToCreate }: IDataTableTeamsToCreate) => {
+  const dataTableColumns: MUIDataTableColumnDef[] = [
+    {
+      name: "action",
+      label: "Action",
+    },
+    {
+      name: "teamName",
+      label: "Team Name",
+    },
+  ];
+
+  const dataTableOptions: MUIDataTableOptions = {
+    textLabels: {
+      body: {
+        noMatch: "No team to be created",
+      },
+    },
+    responsive: "simple",
+    tableBodyMaxHeight: "100%",
+    selectableRows: "none",
+    selectableRowsHeader: true,
+    rowHover: true,
+    download: false,
+    filter: false,
+    viewColumns: false,
+    sort: false,
+    search: false,
+    draggableColumns: {
+      enabled: true,
+    },
+    print: false,
+    pagination: false,
+  };
+
+  return (
+    <DataTable
+      isVisible={true}
+      title={"Teams Bulk Create"}
+      data={studentTeamToCreate}
+      columns={dataTableColumns}
+      options={dataTableOptions}
+      testId={""}
+    />
+  );
+};
+
+const DataTableStudentsBulkCreateUpdate = ({
+  studentToCreate,
+  studentToUpdate,
+}: IDataTableStudentsBulkCreateUpdate) => {
+  const data: IStudentTeamToEditBulk[] = [...studentToCreate, ...studentToUpdate];
+
+  const dataTableColumns: MUIDataTableColumnDef[] = [
+    {
+      name: "action",
+      label: "Action",
+    },
+    {
+      name: "studentEmail",
+      label: "Email",
+    },
+    {
+      name: "teamName",
+      label: "Team Name",
+    },
+  ];
+
+  const dataTableOptions: MUIDataTableOptions = {
+    textLabels: {
+      body: {
+        noMatch: "No student to be created or updated",
+      },
+    },
+    responsive: "simple",
+    tableBodyMaxHeight: "100%",
+    selectableRows: "none",
+    selectableRowsHeader: true,
+    rowHover: true,
+    download: false,
+    filter: false,
+    viewColumns: false,
+    sort: false,
+    search: false,
+    draggableColumns: {
+      enabled: true,
+    },
+    print: false,
+    pagination: false,
+  };
+
+  return (
+    <DataTable
+      isVisible={true}
+      title={"Students Bulk Edit/Create"}
+      data={data}
+      columns={dataTableColumns}
+      options={dataTableOptions}
+      testId={""}
+    />
+  );
+};
+
+const PeerEvaluationStudentTeamActionsDialog = ({
+  isOpen,
+  peerEvaluationStatus,
+  studentTeamToCreate,
+  studentToCreate,
+  studentToUpdate,
+  onAccept,
+  onCancel,
+}: IPeerEvaluationStudentTeamActionsDialog) => {
+  return (
+    <Dialog
+      testId={"peer-evaluation-student-team-action-dialog"}
+      title={"Bulk Edit Actions"}
+      content={
+        <>
+          <PeerEvaluationCard status={peerEvaluationStatus} />
+          <br />
+          <DataTableStudentsBulkCreateUpdate studentToCreate={studentToCreate} studentToUpdate={studentToUpdate} />
+          <br />
+          <DataTableTeamsToCreate studentTeamToCreate={studentTeamToCreate} />
+        </>
+      }
+      rightButton="Continue"
+      rightButtonVariant="contained"
+      leftButton="Cancel"
+      fullScreen
+      onClickRightButton={onAccept}
+      onClickLeftButton={onCancel}
+      open={isOpen}
+    />
+  );
+};
+
+export type { IStudentTeamToEditBulk, ITeamToCreateBulk };
+
+export { EditBulkAction };
+
+export default memo(PeerEvaluationStudentTeamActionsDialog);

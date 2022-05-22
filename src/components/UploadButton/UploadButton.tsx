@@ -5,6 +5,7 @@ import Papa, { ParseResult } from "papaparse";
 
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
 import { UploadIcon } from "@/icons";
+import { getStringAsCamelCase } from "@/utils/uploader";
 
 export interface File {
   name: string;
@@ -26,7 +27,7 @@ const UploadButton = ({ onFilesSelected }: UploadFileProps) => {
     header: true,
     dynamicTyping: true,
     skipEmptyLines: true,
-    transformHeader: (header: string) => header.toLowerCase(),
+    transformHeader: (header: string) => getStringAsCamelCase(header),
   };
 
   const Input = styled("input")({

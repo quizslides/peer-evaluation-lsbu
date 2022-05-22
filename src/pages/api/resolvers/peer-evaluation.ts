@@ -28,7 +28,7 @@ class PeerEvaluationExistResponse {
 }
 
 @Resolver()
-class PeerEvaluationExist {
+class PeerEvaluationExistQuery {
   @Query((_returns) => PeerEvaluationExistResponse)
   async peerEvaluationExist(
     @Ctx() ctx: { prisma: PrismaClient },
@@ -59,7 +59,7 @@ class PeerEvaluationsByLecturerWhereInput {
 }
 
 @Resolver()
-class PeerEvaluationsByLecturer {
+class PeerEvaluationsByLecturerQuery {
   @Query((_returns) => [PeerEvaluation])
   async peerEvaluationsByLecturer(
     @Ctx() ctx: { prisma: PrismaClient },
@@ -182,12 +182,118 @@ class PeerEvaluationDashboardQuery {
   }
 }
 
+@InputType({
+  isAbstract: true,
+  description: "PeerEvaluation Student Team Exist Where Input",
+})
+class PeerEvaluationStudentTeamExistWhereInput {
+  @Field((_type) => [String], {
+    nullable: false,
+    description: "Students email list",
+  })
+  emailList!: [string];
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation ID",
+  })
+  peerEvaluationId!: string;
+}
+
+@ObjectType({
+  isAbstract: true,
+  description: "PeerEvaluation Student Team Exist Response",
+})
+class PeerEvaluationStudentTeamExistResponse {
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Student Email",
+  })
+  email: string | undefined;
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Student ID",
+  })
+  id: string | undefined;
+}
+
+@ObjectType({
+  isAbstract: true,
+  description: "PeerEvaluation Student Team Exist Input",
+})
+class PeerEvaluationStudentTeamExist {
+  @Field((_type) => [PeerEvaluationStudentTeamExistResponse], {
+    nullable: false,
+    description: "List of student that exist on the peer evaluation",
+  })
+  studentList: [PeerEvaluationStudentTeamExistResponse] | [] = [];
+}
+
+@Resolver()
+class PeerEvaluationStudentTeamExistQuery {
+  @Query((_returns) => PeerEvaluationStudentTeamExist || null, {
+    nullable: true,
+  })
+  async peerEvaluationStudentTeamExist(
+    @Ctx() ctx: { prisma: PrismaClient },
+    @Arg("where") where: PeerEvaluationStudentTeamExistWhereInput
+  ): Promise<PeerEvaluationStudentTeamExist | null> {
+    const listOfUsers = where.emailList;
+
+    const getStudentsInPeerEvaluation = async () =>
+      await ctx.prisma.peerEvaluationStudent.groupBy({
+        by: ["userId"],
+        where: {
+          peerEvaluationId: {
+            equals: where.peerEvaluationId,
+          },
+          user: {
+            is: {
+              email: {
+                in: listOfUsers,
+              },
+            },
+          },
+        },
+      });
+
+    const peerEvaluationStudents = await getStudentsInPeerEvaluation();
+
+    if (!peerEvaluationStudents.length) {
+      return {
+        studentList: [],
+      };
+    }
+
+    const usersByEmailAndUserID = await ctx.prisma.user.groupBy({
+      by: ["email", "id"],
+      where: {
+        email: {
+          in: listOfUsers,
+        },
+      },
+    });
+
+    const listStudents = listOfUsers.map((studentEmail) => ({
+      email: studentEmail,
+      id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id,
+    }));
+
+    return {
+      studentList: listStudents as [PeerEvaluationStudentTeamExistResponse],
+    };
+  }
+}
+
 export {
   PeerEvaluationDashboard,
   PeerEvaluationDashboardQuery,
   PeerEvaluationDashboardWhereInput,
-  PeerEvaluationExist,
+  PeerEvaluationExistQuery,
   PeerEvaluationExistResponse,
-  PeerEvaluationsByLecturer,
+  PeerEvaluationsByLecturerQuery,
   PeerEvaluationsByLecturerWhereInput,
+  PeerEvaluationStudentTeamExist,
+  PeerEvaluationStudentTeamExistQuery,
 };

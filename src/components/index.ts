@@ -25,6 +25,7 @@ import SelectFieldForm from "@/components/SelectFieldForm/SelectFieldForm";
 import SelectMultipleFieldForm from "@/components/SelectMultipleFieldForm/SelectMultipleFieldForm";
 import TextField from "@/components/TextField/TextField";
 import TextFieldForm from "@/components/TextFieldForm/TextFieldForm";
+import TextFieldFormDataTable from "@/components/TextFieldFormDataTable/TextFieldFormDataTable";
 import Typography from "@/components/Typography/Typography";
 import UploadButton from "@/components/UploadButton/UploadButton";
 import VirtualStringList from "@/components/VirtualStringList/VirtualStringList";
@@ -59,6 +60,7 @@ export {
   SelectMultipleFieldForm,
   TextField,
   TextFieldForm,
+  TextFieldFormDataTable,
   Typography,
   UploadButton,
   VirtualStringList,

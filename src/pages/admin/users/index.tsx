@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import "react-tiny-fab/dist/styles.css";
-
 import { useApolloClient } from "@apollo/client";
 import styled from "@emotion/styled";
 import { User } from "@generated/type-graphql";
@@ -39,6 +37,7 @@ import {
   userNameValidator,
   userRoleValidator,
 } from "@/utils";
+import exampleFile from "@/utils/example-file";
 import { RoleScope } from "@/utils/permissions";
 
 const Container = styled.div`
@@ -428,7 +427,7 @@ const UsersAdmin: NextPage = () => {
     rowHover: true,
     download: true,
     downloadOptions: {
-      filename: `admin_users-${new Date().getTime()}.csv`,
+      filename: `admin_users_${new Date().getTime()}.csv`,
     },
     draggableColumns: {
       enabled: true,
@@ -502,7 +501,13 @@ const UsersAdmin: NextPage = () => {
       <PageTitle title={"Users"} testId="page-admin-users-title" variant="h4" margin="2em" />
 
       {data && (
-        <DataTable data={data.users} columns={userDataTable} options={userDataTableOptions} isVisible testId={""} />
+        <DataTable
+          data={data.users}
+          columns={userDataTable}
+          options={userDataTableOptions}
+          isVisible
+          testId={"page-admin-users-datatable"}
+        />
       )}
 
       <Fab icon={<WidgetsIcon testId={""} />}>
@@ -567,7 +572,7 @@ const UsersAdmin: NextPage = () => {
         leftButton="Cancel"
         rightButtonVariant="outlined"
         maxWidth="md"
-        onClickRightButton={() => (window.location.href = "/example/admin_upload_multiple_users.csv")}
+        onClickRightButton={() => (window.location.href = exampleFile.adminUploadMultipleUsers)}
         onClickLeftButton={() => setShowBulkEditDialog(false)}
         extraRightButton={<UploadButton onFilesSelected={onUserBulkUpload} />}
         open={showBulkEditDialog}

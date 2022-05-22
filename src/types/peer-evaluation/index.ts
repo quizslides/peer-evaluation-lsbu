@@ -87,6 +87,12 @@ interface ISchoolsDataTable {
   [key: string]: string;
 }
 
+interface IStudentsTeamData {
+  studentName: string;
+  studentEmail: string;
+  teamName: string | null;
+}
+
 const SchoolsDataTable: ISchoolsDataTable = {
   "School of Arts and Creative Industries": "ACI",
   "School of Applied Sciences": "APS",
@@ -213,4 +219,4 @@ export {
   SchoolsDropdown,
 };
 
-export type { IPeerEvaluationColumn, IPeerEvaluationData, PeerEvaluationTeachingMember };
+export type { IPeerEvaluationColumn, IPeerEvaluationData, IStudentsTeamData, PeerEvaluationTeachingMember };

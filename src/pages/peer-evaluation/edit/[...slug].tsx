@@ -50,8 +50,10 @@ const UpdatePeerEvaluation: NextPage = () => {
     }
   }, [query.slug]);
 
+  const isLoading = isRedirecting || isFallback || !peerEvaluationId;
+
   return (
-    <Base topLeftComponent="menu" loading={isRedirecting || isFallback || !peerEvaluationId} error={isError}>
+    <Base topLeftComponent="menu" loading={isLoading} error={isError}>
       <PageTitle
         title={"Update Peer Evaluation"}
         testId="page-update-peer-evaluation-title"

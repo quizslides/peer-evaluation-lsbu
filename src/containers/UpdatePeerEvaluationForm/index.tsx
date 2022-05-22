@@ -63,6 +63,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
       const userPeerEvaluationTeachingMember = peerEvaluationTeachingMember.filter(
         ({ email }) => email === session?.user.email
       );
+
       if (userPeerEvaluationTeachingMember.length) {
         return userPeerEvaluationTeachingMember[0].role === PeerEvaluationTeachingMemberRoles.VIEWER;
       }
