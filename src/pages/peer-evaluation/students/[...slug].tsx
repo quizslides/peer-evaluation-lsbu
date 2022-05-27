@@ -26,6 +26,7 @@ import { CheckIcon, EditIcon, WidgetsIcon } from "@/icons";
 import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/createManyPeerEvaluationStudentTeams";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
+import createPeerEvaluationTableGeneration from "@/requests/direct/mutation/createPeerEvaluationTableGeneration";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
 import updateUserName from "@/requests/direct/mutation/updateUserName";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
@@ -399,28 +400,12 @@ const Students: NextPage = () => {
 
     await Promise.all(listUsersExistedUpdated);
 
-    successNotification("Success", "onUploadCSVStudentsTeamAccept");
+    await createPeerEvaluationTableGeneration(apolloClient, peerEvaluationId);
 
     setOpenPeerEvaluationEditAction(false);
     runRefreshPeerEvaluationStudents();
 
-    const {
-      data: { peerEvaluation: peerEvaluationColumns },
-    } = await getPeerEvaluationColumns(apolloClient, peerEvaluationId);
-
-    // TODO: For testing one creates the tables require for the first creation
-
-    console.log(peerEvaluationColumns.columns);
-
-    // PeerEvaluationStudentReview
-
-    // Query Columns
-
-    // Create columns and relationships by the user revieewes
-
-    // Errors ->
-    // Refresh ->
-    console.log("Accepted");
+    successNotification("Success", "onUploadCSVStudentsTeamAccept");
   };
 
   const columnsUserDataBulkError = [

@@ -450,10 +450,19 @@ const CREATE_PEER_EVALUATION_STUDENT = gql`
   }
 `;
 
+const CREATE_PEER_EVALUATION_TABLE_GENERATION = gql`
+  mutation CreatePeerEvaluationTableGeneration($where: PeerEvaluationTableGenerationWhereInput!) {
+    createPeerEvaluationTableGeneration(where: $where) {
+      completed
+    }
+  }
+`;
+
 export {
   CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
+  CREATE_PEER_EVALUATION_TABLE_GENERATION,
   DELETE_PEER_EVALUATION,
   GET_PEER_EVALUATION,
   GET_PEER_EVALUATION_COLUMNS,

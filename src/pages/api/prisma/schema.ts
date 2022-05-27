@@ -1,6 +1,8 @@
 import { resolvers } from "@generated/type-graphql";
 import { buildSchema } from "type-graphql";
 
+import { CreatePeerEvaluationTableGeneration } from "../resolvers/peer-evaluation-table";
+
 import {
   PeerEvaluationDashboardQuery,
   PeerEvaluationExistQuery,
@@ -11,6 +13,7 @@ import {
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    CreatePeerEvaluationTableGeneration,
     PeerEvaluationStudentTeamExistQuery,
     PeerEvaluationExistQuery,
     PeerEvaluationDashboardQuery,
