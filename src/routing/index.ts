@@ -13,6 +13,9 @@ const routing = {
     users: "/admin/users",
     peerEvaluation: "/admin/peer-evaluation",
   },
+  students: {
+    students: "/students",
+  },
   peerEvaluation: {
     list: "/peer-evaluation",
     create: "/peer-evaluation/create",
