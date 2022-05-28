@@ -197,4 +197,4 @@ class PeerEvaluationTableStudentQuery {
   }
 }
 
-export { PeerEvaluationTableStudentQuery };
+export { PeerEvaluationTableStudentQuery, PeerEvaluationTableStudentResponse, PeerEvaluationTableStudentWhereInput };

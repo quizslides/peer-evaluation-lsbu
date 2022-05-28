@@ -1,20 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
-import { PeerEvaluationNavigationFab } from "@/containers";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student";
+import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
 import { RoleScope } from "@/utils";
 
 const testId = "page-student-peer";
 
 const StudentPeerEvaluation: NextPage = () => {
+  const { query } = useRouter();
+
+  const { data: session, status } = useSession();
+
   const [isRedirecting, setRedirecting] = useState(false);
 
-  const isLoading = isRedirecting;
+  const [peerEvaluationCode, setPeerEvaluationCode] = useState<string | null>(null);
+
+  const [peerEvaluationTableData, setPeerEvaluationTableData] = useState<PeerEvaluationTableStudentResponse | null>(
+    null
+  );
+
+  const [getPeerEvaluationTableStudent, { loading: loadingFetch, error, data }] = useGetPeerEvaluationTableStudent(
+    "useGetPeerEvaluationTableStudent"
+  );
+
+  const isLoading = status === "loading" || loadingFetch || isRedirecting || !peerEvaluationTableData;
+
+  useEffect(() => {
+    const slug = query.slug;
+
+    if (Array.isArray(slug)) {
+      const peerEvaluationCode = slug[0];
+
+      setPeerEvaluationCode(peerEvaluationCode);
+    }
+  }, [query.slug]);
+
+  useEffect(() => {
+    if (session && peerEvaluationCode) {
+      getPeerEvaluationTableStudent({
+        variables: {
+          where: {
+            peerEvaluationCode: peerEvaluationCode,
+            userId: session.user.id,
+          },
+        },
+      });
+    }
+  }, [getPeerEvaluationTableStudent, peerEvaluationCode, session]);
+
+  useEffect(() => {
+    if (data?.peerEvaluationTableStudent) {
+      setPeerEvaluationTableData(data.peerEvaluationTableStudent);
+    }
+  }, [data]);
 
   return (
-    <Base topLeftComponent="menu" loading={isLoading}>
+    <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
       <PageTitle title={"Peer Evaluation"} testId={`${testId}-title`} variant="h4" margin="2em" />
     </Base>
   );
