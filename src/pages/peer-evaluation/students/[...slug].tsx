@@ -23,9 +23,9 @@ import {
   ITeamToCreateBulk,
 } from "@/containers/PeerEvaluationStudentTeamActionsDialog";
 import { CheckIcon, EditIcon, WidgetsIcon } from "@/icons";
+import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/createManyPeerEvaluationStudentTeams";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
-import createPeerEvaluationTableGeneration from "@/requests/direct/mutation/createPeerEvaluationTableGeneration";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
 import updateUserName from "@/requests/direct/mutation/updateUserName";
 import upsertPeerEvaluationTableLecturer from "@/requests/direct/mutation/upsertPeerEvaluationTableLecturer";
@@ -310,7 +310,7 @@ const Students: NextPage = () => {
       peerEvaluationId: peerEvaluationId,
     })) as [PeerEvaluationStudentTeamCreateManyInput];
 
-    const { errors } = await upsertPeerEvaluationTableLecturer(apolloClient, studentTeamsData);
+    const { errors } = await createManyPeerEvaluationStudentTeams(apolloClient, studentTeamsData);
 
     if (errors?.length) {
       console.log("Something wrong happened");
@@ -399,7 +399,7 @@ const Students: NextPage = () => {
 
     await Promise.all(listUsersExistedUpdated);
 
-    await createPeerEvaluationTableGeneration(apolloClient, peerEvaluationId);
+    await upsertPeerEvaluationTableLecturer(apolloClient, peerEvaluationId);
 
     setOpenPeerEvaluationEditAction(false);
     runRefreshPeerEvaluationStudents();

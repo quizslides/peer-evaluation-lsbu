@@ -447,10 +447,13 @@ const CREATE_PEER_EVALUATION_STUDENT = gql`
   }
 `;
 
-const CREATE_PEER_EVALUATION_TABLE_GENERATION = gql`
-  mutation CreatePeerEvaluationTableGeneration($where: PeerEvaluationTableGenerationWhereInput!) {
-    createPeerEvaluationTableGeneration(where: $where) {
-      completed
+const CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS = gql`
+  mutation CreateManyPeerEvaluationStudentTeam(
+    $data: [PeerEvaluationStudentTeamCreateManyInput!]!
+    $skipDuplicates: Boolean
+  ) {
+    createManyPeerEvaluationStudentTeam(data: $data, skipDuplicates: $skipDuplicates) {
+      count
     }
   }
 `;
@@ -510,7 +513,6 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
 export {
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
-  CREATE_PEER_EVALUATION_TABLE_GENERATION,
   DELETE_PEER_EVALUATION,
   GET_PEER_EVALUATION,
   GET_PEER_EVALUATION_COLUMNS,
