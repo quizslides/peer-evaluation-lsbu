@@ -10,7 +10,7 @@ import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-gr
 class PeerEvaluationExistWhereInput {
   @Field((_type) => String, {
     nullable: false,
-    description: "PeerEvaluation code unique value",
+    description: "Peer Evaluation code unique value",
   })
   code!: string;
 }
@@ -97,19 +97,19 @@ class PeerEvaluationsByLecturerQuery {
 
 @InputType({
   isAbstract: true,
-  description: "PeerEvaluation dashboard input",
+  description: "Peer Evaluation dashboard input",
 })
 class PeerEvaluationDashboardWhereInput {
   @Field((_type) => String, {
     nullable: false,
-    description: "PeerEvaluation id value",
+    description: "Peer Evaluation id value",
   })
   id!: string;
 }
 
 @ObjectType({
   isAbstract: true,
-  description: "PeerEvaluation Dashboard Object",
+  description: "Peer Evaluation Dashboard Object",
 })
 class PeerEvaluationDashboard extends PeerEvaluation {
   @Field((_type) => Number, {
@@ -184,7 +184,7 @@ class PeerEvaluationDashboardQuery {
 
 @InputType({
   isAbstract: true,
-  description: "PeerEvaluation Student Team Exist Where Input",
+  description: "Peer Evaluation Student Team Exist Where Input",
 })
 class PeerEvaluationStudentTeamExistWhereInput {
   @Field((_type) => [String], {
@@ -202,7 +202,7 @@ class PeerEvaluationStudentTeamExistWhereInput {
 
 @ObjectType({
   isAbstract: true,
-  description: "PeerEvaluation Student Team Exist Response",
+  description: "Peer Evaluation Student Team Exist Response",
 })
 class PeerEvaluationStudentTeamExistResponse {
   @Field((_type) => String, {
@@ -220,7 +220,7 @@ class PeerEvaluationStudentTeamExistResponse {
 
 @ObjectType({
   isAbstract: true,
-  description: "PeerEvaluation Student Team Exist Input",
+  description: "Peer Evaluation Student Team Exist Input",
 })
 class PeerEvaluationStudentTeamExist {
   @Field((_type) => [PeerEvaluationStudentTeamExistResponse], {

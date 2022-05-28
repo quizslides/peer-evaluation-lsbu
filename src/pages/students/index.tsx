@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import React, { useState } from "react";
 
 import MUIDataTable, { MUIDataTableMeta, MUIDataTableOptions } from "mui-datatables";

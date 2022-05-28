@@ -1,18 +1,18 @@
 import { PeerEvaluationStudentTeamCreateManyInput } from "@generated/type-graphql";
 
 import { TApolloClientType } from "@/graphql/client";
-import { CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS } from "@/requests/schema/peer-evaluation";
+import { UPSERT_PEER_EVALUATION_TABLE_LECTURER } from "@/requests/schema/peer-evaluation";
 
-const createManyPeerEvaluationStudentTeams = (
+const upsertPeerEvaluationTableLecturer = (
   apolloClient: TApolloClientType,
   studentTeamsData: [PeerEvaluationStudentTeamCreateManyInput]
 ) => {
   return apolloClient.mutate({
-    mutation: CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
+    mutation: UPSERT_PEER_EVALUATION_TABLE_LECTURER,
     variables: { data: studentTeamsData, skipDuplicates: true },
     errorPolicy: "all",
     fetchPolicy: "no-cache",
   });
 };
 
-export default createManyPeerEvaluationStudentTeams;
+export default upsertPeerEvaluationTableLecturer;

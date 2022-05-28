@@ -23,15 +23,14 @@ import {
   ITeamToCreateBulk,
 } from "@/containers/PeerEvaluationStudentTeamActionsDialog";
 import { CheckIcon, EditIcon, WidgetsIcon } from "@/icons";
-import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/createManyPeerEvaluationStudentTeams";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
 import createPeerEvaluationTableGeneration from "@/requests/direct/mutation/createPeerEvaluationTableGeneration";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
 import updateUserName from "@/requests/direct/mutation/updateUserName";
+import upsertPeerEvaluationTableLecturer from "@/requests/direct/mutation/upsertPeerEvaluationTableLecturer";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
-import getPeerEvaluationColumns from "@/requests/direct/query/getPeerEvaluationColumns";
 import getPeerEvaluationStatus from "@/requests/direct/query/getPeerEvaluationStatus";
 import getPeerEvaluationStudentTeamExist from "@/requests/direct/query/getPeerEvaluationStudentTeamExist";
 import getPeerEvaluationTeachingMemberRole from "@/requests/direct/query/getPeerEvaluationTeachingMemberRole";
@@ -311,7 +310,7 @@ const Students: NextPage = () => {
       peerEvaluationId: peerEvaluationId,
     })) as [PeerEvaluationStudentTeamCreateManyInput];
 
-    const { errors } = await createManyPeerEvaluationStudentTeams(apolloClient, studentTeamsData);
+    const { errors } = await upsertPeerEvaluationTableLecturer(apolloClient, studentTeamsData);
 
     if (errors?.length) {
       console.log("Something wrong happened");

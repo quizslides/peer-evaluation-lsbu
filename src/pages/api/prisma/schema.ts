@@ -1,19 +1,20 @@
 import { resolvers } from "@generated/type-graphql";
 import { buildSchema } from "type-graphql";
 
-import { CreatePeerEvaluationTableGeneration } from "../resolvers/peer-evaluation-table";
-
 import {
   PeerEvaluationDashboardQuery,
   PeerEvaluationExistQuery,
   PeerEvaluationStudentTeamExistQuery,
   PeerEvaluationsByLecturerQuery,
 } from "@/pages/api/resolvers/peer-evaluation";
+import { UpsertPeerEvaluationTableLecturer } from "@/pages/api/resolvers/peer-evaluation-table-lecturer";
+import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/peer-evaluation-table-student";
 
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
-    CreatePeerEvaluationTableGeneration,
+    PeerEvaluationTableStudentQuery,
+    UpsertPeerEvaluationTableLecturer,
     PeerEvaluationStudentTeamExistQuery,
     PeerEvaluationExistQuery,
     PeerEvaluationDashboardQuery,

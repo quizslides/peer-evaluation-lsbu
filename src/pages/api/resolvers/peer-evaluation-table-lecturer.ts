@@ -3,9 +3,9 @@ import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type
 
 @InputType({
   isAbstract: true,
-  description: "Peer Evaluation Table Generation Input",
+  description: "Update Insert Peer Evaluation Table Where Input",
 })
-class PeerEvaluationTableGenerationWhereInput {
+class UpsertPeerEvaluationTableLecturerWhereInput {
   @Field((_type) => String, {
     nullable: false,
     description: "Peer Evaluation ID",
@@ -17,21 +17,21 @@ class PeerEvaluationTableGenerationWhereInput {
   isAbstract: true,
   description: undefined,
 })
-class PeerEvaluationTableGenerationResponse {
+class UpsertPeerEvaluationTableLecturerResponse {
   @Field((_type) => Boolean, {
     nullable: true,
-    description: "Peer Evaluations Table Created Successfully",
+    description: "Peer Evaluations Table Updated and Inserted Successfully",
   })
   completed: boolean | undefined;
 }
 
 @Resolver()
-class CreatePeerEvaluationTableGeneration {
-  @Mutation((_returns) => PeerEvaluationTableGenerationResponse)
-  async createPeerEvaluationTableGeneration(
+class UpsertPeerEvaluationTableLecturer {
+  @Mutation((_returns) => UpsertPeerEvaluationTableLecturerResponse)
+  async upsertPeerEvaluationTableLecturer(
     @Ctx() ctx: { prisma: PrismaClient },
-    @Arg("where") where: PeerEvaluationTableGenerationWhereInput
-  ): Promise<PeerEvaluationTableGenerationResponse> {
+    @Arg("where") where: UpsertPeerEvaluationTableLecturerWhereInput
+  ): Promise<UpsertPeerEvaluationTableLecturerResponse> {
     const peerEvaluationId = where.peerEvaluationId;
 
     const peerEvaluation = await ctx.prisma.peerEvaluation.findFirst({
@@ -111,4 +111,4 @@ class CreatePeerEvaluationTableGeneration {
   }
 }
 
-export { CreatePeerEvaluationTableGeneration };
+export { UpsertPeerEvaluationTableLecturer };
