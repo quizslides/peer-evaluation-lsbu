@@ -102,7 +102,7 @@ model PeerEvaluationReviewee {
   updatedAt                    DateTime                       @default(now()) @updatedAt
   studentReviewed              PeerEvaluationStudent          @relation(fields: [studentReviewedId], references: [id])
   studentReviewedId            String
-  criteriaScore                Int?
+  criteriaScoreTotal           Int?
   revieweeComment              String
   peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id])
   peerEvaluationReviewId       String?
