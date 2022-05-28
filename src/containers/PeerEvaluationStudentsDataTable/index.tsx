@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 import { DataTable, DataTableRefreshActionButtonIcon } from "@/components";
 import LoadingContainer from "@/containers/LoadingContainer";
@@ -12,7 +12,7 @@ interface IPeerEvaluationStudentsDataTable {
 }
 
 const PeerEvaluationStudentsDataTable = ({ data, onRefreshStudents }: IPeerEvaluationStudentsDataTable) => {
-  const dataTableColumns: MUIDataTableColumnDef[] = [
+  const dataTableColumns: MUIDataTableColumn[] = [
     {
       name: "id",
       label: "ID",

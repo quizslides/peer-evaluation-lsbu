@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { FormControl, FormHelperText, Grid } from "@mui/material";
 import { useField, useFormikContext } from "formik";
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 
@@ -138,7 +138,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     setDeletePeerEvaluationColumnConfirmationOpen(false);
   };
 
-  const tableColumns: MUIDataTableColumnDef[] = [
+  const tableColumns: MUIDataTableColumn[] = [
     {
       name: "id",
       label: "ID",

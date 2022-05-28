@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 
 import styled from "@emotion/styled";
-import MUIDataTable, { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import MUIDataTable, { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 interface IDataTable {
   isVisible: boolean;
   title?: string;
   data: Array<object | number[] | string[]>;
-  columns: MUIDataTableColumnDef[];
+  columns: MUIDataTableColumn[];
   options: MUIDataTableOptions | undefined;
   testId: string;
 }

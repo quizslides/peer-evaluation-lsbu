@@ -2,7 +2,7 @@
 import React, { memo } from "react";
 
 import { PeerEvaluation } from "@generated/type-graphql";
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 import PeerEvaluationCard from "../PeerEvaluationCard";
 
@@ -44,7 +44,7 @@ interface IDataTableStudentsBulkCreateUpdate {
 }
 
 const DataTableTeamsToCreate = ({ studentTeamToCreate }: IDataTableTeamsToCreate) => {
-  const dataTableColumns: MUIDataTableColumnDef[] = [
+  const dataTableColumns: MUIDataTableColumn[] = [
     {
       name: "action",
       label: "Action",
@@ -96,7 +96,7 @@ const DataTableStudentsBulkCreateUpdate = ({
 }: IDataTableStudentsBulkCreateUpdate) => {
   const data: IStudentTeamToEditBulk[] = [...studentToCreate, ...studentToUpdate];
 
-  const dataTableColumns: MUIDataTableColumnDef[] = [
+  const dataTableColumns: MUIDataTableColumn[] = [
     {
       name: "action",
       label: "Action",

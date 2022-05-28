@@ -6,7 +6,7 @@ import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 
@@ -122,7 +122,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     }
   };
 
-  const tableColumns: MUIDataTableColumnDef[] = [
+  const tableColumns: MUIDataTableColumn[] = [
     {
       name: "id",
       label: "ID",

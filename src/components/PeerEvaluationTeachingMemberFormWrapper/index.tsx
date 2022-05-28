@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { User } from "@generated/type-graphql";
 import { FormControl, FormHelperText, Grid } from "@mui/material";
 import { useField, useFormikContext } from "formik";
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { useSession } from "next-auth/react";
 
 import {
@@ -190,7 +190,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
     setDeletePeerEvaluationTeachingMemberConfirmationOpen(false);
   };
 
-  const tableColumns: MUIDataTableColumnDef[] = [
+  const tableColumns: MUIDataTableColumn[] = [
     {
       name: "name",
       label: "Name",
