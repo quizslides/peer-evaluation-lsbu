@@ -19,7 +19,7 @@ import {
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
 import { VisibilityOffIcon } from "@/icons";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
 import { CenteredContent } from "@/styles";
 import { ObjectArray, getRangeNumberObject, objectToArrayOfObject } from "@/utils/form";
 
@@ -247,7 +247,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
 
       setDataTableColumns(columns);
     }
-  }, [data.peerEvaluation]);
+  }, [data.peerEvaluation, isReadOnly]);
 
   useEffect(() => {
     const getSanitizedPeerEvaluationStudentTableOnFetch = (
@@ -260,8 +260,8 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
       const sanitized = data.PeerEvaluationReviewees?.map((peerEvaluationReviewee) => {
         const peerEvaluationRevieweesColumns = peerEvaluationReviewee.PeerEvaluationRevieweeColumn?.map((column) => ({
           [column.peerEvaluationColumnId]: {
-            peerEvaluationColumnId: column.peerEvaluationColumnId,
-            dataTableColumnId: column.id,
+            peerEvaluationRevieweeColumnId: column.id,
+            columnId: column.peerEvaluationColumnId,
             criteriaScore: column.criteriaScore,
           },
         })) as [{}];

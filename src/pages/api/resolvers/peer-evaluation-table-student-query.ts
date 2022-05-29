@@ -9,6 +9,7 @@ const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEv
 
   return true;
 };
+
 @InputType({
   isAbstract: true,
   description: "Peer Evaluation Table Student Where Input",

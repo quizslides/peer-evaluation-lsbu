@@ -8,11 +8,13 @@ import {
   PeerEvaluationsByLecturerQuery,
 } from "@/pages/api/resolvers/peer-evaluation";
 import { UpsertPeerEvaluationTableLecturer } from "@/pages/api/resolvers/peer-evaluation-table-lecturer";
-import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/peer-evaluation-table-student";
+import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/peer-evaluation-table-student-mutation";
+import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
 
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    UpdatePeerEvaluationTableStudentData,
     PeerEvaluationTableStudentQuery,
     UpsertPeerEvaluationTableLecturer,
     PeerEvaluationStudentTeamExistQuery,

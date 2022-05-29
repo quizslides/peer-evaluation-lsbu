@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { useApolloClient } from "@apollo/client";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -7,13 +8,18 @@ import { useRouter } from "next/router";
 import { Base, PageTitle } from "@/components";
 import { PeerEvaluationStudentTable } from "@/containers";
 import { IPeerEvaluationStudentTableForm } from "@/containers/PeerEvaluationStudentTable";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import updatePeerEvaluationTableStudent from "@/requests/direct/mutation/updatePeerEvaluationTableStudent";
 import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
-import { RoleScope } from "@/utils";
+import { getSanitizedPeerEvaluationTableOnUpdate } from "@/transformers/peer-evaluation-student-table";
+import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
+import { ObjectArrayOfObject, ObjectNormalizedType, getNormalizedObjectArray } from "@/utils/form";
 
 const testId = "page-student-peer";
 
 const StudentPeerEvaluation: NextPage = () => {
+  const apolloClient = useApolloClient();
+
   const { query } = useRouter();
 
   const { data: session, status } = useSession();
@@ -28,8 +34,29 @@ const StudentPeerEvaluation: NextPage = () => {
     "useGetPeerEvaluationTableStudent"
   );
 
-  const onSubmitPeerEvaluation = (data: IPeerEvaluationStudentTableForm[]) => {
-    console.log(data);
+  const onSubmitPeerEvaluation = async (data: IPeerEvaluationStudentTableForm[]) => {
+    loadingNotification("Updating Peer Evaluation", "onSubmitPeerEvaluation");
+
+    if (peerEvaluationTableData?.peerEvaluation?.columns) {
+      const columnList = peerEvaluationTableData.peerEvaluation.columns.map((column) => column.id);
+
+      const dataModuleNormalized = getNormalizedObjectArray(data as unknown as ObjectNormalizedType);
+
+      const dataSanitized = getSanitizedPeerEvaluationTableOnUpdate(
+        dataModuleNormalized as unknown as ObjectArrayOfObject,
+        columnList
+      );
+
+      const response = await updatePeerEvaluationTableStudent(apolloClient, dataSanitized);
+
+      if (response.data.updatePeerEvaluationTableStudent.completed) {
+        successNotification(response.data.updatePeerEvaluationTableStudent.message, "onSubmitPeerEvaluation");
+      } else {
+        errorNotification(response.data.updatePeerEvaluationTableStudent.message, "onSubmitPeerEvaluation");
+      }
+
+      // End or Error Saving Data
+    }
   };
 
   const isLoading = status === "loading" || loadingFetch || !peerEvaluationTableData;

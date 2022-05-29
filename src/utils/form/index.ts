@@ -4,6 +4,10 @@ import { ArrayObject, JSONStringNumber } from "@/types/object";
 
 type ObjectArray = [{ [key: string]: object }];
 
+type ObjectArrayOfObject = [{ [key: string]: { [key: string]: object } }];
+
+type ObjectNormalizedType = { [x: string]: object[] };
+
 const rangeNumber = (end: number, start = 0) => Array.from({ length: end + 1 - start }, (_, k) => k + start);
 
 const getRangeNumberObject = (end: number, start = 0) => {
@@ -25,7 +29,7 @@ const objectToArrayOfObject = (objectKey: string, obj: ObjectArray) =>
 
 const objectToArrayOfObjectInline = (objectKey: string, obj: ObjectArray) => obj.map((data) => data[objectKey]);
 
-const getNormalizedObjectArray = (object: { [x: string]: object[] }) => {
+const getNormalizedObjectArray = (object: ObjectNormalizedType) => {
   let common = {};
 
   return Object.keys(object)
@@ -47,4 +51,4 @@ export {
   tomorrowDate,
 };
 
-export type { ObjectArray };
+export type { ObjectArray, ObjectArrayOfObject, ObjectNormalizedType };

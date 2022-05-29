@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
+  mutation UpdatePeerEvaluationTableStudent($where: UpdatePeerEvaluationTableStudentDataInputList!) {
+    updatePeerEvaluationTableStudent(where: $where) {
+      completed
+      message
+    }
+  }
+`;
+
 const GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE = gql`
   query PeerEvaluationTeachingMember($where: PeerEvaluationTeachingMemberWhereUniqueInput!) {
     peerEvaluationTeachingMember(where: $where) {
@@ -545,5 +554,6 @@ export {
   UPDATE_PEER_EVALUATION,
   UPDATE_PEER_EVALUATION_EMAIL,
   UPDATE_PEER_EVALUATION_STUDENT,
+  UPDATE_PEER_EVALUATION_TABLE_STUDENT,
   UPSERT_PEER_EVALUATION_TABLE_LECTURER,
 };
