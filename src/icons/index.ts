@@ -29,6 +29,7 @@ import ThumbUpAltIcon from "@/icons/ThumbUpAltIcon/ThumbUpAltIcon";
 import UploadIcon from "@/icons/UploadIcon/UploadIcon";
 import VideogameAssetIcon from "@/icons/VideogameAssetIcon/VideogameAssetIcon";
 import ViewModuleIcon from "@/icons/ViewModuleIcon/ViewModuleIcon";
+import VisibilityOffIcon from "@/icons/VisibilityOffIcon/VisibilityOffIcon";
 import WidgetsIcon from "@/icons/WidgetsIcon/WidgetsIcon";
 
 export {
@@ -63,5 +64,6 @@ export {
   UploadIcon,
   VideogameAssetIcon,
   ViewModuleIcon,
+  VisibilityOffIcon,
   WidgetsIcon,
 };

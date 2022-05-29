@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
+import { PeerEvaluationStudentTable } from "@/containers";
+import { IPeerEvaluationStudentTableForm } from "@/containers/PeerEvaluationStudentTable";
 import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student";
 import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
 import { RoleScope } from "@/utils";
@@ -16,8 +18,6 @@ const StudentPeerEvaluation: NextPage = () => {
 
   const { data: session, status } = useSession();
 
-  const [isRedirecting, setRedirecting] = useState(false);
-
   const [peerEvaluationCode, setPeerEvaluationCode] = useState<string | null>(null);
 
   const [peerEvaluationTableData, setPeerEvaluationTableData] = useState<PeerEvaluationTableStudentResponse | null>(
@@ -28,7 +28,11 @@ const StudentPeerEvaluation: NextPage = () => {
     "useGetPeerEvaluationTableStudent"
   );
 
-  const isLoading = status === "loading" || loadingFetch || isRedirecting || !peerEvaluationTableData;
+  const onSubmitPeerEvaluation = (data: IPeerEvaluationStudentTableForm[]) => {
+    console.log(data);
+  };
+
+  const isLoading = status === "loading" || loadingFetch || !peerEvaluationTableData;
 
   useEffect(() => {
     const slug = query.slug;
@@ -61,7 +65,15 @@ const StudentPeerEvaluation: NextPage = () => {
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
-      <PageTitle title={"Peer Evaluation"} testId={`${testId}-title`} variant="h4" margin="2em" />
+      <PageTitle
+        title={peerEvaluationTableData?.peerEvaluation?.title || ""}
+        testId={`${testId}-title`}
+        variant="h4"
+        margin="2em"
+      />
+      {peerEvaluationTableData && (
+        <PeerEvaluationStudentTable onSubmit={onSubmitPeerEvaluation} data={peerEvaluationTableData} />
+      )}
     </Base>
   );
 };

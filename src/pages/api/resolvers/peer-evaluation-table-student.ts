@@ -1,4 +1,4 @@
-import { PeerEvaluationStudentReview } from "@generated/type-graphql";
+import { PeerEvaluation, PeerEvaluationStudentReview } from "@generated/type-graphql";
 import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
@@ -50,6 +50,12 @@ class PeerEvaluationTableStudentResponse {
   })
   message: string = "";
 
+  @Field((_type) => PeerEvaluation, {
+    nullable: true,
+    description: "Peer Evaluation Student Review Data",
+  })
+  peerEvaluation: PeerEvaluation | undefined;
+
   @Field((_type) => PeerEvaluationStudentReview, {
     nullable: true,
     description: "Peer Evaluation Student Review Data",
@@ -68,17 +74,23 @@ class PeerEvaluationTableStudentQuery {
 
     const studentId = where.userId;
 
-    const peerEvaluationData = await ctx.prisma.peerEvaluation.findFirst({
+    const peerEvaluationData = (await ctx.prisma.peerEvaluation.findFirst({
       select: {
+        title: true,
+        code: true,
         id: true,
         status: true,
+        columns: true,
+        criteriaScoreRangeMin: true,
+        criteriaScoreRangeMax: true,
+        submissionsLockDate: true,
       },
       where: {
         code: {
           equals: peerEvaluationCode,
         },
       },
-    });
+    })) as PeerEvaluation;
 
     const user = await ctx.prisma.user.findFirst({
       where: {
@@ -93,11 +105,13 @@ class PeerEvaluationTableStudentQuery {
         peerEvaluationStudentList: true,
       },
     });
+
     if (!user || !peerEvaluationData) {
       return {
         readOnly: undefined,
         visible: undefined,
         message: "Peer Evaluation Table is not available",
+        peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
       };
     }
@@ -113,6 +127,7 @@ class PeerEvaluationTableStudentQuery {
         visible: isPeerEvaluationVisible,
         readOnly: undefined,
         message: "Peer Evaluation Table is not visible",
+        peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
       };
     }
@@ -154,7 +169,7 @@ class PeerEvaluationTableStudentQuery {
         },
         PeerEvaluationReviewees: {
           select: {
-            criteriaScore: true,
+            criteriaScoreTotal: true,
             studentReviewedId: true,
             revieweeComment: true,
             studentReviewed: {
@@ -192,6 +207,7 @@ class PeerEvaluationTableStudentQuery {
       readOnly: isPeerEvaluationReadOnly,
       visible: isPeerEvaluationVisible,
       message: "Peer Evaluation fetched successfully",
+      peerEvaluation: peerEvaluationData,
       peerEvaluationStudentReview: peerEvaluationStudentReviewData,
     };
   }

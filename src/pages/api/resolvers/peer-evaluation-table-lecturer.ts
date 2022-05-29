@@ -70,7 +70,7 @@ class UpsertPeerEvaluationTableLecturer {
 
         const listPeerEvaluationRevieweesStudentToCreate = listPeerEvaluationRevieweesStudent.map((revieweesData) => ({
           revieweeComment: "",
-          criteriaScore: 0,
+          criteriaScoreTotal: 0,
           studentReviewed: {
             connect: {
               userId_peerEvaluationId: {

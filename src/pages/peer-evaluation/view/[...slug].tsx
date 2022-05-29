@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
-import { MUIDataTableColumnDef, MUIDataTableOptions } from "mui-datatables";
+import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 

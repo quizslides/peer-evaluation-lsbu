@@ -482,7 +482,8 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           }
         }
         PeerEvaluationReviewees {
-          criteriaScore
+          id
+          criteriaScoreTotal
           studentReviewedId
           revieweeComment
           studentReviewed {
@@ -506,11 +507,25 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           }
         }
       }
+      peerEvaluation {
+        id
+        status
+        columns {
+          description
+          id
+        }
+        criteriaScoreRangeMin
+        criteriaScoreRangeMax
+        submissionsLockDate
+        title
+        code
+      }
     }
   }
 `;
 
 export {
+  CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
   DELETE_PEER_EVALUATION,

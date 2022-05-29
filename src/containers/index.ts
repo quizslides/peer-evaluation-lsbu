@@ -17,6 +17,7 @@ import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnMan
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
 import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
 import PeerEvaluationStudentsDataTable from "@/containers/PeerEvaluationStudentsDataTable";
+import PeerEvaluationStudentTable from "@/containers/PeerEvaluationStudentTable";
 import PeerEvaluationStudentTeamActionsDialog from "@/containers/PeerEvaluationStudentTeamActionsDialog";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
@@ -46,6 +47,7 @@ export {
   PeerEvaluationsDataTable,
   PeerEvaluationStatusContainer,
   PeerEvaluationStudentsDataTable,
+  PeerEvaluationStudentTable,
   PeerEvaluationStudentTeamActionsDialog,
   SignInWrapper,
   UnauthorizedContainer,
