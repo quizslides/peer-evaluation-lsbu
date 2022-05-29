@@ -169,6 +169,9 @@ class PeerEvaluationTableStudentQuery {
           },
         },
         PeerEvaluationReviewees: {
+          orderBy: {
+            studentReviewedId: "asc",
+          },
           select: {
             criteriaScoreTotal: true,
             studentReviewedId: true,

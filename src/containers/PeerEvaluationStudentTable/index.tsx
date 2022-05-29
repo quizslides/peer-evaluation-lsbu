@@ -255,8 +255,6 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
     ): IPeerEvaluationStudentData[] => {
       const peerEvaluationStudentId = data.peerEvaluationStudentId;
 
-      const peerEvaluationRevieweeId = data.PeerEvaluationReviewees && data.PeerEvaluationReviewees[0].id;
-
       const sanitized = data.PeerEvaluationReviewees?.map((peerEvaluationReviewee) => {
         const peerEvaluationRevieweesColumns = peerEvaluationReviewee.PeerEvaluationRevieweeColumn?.map((column) => ({
           [column.peerEvaluationColumnId]: {
@@ -272,7 +270,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           peerEvaluationStudentId: peerEvaluationStudentId,
           revieweeComment: peerEvaluationReviewee.revieweeComment,
           criteriaScoreTotal: peerEvaluationReviewee.criteriaScoreTotal,
-          peerEvaluationRevieweeId: peerEvaluationRevieweeId,
+          peerEvaluationRevieweeId: peerEvaluationReviewee.id,
           ...Object.assign(...peerEvaluationRevieweesColumns),
         };
       }) as IPeerEvaluationStudentData[];
@@ -322,7 +320,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
     <Formik
       initialValues={peerEvaluationTableFormInitialState}
       validationSchema={validationSchemaState}
-      onSubmit={onSubmit}
+      onSubmit={(data) => onSubmit(data)}
     >
       {() => (
         <Form>
