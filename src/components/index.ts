@@ -3,6 +3,7 @@ import BackArrowButton from "@/components/BackArrowButton/BackArrowButton";
 import Base from "@/components/Base/Base";
 import Button from "@/components/Button/Button";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
+import CriteriaScoreTotalFormDataTable from "@/components/CriteriaScoreTotalFormDataTable/CriteriaScoreTotalFormDataTable";
 import DataTable from "@/components/DataTable/DataTable";
 import DataTableAddActionButtonIcon from "@/components/DataTableAddActionButtonIcon/DataTableAddActionButtonIcon";
 import DataTableDeleteActionButtonIcon from "@/components/DataTableDeleteActionButtonIcon/DataTableDeleteActionButtonIcon";
@@ -22,8 +23,8 @@ import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import SelectFieldForm from "@/components/SelectFieldForm/SelectFieldForm";
+import SelectFieldFormDataTable from "@/components/SelectFieldFormDataTable/SelectFieldFormDataTable";
 import SelectMultipleFieldForm from "@/components/SelectMultipleFieldForm/SelectMultipleFieldForm";
-import selectUserScoring from "@/components/SelectUserScoring/SelectUserScoring";
 import TextField from "@/components/TextField/TextField";
 import TextFieldForm from "@/components/TextFieldForm/TextFieldForm";
 import TextFieldFormDataTable from "@/components/TextFieldFormDataTable/TextFieldFormDataTable";
@@ -39,6 +40,7 @@ export {
   Base,
   Button,
   ConfirmationDialog,
+  CriteriaScoreTotalFormDataTable,
   DataTable,
   DataTableAddActionButtonIcon,
   DataTableDeleteActionButtonIcon,
@@ -58,8 +60,8 @@ export {
   NavigationExpandableItem,
   PageTitle,
   SelectFieldForm,
+  SelectFieldFormDataTable,
   SelectMultipleFieldForm,
-  selectUserScoring,
   TextField,
   TextFieldForm,
   TextFieldFormDataTable,
