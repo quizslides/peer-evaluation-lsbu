@@ -25,9 +25,21 @@ const objectToArrayOfObject = (objectKey: string, obj: ObjectArray) =>
 
 const objectToArrayOfObjectInline = (objectKey: string, obj: ObjectArray) => obj.map((data) => data[objectKey]);
 
+const getNormalizedObjectArray = (object: { [x: string]: object[] }) => {
+  let common = {};
+
+  return Object.keys(object)
+    .filter((k) => Array.isArray(object[k]))
+    .reduce(
+      (r, k) => (object[k].forEach((o, i) => Object.assign((r[i] = r[i] || Object.assign({}, common)), o)), r),
+      []
+    );
+};
+
 export {
   arrayToObject,
   getMergedKeyValuesObject,
+  getNormalizedObjectArray,
   getRangeNumberObject,
   objectToArrayOfObject,
   objectToArrayOfObjectInline,
