@@ -170,7 +170,9 @@ class PeerEvaluationTableStudentQuery {
         },
         PeerEvaluationReviewees: {
           orderBy: {
-            studentReviewedId: "asc",
+            studentReviewed: {
+              id: "asc",
+            },
           },
           select: {
             criteriaScoreTotal: true,
@@ -190,7 +192,6 @@ class PeerEvaluationTableStudentQuery {
             PeerEvaluationRevieweeColumn: {
               select: {
                 peerEvaluationColumnId: true,
-
                 isInvalid: true,
                 criteriaScore: true,
                 updatedAt: true,
