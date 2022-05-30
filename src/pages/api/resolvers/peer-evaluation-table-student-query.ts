@@ -178,6 +178,7 @@ class PeerEvaluationTableStudentQuery {
             criteriaScoreTotal: true,
             studentReviewedId: true,
             revieweeComment: true,
+            isInvalid: true,
             studentReviewed: {
               select: {
                 user: {
@@ -192,7 +193,6 @@ class PeerEvaluationTableStudentQuery {
             PeerEvaluationRevieweeColumn: {
               select: {
                 peerEvaluationColumnId: true,
-                isInvalid: true,
                 criteriaScore: true,
                 updatedAt: true,
                 createdAt: true,

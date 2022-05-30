@@ -46,7 +46,6 @@ class UpsertPeerEvaluationTableLecturer {
     });
 
     const peerEvaluationRevieweeColumns = peerEvaluation?.columns.map((column) => ({
-      isInvalid: false,
       criteriaScore: 0,
       peerEvaluationColumn: {
         connect: {
@@ -69,6 +68,7 @@ class UpsertPeerEvaluationTableLecturer {
         );
 
         const listPeerEvaluationRevieweesStudentToCreate = listPeerEvaluationRevieweesStudent.map((revieweesData) => ({
+          isInvalid: false,
           revieweeComment: "",
           criteriaScoreTotal: 0,
           studentReviewed: {

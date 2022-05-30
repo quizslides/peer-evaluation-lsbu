@@ -495,6 +495,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           criteriaScoreTotal
           studentReviewedId
           revieweeComment
+          isInvalid
           studentReviewed {
             user {
               name
@@ -504,7 +505,6 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           peerEvaluationReviewId
           PeerEvaluationRevieweeColumn {
             peerEvaluationColumnId
-            isInvalid
             criteriaScore
             updatedAt
             createdAt
