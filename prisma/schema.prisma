@@ -107,6 +107,7 @@ model PeerEvaluationReviewee {
   peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id])
   peerEvaluationReviewId       String?
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
+  isInvalid                    Boolean
 }
 
 // Reviewee Column
@@ -119,7 +120,6 @@ model PeerEvaluationRevieweeColumn {
   peerEvaluationRevieweeId String
   peerEvaluationColumn     PeerEvaluationColumn   @relation(fields: [peerEvaluationColumnId], references: [id])
   peerEvaluationColumnId   String
-  isInvalid                Boolean
 }
 
 model PeerEvaluationStudentTeam {
