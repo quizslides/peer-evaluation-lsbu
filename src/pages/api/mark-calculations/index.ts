@@ -1,3 +1,5 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
 import prisma from "@/pages/api/prisma";
 
 const getPeerEvaluationMarkCalculation = async (peerEvaluationCode: string, teamName: string) => {
@@ -185,7 +187,7 @@ const getPeerEvaluationCode = async (peerEvaluationId: string) => {
   return peerEvaluationData?.code;
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { teamName, peerEvaluationId } = req.body;
 
   const peerEvaluationCode = await getPeerEvaluationCode(peerEvaluationId);

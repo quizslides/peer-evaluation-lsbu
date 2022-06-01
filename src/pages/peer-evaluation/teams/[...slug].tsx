@@ -77,7 +77,10 @@ const Teams: NextPage = () => {
         customBodyRender: (_, tableMeta) => {
           return (
             <Button
-              onClick={() => onViewPeerEvaluation(tableMeta.currentTableData[tableMeta.rowIndex].data[2] as string)}
+              onClick={() => {
+                const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
+                onViewPeerEvaluation(dataTable.data[2] as string);
+              }}
               testId={""}
               variant="contained"
             >
