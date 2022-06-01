@@ -436,7 +436,7 @@ const PEER_EVALUATION_STUDENTS = gql`
       systemCalculatedMark
       systemAdjustedMark
       lecturerAdjustedMark
-      mark
+      finalMark
       user {
         name
         email

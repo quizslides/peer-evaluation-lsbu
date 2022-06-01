@@ -84,8 +84,8 @@ const PeerEvaluationStudentsDataTable = ({ data, onRefreshStudents }: IPeerEvalu
       },
     },
     {
-      name: "mark",
-      label: "Mark",
+      name: "finalMark",
+      label: "finalMark",
     },
     {
       name: "peerEvaluationStudentTeamName",

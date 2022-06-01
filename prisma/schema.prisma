@@ -77,7 +77,7 @@ model PeerEvaluationStudent {
   systemCalculatedMark             Decimal?
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
-  mark                             Decimal?
+  finalMark                        Decimal?
   comments                         String?
   peerEvaluationReviewed           PeerEvaluationStudentReview? // Peer evaluation that the student is reviewing
   PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
