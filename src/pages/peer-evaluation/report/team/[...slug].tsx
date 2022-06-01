@@ -97,7 +97,7 @@ const ReportTeam: NextPage = () => {
         .then((response) => response.json())
         .then((data) => setTableData(data));
     }
-  });
+  }, [query.slug]);
 
   return (
     <Base topLeftComponent="menu" loading={isLoading}>
