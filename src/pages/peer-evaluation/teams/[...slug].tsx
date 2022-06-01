@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { PeerEvaluationStudentTeam, PeerEvaluationStudentTeamWhereInput } from "@generated/type-graphql";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { array, number, object, string } from "yup";
-import { OptionalObjectSchema } from "yup/lib/object";
-import { AnyObject } from "yup/lib/types";
+import { array, number, object } from "yup";
 
 import { Base, Button, DataTable, PageTitle, SelectFieldFormDataTable } from "@/components";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import { FieldWrapper } from "@/forms/style";
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
 import useGetPeerEvaluationStudentTeams from "@/requests/hooks/query/useGetPeerEvaluationStudentTeams";
-import routing from "@/routing";
 import { RoleScope } from "@/utils";
 import {
   ObjectArray,
@@ -39,7 +35,7 @@ const Teams: NextPage = () => {
     ),
   });
 
-  const { push, query, isFallback } = useRouter();
+  const { push, query } = useRouter();
 
   const [isRedirecting, setRedirecting] = useState(false);
 
@@ -49,13 +45,11 @@ const Teams: NextPage = () => {
     IPeerEvaluationStudentTableForm[] | null
   >(null);
 
-  const [getPeerEvaluationStudentTeams, { loading: loadingFetch, error, data }] = useGetPeerEvaluationStudentTeams(
+  const [getPeerEvaluationStudentTeams, { loading: loadingFetch, data }] = useGetPeerEvaluationStudentTeams(
     "useGetPeerEvaluationStudentTeams"
   );
 
-  const [updatePeerEvaluationStudentTeam, { data: dataUpdated, loading, reset }] = useUpdatePeerEvaluationStudentTeam(
-    "useUpdatePeerEvaluationStudentTeam"
-  );
+  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("useUpdatePeerEvaluationStudentTeam");
 
   const rangeSelectField = getRangeNumberObject(100, 0);
 

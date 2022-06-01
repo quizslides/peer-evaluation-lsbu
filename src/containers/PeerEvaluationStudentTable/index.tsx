@@ -254,7 +254,13 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
 
       setDataTableColumns(columns);
     }
-  }, [data.peerEvaluation, isReadOnly]);
+  }, [
+    data.peerEvaluation?.columns,
+    data.peerEvaluation?.criteriaScoreRangeMax,
+    data.peerEvaluation?.criteriaScoreRangeMin,
+    isReadOnly,
+    session?.user.name,
+  ]);
 
   useEffect(() => {
     const getSanitizedPeerEvaluationStudentTableOnFetch = (

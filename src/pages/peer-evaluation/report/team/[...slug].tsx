@@ -4,27 +4,13 @@ import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import {
-  Base,
-  Button,
-  ConfirmationDialog,
-  DataTable,
-  DataTableAddActionButtonIcon,
-  Error,
-  IconButtonWrapper,
-  PageTitle,
-} from "@/components";
-import { PeerEvaluationNavigationFab } from "@/containers";
+import { Base, DataTable, PageTitle } from "@/components";
 import { RoleScope } from "@/utils";
 
 const testId = "page-report-team";
 
 const ReportTeam: NextPage = () => {
-  const [isRedirecting, setRedirecting] = useState(false);
-
-  const isLoading = isRedirecting;
-
-  const { push, query, isFallback } = useRouter();
+  const { query } = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [tableData, setTableData] = useState<any>(null);
@@ -100,7 +86,7 @@ const ReportTeam: NextPage = () => {
   }, [query.slug]);
 
   return (
-    <Base topLeftComponent="menu" loading={isLoading}>
+    <Base topLeftComponent="menu">
       <PageTitle title={"Report Team"} testId={`${testId}-title`} variant="h4" margin="2em" />
 
       {tableData && (

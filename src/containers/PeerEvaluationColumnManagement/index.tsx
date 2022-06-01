@@ -1,21 +1,18 @@
 import React, { memo, useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
-import { FormControl, FormHelperText, Grid } from "@mui/material";
+import { FormControl, FormHelperText } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 
-import { ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, IconButtonWrapper } from "@/components";
+import { ConfirmationDialog, DataTable, DataTableAddActionButtonIcon } from "@/components";
 import Button from "@/components/Button/Button";
-import DataTableDeleteActionButtonIcon from "@/components/DataTableDeleteActionButtonIcon/DataTableDeleteActionButtonIcon";
-import DataTableEditActionButtonIcon from "@/components/DataTableEditActionButtonIcon/DataTableEditActionButtonIcon";
 import CreateColumnForm from "@/containers/CreateColumnForm";
 import UpdateColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
 import content from "@/content";
 import { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
-import { DeleteIcon, EditIcon } from "@/icons";
 import { ArrayObject } from "@/types/object";
 import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/peer-evaluation";
 import { getMergedKeyValuesObject } from "@/utils/form";
@@ -37,10 +34,6 @@ const BottomRight = styled.div`
   position: absolute;
   bottom: 100;
   right: 0;
-`;
-
-const Container = styled.div`
-  margin-right: 2em;
 `;
 
 const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }: IPeerEvaluationColumnManagement) => {

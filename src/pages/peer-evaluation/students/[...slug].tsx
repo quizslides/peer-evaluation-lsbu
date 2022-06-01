@@ -35,7 +35,6 @@ import getPeerEvaluationStatus from "@/requests/direct/query/getPeerEvaluationSt
 import getPeerEvaluationStudentTeamExist from "@/requests/direct/query/getPeerEvaluationStudentTeamExist";
 import getPeerEvaluationTeachingMemberRole from "@/requests/direct/query/getPeerEvaluationTeachingMemberRole";
 import useGetPeerEvaluationStudents from "@/requests/hooks/query/useGetPeerEvaluationStudents";
-import routing from "@/routing";
 import { IPeerEvaluationStudent, sanitizePeerEvaluationStudentsDataOnFetch } from "@/transformers/students";
 import { IStudentsTeamData } from "@/types/peer-evaluation";
 import { IUserData } from "@/types/user";
@@ -47,7 +46,7 @@ import { peerEvaluationStudentsTeams } from "@/utils/validator";
 const Students: NextPage = () => {
   const { data: session } = useSession();
 
-  const { push, query, isFallback } = useRouter();
+  const { query, isFallback } = useRouter();
 
   const apolloClient = useApolloClient();
 
@@ -79,27 +78,6 @@ const Students: NextPage = () => {
 
   const [getPeerEvaluationStudents, { loading: loadingQuery, error, data, refetch: runRefreshPeerEvaluationStudents }] =
     useGetPeerEvaluationStudents("GetPeerEvaluationStudents");
-
-  const getRedirectUrlOnAction = () => {
-    if (typeof query.redirectUrl === "string") {
-      return query.redirectUrl;
-    }
-
-    return routing.dashboard;
-  };
-
-  const onSubmitUpdatePeerEvaluation = () => {
-    redirectUserOnAction();
-  };
-
-  const onCancelUpdatePeerEvaluation = () => {
-    redirectUserOnAction();
-  };
-
-  const redirectUserOnAction = () => {
-    setRedirecting(true);
-    push(getRedirectUrlOnAction());
-  };
 
   const onRefreshStudents = async () => {
     promiseNotification(runRefreshPeerEvaluationStudents(), {
@@ -313,7 +291,7 @@ const Students: NextPage = () => {
     const { errors } = await createManyPeerEvaluationStudentTeams(apolloClient, studentTeamsData);
 
     if (errors?.length) {
-      console.log("Something wrong happened");
+      // Add Error handler
     }
 
     const listUsersEmail = [...studentToCreateState, ...studentToUpdateState].map(({ studentEmail }) => studentEmail);
@@ -324,7 +302,7 @@ const Students: NextPage = () => {
     } = await getGroupByUserByEmail(apolloClient, listUsersEmail);
 
     if (errorQueryingUsersByEmails?.length) {
-      console.log("Something wrong happened");
+      // Add Error handler
     }
 
     const listUserToCreate = [...studentToCreateState, ...studentToUpdateState].filter(({ studentEmail }) =>
@@ -342,7 +320,7 @@ const Students: NextPage = () => {
     const { errors: errorsCreatingMultipleUsers } = await createMultipleUsers(apolloClient, usersBulkCreateSanitized);
 
     if (errorsCreatingMultipleUsers?.length) {
-      console.log("Something wrong happened");
+      // Add Error handler
     }
 
     const createBulkStudents = studentToCreateState.map(({ studentEmail, teamName }) => ({

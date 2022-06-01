@@ -7,7 +7,7 @@ import { PeerEvaluationsDataTable } from "@/containers";
 import useGetPeerEvaluationsAdmin from "@/requests/hooks/query/useGetPeerEvaluationsAdmin";
 import routing from "@/routing";
 import { sanitizePeerEvaluationsDataOnFetch } from "@/transformers/peer-evaluation";
-import { IPeerEvaluationData, Schools, SchoolsDropdown } from "@/types/peer-evaluation";
+import { IPeerEvaluationData } from "@/types/peer-evaluation";
 import { RoleScope } from "@/utils";
 
 const PeerEvaluationsAdmin: NextPage = () => {

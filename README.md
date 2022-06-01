@@ -37,15 +37,15 @@ yarn install
 
 1. Copy the env variables to run locally
 
-    ```bash
-    cp .env.sample .env.development.local &&  cp .env.sample .env
-    ```
+   ```bash
+   cp .env.sample .env.development.local &&  cp .env.sample .env
+   ```
 
 2. Run server
 
-    ```bash
-    yarn dev
-    ```
+   ```bash
+   yarn dev
+   ```
 
 This will run the web app in your local machine, listening through the port `3000`.
 

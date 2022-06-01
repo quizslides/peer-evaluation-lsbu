@@ -1,7 +1,5 @@
-import { PeerEvaluation, PeerEvaluationStudentReview } from "@generated/type-graphql";
-import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
-import { boolean, string } from "yup";
 
 @InputType({ description: "Peer EvaluationTable Data" })
 class PeerEvaluationTableInput {

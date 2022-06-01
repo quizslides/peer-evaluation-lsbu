@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import { Container } from "@mui/material";
-import { use } from "chai";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -97,7 +96,7 @@ const PeerEvaluationEmail: NextPage = () => {
         {data && (
           <PeerEvaluationEmailReminderForm
             onSubmitForm={onSubmitEmailReminderForm}
-            onSendEmailReminder={() => console.log("send")}
+            onSendEmailReminder={() => null}
             onCancelForm={onCancelEmailReminderForm}
             emailSubjectReminder={data.email.subject}
             emailBodyReminder={data.email.body}

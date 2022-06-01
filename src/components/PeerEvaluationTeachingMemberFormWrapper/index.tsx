@@ -2,25 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
 import { User } from "@generated/type-graphql";
-import { FormControl, FormHelperText, Grid } from "@mui/material";
+import { FormControl, FormHelperText } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { useSession } from "next-auth/react";
 
-import {
-  Button,
-  ConfirmationDialog,
-  DataTable,
-  DataTableAddActionButtonIcon,
-  Error,
-  IconButtonWrapper,
-} from "@/components";
+import { Button, ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, Error } from "@/components";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
 import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
 import LoadingContainer from "@/containers/LoadingContainer";
 import UpdatePeerEvaluationTeachingMemberForm from "@/containers/UpdatePeerEvaluationTeachingMemberForm";
 import content from "@/content";
-import { DeleteIcon, EditIcon } from "@/icons";
 import useGetLecturerUsers from "@/requests/hooks/query/useGetLecturerUsers";
 import { ArrayObject } from "@/types/object";
 import {
@@ -49,10 +41,6 @@ const BottomRight = styled.div`
   position: absolute;
   bottom: 100;
   right: 0;
-`;
-
-const Container = styled.div`
-  margin-right: 2em;
 `;
 
 const PeerEvaluationTeachingMemberFormWrapper = ({
@@ -319,7 +307,6 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
 
       filterPeerEvaluationTeachingMembersAvailable(listOfUsers);
       setCurrentUserPeerEvaluationOwner(isUserPeerEvaluationOwner());
-      // IsOnlyViewPeerEvaluationTeachingMember()
     }
   }, [data, session, loading, meta.value]);
 

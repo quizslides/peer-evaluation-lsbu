@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, deny, or, rule, shield } from "graphql-shield";
+import { allow, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/peer-evaluation";
@@ -23,6 +23,7 @@ const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _args, { r
   return Boolean(session);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -33,6 +34,7 @@ const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Co
   return false;
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -54,6 +56,7 @@ const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: 
   return false;
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isPeerEvaluationTeachingMember = rule({ cache: "contextual" })(
   async (_parent, _args: { where: PeerEvaluationWhereInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
@@ -87,6 +90,7 @@ const isPeerEvaluationTeachingMember = rule({ cache: "contextual" })(
   }
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isPeerEvaluationTeachingMemberOwner = rule({ cache: "contextual" })(
   async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
@@ -123,6 +127,7 @@ const isPeerEvaluationTeachingMemberOwner = rule({ cache: "contextual" })(
   }
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isPeerEvaluationTeachingMemberEditor = rule({ cache: "contextual" })(
   async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
     const session = await getSession({ req });
@@ -196,6 +201,7 @@ const isPeerEvaluationTeachingMemberViewer = rule({ cache: "contextual" })(
   }
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: "contextual" })(
   async (_parent, _args: { where: PeerEvaluationsByLecturerWhereInput }, { req }: Context) => {
     const session = await getSession({ req });

@@ -1,11 +1,9 @@
 import React, { memo, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import styled from "@emotion/styled";
 import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
@@ -20,12 +18,9 @@ import {
   DataTable,
   DataTableAddActionButtonIcon,
   DataTableRefreshActionButtonIcon,
-  IconButtonWrapper,
   PageTitle,
-  Typography,
 } from "@/components";
 import content from "@/content";
-import { DeleteIcon, EditIcon } from "@/icons";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
 import { sanitizeSubmissionLockDate } from "@/transformers/peer-evaluation";
@@ -37,10 +32,6 @@ import {
   peerEvaluationDataTableColumnOrder,
 } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
-
-const Container = styled.div`
-  margin-right: 2em;
-`;
 
 interface IPeerEvaluationsDataTable {
   redirectUrl: string;

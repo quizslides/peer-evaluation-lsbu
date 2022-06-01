@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import styled from "@emotion/styled";
 import { User } from "@generated/type-graphql";
 import MUIDataTable, { DisplayData, MUIDataTableOptions } from "mui-datatables";
 import type { NextPage } from "next";
@@ -14,7 +13,6 @@ import {
   DataTable,
   DataTableRefreshActionButtonIcon,
   Dialog,
-  IconButtonWrapper,
   PageTitle,
   Typography,
   UploadButton,
@@ -22,7 +20,7 @@ import {
 } from "@/components";
 import { ObjectCSV } from "@/components/UploadButton/UploadButton";
 import { CreateUserForm, DataTableEditDeleteToolbar, UpdateUserForm } from "@/containers";
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
+import { CheckIcon, CloseIcon, GroupsIcon, PersonAddAltIcon, WidgetsIcon } from "@/icons";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
@@ -39,10 +37,6 @@ import {
 } from "@/utils";
 import exampleFile from "@/utils/example-file";
 import { RoleScope } from "@/utils/permissions";
-
-const Container = styled.div`
-  margin-right: 2em;
-`;
 
 interface UserDateBulk extends User {
   action: BulkUserAction;

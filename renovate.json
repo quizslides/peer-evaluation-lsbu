@@ -1,18 +1,12 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "schedule": [
-    "before 5:00am on sunday"
-  ],
+  "extends": ["config:base"],
+  "schedule": ["before 5:00am on sunday"],
   "groupName": "all dependencies",
   "separateMajorMinor": false,
   "groupSlug": "renovate-dependencies",
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "*"
-      ],
+      "matchPackagePatterns": ["*"],
       "groupName": "all dependencies",
       "groupSlug": "renovate-dependencies"
     }

@@ -4,33 +4,10 @@ import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import {
-  Button,
-  ConfirmationDialog,
-  DatePickerForm,
-  Divider,
-  SelectFieldForm,
-  SelectMultipleFieldForm,
-  TextFieldForm,
-  WYSIWYGForm,
-} from "@/components";
+import { Button, ConfirmationDialog, Divider, TextFieldForm, WYSIWYGForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
-import {
-  peerEvaluationCodeValidator,
-  peerEvaluationColumnsValidator,
-  peerEvaluationCriteriaScoreRangeMaxValidator,
-  peerEvaluationCriteriaScoreRangeMinValidator,
-  peerEvaluationEmailBodyValidator,
-  peerEvaluationEmailSubjectValidator,
-  peerEvaluationMaxMarkDecreaseValidator,
-  peerEvaluationMaxMarkIncreaseValidator,
-  peerEvaluationSchoolValidator,
-  peerEvaluationStatusValidator,
-  peerEvaluationSubmissionsLockDateValidator,
-  peerEvaluationTeachingMembersValidator,
-  peerEvaluationTitleValidator,
-} from "@/utils";
+import { peerEvaluationEmailBodyValidator, peerEvaluationEmailSubjectValidator } from "@/utils";
 
 export interface EmailReminder {
   emailSubjectReminder: string;

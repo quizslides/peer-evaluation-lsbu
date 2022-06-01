@@ -1,55 +1,29 @@
 import React, { memo, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import styled from "@emotion/styled";
-import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
-import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { Session } from "next-auth";
 import { useRouter } from "next/router";
 
 import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 import LoadingContainer from "../LoadingContainer";
 import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";
 
-import {
-  Base,
-  Button,
-  ConfirmationDialog,
-  DataTable,
-  DataTableAddActionButtonIcon,
-  DataTableRefreshActionButtonIcon,
-  IconButtonWrapper,
-  PageTitle,
-  Typography,
-} from "@/components";
+import { Button, ConfirmationDialog, DataTable } from "@/components";
 import content from "@/content";
-import { DeleteIcon, EditIcon } from "@/icons";
 import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
-import {
-  IPeerEvaluationData,
-  PeerEvaluationStatus,
-  PeerEvaluationTeachingMemberRoles,
-  SchoolsDataTable,
-  SchoolsDropdown,
-  peerEvaluationDataTableColumnOrder,
-} from "@/types/peer-evaluation";
+import { PeerEvaluationStatus } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
-
-const Container = styled.div`
-  margin-right: 2em;
-`;
 
 interface IPeerEvaluationsDashboard {
   data: PeerEvaluationDashboard;
 }
 
 const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
-  const { push, query, isFallback } = useRouter();
+  const { push } = useRouter();
 
   const apolloClient = useApolloClient();
 
@@ -164,7 +138,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => console.log("peerEvaluationTeachingMembers")}
+              onClick={() => null}
               size="medium"
             >
               {total} Edit
@@ -183,7 +157,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => console.log("totalPeerEvaluationTeams")}
+              onClick={() => null}
               size="medium"
             >
               {total} Edit
