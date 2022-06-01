@@ -82,20 +82,20 @@ const peerEvaluationStatusValidator = {
     .required(content.peerEvaluationStatus.required),
 };
 
-const peerEvaluationMaxGradeIncreaseValidator = {
-  maxGradeIncrease: number()
-    .typeError(content.maxGradeIncrease.typeError)
-    .required(content.maxGradeIncrease.required)
-    .min(0, content.maxGradeIncrease.min)
-    .max(100, content.maxGradeIncrease.max),
+const peerEvaluationMaxMarkIncreaseValidator = {
+  maxMarkIncrease: number()
+    .typeError(content.maxMarkIncrease.typeError)
+    .required(content.maxMarkIncrease.required)
+    .min(0, content.maxMarkIncrease.min)
+    .max(100, content.maxMarkIncrease.max),
 };
 
-const peerEvaluationMaxGradeDecreaseValidator = {
-  maxGradeDecrease: number()
-    .typeError(content.maxGradeDecrease.typeError)
-    .required(content.maxGradeDecrease.required)
-    .min(0, content.maxGradeDecrease.min)
-    .max(100, content.maxGradeDecrease.max),
+const peerEvaluationMaxMarkDecreaseValidator = {
+  maxMarkDecrease: number()
+    .typeError(content.maxMarkDecrease.typeError)
+    .required(content.maxMarkDecrease.required)
+    .min(0, content.maxMarkDecrease.min)
+    .max(100, content.maxMarkDecrease.max),
 };
 
 const peerEvaluationSubmissionsLockDateValidator = {
@@ -203,8 +203,8 @@ export {
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
   peerEvaluationEmailSubjectValidator,
-  peerEvaluationMaxGradeDecreaseValidator,
-  peerEvaluationMaxGradeIncreaseValidator,
+  peerEvaluationMaxMarkDecreaseValidator,
+  peerEvaluationMaxMarkIncreaseValidator,
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
   peerEvaluationStudentsTeams,

@@ -73,8 +73,8 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
       code={peerEvaluationValues.code}
       schools={peerEvaluationValues.schools}
       status={peerEvaluationValues.status}
-      maxGradeIncrease={peerEvaluationValues.maxGradeIncrease}
-      maxGradeDecrease={peerEvaluationValues.maxGradeDecrease}
+      maxMarkIncrease={peerEvaluationValues.maxMarkIncrease}
+      maxMarkDecrease={peerEvaluationValues.maxMarkDecrease}
       submissionsLockDate={peerEvaluationValues.submissionsLockDate}
       emailSubjectReminder={peerEvaluationValues.emailSubjectReminder}
       emailBodyReminder={peerEvaluationValues.emailBodyReminder}

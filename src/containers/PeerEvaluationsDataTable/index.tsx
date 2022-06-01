@@ -256,8 +256,8 @@ const PeerEvaluationsDataTable = ({
       },
     },
     {
-      name: "maxGradeIncrease",
-      label: "Max Grade Increase",
+      name: "maxMarkIncrease",
+      label: "Max Mark Increase",
       options: {
         display: false,
         filter: true,
@@ -265,8 +265,8 @@ const PeerEvaluationsDataTable = ({
       },
     },
     {
-      name: "maxGradeDecrease",
-      label: "Max Grade Decrease",
+      name: "maxMarkDecrease",
+      label: "Max Mark Decrease",
       options: {
         display: false,
         filter: true,

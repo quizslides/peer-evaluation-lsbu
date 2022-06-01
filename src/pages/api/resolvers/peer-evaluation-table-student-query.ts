@@ -177,7 +177,7 @@ class PeerEvaluationTableStudentQuery {
           select: {
             criteriaScoreTotal: true,
             studentReviewedId: true,
-            revieweeComment: true,
+            comment: true,
             isInvalid: true,
             studentReviewed: {
               select: {

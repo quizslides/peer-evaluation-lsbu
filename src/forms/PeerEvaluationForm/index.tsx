@@ -26,8 +26,8 @@ import {
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
   peerEvaluationEmailSubjectValidator,
-  peerEvaluationMaxGradeDecreaseValidator,
-  peerEvaluationMaxGradeIncreaseValidator,
+  peerEvaluationMaxMarkDecreaseValidator,
+  peerEvaluationMaxMarkIncreaseValidator,
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
   peerEvaluationSubmissionsLockDateValidator,
@@ -68,8 +68,8 @@ const PeerEvaluationForm = ({
     ...peerEvaluationCriteriaScoreRangeMinValidator,
     ...peerEvaluationEmailBodyValidator,
     ...peerEvaluationEmailSubjectValidator,
-    ...peerEvaluationMaxGradeDecreaseValidator,
-    ...peerEvaluationMaxGradeIncreaseValidator,
+    ...peerEvaluationMaxMarkDecreaseValidator,
+    ...peerEvaluationMaxMarkIncreaseValidator,
     ...peerEvaluationSchoolValidator,
     ...peerEvaluationStatusValidator,
     ...peerEvaluationSubmissionsLockDateValidator,
@@ -183,31 +183,31 @@ const PeerEvaluationForm = ({
 
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
-                  name="maxGradeIncrease"
+                  name="maxMarkIncrease"
                   options={arrayToObject(rangeNumber(100, 0))}
                   props={{
                     required: true,
-                    label: content.containers.peerEvaluationForm.form.maxGradeIncrease.label,
-                    helperText: content.containers.peerEvaluationForm.form.maxGradeIncrease.helperText,
+                    label: content.containers.peerEvaluationForm.form.maxMarkIncrease.label,
+                    helperText: content.containers.peerEvaluationForm.form.maxMarkIncrease.helperText,
                     fullWidth: true,
                     disabled: isViewOnly,
                   }}
-                  testId="peer-evaluation-form-peer-evaluation-max-grade-increase-field"
+                  testId="peer-evaluation-form-peer-evaluation-max-mark-increase-field"
                 />
               </FieldWrapper>
 
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
-                  name="maxGradeDecrease"
+                  name="maxMarkDecrease"
                   options={arrayToObject(rangeNumber(100, 0))}
                   props={{
                     required: true,
-                    label: content.containers.peerEvaluationForm.form.maxGradeDecrease.label,
-                    helperText: content.containers.peerEvaluationForm.form.maxGradeDecrease.helperText,
+                    label: content.containers.peerEvaluationForm.form.maxMarkDecrease.label,
+                    helperText: content.containers.peerEvaluationForm.form.maxMarkDecrease.helperText,
                     fullWidth: true,
                     disabled: isViewOnly,
                   }}
-                  testId="peer-evaluation-form-peer-evaluation-max-grade-increase-field"
+                  testId="peer-evaluation-form-peer-evaluation-max-mark-increase-field"
                 />
               </FieldWrapper>
 

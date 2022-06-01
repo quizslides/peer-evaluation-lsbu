@@ -73,13 +73,13 @@ const content = {
           label: "Status",
           helperText: "Status of the peer evaluation peer evaluation",
         },
-        maxGradeIncrease: {
-          label: "Max grade increase",
-          helperText: "The max grade increase automatically by the system",
+        maxMarkIncrease: {
+          label: "Max mark increase",
+          helperText: "The max mark increase automatically by the system",
         },
-        maxGradeDecrease: {
-          label: "Max grade decrease",
-          helperText: "The max grade decrease automatically by the system",
+        maxMarkDecrease: {
+          label: "Max mark decrease",
+          helperText: "The max mark decrease automatically by the system",
         },
         submissionsLockDate: {
           label: "Submissions lock date",

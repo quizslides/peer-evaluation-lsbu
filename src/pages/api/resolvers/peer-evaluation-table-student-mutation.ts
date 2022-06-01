@@ -30,7 +30,7 @@ class PeerEvaluationRevieweeInput {
     nullable: false,
     description: "Peer Evaluation Reviewee Comment",
   })
-  revieweeComment!: string;
+  comment!: string;
 
   @Field((_type) => Number, {
     nullable: false,
@@ -137,15 +137,15 @@ class UpdatePeerEvaluationTableStudentData {
     const updatePeerEvaluationReviewee = (
       peerEvaluationRevieweeId: string,
       criteriaScoreTotal: number,
-      revieweeComment: string
+      comment: string
     ) => {
       return prisma.peerEvaluationReviewee.update({
         data: {
           criteriaScoreTotal: {
             set: criteriaScoreTotal,
           },
-          revieweeComment: {
-            set: revieweeComment,
+          comment: {
+            set: comment,
           },
         },
         where: {
@@ -176,7 +176,7 @@ class UpdatePeerEvaluationTableStudentData {
         await updatePeerEvaluationReviewee(
           peerEvaluationReviewee.id,
           peerEvaluationReviewee.criteriaScoreTotal,
-          peerEvaluationReviewee.revieweeComment
+          peerEvaluationReviewee.comment
         );
 
         const columnsRevieweePromises = columnsReviewee.map((columnReviewee) =>

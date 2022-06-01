@@ -1,7 +1,7 @@
 import { PeerEvaluationStudentTeamGroupBy } from "@generated/type-graphql";
 
 import { TApolloClientType } from "@/graphql/client";
-import { GET_PEER_EVALUATION_STUDENT_TEAMS } from "@/requests/schema/peer-evaluation";
+import { GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS } from "@/requests/schema/peer-evaluation";
 
 const getGroupByPeerEvaluationStudentTeam = (
   apolloClient: TApolloClientType,
@@ -9,7 +9,7 @@ const getGroupByPeerEvaluationStudentTeam = (
   teamNames: string[]
 ) => {
   return apolloClient.query<{ groupByPeerEvaluationStudentTeam: [PeerEvaluationStudentTeamGroupBy] }>({
-    query: GET_PEER_EVALUATION_STUDENT_TEAMS,
+    query: GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
     errorPolicy: "all",
     fetchPolicy: "no-cache",
     variables: {

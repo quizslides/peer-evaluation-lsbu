@@ -270,12 +270,12 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
       },
     },
     {
-      name: "maxGradeIncrease",
-      label: "Max Grade Increase",
+      name: "maxMarkIncrease",
+      label: "Max Mark Increase",
     },
     {
-      name: "maxGradeDecrease",
-      label: "Max Grade Decrease",
+      name: "maxMarkDecrease",
+      label: "Max Mark Decrease",
     },
   ];
 

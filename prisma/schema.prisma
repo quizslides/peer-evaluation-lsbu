@@ -49,8 +49,8 @@ model PeerEvaluation {
   schools                       Schools[]
   code                          String                         @unique
   status                        PeerEvaluationStatuses         @default(DRAFT)
-  maxGradeIncrease              Int                            @default(10)
-  maxGradeDecrease              Int                            @default(100)
+  maxMarkIncrease               Int                            @default(10)
+  maxMarkDecrease               Int                            @default(100)
   submissionsLockDate           DateTime?
   peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
   reminderEmail                 Email?
@@ -78,6 +78,7 @@ model PeerEvaluationStudent {
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
   mark                             Decimal?
+  comments                         String?
   peerEvaluationReviewed           PeerEvaluationStudentReview? // Peer evaluation that the student is reviewing
   PeerEvaluationReviewees          PeerEvaluationReviewee[] // Peer evaluations reviewed submitted to the student
 
@@ -103,7 +104,7 @@ model PeerEvaluationReviewee {
   studentReviewed              PeerEvaluationStudent          @relation(fields: [studentReviewedId], references: [id])
   studentReviewedId            String
   criteriaScoreTotal           Int?
-  revieweeComment              String
+  comment                      String?
   peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id])
   peerEvaluationReviewId       String?
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]

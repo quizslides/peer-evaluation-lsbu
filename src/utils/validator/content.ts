@@ -38,17 +38,17 @@ const validatorContent = {
     required: "Status peerEvaluation is required",
     oneOf: "Invalid status",
   },
-  maxGradeIncrease: {
+  maxMarkIncrease: {
     typeError: "Please enter a number",
-    required: "Max grade increase is required",
-    min: "Max grade increase min value is 0",
-    max: "Max grade increase max value is higher than max value",
+    required: "Max mark increase is required",
+    min: "Max mark increase min value is 0",
+    max: "Max mark increase max value is higher than max value",
   },
-  maxGradeDecrease: {
+  maxMarkDecrease: {
     typeError: "Please enter a number",
-    required: "Max grade decrease is required",
-    min: "Max grade decrease min value is 0",
-    max: "Max grade decrease max value is higher than max value",
+    required: "Max mark decrease is required",
+    min: "Max mark decrease min value is 0",
+    max: "Max mark decrease max value is higher than max value",
   },
   submissionsLockDate: {
     min: "Start date must be from tomorrow",

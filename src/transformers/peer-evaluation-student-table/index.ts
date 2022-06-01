@@ -7,7 +7,7 @@ interface PeerEvaluationTableOnUpdate {
   };
   peerEvaluationReviewee: {
     id: string;
-    revieweeComment: string;
+    comment: string;
     criteriaScoreTotal: number;
   };
   columnsReviewee: [
@@ -32,7 +32,7 @@ const getSanitizedPeerEvaluationTableOnUpdate = (data: ObjectArrayOfObject, colu
       },
       peerEvaluationReviewee: {
         id: item.peerEvaluationRevieweeId,
-        revieweeComment: item.revieweeComment,
+        comment: item.comment,
         criteriaScoreTotal: item.criteriaScoreTotal,
       },
       columnsReviewee: columns,

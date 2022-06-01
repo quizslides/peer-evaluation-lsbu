@@ -4,6 +4,7 @@ import { PeerEvaluationStudentReview } from "@generated/type-graphql";
 import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
+import { useSession } from "next-auth/react";
 import { array, number, object, string } from "yup";
 import { OptionalObjectSchema } from "yup/lib/object";
 import { AnyObject } from "yup/lib/types";
@@ -41,6 +42,8 @@ interface IPeerEvaluationStudentTableForm {
 }
 
 const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTable) => {
+  const { data: session } = useSession();
+
   const [dataTableColumns, setDataTableColumns] = useState<MUIDataTableColumn[]>([]);
 
   const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
@@ -102,9 +105,9 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           criteriaScoreTotal: number().required("criteriaScoreTotal is required"),
         })
       ),
-      revieweeComments: array().of(
+      comments: array().of(
         object().shape({
-          revieweeComment: string().required("revieweeComment is required"),
+          comment: string().required("comment is required"),
         })
       ),
       ...Object.assign(...columnsReviewerValidation),
@@ -138,7 +141,11 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         name: "studentName",
         label: "Student Name",
         options: {
-          customBodyRender: (value) => <FieldWrapper marginBottom="3em">{value}</FieldWrapper>,
+          customBodyRender: (value) => (
+            <FieldWrapper marginBottom="3em">{`${value} ${
+              session?.user.name === value ? "(Myself)" : ""
+            }`}</FieldWrapper>
+          ),
         },
       },
       {
@@ -178,7 +185,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         },
       },
       {
-        name: "revieweeComment",
+        name: "comment",
         label: "Comment",
         options: {
           display: true,
@@ -187,11 +194,11 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
               <TextFieldFormDataTable
                 updateDataTableFormValue={updateValue}
                 validationSchema={validationSchema}
-                validationFieldPath={"revieweeComments.revieweeComment"}
+                validationFieldPath={"comments.comment"}
                 testId=""
-                name={`revieweeComments[${tableMeta.rowIndex}].revieweeComment`}
+                name={`comments[${tableMeta.rowIndex}].comment`}
                 props={{
-                  name: `revieweeComments[${tableMeta.rowIndex}].revieweeComment`,
+                  name: `comments[${tableMeta.rowIndex}].comment`,
                   required: true,
                   fullWidth: true,
                   label: "Comment",
@@ -268,7 +275,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           studentName: peerEvaluationReviewee.studentReviewed?.user?.name,
           studentEmail: peerEvaluationReviewee.studentReviewed?.user?.email,
           peerEvaluationStudentId: peerEvaluationStudentId,
-          revieweeComment: peerEvaluationReviewee.revieweeComment,
+          comment: peerEvaluationReviewee.comment,
           criteriaScoreTotal: peerEvaluationReviewee.criteriaScoreTotal,
           peerEvaluationRevieweeId: peerEvaluationReviewee.id,
           ...Object.assign(...peerEvaluationRevieweesColumns),

@@ -1,10 +1,36 @@
 import { gql } from "@apollo/client";
 
+const UPDATE_PEER_EVALUATION_STUDENT_TEAM = gql`
+  mutation UpdatePeerEvaluationStudentTeam(
+    $data: PeerEvaluationStudentTeamUpdateInput!
+    $where: PeerEvaluationStudentTeamWhereUniqueInput!
+  ) {
+    updatePeerEvaluationStudentTeam(data: $data, where: $where) {
+      id
+      createdAt
+      name
+      mark
+      updatedAt
+      peerEvaluationId
+    }
+  }
+`;
+
 const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
   mutation UpdatePeerEvaluationTableStudent($where: UpdatePeerEvaluationTableStudentDataInputList!) {
     updatePeerEvaluationTableStudent(where: $where) {
       completed
       message
+    }
+  }
+`;
+
+const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
+  query PeerEvaluationStudentTeams($where: PeerEvaluationStudentTeamWhereInput) {
+    peerEvaluationStudentTeams(where: $where) {
+      mark
+      name
+      id
     }
   }
 `;
@@ -36,7 +62,7 @@ const GET_PEER_EVALUATION_STUDENT_TEAM_EXIST = gql`
   }
 `;
 
-const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
+const GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS = gql`
   query GroupByPeerEvaluationStudentTeam(
     $orderBy: [PeerEvaluationStudentTeamOrderByWithAggregationInput!]
     $by: [PeerEvaluationStudentTeamScalarFieldEnum!]!
@@ -66,10 +92,10 @@ const GET_PEER_EVALUATIONS = gql`
       createdAt
       title
       schools
-      maxGradeIncrease
+      maxMarkIncrease
       status
       code
-      maxGradeDecrease
+      maxMarkDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
@@ -139,10 +165,10 @@ const GET_PEER_EVALUATIONS_BY_LECTURER = gql`
       createdAt
       title
       schools
-      maxGradeIncrease
+      maxMarkIncrease
       status
       code
-      maxGradeDecrease
+      maxMarkDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
@@ -194,8 +220,8 @@ const GET_PEER_EVALUATION = gql`
       schools
       code
       status
-      maxGradeIncrease
-      maxGradeDecrease
+      maxMarkIncrease
+      maxMarkDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
@@ -252,8 +278,8 @@ const CREATE_PEER_EVALUATION = gql`
       schools
       code
       status
-      maxGradeIncrease
-      maxGradeDecrease
+      maxMarkIncrease
+      maxMarkDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
@@ -294,8 +320,8 @@ const UPDATE_PEER_EVALUATION = gql`
       code
       schools
       status
-      maxGradeIncrease
-      maxGradeDecrease
+      maxMarkIncrease
+      maxMarkDecrease
       submissionsLockDate
       criteriaScoreRangeMin
       criteriaScoreRangeMax
@@ -375,8 +401,8 @@ const PEER_EVALUATION_DASHBOARD = gql`
       schools
       code
       status
-      maxGradeIncrease
-      maxGradeDecrease
+      maxMarkIncrease
+      maxMarkDecrease
       submissionsLockDate
       _count {
         peerEvaluationStudents
@@ -494,7 +520,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           id
           criteriaScoreTotal
           studentReviewedId
-          revieweeComment
+          comment
           isInvalid
           studentReviewed {
             user {
@@ -538,6 +564,7 @@ export {
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
   DELETE_PEER_EVALUATION,
+  GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
   GET_PEER_EVALUATION,
   GET_PEER_EVALUATION_COLUMNS,
   GET_PEER_EVALUATION_EMAIL_REMINDER,
@@ -554,6 +581,7 @@ export {
   UPDATE_PEER_EVALUATION,
   UPDATE_PEER_EVALUATION_EMAIL,
   UPDATE_PEER_EVALUATION_STUDENT,
+  UPDATE_PEER_EVALUATION_STUDENT_TEAM,
   UPDATE_PEER_EVALUATION_TABLE_STUDENT,
   UPSERT_PEER_EVALUATION_TABLE_LECTURER,
 };

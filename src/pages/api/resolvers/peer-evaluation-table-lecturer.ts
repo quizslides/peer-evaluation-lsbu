@@ -46,7 +46,7 @@ class UpsertPeerEvaluationTableLecturer {
     });
 
     const peerEvaluationRevieweeColumns = peerEvaluation?.columns.map((column) => ({
-      criteriaScore: 0,
+      criteriaScore: null,
       peerEvaluationColumn: {
         connect: {
           id_peerEvaluationId: {
@@ -69,8 +69,8 @@ class UpsertPeerEvaluationTableLecturer {
 
         const listPeerEvaluationRevieweesStudentToCreate = listPeerEvaluationRevieweesStudent.map((revieweesData) => ({
           isInvalid: false,
-          revieweeComment: "",
-          criteriaScoreTotal: 0,
+          comment: null,
+          criteriaScoreTotal: null,
           studentReviewed: {
             connect: {
               userId_peerEvaluationId: {

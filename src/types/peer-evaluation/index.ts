@@ -12,8 +12,8 @@ interface IPeerEvaluationData {
   code: string;
   schools: Schools[];
   status: PeerEvaluationStatus;
-  maxGradeIncrease: number;
-  maxGradeDecrease: number;
+  maxMarkIncrease: number;
+  maxMarkDecrease: number;
   submissionsLockDate: Date | null | string | undefined;
   emailSubjectReminder: string;
   emailBodyReminder: string;
@@ -149,8 +149,8 @@ const initialPeerEvaluationState: IPeerEvaluationData = {
   code: "",
   schools: [],
   status: PeerEvaluationStatus.DRAFT,
-  maxGradeIncrease: 10,
-  maxGradeDecrease: 100,
+  maxMarkIncrease: 10,
+  maxMarkDecrease: 100,
   submissionsLockDate: null,
   emailSubjectReminder: "Peer Evaluation Reminder - {{code}}",
   emailBodyReminder: "Email body {{peerEvaluationUrl}}",
@@ -191,8 +191,8 @@ const peerEvaluationDataTableColumnOrder = [
   "updatedAt",
   "code",
   "status",
-  "maxGradeIncrease",
-  "maxGradeDecrease",
+  "maxMarkIncrease",
+  "maxMarkDecrease",
   "submissionsLockDate",
   "criteriaScoreRangeMin",
   "criteriaScoreRangeMax",
