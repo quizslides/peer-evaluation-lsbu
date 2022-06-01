@@ -84,7 +84,7 @@ const ReportTeam: NextPage = () => {
 
       const teamName = slug[1];
 
-      fetch("http://localhost:3000/api/mark-calculations", {
+      fetch(`${window.location.href}/api/mark-calculations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
