@@ -104,7 +104,7 @@ class PeerEvaluationDashboardWhereInput {
     nullable: false,
     description: "Peer Evaluation id value",
   })
-  id!: string;
+  peerEvaluationId!: string;
 }
 
 @ObjectType({
@@ -134,9 +134,11 @@ class PeerEvaluationDashboardQuery {
     @Ctx() ctx: { prisma: PrismaClient },
     @Arg("where") where: PeerEvaluationDashboardWhereInput
   ): Promise<PeerEvaluationDashboard | null> {
+    const { peerEvaluationId } = where;
+
     const peerEvaluationData = await ctx.prisma.peerEvaluation.findFirst({
       where: {
-        id: where.id,
+        id: peerEvaluationId,
       },
       include: {
         _count: {
@@ -145,16 +147,20 @@ class PeerEvaluationDashboardQuery {
       },
     });
 
-    const peerEvaluationRevieweeData = await ctx.prisma.peerEvaluationReviewee.aggregate({
+    const aggregatePeerEvaluationStudentReview = await ctx.prisma.peerEvaluationStudentReview.aggregate({
       _count: {
         id: true,
       },
       where: {
-        peerEvaluationReview: {
-          isCompleted: true,
+        isCompleted: {
+          equals: true,
         },
-        studentReviewed: {
-          peerEvaluationId: where.id,
+        peerEvaluationStudent: {
+          is: {
+            peerEvaluationId: {
+              equals: peerEvaluationId,
+            },
+          },
         },
       },
     });
@@ -166,7 +172,7 @@ class PeerEvaluationDashboardQuery {
       where: {
         peerEvaluationStudentList: {
           every: {
-            peerEvaluationId: where.id,
+            peerEvaluationId: peerEvaluationId,
           },
         },
       },
@@ -174,7 +180,7 @@ class PeerEvaluationDashboardQuery {
 
     const result = {
       ...(peerEvaluationData as PeerEvaluation),
-      totalCompletedPeerEvaluations: peerEvaluationRevieweeData._count.id,
+      totalCompletedPeerEvaluations: aggregatePeerEvaluationStudentReview._count.id,
       totalPeerEvaluationTeams: peerEvaluationStudentTeamData._count.id,
     };
 

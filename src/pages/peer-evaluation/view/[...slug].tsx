@@ -37,7 +37,7 @@ const ViewPeerEvaluation: NextPage = () => {
       getPeerEvaluationDashboard({
         variables: {
           where: {
-            id: peerEvaluationId,
+            peerEvaluationId,
           },
         },
       });
