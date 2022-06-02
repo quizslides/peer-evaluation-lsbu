@@ -97,7 +97,7 @@ class PeerEvaluationTableStudentQuery {
       where: {
         id: studentId,
         peerEvaluationStudentList: {
-          every: {
+          some: {
             peerEvaluationId: peerEvaluationData?.id,
           },
         },
