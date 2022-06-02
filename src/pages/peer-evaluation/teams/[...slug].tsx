@@ -87,6 +87,9 @@ const Teams: NextPage = () => {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded",
+      },
     },
     {
       name: "name",
