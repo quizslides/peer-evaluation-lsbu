@@ -54,8 +54,6 @@ const StudentPeerEvaluation: NextPage = () => {
       } else {
         errorNotification(response.data.updatePeerEvaluationTableStudent.message, "onSubmitPeerEvaluation");
       }
-
-      // End or Error Saving Data
     }
   };
 

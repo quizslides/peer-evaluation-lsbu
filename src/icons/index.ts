@@ -23,6 +23,7 @@ import People from "@/icons/People/People";
 import PersonAddAltIcon from "@/icons/PersonAddAltIcon/PersonAddAltIcon";
 import RefreshIcon from "@/icons/RefreshIcon/RefreshIcon";
 import SadFaceEmoji from "@/icons/SadFaceEmoji/SadFaceEmoji";
+import SaveIcon from "@/icons/SaveIcon/SaveIcon";
 import StudentIcon from "@/icons/StudentIcon/StudentIcon";
 import TeamIcon from "@/icons/TeamIcon/TeamIcon";
 import ThumbUpAltIcon from "@/icons/ThumbUpAltIcon/ThumbUpAltIcon";
@@ -58,6 +59,7 @@ export {
   PersonAddAltIcon,
   RefreshIcon,
   SadFaceEmoji,
+  SaveIcon,
   StudentIcon,
   TeamIcon,
   ThumbUpAltIcon,

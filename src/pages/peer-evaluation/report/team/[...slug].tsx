@@ -93,7 +93,6 @@ const ReportTeam: NextPage = () => {
         <DataTable
           testId={`${testId}-datatable`}
           isVisible
-          title={"Peer Evaluation Teaching Members"}
           data={tableData}
           columns={tableColumns}
           options={tableOptions}

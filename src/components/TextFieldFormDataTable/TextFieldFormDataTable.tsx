@@ -26,6 +26,10 @@ const TextFieldFormDataTable = ({
 
   const [field, meta] = useField(name);
 
+  if (props.type === "number") {
+    field.value = !field.value && field.value !== 0 ? "" : field.value;
+  }
+
   props.onChange = (e) => {
     setFieldValue(name, e.target.value, true);
     updateDataTableFormValue(e.target.value);

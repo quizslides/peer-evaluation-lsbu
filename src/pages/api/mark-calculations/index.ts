@@ -194,5 +194,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const response = await getPeerEvaluationMarkCalculation(peerEvaluationCode || "", teamName);
 
+  if (response) {
+    for (const re of response) {
+      const userData = await prisma.user.findFirst({
+        select: {
+          id: true,
+        },
+        where: {
+          email: {
+            equals: re.email,
+          },
+        },
+      });
+
+      const peerEvaluationStudentData = await prisma.peerEvaluationStudent.findFirst({
+        select: {
+          lecturerAdjustedMark: true,
+        },
+        where: {
+          userId: {
+            equals: userData?.id,
+          },
+        },
+      });
+
+      await prisma.peerEvaluationStudent.update({
+        data: {
+          averageCriteriaScore: re.averageCriteriaScore,
+          averageCriteriaScoreByTeamMember: re.averageCriteriaScoreByTeamMember,
+          systemCalculatedMark: re.systemCalculatedMark,
+          systemAdjustedMark: re.systemAdjustedMark,
+          finalMark: peerEvaluationStudentData?.lecturerAdjustedMark || re.systemAdjustedMark,
+          comments: re.comments,
+        },
+        where: {
+          userId_peerEvaluationId: {
+            peerEvaluationId: peerEvaluationId,
+            userId: userData?.id || "",
+          },
+        },
+      });
+    }
+  }
+
   res.json(response);
 }

@@ -291,7 +291,7 @@ const Students: NextPage = () => {
     const { errors } = await createManyPeerEvaluationStudentTeams(apolloClient, studentTeamsData);
 
     if (errors?.length) {
-      // Add Error handler
+      // TODO: Add Error handler
     }
 
     const listUsersEmail = [...studentToCreateState, ...studentToUpdateState].map(({ studentEmail }) => studentEmail);
@@ -302,7 +302,7 @@ const Students: NextPage = () => {
     } = await getGroupByUserByEmail(apolloClient, listUsersEmail);
 
     if (errorQueryingUsersByEmails?.length) {
-      // Add Error handler
+      // TODO: Add Error handler
     }
 
     const listUserToCreate = [...studentToCreateState, ...studentToUpdateState].filter(({ studentEmail }) =>
@@ -320,7 +320,7 @@ const Students: NextPage = () => {
     const { errors: errorsCreatingMultipleUsers } = await createMultipleUsers(apolloClient, usersBulkCreateSanitized);
 
     if (errorsCreatingMultipleUsers?.length) {
-      // Add Error handler
+      // TODO: Add Error handler
     }
 
     const createBulkStudents = studentToCreateState.map(({ studentEmail, teamName }) => ({
@@ -328,7 +328,8 @@ const Students: NextPage = () => {
       averageCriteriaScoreByTeamMember: new Prisma.Decimal(0),
       systemCalculatedMark: new Prisma.Decimal(0),
       systemAdjustedMark: new Prisma.Decimal(0),
-      lecturerAdjustedMark: new Prisma.Decimal(0),
+      lecturerAdjustedMark: undefined,
+      finalMark: new Prisma.Decimal(0),
       user: {
         connect: {
           email: studentEmail,
