@@ -10,6 +10,14 @@ const UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK = gql`
   }
 `;
 
+const DELETE_PEER_EVALUATION_STUDENT_TEAM = gql`
+  mutation DeletePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
+    deletePeerEvaluationStudentTeam(where: $where) {
+      id
+    }
+  }
+`;
+
 const UPDATE_PEER_EVALUATION_STUDENT_TEAM = gql`
   mutation UpdatePeerEvaluationStudentTeam(
     $data: PeerEvaluationStudentTeamUpdateInput!
@@ -41,6 +49,9 @@ const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
       mark
       name
       id
+      _count {
+        peerEvaluationStudentList
+      }
     }
   }
 `;
@@ -403,6 +414,14 @@ const PEER_EVALUATION_EXIST = gql`
   }
 `;
 
+const PEER_EVALUATION_STUDENT_TEAM_EXIST = gql`
+  query FindFirstPeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereInput) {
+    findFirstPeerEvaluationStudentTeam(where: $where) {
+      name
+    }
+  }
+`;
+
 const PEER_EVALUATION_DASHBOARD = gql`
   query PeerEvaluationDashboard($where: PeerEvaluationDashboardWhereInput!) {
     peerEvaluationDashboard(where: $where) {
@@ -574,6 +593,7 @@ export {
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
   DELETE_PEER_EVALUATION,
+  DELETE_PEER_EVALUATION_STUDENT_TEAM,
   GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
   GET_PEER_EVALUATION,
   GET_PEER_EVALUATION_COLUMNS,
@@ -587,6 +607,7 @@ export {
   GET_PEER_EVALUATIONS_BY_LECTURER,
   PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
+  PEER_EVALUATION_STUDENT_TEAM_EXIST,
   PEER_EVALUATION_STUDENTS,
   UPDATE_PEER_EVALUATION,
   UPDATE_PEER_EVALUATION_EMAIL,

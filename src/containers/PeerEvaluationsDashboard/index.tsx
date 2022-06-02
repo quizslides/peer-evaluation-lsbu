@@ -37,33 +37,11 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     ? data.peerEvaluationTeachingMembers[0].role === "OWNER"
     : false;
 
-  const onRedirectEditPeerEvaluationEmail = () => {
+  const onRedirectToPage = (pagePath: string) => {
     setRedirecting(true);
 
     push({
-      pathname: `${routing.peerEvaluation.email}/${peerEvaluationId}`,
-      query: {
-        redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
-      },
-    });
-  };
-
-  const onRedirectEditPeerEvaluation = () => {
-    setRedirecting(true);
-
-    push({
-      pathname: `${routing.peerEvaluation.edit}/${peerEvaluationId}`,
-      query: {
-        redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
-      },
-    });
-  };
-
-  const onRedirectEditPeerEvaluationStudents = () => {
-    setRedirecting(true);
-
-    push({
-      pathname: `${routing.peerEvaluation.students}/${peerEvaluationId}`,
+      pathname: `${pagePath}/${peerEvaluationId}`,
       query: {
         redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
       },
@@ -119,7 +97,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={onRedirectEditPeerEvaluationStudents}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.students)}
               size="medium"
             >
               {total} Edit
@@ -138,7 +116,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => null}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.email)}
               size="medium"
             >
               {total} Edit
@@ -157,7 +135,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => null}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.teams)}
               size="medium"
             >
               {total} Edit
@@ -213,7 +191,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={onRedirectEditPeerEvaluationEmail}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.email)}
               size="small"
             >
               Send reminder
@@ -279,7 +257,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
         editButton={{
           testId: "peer-evaluation-view-update",
           toolTipLabel: "Update",
-          onClick: onRedirectEditPeerEvaluation,
+          onClick: () => onRedirectToPage(routing.peerEvaluation.edit),
         }}
         visibleDeleteButton={isOwnerRole}
         deleteButton={{
