@@ -2,6 +2,56 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.8...v1.0.0-staging.9) (2022-06-03)
+
+
+### Features
+
+* adding a migration for isInvalid to the whole reviewee by each student ([0f8ed60](https://github.com/quizslides/peer-evaluation-lsbu/commit/0f8ed60903d7bbb5712adbdac376d3c68975fbd4))
+* adding a orderBy to get always the same response from the backend ([edef851](https://github.com/quizslides/peer-evaluation-lsbu/commit/edef85169ba4cb0cdd262b035f6bd26ff1f6104f))
+* adding backend query for student peer evaluation table ([984c9df](https://github.com/quizslides/peer-evaluation-lsbu/commit/984c9df601ce5b7f32b2e056d45953d519dc046e))
+* adding delete on cascade to Peer Evaluation records ([6954742](https://github.com/quizslides/peer-evaluation-lsbu/commit/6954742fd5f77a0cf7ec16eef06df102b1b8542b))
+* adding delete peer evaluation student team ([b535d8b](https://github.com/quizslides/peer-evaluation-lsbu/commit/b535d8b08b62cd86db1d4082d17952fb44bec2a4))
+* adding feature to update final mark depending on the lecturer adjusted mark set ([edb30c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/edb30c5c71be449a4cdd4c3b3dfb4e4fb8b5329a))
+* adding migration of isInvalid to PeerEvaluationReviewee ([c46a934](https://github.com/quizslides/peer-evaluation-lsbu/commit/c46a934079a1d4a3bfbbdb9e3b8181aee5bfdcaa))
+* adding peer evaluation save api to backend ([752ea04](https://github.com/quizslides/peer-evaluation-lsbu/commit/752ea049f3e304c653be85cc078c2f4030f6c8b2))
+* adding reviewers peer evaluation table data on students creation ([fab8f9a](https://github.com/quizslides/peer-evaluation-lsbu/commit/fab8f9ad5e8ab81f7c52844479d9e3777b514db5))
+* Adding students page where a student can evaluate other peers ([3b1a6f2](https://github.com/quizslides/peer-evaluation-lsbu/commit/3b1a6f2afcbc8d9b44bd58d8119687b22cb5d41c))
+* adding team linking to peer evaluation object ([d71cea8](https://github.com/quizslides/peer-evaluation-lsbu/commit/d71cea830ea6b42288b20c69927fa853cf3c7314))
+* adding team report mark update and mark calculation ([182ef1b](https://github.com/quizslides/peer-evaluation-lsbu/commit/182ef1b79435346ce03cda498d146961c91af9f4))
+* adding transformer to pel code ([aa1de56](https://github.com/quizslides/peer-evaluation-lsbu/commit/aa1de56659f45e5c69df1d064e02c1c302a5869d))
+* adding view of student peer evaluation table ([0cc87e4](https://github.com/quizslides/peer-evaluation-lsbu/commit/0cc87e4679b9261815f06d073d087bf2a8f50d48))
+* pulling data of student peer evaluation table ([f29233c](https://github.com/quizslides/peer-evaluation-lsbu/commit/f29233cd8c0ab10912a55065b42c6ff37db4f118))
+
+
+### Bug Fixes
+
+* adding dependancy to react hooks ([4109934](https://github.com/quizslides/peer-evaluation-lsbu/commit/4109934ca18e41c52fdfef963abe5dc2ce0253bf))
+* adding read only to final mark of student to viewer teaching member ([d761eed](https://github.com/quizslides/peer-evaluation-lsbu/commit/d761eed337effacf7d1642adcfeff2d7e4e67ef1))
+* fix definition of column data table for student peer evaluation ([f0966d4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f0966d4ea1e1f58a4832f630c9569df5ed6eb882))
+* fix missing dependancy of next-auth for v4.3.4 ([81f36d3](https://github.com/quizslides/peer-evaluation-lsbu/commit/81f36d3be850771fed642ca324dc790b0260519e))
+* fix querying the peer evaluation data of a student ([b320965](https://github.com/quizslides/peer-evaluation-lsbu/commit/b320965e5da46d8f02b0346d37571c21b18e0247))
+* fix saving final mark and lecturer adjusted mark ([5f75533](https://github.com/quizslides/peer-evaluation-lsbu/commit/5f755335f9f1c81066909dfaca873ef6a80967d9))
+* fix to avoid reset form component when windows focus changes ([70bae79](https://github.com/quizslides/peer-evaluation-lsbu/commit/70bae7982859cc8c238412684e5acc79f18e386a))
+* fixing count of completed peer evaluations on the peer evaluation dashboard ([e750d34](https://github.com/quizslides/peer-evaluation-lsbu/commit/e750d3435c52dedb19d8f71c18b343b0d55ac4cc))
+* fixing criteria score component ([d79bd25](https://github.com/quizslides/peer-evaluation-lsbu/commit/d79bd2565dd0b7441e567600822282e61aeaeade))
+* fixing endpoint for calculation results of team of the peer evaluation ([0221d86](https://github.com/quizslides/peer-evaluation-lsbu/commit/0221d86a694b3d36c8702780185ac2243ce3f78e))
+* fixing initial error on peer evaluation state for null fields ([dd437f1](https://github.com/quizslides/peer-evaluation-lsbu/commit/dd437f1c9ac2de796e9cba1a63197ffd6ca4fd16))
+* fixing normalize objects from objects of array ([e636fbf](https://github.com/quizslides/peer-evaluation-lsbu/commit/e636fbf21f3cc3f77076934825ce02e3c65bd8bc))
+* fixing pulling data for the mark calculations ([7411817](https://github.com/quizslides/peer-evaluation-lsbu/commit/74118173d6bbeb133ce1b82bd63f1235428a2693))
+* fixing quering students data when multiple peer evaluation are part of the user ([064e70a](https://github.com/quizslides/peer-evaluation-lsbu/commit/064e70a7a0a5f024d0c9856b40c05b2dc873b1a2))
+* fixing saving comment of reviewee ([fb405c2](https://github.com/quizslides/peer-evaluation-lsbu/commit/fb405c23679671152af169b7656d769e83d7b9b8))
+* fixing upsertPeerEvaluationTableLecturer error creating bulk students and teams ([09ba19f](https://github.com/quizslides/peer-evaluation-lsbu/commit/09ba19f41121988d99fcc4d734cdae155fabbc3b))
+* removing space from the example csv of the student email ([6f52202](https://github.com/quizslides/peer-evaluation-lsbu/commit/6f522029e8c6245dc19785edd0a8dec637a98405))
+* renaming criteria score to criteriaScoreTotal of the student reviewed ([942d966](https://github.com/quizslides/peer-evaluation-lsbu/commit/942d96665b04724e34ddc2575399ea3354ac554d))
+
+
+### Code Refactoring
+
+* removing ID from student teams table ([e3a39a7](https://github.com/quizslides/peer-evaluation-lsbu/commit/e3a39a795c4f46edb7ec533b3f735f33313eef7b))
+* renaming mark to final mark and adding sql migration ([dfc4521](https://github.com/quizslides/peer-evaluation-lsbu/commit/dfc45219436f05f487feb458087ccb45e8b66f0e))
+* updating code for next build ([c1fb1b3](https://github.com/quizslides/peer-evaluation-lsbu/commit/c1fb1b3d2c570016ae112ac1269bcc1a1cbeded6))
+
 ## [1.0.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.7...v1.0.0-staging.8) (2022-05-08)
 
 
