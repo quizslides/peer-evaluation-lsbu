@@ -18,6 +18,7 @@
     "lint:check": "yarn lint && yarn tsc",
     "lint:fix": "next lint --fix --dir . --file ./.eslintrc.json",
     "prettier": "prettier --write .",
+    "lint:fix:all": "yarn prettier && yarn lint:fix",
     "semantic-release": "semantic-release",
     "docker:ci": "yarn dev:docker -d",
     "clear:cache": "concurrently \"rm -rf .next\" \"rm -rf .nyc_output\" \"rm -rf coverage\" \"rm -rf node_modules\" \"rm -rf tsconfig.tsbuildinfo\" \"rm -rf .eslintcache\"",

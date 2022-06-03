@@ -15,10 +15,11 @@ import { ObjectArray, ObjectNormalizedType, getNormalizedObjectArray, objectToAr
 
 interface IPeerEvaluationStudentsDataTable {
   data: [IPeerEvaluationStudent] | [] | null;
+  isReadOnly: boolean;
   onRefreshStudents: () => Promise<void>;
 }
 
-const PeerEvaluationStudentsDataTable = ({ data, onRefreshStudents }: IPeerEvaluationStudentsDataTable) => {
+const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }: IPeerEvaluationStudentsDataTable) => {
   const [updatePeerEvaluationStudentsLecturerMark] = useUpdatePeerEvaluationStudentsLecturerMark(
     "UpdatePeerEvaluationStudentsLecturerMark"
   );
@@ -114,6 +115,7 @@ const PeerEvaluationStudentsDataTable = ({ data, onRefreshStudents }: IPeerEvalu
                 type: "number",
                 variant: "outlined",
                 inputProps: { min: 0, max: 100, step: "0.01" },
+                disabled: isReadOnly,
               }}
             />
           </FieldWrapper>
@@ -176,14 +178,14 @@ const PeerEvaluationStudentsDataTable = ({ data, onRefreshStudents }: IPeerEvalu
     rowsPerPage: 100,
     customToolbar: (_) => (
       <>
-        <IconButtonWrapper type="submit" testId={""} tooltip={"Save"}>
-          <SaveIcon testId="" fontSize="medium" color="inherit" />
-        </IconButtonWrapper>
         <DataTableRefreshActionButtonIcon
           onClick={onRefreshStudents}
           testId={"peer-evaluation-students-refresh-icon"}
           toolTipLabel={"Refresh"}
         />
+        <IconButtonWrapper type="submit" testId={""} tooltip={"Save"} disabled={isReadOnly}>
+          <SaveIcon testId="" fontSize="medium" color="inherit" />
+        </IconButtonWrapper>
       </>
     ),
   };

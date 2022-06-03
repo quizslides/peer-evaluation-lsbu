@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import { PeerEvaluation, PeerEvaluationStudentTeamCreateManyInput } from "@generated/type-graphql";
+import {
+  PeerEvaluation,
+  PeerEvaluationStudentTeamCreateManyInput,
+  PeerEvaluationTeachingMember,
+} from "@generated/type-graphql";
 import { Prisma } from "@prisma/client";
 import MUIDataTable, { MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
@@ -33,8 +37,8 @@ import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGrou
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
 import getPeerEvaluationStatus from "@/requests/direct/query/getPeerEvaluationStatus";
 import getPeerEvaluationStudentTeamExist from "@/requests/direct/query/getPeerEvaluationStudentTeamExist";
-import getPeerEvaluationTeachingMemberRole from "@/requests/direct/query/getPeerEvaluationTeachingMemberRole";
 import useGetPeerEvaluationStudents from "@/requests/hooks/query/useGetPeerEvaluationStudents";
+import useGetUserPeerEvaluationTeachingMember from "@/requests/hooks/query/useGetUserPeerEvaluationTeachingMember";
 import { IPeerEvaluationStudent, sanitizePeerEvaluationStudentsDataOnFetch } from "@/transformers/students";
 import { IStudentsTeamData } from "@/types/peer-evaluation";
 import { IUserData } from "@/types/user";
@@ -68,6 +72,8 @@ const Students: NextPage = () => {
 
   const [peerEvaluationStatusState, setPeerEvaluationStatusState] = useState<PeerEvaluation["status"]>("DRAFT");
 
+  const [teachingMemberRole, setTeachingMemberRole] = useState<PeerEvaluationTeachingMember["role"]>("VIEWER");
+
   const [peerEvaluationStudentsData, setPeerEvaluationStudentsData] = useState<[IPeerEvaluationStudent] | [] | null>(
     null
   );
@@ -76,8 +82,20 @@ const Students: NextPage = () => {
     { [key: string]: string | number | null }[] | null
   >(null);
 
-  const [getPeerEvaluationStudents, { loading: loadingQuery, error, data, refetch: runRefreshPeerEvaluationStudents }] =
-    useGetPeerEvaluationStudents("GetPeerEvaluationStudents");
+  const [
+    getPeerEvaluationStudents,
+    {
+      loading: loadingStudentsData,
+      error: errorStudentsData,
+      data: dataStudentsData,
+      refetch: runRefreshPeerEvaluationStudents,
+    },
+  ] = useGetPeerEvaluationStudents("GetPeerEvaluationStudents");
+
+  const [
+    getPeerEvaluationTeachingMember,
+    { loading: loadingTeachingMember, error: errorTeachingMember, data: dataTeachingMember },
+  ] = useGetUserPeerEvaluationTeachingMember("GetUserPeerEvaluationTeachingMember");
 
   const onRefreshStudents = async () => {
     promiseNotification(runRefreshPeerEvaluationStudents(), {
@@ -134,11 +152,7 @@ const Students: NextPage = () => {
     }
 
     if (session && peerEvaluationId) {
-      const {
-        data: { peerEvaluationTeachingMember },
-      } = await getPeerEvaluationTeachingMemberRole(apolloClient, session.user.id, peerEvaluationId);
-
-      if (session.user.role !== "ADMIN" && peerEvaluationTeachingMember.role === "VIEWER") {
+      if (session.user.role !== "ADMIN" && teachingMemberRole === "VIEWER") {
         errorNotification("You do not have permission to edit this peer evaluation", "onUploadCSVStudentsTeam");
         return null;
       }
@@ -446,7 +460,13 @@ const Students: NextPage = () => {
     viewColumns: false,
   };
 
-  const isLoading = loadingQuery || !!!data || isRedirecting || isFallback;
+  const isLoading =
+    loadingStudentsData ||
+    loadingTeachingMember ||
+    !!!dataStudentsData ||
+    !!!dataTeachingMember ||
+    isRedirecting ||
+    isFallback;
 
   useEffect(() => {
     const slug = query.slug;
@@ -457,7 +477,7 @@ const Students: NextPage = () => {
   }, [query.slug]);
 
   useEffect(() => {
-    if (peerEvaluationId) {
+    if (peerEvaluationId && session) {
       getPeerEvaluationStudents({
         variables: {
           where: {
@@ -472,21 +492,39 @@ const Students: NextPage = () => {
           ],
         },
       });
+
+      getPeerEvaluationTeachingMember({
+        variables: {
+          where: {
+            userId_peerEvaluationId: {
+              peerEvaluationId: peerEvaluationId,
+              userId: session.user.id,
+            },
+          },
+        },
+      });
     }
-  }, [getPeerEvaluationStudents, peerEvaluationId]);
+  }, [getPeerEvaluationStudents, getPeerEvaluationTeachingMember, peerEvaluationId, session]);
 
   useEffect(() => {
-    if (data) {
-      setPeerEvaluationStudentsData(sanitizePeerEvaluationStudentsDataOnFetch(data.peerEvaluationStudents));
+    if (dataStudentsData && dataTeachingMember) {
+      setPeerEvaluationStudentsData(sanitizePeerEvaluationStudentsDataOnFetch(dataStudentsData.peerEvaluationStudents));
+      setTeachingMemberRole(dataTeachingMember.peerEvaluationTeachingMember.role);
     }
-  }, [data]);
+  }, [dataStudentsData, dataTeachingMember]);
+
+  const isError = !!errorStudentsData || !!errorTeachingMember;
 
   return (
-    <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
+    <Base topLeftComponent="menu" loading={isLoading} error={isError}>
       <PageTitle title={"Students"} testId="page-update-peer-evaluation-title" variant="h4" margin="2em" />
 
       {peerEvaluationStudentsData && (
-        <PeerEvaluationStudentsDataTable data={peerEvaluationStudentsData} onRefreshStudents={onRefreshStudents} />
+        <PeerEvaluationStudentsDataTable
+          isReadOnly={teachingMemberRole === "VIEWER"}
+          data={peerEvaluationStudentsData}
+          onRefreshStudents={onRefreshStudents}
+        />
       )}
 
       {!openPeerEvaluationEditAction && (
