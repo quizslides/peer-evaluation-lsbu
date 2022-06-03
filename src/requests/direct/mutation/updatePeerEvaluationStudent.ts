@@ -5,25 +5,21 @@ const updatePeerEvaluationStudent = (
   apolloClient: TApolloClientType,
   peerEvaluationId: string,
   userId: string,
-  userName: string,
+  studentName: string,
   studentTeamName: string
 ) => {
   return apolloClient.mutate({
     mutation: UPDATE_PEER_EVALUATION_STUDENT,
     variables: {
       data: {
+        studentName: {
+          set: studentName,
+        },
         peerEvaluationStudentTeam: {
           connect: {
             name_peerEvaluationId: {
               name: studentTeamName,
               peerEvaluationId,
-            },
-          },
-        },
-        user: {
-          update: {
-            name: {
-              set: userName,
             },
           },
         },

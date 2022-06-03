@@ -458,6 +458,7 @@ const PEER_EVALUATION_STUDENTS = gql`
       createdAt
       updatedAt
       userId
+      studentName
       peerEvaluationId
       peerEvaluationStudentTeamId
       averageCriteriaScore
@@ -498,7 +499,7 @@ const UPDATE_PEER_EVALUATION_STUDENT = gql`
     $where: PeerEvaluationStudentWhereUniqueInput!
   ) {
     updatePeerEvaluationStudent(data: $data, where: $where) {
-      updatedAt
+      id
     }
   }
 `;
@@ -538,6 +539,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           PeerEvaluationReviewees
         }
         peerEvaluationStudent {
+          studentName
           user {
             role
             email
@@ -552,6 +554,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           comment
           isInvalid
           studentReviewed {
+            studentName
             user {
               name
               email

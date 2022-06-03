@@ -70,6 +70,7 @@ model PeerEvaluationStudent {
   userId                           String
   peerEvaluation                   PeerEvaluation               @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId                 String
+  studentName                      String
   peerEvaluationStudentTeam        PeerEvaluationStudentTeam?   @relation(fields: [peerEvaluationStudentTeamId], references: [id])
   peerEvaluationStudentTeamId      String?
   averageCriteriaScore             Decimal?

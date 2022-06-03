@@ -230,6 +230,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
                     label: "Criteria Score",
                     fullWidth: true,
                     disabled: isReadOnly,
+                    type: "number",
                   }}
                   testId=""
                   updateDataTableFormValue={updateValue}
@@ -278,7 +279,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         })) as [{}];
 
         return {
-          studentName: peerEvaluationReviewee.studentReviewed?.user?.name,
+          studentName: peerEvaluationReviewee.studentReviewed?.studentName,
           studentEmail: peerEvaluationReviewee.studentReviewed?.user?.email,
           peerEvaluationStudentId: peerEvaluationStudentId,
           comment: peerEvaluationReviewee.comment,
