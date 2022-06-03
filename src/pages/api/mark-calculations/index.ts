@@ -224,7 +224,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           averageCriteriaScoreByTeamMember: re.averageCriteriaScoreByTeamMember,
           systemCalculatedMark: re.systemCalculatedMark,
           systemAdjustedMark: re.systemAdjustedMark,
-          finalMark: peerEvaluationStudentData?.lecturerAdjustedMark || re.systemAdjustedMark,
+          lecturerAdjustedMark: peerEvaluationStudentData?.lecturerAdjustedMark,
+          finalMark: peerEvaluationStudentData?.lecturerAdjustedMark
+            ? peerEvaluationStudentData?.lecturerAdjustedMark
+            : re.systemAdjustedMark,
           comments: re.comments,
         },
         where: {
