@@ -31,6 +31,7 @@ import TextFieldFormDataTable from "@/components/TextFieldFormDataTable/TextFiel
 import Typography from "@/components/Typography/Typography";
 import UploadButton from "@/components/UploadButton/UploadButton";
 import VirtualStringList from "@/components/VirtualStringList/VirtualStringList";
+import WarningUnsavedForm from "@/components/WarningUnsavedForm/WarningUnsavedForm";
 import WYSIWYG from "@/components/WYSIWYG/WYSIWYG";
 import WYSIWYGForm from "@/components/WYSIWYGForm/WYSIWYGForm";
 
@@ -68,6 +69,7 @@ export {
   Typography,
   UploadButton,
   VirtualStringList,
+  WarningUnsavedForm,
   WYSIWYG,
   WYSIWYGForm,
 };
