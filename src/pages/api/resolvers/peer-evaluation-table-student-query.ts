@@ -96,14 +96,12 @@ class PeerEvaluationTableStudentQuery {
     const user = await ctx.prisma.user.findFirst({
       where: {
         id: studentId,
-        peerEvaluationStudentList: {
-          some: {
-            peerEvaluationId: peerEvaluationData?.id,
-          },
-        },
       },
-      include: {
-        peerEvaluationStudentList: true,
+    });
+
+    const peerEvaluationStudentList = await ctx.prisma.peerEvaluationStudent.findFirst({
+      where: {
+        peerEvaluationId: peerEvaluationData?.id,
       },
     });
 
@@ -117,7 +115,7 @@ class PeerEvaluationTableStudentQuery {
       };
     }
 
-    const peerEvaluationStudentId = user?.peerEvaluationStudentList[0].id;
+    const peerEvaluationStudentId = peerEvaluationStudentList?.id;
 
     const isPeerEvaluationVisible = peerEvaluationData?.status !== "DRAFT";
 
