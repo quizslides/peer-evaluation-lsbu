@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 
 import content from "@/pages/api/email/content";
-import { emailTransporter, getEmailTemplate } from "@/pages/api/email/utils";
+import { createEmailTransport, getEmailTemplate } from "@/pages/api/email/utils";
 import prisma from "@/pages/api/prisma";
 import { errorLogger } from "@/utils/logger";
 
@@ -23,6 +23,8 @@ const isAccountCreated = async (userEmail: string | null | undefined) => {
 
 const sendSignInEmail = async (email: string, signInUrl: string) => {
   try {
+    const emailTransporter = createEmailTransport();
+
     await emailTransporter.sendMail({
       to: email,
       from: content.global.from,
@@ -36,6 +38,8 @@ const sendSignInEmail = async (email: string, signInUrl: string) => {
         email,
       }),
     });
+
+    emailTransporter.close();
   } catch (error: unknown) {
     const errorObject = error as Error;
     errorLogger(`Unable to send sign in email to ${email}. Error: ${errorObject.message}`);
@@ -47,6 +51,8 @@ const sendWelcomeEmail = async (email: string, name: string) => {
 
   if (!isUserCreated) {
     try {
+      const emailTransporter = createEmailTransport();
+
       await emailTransporter.sendMail({
         from: content.global.from,
         to: email,
@@ -57,6 +63,8 @@ const sendWelcomeEmail = async (email: string, name: string) => {
           baseUrl: process.env.NEXTAUTH_URL,
         }),
       });
+
+      emailTransporter.close();
     } catch (error: unknown) {
       const errorObject = error as Error;
       errorLogger(`Unable to send welcome email to ${email}. Error: ${errorObject.message}`);
