@@ -12,6 +12,7 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 
 import { Layout } from "@/containers";
@@ -20,21 +21,21 @@ import client from "@/graphql/client";
 import { theme } from "@/styles";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
-  <Component {...pageProps} />;
+  const router = useRouter();
 
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={DateAdapter}>
-          <SessionProvider session={session}>
+          <SessionProvider session={session} refetchOnWindowFocus={false}>
             <Layout>
               {pageProps.protected ? (
                 <AuthenticatedRoute roles={pageProps.roles}>
-                  <Component {...pageProps} />
+                  <Component {...pageProps} key={router.asPath} />
                 </AuthenticatedRoute>
               ) : (
-                <Component {...pageProps} />
+                <Component {...pageProps} key={router.asPath} />
               )}
             </Layout>
           </SessionProvider>
