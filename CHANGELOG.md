@@ -2,6 +2,15 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.10...v1.0.0-staging.11) (2022-06-03)
+
+
+### Features
+
+* adding component to avoid closing the tab when unsaved fork ([3c882c1](https://github.com/quizslides/peer-evaluation-lsbu/commit/3c882c1085768d221725b6fa71405e446b0b63a7))
+* adding student name to the peer evaluation to handle student name ([4a53b4a](https://github.com/quizslides/peer-evaluation-lsbu/commit/4a53b4a248cb773e8dd327bc66290368662bd73a))
+* adding WarningUnsavedForm to all forms on the peer evaluation ([337736e](https://github.com/quizslides/peer-evaluation-lsbu/commit/337736e03818a5786ef3f64a145d3e804abb9231))
+
 ## [1.0.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.9...v1.0.0-staging.10) (2022-06-03)
 
 
