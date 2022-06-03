@@ -20,7 +20,7 @@ const LecturerStudentPeerEvaluation: NextPage = () => {
   const [getPeerEvaluationTableStudentLecturer, { loading: loadingFetch, error, data }] =
     useGetPeerEvaluationTableStudentLecturer("useGetPeerEvaluationTableStudent");
 
-  const isLoading = status === "loading" || loadingFetch || !peerEvaluationTableData;
+  const isLoading = loadingFetch || !peerEvaluationTableData;
 
   useEffect(() => {
     const slug = query.slug;
