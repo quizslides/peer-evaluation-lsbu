@@ -102,6 +102,7 @@ class PeerEvaluationTableStudentQuery {
     const peerEvaluationStudentList = await ctx.prisma.peerEvaluationStudent.findFirst({
       where: {
         peerEvaluationId: peerEvaluationData?.id,
+        userId: user?.id,
       },
     });
 
