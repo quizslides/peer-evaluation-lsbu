@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.9...v1.0.0-staging.10) (2022-06-03)
+
+
+### Bug Fixes
+
+* adding query to student list by user id and peer evaluation id ([6c1eda5](https://github.com/quizslides/peer-evaluation-lsbu/commit/6c1eda5a291601ec8f17cae7041d7df262290dab))
+
 ## [1.0.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.8...v1.0.0-staging.9) (2022-06-03)
 
 
