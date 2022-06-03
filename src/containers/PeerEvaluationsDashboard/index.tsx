@@ -12,6 +12,7 @@ import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";
 
 import { Button, ConfirmationDialog, DataTable } from "@/components";
 import content from "@/content";
+import { CopyIcon } from "@/icons";
 import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
@@ -30,6 +31,8 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
   const [isRedirecting, setRedirecting] = useState(false);
 
   const peerEvaluationId = data.id;
+
+  const peerEvaluationCode = data.code;
 
   const [isDeletePeerEvaluationOpen, setDeletePeerEvaluationConfirmationOpen] = useState(false);
 
@@ -74,10 +77,18 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     }
   };
 
+  const copyPeerEvaluationStudentURLToClipboard = () => {
+    navigator.clipboard.writeText(`${window.location.origin}${routing.student.peerEvaluation}/${peerEvaluationCode}`);
+    successNotification("Student URL Copied to Clipboard");
+  };
+
   const tableColumns: MUIDataTableColumn[] = [
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded",
+      },
     },
     {
       name: "title",
@@ -86,6 +97,24 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     {
       name: "code",
       label: "Peer Evaluation Code",
+    },
+    {
+      name: "studentURL",
+      label: "Student URL",
+      options: {
+        // eslint-disable-next-line react/no-multi-comp
+        customBodyRender: () => (
+          <Button
+            variant={"outlined"}
+            testId={""}
+            onClick={copyPeerEvaluationStudentURLToClipboard}
+            size="medium"
+            startIcon={<CopyIcon testId="" fontSize="small" color="inherit" />}
+          >
+            Copy
+          </Button>
+        ),
+      },
     },
     {
       name: "_count.peerEvaluationStudents",

@@ -591,6 +591,74 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
   }
 `;
 
+const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
+  query PeerEvaluationTableStudentLecturer($where: PeerEvaluationTableStudentLecturerWhereInput!) {
+    peerEvaluationTableStudentLecturer(where: $where) {
+      readOnly
+      visible
+      message
+      peerEvaluationStudentReview {
+        id
+        createdAt
+        peerEvaluationStudentId
+        updatedAt
+        isCompleted
+        _count {
+          PeerEvaluationReviewees
+        }
+        peerEvaluationStudent {
+          studentName
+          user {
+            role
+            email
+            name
+            id
+          }
+        }
+        PeerEvaluationReviewees {
+          id
+          criteriaScoreTotal
+          studentReviewedId
+          comment
+          isInvalid
+          studentReviewed {
+            studentName
+            user {
+              name
+              email
+            }
+          }
+          peerEvaluationReviewId
+          PeerEvaluationRevieweeColumn {
+            peerEvaluationColumnId
+            criteriaScore
+            updatedAt
+            createdAt
+            id
+            peerEvaluationRevieweeId
+            peerEvaluationColumn {
+              description
+            }
+          }
+        }
+      }
+      peerEvaluation {
+        id
+        status
+        columns {
+          description
+          id
+        }
+        criteriaScoreRangeMin
+        criteriaScoreRangeMax
+        submissionsLockDate
+        title
+        code
+      }
+    }
+  }
+`;
+
 export {
   CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
@@ -605,6 +673,7 @@ export {
   GET_PEER_EVALUATION_STUDENT_TEAM_EXIST,
   GET_PEER_EVALUATION_STUDENT_TEAMS,
   GET_PEER_EVALUATION_TABLE_STUDENT,
+  GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER,
   GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,

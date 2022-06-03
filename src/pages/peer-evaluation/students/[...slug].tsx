@@ -509,8 +509,9 @@ const Students: NextPage = () => {
     <Base topLeftComponent="menu" loading={isLoading} error={isError}>
       <PageTitle title={"Students"} testId="page-update-peer-evaluation-title" variant="h4" margin="2em" />
 
-      {peerEvaluationStudentsData && (
+      {peerEvaluationStudentsData && peerEvaluationId && (
         <PeerEvaluationStudentsDataTable
+          peerEvaluationId={peerEvaluationId}
           isReadOnly={teachingMemberRole === "VIEWER"}
           data={peerEvaluationStudentsData}
           onRefreshStudents={onRefreshStudents}

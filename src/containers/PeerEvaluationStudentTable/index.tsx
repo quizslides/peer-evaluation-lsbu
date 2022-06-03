@@ -70,11 +70,17 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
     search: false,
     viewColumns: false,
     sort: false,
-    customToolbar: (_) => (
-      <Button testId="" variant="contained" type="submit">
-        SAVE
-      </Button>
-    ),
+    customToolbar: (_) => {
+      if (isReadOnly) {
+        return null;
+      }
+
+      return (
+        <Button testId="" variant="contained" type="submit">
+          SAVE
+        </Button>
+      );
+    },
   };
 
   useEffect(() => {

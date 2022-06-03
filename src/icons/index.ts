@@ -2,6 +2,7 @@ import AddIcon from "@/icons/AddIcon/AddIcon";
 import ArrowBackIcon from "@/icons/ArrowBackIcon/ArrowBackIcon";
 import CheckIcon from "@/icons/CheckIcon/CheckIcon";
 import CloseIcon from "@/icons/CloseIcon/CloseIcon";
+import CopyIcon from "@/icons/CopyIcon/CopyIcon";
 import DashboardIcon from "@/icons/DashboardIcon/DashboardIcon";
 import DeleteIcon from "@/icons/DeleteIcon/DeleteIcon";
 import EditIcon from "@/icons/EditIcon/EditIcon";
@@ -38,6 +39,7 @@ export {
   ArrowBackIcon,
   CheckIcon,
   CloseIcon,
+  CopyIcon,
   DashboardIcon,
   DeleteIcon,
   EditIcon,

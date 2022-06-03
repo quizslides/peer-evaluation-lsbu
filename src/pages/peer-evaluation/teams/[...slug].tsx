@@ -25,6 +25,7 @@ import deletePeerEvaluationStudentTeam from "@/requests/direct/mutation/deletePe
 import peerEvaluationStudentTeamExist from "@/requests/direct/query/peerEvaluationStudentTeamExist";
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
 import useGetPeerEvaluationStudentTeams from "@/requests/hooks/query/useGetPeerEvaluationStudentTeams";
+import routing from "@/routing";
 import { ArrayObject } from "@/types/object";
 import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
 import {
@@ -79,10 +80,10 @@ const Teams: NextPage = () => {
 
   const rangeSelectField = getRangeNumberObject(100, 0);
 
-  const onViewPeerEvaluation = (teamName: string) => {
+  const onViewResultsPeerEvaluationTeam = (teamName: string) => {
     setRedirecting(true);
     push({
-      pathname: `/peer-evaluation/report/team/${peerEvaluationId}/${teamName}`,
+      pathname: `${routing.peerEvaluation.result.team}/${peerEvaluationId}/${teamName}`,
     });
   };
 
@@ -175,7 +176,7 @@ const Teams: NextPage = () => {
               <Button
                 onClick={() => {
                   const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
-                  onViewPeerEvaluation(dataTable.data[2] as string);
+                  onViewResultsPeerEvaluationTeam(dataTable.data[2] as string);
                 }}
                 testId={""}
                 variant="contained"

@@ -24,6 +24,10 @@ const routing = {
     email: "/peer-evaluation/email",
     students: "/peer-evaluation/students",
     teams: "/peer-evaluation/teams",
+    result: {
+      team: "/peer-evaluation/result/team",
+      student: "/peer-evaluation/result/student",
+    },
   },
   backendEndpoint: "/api/graphql",
 };

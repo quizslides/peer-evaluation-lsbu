@@ -1,10 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
+import { useRouter } from "next/router";
 import { array, number, object } from "yup";
 
 import {
+  Button,
   DataTable,
   DataTableRefreshActionButtonIcon,
   IconButtonWrapper,
@@ -16,16 +18,41 @@ import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
 import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
 import useUpdatePeerEvaluationStudentsLecturerMark from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentsLecturerMark";
+import routing from "@/routing";
 import { IPeerEvaluationStudent } from "@/transformers/students";
 import { ObjectArray, ObjectNormalizedType, getNormalizedObjectArray, objectToArrayOfObject } from "@/utils/form";
 
+interface IStudentLecturerMarkTable {
+  ids: {
+    [x: string]: object;
+  }[];
+  lecturerAdjustedMarks: {
+    [x: string]: object;
+  }[];
+}
+
+interface IStudentLecturerMark {
+  id: string;
+  lecturerAdjustedMark: string | number | null;
+}
+
 interface IPeerEvaluationStudentsDataTable {
   data: [IPeerEvaluationStudent] | [] | null;
+  peerEvaluationId: string;
   isReadOnly: boolean;
   onRefreshStudents: () => Promise<void>;
 }
 
-const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }: IPeerEvaluationStudentsDataTable) => {
+const PeerEvaluationStudentsDataTable = ({
+  data,
+  peerEvaluationId,
+  isReadOnly,
+  onRefreshStudents,
+}: IPeerEvaluationStudentsDataTable) => {
+  const { push } = useRouter();
+
+  const [isRedirecting, setRedirecting] = useState(false);
+
   const [updatePeerEvaluationStudentsLecturerMark] = useUpdatePeerEvaluationStudentsLecturerMark(
     "UpdatePeerEvaluationStudentsLecturerMark"
   );
@@ -41,7 +68,40 @@ const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }
     ),
   });
 
+  const onViewResultsPeerEvaluationStudent = (studentId: string) => {
+    setRedirecting(true);
+    push({
+      pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
+    });
+  };
+
   const dataTableColumns: MUIDataTableColumn[] = [
+    {
+      name: "",
+      options: {
+        viewColumns: false,
+        filter: false,
+        sort: false,
+        empty: false,
+        download: false,
+        customBodyRender: (_, tableMeta) => {
+          return (
+            <FieldWrapper marginBottom="1em">
+              <Button
+                onClick={() => {
+                  const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
+                  onViewResultsPeerEvaluationStudent(dataTable.data[1] as string);
+                }}
+                testId={""}
+                variant="contained"
+              >
+                Results
+              </Button>
+            </FieldWrapper>
+          );
+        },
+      },
+    },
     {
       name: "id",
       label: "ID",
@@ -164,7 +224,7 @@ const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }
     },
     responsive: "simple",
     tableBodyMaxHeight: "100%",
-    selectableRows: "single",
+    selectableRows: "none",
     selectableRowsHeader: true,
     rowHover: true,
     download: true,
@@ -196,20 +256,6 @@ const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }
     ),
   };
 
-  interface IStudentLecturerMarkTable {
-    ids: {
-      [x: string]: object;
-    }[];
-    lecturerAdjustedMarks: {
-      [x: string]: object;
-    }[];
-  }
-
-  interface IStudentLecturerMark {
-    id: string;
-    lecturerAdjustedMark: string | number | null;
-  }
-
   const onSubmitStudentLecturerMarks = async (data: IStudentLecturerMarkTable) => {
     const studentLecturerMarks = getNormalizedObjectArray(
       data as unknown as ObjectNormalizedType
@@ -230,7 +276,9 @@ const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }
     onRefreshStudents();
   };
 
-  if (!data) {
+  const isLoading = !data || isRedirecting;
+
+  if (isLoading) {
     return <LoadingContainer loading />;
   }
 
