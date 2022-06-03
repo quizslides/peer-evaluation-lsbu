@@ -90,7 +90,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         object().shape({
           [columnReviewer]: object().shape({
             criteriaScore: number()
-              .typeError("Only numbers allowed")
+              .typeError("Criteria score required")
               .required("Criteria score required")
               .min(criteriaScoreRangeMin, "Value not allowed")
               .max(criteriaScoreRangeMax, "Value not allowed"),

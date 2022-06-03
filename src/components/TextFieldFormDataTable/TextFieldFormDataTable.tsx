@@ -26,7 +26,7 @@ const TextFieldFormDataTable = ({
 
   const [field, meta] = useField(name);
 
-  if (props.type === "number") {
+  if (props.type === "number" || props.type === "text") {
     field.value = !field.value && field.value !== 0 ? "" : field.value;
   }
 
