@@ -17,6 +17,7 @@ import {
   DataTable,
   SelectFieldFormDataTable,
   TextFieldFormDataTable,
+  WarningUnsavedForm,
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
 import { VisibilityOffIcon } from "@/icons";
@@ -336,8 +337,9 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
       validationSchema={validationSchemaState}
       onSubmit={(data) => onSubmit(data)}
     >
-      {() => (
+      {({ dirty }) => (
         <Form>
+          <WarningUnsavedForm areChangesUnsaved={dirty} />
           <DataTable
             testId={`${testId}-datatable`}
             isVisible

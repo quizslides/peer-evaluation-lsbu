@@ -13,6 +13,7 @@ import {
   SelectMultipleFieldForm,
   TextFieldForm,
   WYSIWYGForm,
+  WarningUnsavedForm,
 } from "@/components";
 import PeerEvaluationTeachingMemberFormWrapper from "@/components/PeerEvaluationTeachingMemberFormWrapper";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
@@ -100,8 +101,9 @@ const PeerEvaluationForm = ({
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, dirty }) => (
           <Form>
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
             <Container maxWidth="lg">
               <Divider>Information</Divider>
               <FieldWrapper marginBottom="3em">

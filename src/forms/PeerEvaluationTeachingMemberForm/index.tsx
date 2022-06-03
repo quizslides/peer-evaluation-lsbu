@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import { AutocompleteFieldForm, Button, SelectFieldForm, TextField } from "@/components";
+import { AutocompleteFieldForm, Button, SelectFieldForm, TextField, WarningUnsavedForm } from "@/components";
 import { TOptions } from "@/components/AutocompleteFieldForm/AutocompleteFieldForm";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
@@ -118,8 +118,9 @@ const PeerEvaluationTeachingMemberForm = ({
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {(props) => (
+        {({ values, dirty }) => (
           <Form>
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
             <DialogContent>
               <Container maxWidth="sm">
                 <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>
@@ -148,7 +149,7 @@ const PeerEvaluationTeachingMemberForm = ({
                         testId={"peer-evaluation-member-form-name-field"}
                         props={{
                           name: "name",
-                          value: props.values.name,
+                          value: values.name,
                           disabled: true,
                           fullWidth: true,
                           label: content.containers.peerEvaluationTeachingMemberForm.form.name.label,

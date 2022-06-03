@@ -16,6 +16,7 @@ import {
   PageTitle,
   SelectFieldFormDataTable,
   TextFieldFormDataTable,
+  WarningUnsavedForm,
 } from "@/components";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import { FieldWrapper } from "@/forms/style";
@@ -359,8 +360,9 @@ const Teams: NextPage = () => {
           validationSchema={validationSchema}
           onSubmit={(data) => onSubmit(data)}
         >
-          {() => (
+          {({ dirty }) => (
             <Form>
+              <WarningUnsavedForm areChangesUnsaved={dirty} />
               <DataTable
                 testId={"peer-evaluation-students-datatable"}
                 isVisible={!!data}

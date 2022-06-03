@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import { Button, TextFieldForm } from "@/components";
+import { Button, TextFieldForm, WarningUnsavedForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { IPeerEvaluationColumn } from "@/types/peer-evaluation";
@@ -60,8 +60,9 @@ const PeerEvaluationColumnForm = ({
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {() => (
+        {({ dirty }) => (
           <Form>
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
             <DialogContent>
               <Container maxWidth="sm">
                 <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>

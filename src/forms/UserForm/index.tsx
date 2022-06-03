@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import { Button, SelectFieldForm, TextFieldForm } from "@/components";
+import { Button, SelectFieldForm, TextFieldForm, WarningUnsavedForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { IUserData } from "@/types/user";
@@ -55,8 +55,9 @@ const UserForm = ({ email, name, role, formTitle, state, updateUserFormState, on
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {() => (
+        {({ dirty }) => (
           <Form>
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
             <DialogContent>
               <Container maxWidth="sm">
                 <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>

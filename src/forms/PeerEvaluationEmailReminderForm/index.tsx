@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import { Button, ConfirmationDialog, Divider, TextFieldForm, WYSIWYGForm } from "@/components";
+import { Button, ConfirmationDialog, Divider, TextFieldForm, WYSIWYGForm, WarningUnsavedForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { peerEvaluationEmailBodyValidator, peerEvaluationEmailSubjectValidator } from "@/utils";
@@ -62,8 +62,9 @@ const PeerEvaluationEmailReminderForm = ({
         validationSchema={validationSchema}
         onSubmit={submitForm}
       >
-        {() => (
+        {({ dirty }) => (
           <Form>
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
             <FieldWrapper marginBottom="3em">
               <TextFieldForm
                 testId="peer-evaluation-email-reminder-form-email-subject-field"

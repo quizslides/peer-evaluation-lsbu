@@ -4,7 +4,13 @@ import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { array, number, object } from "yup";
 
-import { DataTable, DataTableRefreshActionButtonIcon, IconButtonWrapper, TextFieldFormDataTable } from "@/components";
+import {
+  DataTable,
+  DataTableRefreshActionButtonIcon,
+  IconButtonWrapper,
+  TextFieldFormDataTable,
+  WarningUnsavedForm,
+} from "@/components";
 import LoadingContainer from "@/containers/LoadingContainer";
 import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
@@ -237,8 +243,9 @@ const PeerEvaluationStudentsDataTable = ({ data, isReadOnly, onRefreshStudents }
       validationSchema={validationSchema}
       onSubmit={(data) => onSubmitStudentLecturerMarks(data)}
     >
-      {() => (
+      {({ dirty }) => (
         <Form>
+          <WarningUnsavedForm areChangesUnsaved={dirty} />
           <DataTable
             testId={"peer-evaluation-students-datatable"}
             isVisible={!!data}
