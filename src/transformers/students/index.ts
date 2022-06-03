@@ -15,7 +15,7 @@ const sanitizePeerEvaluationStudentsDataOnFetch = (
 ): [IPeerEvaluationStudent] => {
   const sanitized = peerEvaluationStudentData.map((data) => ({
     ...data,
-    userName: data.user?.name,
+    userName: data.studentName,
     userEmail: data.user?.email,
     userEmailVerified: data.user?.emailVerified,
     peerEvaluationStudentTeamName: data.peerEvaluationStudentTeam?.name,

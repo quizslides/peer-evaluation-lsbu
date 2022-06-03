@@ -31,7 +31,6 @@ import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/cre
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
-import updateUserName from "@/requests/direct/mutation/updateUserName";
 import upsertPeerEvaluationTableLecturer from "@/requests/direct/mutation/upsertPeerEvaluationTableLecturer";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
@@ -338,6 +337,7 @@ const Students: NextPage = () => {
     }
 
     const createBulkStudents = studentToCreateState.map(({ studentEmail, teamName }) => ({
+      studentName: studentTeamsDataCSV.find((data) => data.studentEmail === studentEmail)?.studentName || "",
       averageCriteriaScore: new Prisma.Decimal(0),
       averageCriteriaScoreByTeamMember: new Prisma.Decimal(0),
       systemCalculatedMark: new Prisma.Decimal(0),
@@ -381,16 +381,6 @@ const Students: NextPage = () => {
     );
 
     await Promise.all(updatePeerEvaluationStudents);
-
-    const listUsersExistedUpdated = listUsersCreated.map(({ email }) =>
-      updateUserName(
-        apolloClient,
-        studentTeamsDataCSV.find((data) => data.studentEmail === email)?.studentName || "",
-        email
-      )
-    );
-
-    await Promise.all(listUsersExistedUpdated);
 
     await upsertPeerEvaluationTableLecturer(apolloClient, peerEvaluationId);
 
