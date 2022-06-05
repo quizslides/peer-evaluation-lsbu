@@ -2,6 +2,19 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.11...v1.0.0-staging.12) (2022-06-03)
+
+
+### Features
+
+* adding view only of peer evaluation to lecturer ([c1c71fd](https://github.com/quizslides/peer-evaluation-lsbu/commit/c1c71fdd0ab1a8d31eebb200a387472f8a1327b7))
+
+
+### Bug Fixes
+
+* adding to close connection to smpt to avoid collapsing the smtp pool ([a897f18](https://github.com/quizslides/peer-evaluation-lsbu/commit/a897f188e9fd4f7ffd604b1b187c656a02b6e899))
+* removing status from student result page as it is not defined ([0d4dd91](https://github.com/quizslides/peer-evaluation-lsbu/commit/0d4dd910584ab1a8f7ff5192a4c1b958bebe335a))
+
 ## [1.0.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.10...v1.0.0-staging.11) (2022-06-03)
 
 
