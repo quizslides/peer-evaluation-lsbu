@@ -145,7 +145,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.email)}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.edit)}
               size="medium"
             >
               {total} Edit
