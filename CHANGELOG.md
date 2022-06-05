@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.13...v1.0.0-staging.14) (2022-06-05)
+
+
+### Bug Fixes
+
+* removing pagination from peer evaluation table ([cf2b9bb](https://github.com/quizslides/peer-evaluation-lsbu/commit/cf2b9bb73b209d6b5b32db8a4e150d401c7b4b8a))
+
+
+### Code Refactoring
+
+* renaming results on students table to peer evaluation ([7041c12](https://github.com/quizslides/peer-evaluation-lsbu/commit/7041c123dc50290210121c88184db5ea177f12c4))
+
 ## [1.0.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.12...v1.0.0-staging.13) (2022-06-05)
 
 
