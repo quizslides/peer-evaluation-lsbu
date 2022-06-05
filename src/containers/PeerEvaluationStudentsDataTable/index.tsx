@@ -232,7 +232,8 @@ const PeerEvaluationStudentsDataTable = ({
     filter: true,
     search: true,
     viewColumns: true,
-    pagination: false,
+    pagination: true,
+    rowsPerPage: 10,
     print: false,
     enableNestedDataAccess: ".",
     downloadOptions: {
@@ -241,7 +242,6 @@ const PeerEvaluationStudentsDataTable = ({
     draggableColumns: {
       enabled: true,
     },
-    rowsPerPage: 100,
     customToolbar: (_) => (
       <>
         <DataTableRefreshActionButtonIcon

@@ -445,7 +445,6 @@ const Students: NextPage = () => {
     download: false,
     print: false,
     rowsPerPage: 100,
-    pagination: true,
     filter: false,
     search: false,
     viewColumns: false,

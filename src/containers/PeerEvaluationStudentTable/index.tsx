@@ -65,7 +65,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
     rowHover: true,
     download: false,
     print: false,
-    pagination: false,
+    pagination: true,
     filter: false,
     search: false,
     viewColumns: false,

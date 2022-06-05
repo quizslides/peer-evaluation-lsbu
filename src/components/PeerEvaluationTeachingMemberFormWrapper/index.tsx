@@ -242,7 +242,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
     search: true,
     viewColumns: false,
     print: false,
-    rowsPerPage: 100,
+    rowsPerPage: 10,
     customToolbar: (_) =>
       !isDisabled && (
         <DataTableAddActionButtonIcon
