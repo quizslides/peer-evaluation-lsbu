@@ -14,6 +14,7 @@ import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
 import PeerEvaluationCard from "@/containers/PeerEvaluationCard";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
+import PeerEvaluationInfo from "@/containers/PeerEvaluationInfo";
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
 import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
 import PeerEvaluationStudentsDataTable from "@/containers/PeerEvaluationStudentsDataTable";
@@ -43,6 +44,7 @@ export {
   Navigation,
   PeerEvaluationCard,
   PeerEvaluationColumnManagement,
+  PeerEvaluationInfo,
   PeerEvaluationNavigationFab,
   PeerEvaluationsDataTable,
   PeerEvaluationStatusContainer,
