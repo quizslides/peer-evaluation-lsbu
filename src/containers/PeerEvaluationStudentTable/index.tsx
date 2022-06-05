@@ -148,11 +148,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         name: "studentName",
         label: "Student Name",
         options: {
-          customBodyRender: (value) => (
-            <FieldWrapper marginBottom="3em">{`${value} ${
-              session?.user.name === value ? "(Myself)" : ""
-            }`}</FieldWrapper>
-          ),
+          customBodyRender: (value) => <FieldWrapper marginBottom="3em">{value}</FieldWrapper>,
         },
       },
       {
@@ -285,8 +281,14 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           },
         })) as [{}];
 
+        let studentName = peerEvaluationReviewee.studentReviewed?.studentName || "";
+
+        if (peerEvaluationReviewee.studentReviewed?.user?.name === session?.user.name) {
+          studentName = `${studentName} (Myself)`;
+        }
+
         return {
-          studentName: peerEvaluationReviewee.studentReviewed?.studentName,
+          studentName: studentName,
           studentEmail: peerEvaluationReviewee.studentReviewed?.user?.email,
           peerEvaluationStudentId: peerEvaluationStudentId,
           comment: peerEvaluationReviewee.comment,
@@ -306,7 +308,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
 
       setPeerEvaluationTableData(sanitizedPeerEvaluationStudentTableOnFetch);
     }
-  }, [data.peerEvaluationStudentReview]);
+  }, [data.peerEvaluationStudentReview, session?.user.name]);
 
   useEffect(() => {
     if (dataTableColumns.length && peerEvaluationTableData.length) {
