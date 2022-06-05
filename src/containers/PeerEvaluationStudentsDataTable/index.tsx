@@ -95,7 +95,7 @@ const PeerEvaluationStudentsDataTable = ({
                 testId={""}
                 variant="contained"
               >
-                Results
+                Peer Evaluation
               </Button>
             </FieldWrapper>
           );
