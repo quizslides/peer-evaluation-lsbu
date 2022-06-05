@@ -39,7 +39,7 @@ const sendSignInEmail = async (email: string, signInUrl: string) => {
       }),
     });
 
-    // emailTransporter.close();
+    emailTransporter.close();
   } catch (error: unknown) {
     const errorObject = error as Error;
     errorLogger(`Unable to send sign in email to ${email}. Error: ${errorObject.message}`);
