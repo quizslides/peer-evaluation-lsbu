@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.12...v1.0.0-staging.13) (2022-06-05)
+
+
+### Bug Fixes
+
+* adding myself to peer evaluation student table ([d6bf068](https://github.com/quizslides/peer-evaluation-lsbu/commit/d6bf06834d34825bc09b36b7b5d3172ed6b3ec91))
+* adding pagination to table of teams and students ([f32981a](https://github.com/quizslides/peer-evaluation-lsbu/commit/f32981a81989be73e48fd74d9fbeeb88dce1affe))
+* adding pagination to tables with default of 10 ([5216a95](https://github.com/quizslides/peer-evaluation-lsbu/commit/5216a9595353863eb5c389d4a19034cfdcff872d))
+* adding pool to smpt conneciton ([8ea03a2](https://github.com/quizslides/peer-evaluation-lsbu/commit/8ea03a25fb837be56829c999b5f948450ac3a6c3))
+* adding smtp pool to email transport ([6b63437](https://github.com/quizslides/peer-evaluation-lsbu/commit/6b634372a004b319b789eb10fb9af658e016b7b6))
+* fixing wrong redirect to total teaching member ([03340ee](https://github.com/quizslides/peer-evaluation-lsbu/commit/03340eef209afb97d9caeccc818ee37fadbe6025))
+
 ## [1.0.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.11...v1.0.0-staging.12) (2022-06-03)
 
 
