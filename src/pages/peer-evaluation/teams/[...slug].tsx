@@ -268,7 +268,7 @@ const Teams: NextPage = () => {
     filter: true,
     search: true,
     viewColumns: true,
-    pagination: false,
+    pagination: true,
     print: false,
     enableNestedDataAccess: ".",
     draggableColumns: {
