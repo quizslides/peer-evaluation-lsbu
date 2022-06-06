@@ -40,11 +40,19 @@ const getNormalizedObjectArray = (object: ObjectNormalizedType) => {
     );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getSortedObject = (o: any) =>
+  Object.keys(o)
+    .sort()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .reduce((r: any, k) => ((r[k] = o[k]), r), {});
+
 export {
   arrayToObject,
   getMergedKeyValuesObject,
   getNormalizedObjectArray,
   getRangeNumberObject,
+  getSortedObject,
   objectToArrayOfObject,
   objectToArrayOfObjectInline,
   rangeNumber,

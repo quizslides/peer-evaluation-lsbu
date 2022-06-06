@@ -321,6 +321,7 @@ const Teams: NextPage = () => {
     }
   }, [data]);
 
+  // TODO: Remove any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
     const dataModuleNormalized = getNormalizedObjectArray(data as unknown as ObjectNormalizedType);

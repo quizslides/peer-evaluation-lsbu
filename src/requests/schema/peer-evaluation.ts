@@ -289,6 +289,23 @@ const GET_PEER_EVALUATION = gql`
   }
 `;
 
+const GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE = gql`
+  query PeerEvaluationStudentTeamCalculatedResultsTable(
+    $where: PeerEvaluationStudentTeamCalculatedResultsTableWhereInput!
+  ) {
+    peerEvaluationStudentTeamCalculatedResultsTable(where: $where) {
+      studentsColumnList {
+        name
+        label
+      }
+      table
+      teamName
+      updatedAt
+      mark
+    }
+  }
+`;
+
 const CREATE_PEER_EVALUATION = gql`
   mutation CreatePeerEvaluation($data: PeerEvaluationCreateInput!) {
     createPeerEvaluation(data: $data) {
@@ -670,6 +687,7 @@ export {
   GET_PEER_EVALUATION_COLUMNS,
   GET_PEER_EVALUATION_EMAIL_REMINDER,
   GET_PEER_EVALUATION_STATUS,
+  GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE,
   GET_PEER_EVALUATION_STUDENT_TEAM_EXIST,
   GET_PEER_EVALUATION_STUDENT_TEAMS,
   GET_PEER_EVALUATION_TABLE_STUDENT,

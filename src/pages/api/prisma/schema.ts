@@ -8,6 +8,7 @@ import {
   PeerEvaluationsByLecturerQuery,
 } from "@/pages/api/resolvers/peer-evaluation";
 import { PeerEvaluationStudentsLecturerMark } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
+import { PeerEvaluationStudentTeamCalculatedResultsTable } from "@/pages/api/resolvers/peer-evaluation-student-team-calculated-results-table";
 import { UpsertPeerEvaluationTableLecturer } from "@/pages/api/resolvers/peer-evaluation-table-lecturer";
 import { PeerEvaluationTableStudentLecturerQuery } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
 import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/peer-evaluation-table-student-mutation";
@@ -16,6 +17,7 @@ import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/peer-eval
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    PeerEvaluationStudentTeamCalculatedResultsTable,
     PeerEvaluationTableStudentLecturerQuery,
     PeerEvaluationStudentsLecturerMark,
     UpdatePeerEvaluationTableStudentData,

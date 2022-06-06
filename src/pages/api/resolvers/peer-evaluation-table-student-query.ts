@@ -170,7 +170,7 @@ class PeerEvaluationTableStudentQuery {
         PeerEvaluationReviewees: {
           orderBy: {
             studentReviewed: {
-              id: "asc",
+              studentName: "asc",
             },
           },
           select: {
