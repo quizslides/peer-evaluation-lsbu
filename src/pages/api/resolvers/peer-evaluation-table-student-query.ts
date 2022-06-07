@@ -186,6 +186,7 @@ class PeerEvaluationTableStudentQuery {
                     email: true,
                   },
                 },
+                studentName: true,
               },
             },
             peerEvaluationReviewId: true,

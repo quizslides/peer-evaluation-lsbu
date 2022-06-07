@@ -565,7 +565,10 @@ const CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS = gql`
 `;
 
 const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
-  query PeerEvaluationTableStudent($where: PeerEvaluationTableStudentWhereInput!) {
+  query PeerEvaluationTableStudent(
+    $where: PeerEvaluationTableStudentWhereInput!
+    $orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+  ) {
     peerEvaluationTableStudent(where: $where) {
       readOnly
       visible
@@ -588,7 +591,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
             id
           }
         }
-        PeerEvaluationReviewees {
+        PeerEvaluationReviewees(orderBy: $orderBy) {
           id
           criteriaScoreTotal
           studentReviewedId

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
@@ -12,17 +12,16 @@ import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-e
 import updatePeerEvaluationTableStudent from "@/requests/direct/mutation/updatePeerEvaluationTableStudent";
 import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
 import { getSanitizedPeerEvaluationTableOnUpdate } from "@/transformers/peer-evaluation-student-table";
+import { NextPagePros } from "@/types/pages";
 import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
 import { ObjectArrayOfObject, ObjectNormalizedType, getNormalizedObjectArray } from "@/utils/form";
 
 const testId = "page-student-peer";
 
-const StudentPeerEvaluation: NextPage = () => {
+const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
   const apolloClient = useApolloClient();
 
   const { query } = useRouter();
-
-  const { data: session, status } = useSession();
 
   const [peerEvaluationCode, setPeerEvaluationCode] = useState<string | null>(null);
 
@@ -57,7 +56,7 @@ const StudentPeerEvaluation: NextPage = () => {
     }
   };
 
-  const isLoading = status === "loading" || loadingFetch || !peerEvaluationTableData;
+  const isLoading = loadingFetch || !peerEvaluationTableData;
 
   useEffect(() => {
     const slug = query.slug;
@@ -77,6 +76,13 @@ const StudentPeerEvaluation: NextPage = () => {
             peerEvaluationCode: peerEvaluationCode,
             userId: session.user.id,
           },
+          orderBy: [
+            {
+              studentReviewed: {
+                studentName: "asc",
+              },
+            },
+          ],
         },
       });
     }
@@ -96,24 +102,25 @@ const StudentPeerEvaluation: NextPage = () => {
         variant="h4"
         margin="2em"
       />
-      {peerEvaluationTableData && (
-        <PeerEvaluationStudentTable onSubmit={onSubmitPeerEvaluation} data={peerEvaluationTableData} />
+      {peerEvaluationTableData && session && (
+        <PeerEvaluationStudentTable
+          onSubmit={onSubmitPeerEvaluation}
+          session={session}
+          data={peerEvaluationTableData}
+        />
       )}
     </Base>
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER, RoleScope.STUDENT],
     },
   };
-};
+}
 
 export default StudentPeerEvaluation;

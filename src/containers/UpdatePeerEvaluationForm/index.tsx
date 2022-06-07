@@ -2,7 +2,6 @@ import React, { memo, useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 
 import LoadingContainer from "@/containers/LoadingContainer";
 import { PeerEvaluationForm } from "@/forms";
@@ -21,9 +20,10 @@ interface IUpdateUserForm {
   onCancel: () => void;
   setError: () => void;
   peerEvaluationId: string;
+  session: Session;
 }
 
-const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluationId }: IUpdateUserForm) => {
+const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluationId, session }: IUpdateUserForm) => {
   const apolloClient = useApolloClient();
 
   const [peerEvaluationValues, setPeerEvaluationValues] = useState<IPeerEvaluationData | null>(null);
@@ -31,8 +31,6 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
   const [isPeerEvaluationViewOnly, setPeerEvaluationViewOnly] = useState<boolean | null>(null);
 
   const [getPeerEvaluations, { loading: loadingFetch, error, data }] = useGetPeerEvaluation("UpdatePeerEvaluation");
-
-  const { data: session, status } = useSession();
 
   const submitForm = async (valuesForm: IPeerEvaluationData) => {
     loadingNotification("Updating peer evaluation", "UpdatePeerEvaluationForm");
@@ -72,7 +70,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
     return false;
   };
 
-  const isLoading = status === "loading" || loadingFetch || !peerEvaluationValues;
+  const isLoading = loadingFetch || !peerEvaluationValues;
 
   useEffect(() => {
     getPeerEvaluations({
@@ -135,6 +133,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
       peerEvaluationTeachingMembers={peerEvaluationValues.peerEvaluationTeachingMembers}
       onSubmitForm={submitForm}
       onCancelForm={onCancel}
+      session={session}
     />
   );
 };

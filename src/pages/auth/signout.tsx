@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 
-import type { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
+import type { NextPage, NextPageContext } from "next";
+import { getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { LoadingContainer } from "@/containers";
+import { NextPagePros } from "@/types/pages";
 import { loadingNotification, successNotification } from "@/utils";
 
-const SignOut: NextPage = () => {
+const SignOut: NextPage<NextPagePros> = ({ session }) => {
   const router = useRouter();
-
-  const { data: session } = useSession();
 
   useEffect(() => {
     const notificationsId = loadingNotification("Closing your session...", "signOut");
@@ -28,5 +27,13 @@ const SignOut: NextPage = () => {
 
   return null;
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  return {
+    props: {
+      session: await getSession(context),
+    },
+  };
+}
 
 export default SignOut;

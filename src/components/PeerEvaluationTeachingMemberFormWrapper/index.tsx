@@ -5,7 +5,7 @@ import { User } from "@generated/type-graphql";
 import { FormControl, FormHelperText } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 import { Button, ConfirmationDialog, DataTable, DataTableAddActionButtonIcon, Error } from "@/components";
 import CreatePeerEvaluationTeachingMemberForm from "@/containers/CreatePeerEvaluationTeachingMemberForm";
@@ -29,6 +29,7 @@ interface IPeerEvaluationTeachingMemberContainer {
   testId: string;
   name: string;
   isDisabled: boolean;
+  session: Session;
 }
 
 const Wrapper = styled.div`
@@ -48,9 +49,8 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
   helperText,
   name,
   isDisabled,
+  session,
 }: IPeerEvaluationTeachingMemberContainer) => {
-  const { data: session } = useSession();
-
   const { setFieldValue } = useFormikContext();
 
   const [field, meta] = useField(name);

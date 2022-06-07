@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsDataTable } from "@/containers";
 import useGetPeerEvaluationsAdmin from "@/requests/hooks/query/useGetPeerEvaluationsAdmin";
 import routing from "@/routing";
 import { sanitizePeerEvaluationsDataOnFetch } from "@/transformers/peer-evaluation";
+import { NextPagePros } from "@/types/pages";
 import { IPeerEvaluationData } from "@/types/peer-evaluation";
 import { RoleScope } from "@/utils";
 
-const PeerEvaluationsAdmin: NextPage = () => {
-  const { data: session, status } = useSession();
-
+const PeerEvaluationsAdmin: NextPage<NextPagePros> = ({ session }) => {
   const {
     data,
     loading: loadingQuery,
@@ -20,7 +19,7 @@ const PeerEvaluationsAdmin: NextPage = () => {
     refetch: runRefreshPeerEvaluations,
   } = useGetPeerEvaluationsAdmin("GetPeerEvaluationsAdmin");
 
-  const loading = status === "loading" || loadingQuery;
+  const loading = !session || loadingQuery;
 
   const [peerEvaluationsData, setPeerEvaluationsData] = useState<IPeerEvaluationData[]>([]);
 
@@ -45,13 +44,14 @@ const PeerEvaluationsAdmin: NextPage = () => {
   );
 };
 
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN],
     },
   };
-};
+}
 
 export default PeerEvaluationsAdmin;

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import { Container } from "@mui/material";
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
@@ -13,16 +13,15 @@ import { EmailReminder } from "@/forms/PeerEvaluationEmailReminderForm";
 import updatePeerEvaluationEmail from "@/requests/direct/mutation/updatePeerEvaluationEmail";
 import useGetPeerEvaluationEmailReminder from "@/requests/hooks/query/useGetPeerEvaluationEmailReminder";
 import routing from "@/routing";
+import { NextPagePros } from "@/types/pages";
 import { RoleScope, errorNotification, successNotification } from "@/utils";
 
-const PeerEvaluationEmail: NextPage = () => {
-  const { data: session, status } = useSession();
-
+const PeerEvaluationEmail: NextPage<NextPagePros> = ({ session }) => {
   const { push, query, isFallback } = useRouter();
 
   const apolloClient = useApolloClient();
 
-  const loadingSession = status === "loading" || !!session;
+  const loadingSession = !!session;
 
   const [isRedirecting, setRedirecting] = useState(false);
 
@@ -109,17 +108,14 @@ const PeerEvaluationEmail: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
   };
-};
+}
 
 export default PeerEvaluationEmail;

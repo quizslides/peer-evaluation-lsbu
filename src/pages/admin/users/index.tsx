@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useApolloClient } from "@apollo/client";
 import { User } from "@generated/type-graphql";
 import MUIDataTable, { DisplayData, MUIDataTableOptions } from "mui-datatables";
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import type { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError, object } from "yup";
 
@@ -26,6 +26,7 @@ import updateManyUsers from "@/requests/direct/mutation/updateManyUsers";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
 import useDeleteManyUser from "@/requests/hooks/mutations/useDeleteManyUser";
 import useGetUsers from "@/requests/hooks/query/useGetUsers";
+import { NextPagePros } from "@/types/pages";
 import { IUserData, initialUserState } from "@/types/user";
 import {
   errorNotification,
@@ -47,9 +48,7 @@ enum BulkUserAction {
   CREATE = "CREATE",
 }
 
-const UsersAdmin: NextPage = () => {
-  const { data: session } = useSession();
-
+const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
   const apolloClient = useApolloClient();
 
   const { data, loading, error, refetch } = useGetUsers();
@@ -627,13 +626,14 @@ const UsersAdmin: NextPage = () => {
   );
 };
 
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN],
     },
   };
-};
+}
 
 export default UsersAdmin;
