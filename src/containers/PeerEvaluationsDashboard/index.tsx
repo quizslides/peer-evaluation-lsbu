@@ -34,6 +34,8 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
 
   const peerEvaluationCode = data.code;
 
+  const peerEvaluationStatus = data.status;
+
   const [isDeletePeerEvaluationOpen, setDeletePeerEvaluationConfirmationOpen] = useState(false);
 
   const isOwnerRole = data.peerEvaluationTeachingMembers
@@ -100,7 +102,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     },
     {
       name: "studentURL",
-      label: "Student URL",
+      label: "Peer Evaluation Student URL",
       options: {
         // eslint-disable-next-line react/no-multi-comp
         customBodyRender: () => (
@@ -110,6 +112,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             onClick={copyPeerEvaluationStudentURLToClipboard}
             size="medium"
             startIcon={<CopyIcon testId="" fontSize="small" color="inherit" />}
+            disabled={peerEvaluationStatus === "DRAFT"}
           >
             Copy
           </Button>
