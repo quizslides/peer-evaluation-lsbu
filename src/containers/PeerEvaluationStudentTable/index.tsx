@@ -220,7 +220,6 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
                   label: "Comment",
                   type: "text",
                   multiline: true,
-                  rows: 3,
                   variant: "outlined",
                   disabled: isReadOnly,
                 }}
