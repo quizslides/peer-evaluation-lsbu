@@ -113,7 +113,13 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
       ),
       comments: array().of(
         object().shape({
-          comment: string().required("comment is required"),
+          comment: string()
+            .min(1, "Comment is required")
+            .max(500, "Only 500 characters allowed")
+            .required("Comment is required")
+            .transform((currentValue, originalValue) => {
+              return originalValue === null ? "" : currentValue;
+            }),
         })
       ),
       ...Object.assign(...columnsReviewerValidation),
@@ -147,13 +153,16 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
         name: "studentName",
         label: "Student Name",
         options: {
-          customBodyRender: (value) => <FieldWrapper marginBottom="3em">{value}</FieldWrapper>,
+          setCellProps: () => ({ style: { minWidth: "100px", width: "100px" } }),
+          setCellHeaderProps: () => ({ align: "center" }),
+          customBodyRender: (value) => <FieldWrapper marginBottom="1em">{value}</FieldWrapper>,
         },
       },
       {
         name: "criteriaScoreTotal",
         label: "Total",
         options: {
+          setCellProps: () => ({ style: { minWidth: "5px", width: "5px" } }),
           customBodyRender: (value, tableMeta, updateValue) => {
             const { rowIndex, currentTableData } = tableMeta;
 
@@ -175,13 +184,15 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
             }
 
             return (
-              <CriteriaScoreTotalFormDataTable
-                name={`criteriaScoreTotals[${tableMeta.rowIndex}].criteriaScoreTotal`}
-                testId={""}
-                initialValue={value}
-                updatedValue={criteriaScoreRow.toString()}
-                updateDataTableFormValue={updateValue}
-              />
+              <FieldWrapper marginBottom="1em">
+                <CriteriaScoreTotalFormDataTable
+                  name={`criteriaScoreTotals[${tableMeta.rowIndex}].criteriaScoreTotal`}
+                  testId={""}
+                  initialValue={value}
+                  updatedValue={criteriaScoreRow.toString()}
+                  updateDataTableFormValue={updateValue}
+                />
+              </FieldWrapper>
             );
           },
         },
@@ -191,8 +202,10 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
         label: "Comment",
         options: {
           display: true,
+          setCellProps: () => ({ style: { minWidth: "200px", width: "200px" } }),
+          setCellHeaderProps: () => ({ align: "center" }),
           customBodyRender: (_, tableMeta, updateValue) => (
-            <FieldWrapper marginBottom="3em">
+            <FieldWrapper marginBottom="1em">
               <TextFieldFormDataTable
                 updateDataTableFormValue={updateValue}
                 validationSchema={validationSchema}
@@ -200,11 +213,14 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
                 testId=""
                 name={`comments[${tableMeta.rowIndex}].comment`}
                 props={{
+                  size: "small",
                   name: `comments[${tableMeta.rowIndex}].comment`,
                   required: true,
                   fullWidth: true,
                   label: "Comment",
                   type: "text",
+                  multiline: true,
+                  rows: 3,
                   variant: "outlined",
                   disabled: isReadOnly,
                 }}
@@ -221,12 +237,15 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
           name: column.id,
           label: column.description,
           options: {
+            setCellProps: () => ({ style: { minWidth: "180px", width: "180px" } }),
+            setCellHeaderProps: () => ({ align: "center" }),
             customBodyRender: (_, tableMeta, updateValue) => (
-              <FieldWrapper marginBottom="3em">
+              <FieldWrapper marginBottom="1em">
                 <SelectFieldFormDataTable
                   name={`${column.id}s[${tableMeta.rowIndex}].${column.id}.criteriaScore`}
                   options={rangeSelectField}
                   props={{
+                    size: "small",
                     name: `${column.id}s[${tableMeta.rowIndex}].${column.id}.criteriaScore`,
                     required: true,
                     label: "Criteria Score",
