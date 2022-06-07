@@ -14,6 +14,7 @@ import DatePickerForm from "@/components/DatePickerForm/DatePickerForm";
 import Dialog from "@/components/Dialog/Dialog";
 import Divider from "@/components/Divider/Divider";
 import Error from "@/components/Error/Error";
+import FormikResetComponent from "@/components/FormikResetComponent/FormikResetComponent";
 import HelpButton from "@/components/HelpButton/HelpButton";
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
 import Link from "@/components/Link/Link";
@@ -52,6 +53,7 @@ export {
   Dialog,
   Divider,
   Error,
+  FormikResetComponent,
   HelpButton,
   IconButtonWrapper,
   Link,

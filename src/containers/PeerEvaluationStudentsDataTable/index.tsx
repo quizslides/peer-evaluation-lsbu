@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
@@ -9,6 +9,7 @@ import {
   Button,
   DataTable,
   DataTableRefreshActionButtonIcon,
+  FormikResetComponent,
   IconButtonWrapper,
   TextFieldFormDataTable,
   WarningUnsavedForm,
@@ -54,6 +55,10 @@ const PeerEvaluationStudentsDataTable = ({
   const { push } = useRouter();
 
   const [isRedirecting, setRedirecting] = useState(false);
+
+  const [tableData, setTableData] = useState<[IPeerEvaluationStudent] | [] | null>(null);
+
+  const [dataTableFormValues, setDataTableFormValues] = useState<IStudentLecturerMarkTable | [] | null>(null);
 
   const [updatePeerEvaluationStudentsLecturerMark] = useUpdatePeerEvaluationStudentsLecturerMark(
     "UpdatePeerEvaluationStudentsLecturerMark"
@@ -280,7 +285,7 @@ const PeerEvaluationStudentsDataTable = ({
     ),
   };
 
-  const onSubmitStudentLecturerMarks = async (data: IStudentLecturerMarkTable) => {
+  const onSubmitStudentLecturerMarks = async (data: IStudentLecturerMarkTable | []) => {
     const studentLecturerMarks = getNormalizedObjectArray(
       data as unknown as ObjectNormalizedType
     ) as IStudentLecturerMark[];
@@ -301,28 +306,37 @@ const PeerEvaluationStudentsDataTable = ({
     await onRefreshStudents();
   };
 
-  const isLoading = !data || isRedirecting;
+  const isLoading = !!!tableData || isRedirecting;
 
-  if (isLoading) {
+  useEffect(() => {
+    setTableData(data);
+
+    const tableInitialForm = {
+      ids: objectToArrayOfObject("id", data as unknown as ObjectArray),
+      lecturerAdjustedMarks: objectToArrayOfObject("lecturerAdjustedMark", data as unknown as ObjectArray),
+    };
+
+    setDataTableFormValues(tableInitialForm);
+  }, [data, tableData]);
+
+  if (isLoading || !dataTableFormValues) {
     return <LoadingContainer loading />;
   }
 
   return (
     <Formik
-      initialValues={{
-        ids: objectToArrayOfObject("id", data as unknown as ObjectArray),
-        lecturerAdjustedMarks: objectToArrayOfObject("lecturerAdjustedMark", data as unknown as ObjectArray),
-      }}
+      initialValues={dataTableFormValues}
       validationSchema={validationSchema}
       onSubmit={(data) => onSubmitStudentLecturerMarks(data)}
     >
       {({ dirty }) => (
         <Form>
+          <FormikResetComponent data={dataTableFormValues} />
           <WarningUnsavedForm areChangesUnsaved={dirty} />
           <DataTable
             testId={"peer-evaluation-students-datatable"}
-            isVisible={!!data}
-            data={data}
+            isVisible={!!tableData}
+            data={tableData}
             columns={dataTableColumns}
             options={dataTableOptions}
           />
