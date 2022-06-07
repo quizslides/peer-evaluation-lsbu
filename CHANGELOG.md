@@ -2,6 +2,22 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.14...v1.0.0-staging.15) (2022-06-07)
+
+
+### Features
+
+* adding endpoint and button to calculate marks by request ([083952b](https://github.com/quizslides/peer-evaluation-lsbu/commit/083952b60afc5a3e719ba3ee0c48f1893efda4ed))
+* adding page to view results of the peer evaluation of the team ([448ff55](https://github.com/quizslides/peer-evaluation-lsbu/commit/448ff556295d78afeccc291eb0aab1ee2e44808d))
+* adding Peer Evaluation Student URL to peer evaluation dashboard ([5b7a2f6](https://github.com/quizslides/peer-evaluation-lsbu/commit/5b7a2f68d97650d49c0a2a5897e06a1bfe8bc1bf))
+
+
+### Bug Fixes
+
+* adding component to reset formik state when data of the form has been updated ([96ae6ee](https://github.com/quizslides/peer-evaluation-lsbu/commit/96ae6ee79a9cf951f1a3de9388cf68b4f0230da5))
+* adding ssr to session to fix refetching to backend unnecessarily ([979c4b4](https://github.com/quizslides/peer-evaluation-lsbu/commit/979c4b4b893c91adf5eb7344d3683e3262ff831d))
+* fixing deleting peer evaluation as admin ([2de452e](https://github.com/quizslides/peer-evaluation-lsbu/commit/2de452e72b849d8ef783f13401ec516346e02295))
+
 ## [1.0.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.13...v1.0.0-staging.14) (2022-06-05)
 
 
