@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.15...v1.0.0-staging.16) (2022-06-07)
+
+
+### Features
+
+* removing rows by default on comment field and making it to autosize ([06df07a](https://github.com/quizslides/peer-evaluation-lsbu/commit/06df07a087fc538056ee18eea3dbabc0c3ef6fe3))
+
 ## [1.0.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.14...v1.0.0-staging.15) (2022-06-07)
 
 
