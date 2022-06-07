@@ -2,8 +2,6 @@ import React, { memo, useEffect, useState } from "react";
 
 import { useFormikContext } from "formik";
 
-import { FieldWrapper } from "@/forms/style";
-
 interface ICriteriaScoreTotal {
   name: string;
   testId: string;
@@ -33,11 +31,7 @@ const CriteriaScoreTotalFormDataTable = ({
     setFieldValue(name, Number(criteriaScoreTotal), false);
   }, [criteriaScoreTotal, name, setFieldValue]);
 
-  return (
-    <FieldWrapper data-testid={testId} marginBottom="3em">
-      {criteriaScoreTotal}
-    </FieldWrapper>
-  );
+  return <div data-testid={testId}>{criteriaScoreTotal}</div>;
 };
 
 export default memo(CriteriaScoreTotalFormDataTable);
