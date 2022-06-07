@@ -13,11 +13,13 @@ import {
   TextFieldFormDataTable,
   WarningUnsavedForm,
 } from "@/components";
+import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import LoadingContainer from "@/containers/LoadingContainer";
 import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
 import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
 import useUpdatePeerEvaluationStudentsLecturerMark from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentsLecturerMark";
+import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import routing from "@/routing";
 import { IPeerEvaluationStudent } from "@/transformers/students";
 import { ObjectArray, ObjectNormalizedType, getNormalizedObjectArray, objectToArrayOfObject } from "@/utils/form";
@@ -57,6 +59,9 @@ const PeerEvaluationStudentsDataTable = ({
     "UpdatePeerEvaluationStudentsLecturerMark"
   );
 
+  const [updatePeerEvaluationStudentTeamCalculateResultsTable] =
+    useUpdatePeerEvaluationStudentTeamCalculateResultsTable("UpdatePeerEvaluationStudentTeamCalculateResultsTable");
+
   const validationSchema = object({
     lecturerAdjustedMarks: array().of(
       object().shape({
@@ -73,6 +78,20 @@ const PeerEvaluationStudentsDataTable = ({
     push({
       pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
     });
+  };
+
+  const onCalculateMarks = async () => {
+    if (peerEvaluationId) {
+      await updatePeerEvaluationStudentTeamCalculateResultsTable({
+        variables: {
+          where: {
+            peerEvaluationId: peerEvaluationId,
+          },
+        },
+      });
+
+      await onRefreshStudents();
+    }
   };
 
   const dataTableColumns: MUIDataTableColumn[] = [
@@ -249,6 +268,11 @@ const PeerEvaluationStudentsDataTable = ({
           testId={"peer-evaluation-students-refresh-icon"}
           toolTipLabel={"Refresh"}
         />
+        <DataTableMarkActionButtonIcon
+          onClick={onCalculateMarks}
+          testId={"-refresh-peer-evaluation-table"}
+          toolTipLabel={"Calculate Marks"}
+        />
         <IconButtonWrapper type="submit" testId={""} tooltip={"Save"} disabled={isReadOnly}>
           <SaveIcon testId="" fontSize="medium" color="inherit" />
         </IconButtonWrapper>
@@ -273,7 +297,8 @@ const PeerEvaluationStudentsDataTable = ({
         },
       },
     });
-    onRefreshStudents();
+
+    await onRefreshStudents();
   };
 
   const isLoading = !data || isRedirecting;

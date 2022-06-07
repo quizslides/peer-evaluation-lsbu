@@ -177,7 +177,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
       studentsColumnList: studentsColumnList,
       table: JSON.stringify([...studentsData, ...peerEvaluationStudentTeamDataCalculationRows]),
       teamName: peerEvaluationStudentTeamName,
-      updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleDateString("en-GB"),
+      updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
       mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,
     };
   }

@@ -155,6 +155,27 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
   });
 };
 
+const getPeerEvaluationStudentTeamIdByName = async (
+  peerEvaluationId: string,
+  peerEvaluationStudentTeamName: string
+) => {
+  return (
+    await prisma.peerEvaluationStudentTeam.findFirst({
+      select: {
+        id: true,
+      },
+      where: {
+        name: {
+          equals: peerEvaluationStudentTeamName,
+        },
+        peerEvaluationId: {
+          equals: peerEvaluationId,
+        },
+      },
+    })
+  )?.id;
+};
+
 const getMaxMarkIncreaseStudent = (teamMark: number, maxMarkIncrease: number) => teamMark + maxMarkIncrease;
 
 const getMaxMarkDecreaseStudent = (teamMark: number, maxMarkDecrease: number) =>
@@ -513,6 +534,7 @@ const saveCalculatedResultsPeerEvaluationTeam = async (
 
 export {
   getPeerEvaluationStudentMarksByTeam,
+  getPeerEvaluationStudentTeamIdByName,
   saveCalculatedResultsPeerEvaluationTeam,
   updatePeerEvaluationStudentTeamResultsByStudent,
 };

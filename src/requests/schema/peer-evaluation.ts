@@ -34,6 +34,30 @@ const UPDATE_PEER_EVALUATION_STUDENT_TEAM = gql`
   }
 `;
 
+const UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE = gql`
+  mutation PeerEvaluationStudentTeamCalculateResultsTable(
+    $where: PeerEvaluationStudentTeamCalculateResultsTableWhereInput!
+  ) {
+    peerEvaluationStudentTeamCalculateResultsTable(where: $where) {
+      code
+      completed
+      message
+    }
+  }
+`;
+
+const UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE_BY_TEAM = gql`
+  mutation PeerEvaluationStudentTeamCalculateResultsTableByTeam(
+    $where: PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput!
+  ) {
+    peerEvaluationStudentTeamCalculateResultsTableByTeam(where: $where) {
+      completed
+      message
+      code
+    }
+  }
+`;
+
 const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
   mutation UpdatePeerEvaluationTableStudent($where: UpdatePeerEvaluationTableStudentDataInputList!) {
     updatePeerEvaluationTableStudent(where: $where) {
@@ -703,6 +727,8 @@ export {
   UPDATE_PEER_EVALUATION_EMAIL,
   UPDATE_PEER_EVALUATION_STUDENT,
   UPDATE_PEER_EVALUATION_STUDENT_TEAM,
+  UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE,
+  UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE_BY_TEAM,
   UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK,
   UPDATE_PEER_EVALUATION_TABLE_STUDENT,
   UPSERT_PEER_EVALUATION_TABLE_LECTURER,

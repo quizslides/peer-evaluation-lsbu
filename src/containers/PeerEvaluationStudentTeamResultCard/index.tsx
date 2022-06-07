@@ -14,9 +14,9 @@ const PeerEvaluationStudentTeamResultCard = ({ teamName, mark, updatedAt }: Peer
   return (
     <Card sx={{ minWidth: 275, width: 275, marginBottom: "3px" }}>
       <CardContent>
-        <Typography>{`Team Name: ${teamName}`}</Typography>
-        <Typography>{`Mark: ${mark || "Not available"}`}</Typography>
-        <Typography>{`Last Updated: ${updatedAt || "Not available"}`}</Typography>
+        <Typography fontSize={14}>{`Team Name: ${teamName}`}</Typography>
+        <Typography fontSize={14}>{`Mark: ${mark || "Not available"}`}</Typography>
+        <Typography fontSize={14}>{`Last Updated: ${updatedAt || "Not available"}`}</Typography>
       </CardContent>
     </Card>
   );

@@ -5,7 +5,9 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { Base, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
+import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
+import useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam";
 import useGetPeerEvaluationStudentTeamCalculatedResultsTable from "@/requests/hooks/query/useGetPeerEvaluationStudentTeamCalculatedResultsTable";
 import { RoleScope } from "@/utils";
 
@@ -13,6 +15,11 @@ const testId = "page-report-team";
 
 const ReportTeam: NextPage = () => {
   const { query } = useRouter();
+
+  const [updatePeerEvaluationStudentTeamCalculateResultsTableByTeam] =
+    useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam(
+      "UpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam"
+    );
 
   const [getPeerEvaluationStudentTeamCalculatedResultsTable, { loading: loadingQuery, error, data, refetch }] =
     useGetPeerEvaluationStudentTeamCalculatedResultsTable("GetPeerEvaluationStudentTeamCalculatedResultsTable");
@@ -52,22 +59,44 @@ const ReportTeam: NextPage = () => {
       filename: `peer_evaluation_${peerEvaluationId}_team_${peerEvaluationTeamName}_${new Date().getTime()}.csv`,
     },
     customToolbar: (_) => (
-      <DataTableRefreshActionButtonIcon
-        onClick={onRefreshTable}
-        testId={`${testId}-refresh-peer-evaluation-table`}
-        toolTipLabel={"Refresh"}
-      />
+      <>
+        <DataTableMarkActionButtonIcon
+          onClick={onCalculateMarks}
+          testId={`${testId}-refresh-peer-evaluation-table`}
+          toolTipLabel={"Calculate Marks"}
+        />
+        <DataTableRefreshActionButtonIcon
+          onClick={onRefreshTable}
+          testId={`${testId}-refresh-peer-evaluation-table`}
+          toolTipLabel={"Refresh"}
+        />
+      </>
     ),
   };
 
-  const onRefreshTable = () => {
+  const onRefreshTable = async () => {
     if (peerEvaluationId && peerEvaluationTeamName) {
-      refetch({
+      await refetch({
         where: {
           peerEvaluationId: peerEvaluationId,
           peerEvaluationStudentTeamName: peerEvaluationTeamName,
         },
       });
+    }
+  };
+
+  const onCalculateMarks = async () => {
+    if (peerEvaluationId && peerEvaluationTeamName) {
+      await updatePeerEvaluationStudentTeamCalculateResultsTableByTeam({
+        variables: {
+          where: {
+            peerEvaluationId: peerEvaluationId,
+            peerEvaluationStudentTeamName: peerEvaluationTeamName,
+          },
+        },
+      });
+
+      await onRefreshTable();
     }
   };
 
