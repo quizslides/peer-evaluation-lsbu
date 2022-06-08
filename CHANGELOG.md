@@ -2,6 +2,82 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.17...v1.0.0-staging.18) (2022-06-08)
+
+
+### Features
+
+* adding flow to calculated marks page ([f9311d4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f9311d4f101ea8e7e9dce6529d009f8dcced9355))
+* adding hash to schema.prisma to avoid failing pipeline when there is a new migration ([f98f11e](https://github.com/quizslides/peer-evaluation-lsbu/commit/f98f11ec6f17fde93bc5525f8c90f2591a718706))
+* adding migration for isInvalid to isValid on the peer evaluation table ([0f5592a](https://github.com/quizslides/peer-evaluation-lsbu/commit/0f5592a88a35ee9b48ab7d7011a5337d37f3c559))
+* increasing timeout to test jobs on the pipeline to 20 minutes ([b8a3afd](https://github.com/quizslides/peer-evaluation-lsbu/commit/b8a3afdb30021176aeb7d554e4ae132d2517c289))
+
+
+### Bug Fixes
+
+* fixing deleting peer evaluation as admin ([6b1e90e](https://github.com/quizslides/peer-evaluation-lsbu/commit/6b1e90e06ccb53b53cd63046df49928465cb9f73))
+* fixing github action template for hashing cache during runtime ([dbef42e](https://github.com/quizslides/peer-evaluation-lsbu/commit/dbef42e956a109d50355104161fc8be8032a503e))
+* fixing the expression is not closed as an unescaped ([32b15c0](https://github.com/quizslides/peer-evaluation-lsbu/commit/32b15c0b88f4ec0f7c92f70aadb98157d0160004))
+
+## [1.0.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.16...v1.0.0-staging.17) (2022-06-08)
+
+
+### Features
+
+* adding validation for peer evaluation to query the table as a student ([5664624](https://github.com/quizslides/peer-evaluation-lsbu/commit/5664624ad878c129717e1c23fa5f95bd3944316d))
+
+
+### Bug Fixes
+
+* fixing team name is too long with a max 330 characters for the team name field ([17a3ceb](https://github.com/quizslides/peer-evaluation-lsbu/commit/17a3ceb0bff4b74203b0010abc2485bfea1c762b))
+
+## [1.0.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.15...v1.0.0-staging.16) (2022-06-07)
+
+
+### Features
+
+* removing rows by default on comment field and making it to autosize ([06df07a](https://github.com/quizslides/peer-evaluation-lsbu/commit/06df07a087fc538056ee18eea3dbabc0c3ef6fe3))
+
+## [1.0.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.14...v1.0.0-staging.15) (2022-06-07)
+
+
+### Features
+
+* adding endpoint and button to calculate marks by request ([083952b](https://github.com/quizslides/peer-evaluation-lsbu/commit/083952b60afc5a3e719ba3ee0c48f1893efda4ed))
+* adding page to view results of the peer evaluation of the team ([448ff55](https://github.com/quizslides/peer-evaluation-lsbu/commit/448ff556295d78afeccc291eb0aab1ee2e44808d))
+* adding Peer Evaluation Student URL to peer evaluation dashboard ([5b7a2f6](https://github.com/quizslides/peer-evaluation-lsbu/commit/5b7a2f68d97650d49c0a2a5897e06a1bfe8bc1bf))
+
+
+### Bug Fixes
+
+* adding component to reset formik state when data of the form has been updated ([96ae6ee](https://github.com/quizslides/peer-evaluation-lsbu/commit/96ae6ee79a9cf951f1a3de9388cf68b4f0230da5))
+* adding ssr to session to fix refetching to backend unnecessarily ([979c4b4](https://github.com/quizslides/peer-evaluation-lsbu/commit/979c4b4b893c91adf5eb7344d3683e3262ff831d))
+* fixing deleting peer evaluation as admin ([2de452e](https://github.com/quizslides/peer-evaluation-lsbu/commit/2de452e72b849d8ef783f13401ec516346e02295))
+
+## [1.0.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.13...v1.0.0-staging.14) (2022-06-05)
+
+
+### Bug Fixes
+
+* removing pagination from peer evaluation table ([cf2b9bb](https://github.com/quizslides/peer-evaluation-lsbu/commit/cf2b9bb73b209d6b5b32db8a4e150d401c7b4b8a))
+
+
+### Code Refactoring
+
+* renaming results on students table to peer evaluation ([7041c12](https://github.com/quizslides/peer-evaluation-lsbu/commit/7041c123dc50290210121c88184db5ea177f12c4))
+
+## [1.0.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.12...v1.0.0-staging.13) (2022-06-05)
+
+
+### Bug Fixes
+
+* adding myself to peer evaluation student table ([d6bf068](https://github.com/quizslides/peer-evaluation-lsbu/commit/d6bf06834d34825bc09b36b7b5d3172ed6b3ec91))
+* adding pagination to table of teams and students ([f32981a](https://github.com/quizslides/peer-evaluation-lsbu/commit/f32981a81989be73e48fd74d9fbeeb88dce1affe))
+* adding pagination to tables with default of 10 ([5216a95](https://github.com/quizslides/peer-evaluation-lsbu/commit/5216a9595353863eb5c389d4a19034cfdcff872d))
+* adding pool to smpt conneciton ([8ea03a2](https://github.com/quizslides/peer-evaluation-lsbu/commit/8ea03a25fb837be56829c999b5f948450ac3a6c3))
+* adding smtp pool to email transport ([6b63437](https://github.com/quizslides/peer-evaluation-lsbu/commit/6b634372a004b319b789eb10fb9af658e016b7b6))
+* fixing wrong redirect to total teaching member ([03340ee](https://github.com/quizslides/peer-evaluation-lsbu/commit/03340eef209afb97d9caeccc818ee37fadbe6025))
+
 ## [1.0.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.11...v1.0.0-staging.12) (2022-06-03)
 
 

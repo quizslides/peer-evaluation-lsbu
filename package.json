@@ -1,7 +1,7 @@
 {
   "name": "peer-evaluation-lsbu",
   "description": "The full stack web app of the Peer Evaluation App of LSBU",
-  "version": "1.0.0-staging.12",
+  "version": "1.0.0-staging.18",
   "private": true,
   "author": "Juan Carlos Blanco Delgado <juancarlosjr97@gmail.com>",
   "license": "UNLICENSED",
@@ -83,6 +83,7 @@
     "graphql": "15.3.0",
     "graphql-fields": "2.0.3",
     "graphql-middleware": "6.0.9",
+    "graphql-scalars": "^1.17.0",
     "graphql-shield": "7.5.0",
     "liquidjs": "^9.34.0",
     "lodash": "^4.17.21",

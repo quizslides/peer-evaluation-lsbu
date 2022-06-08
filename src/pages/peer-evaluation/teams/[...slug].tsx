@@ -18,12 +18,14 @@ import {
   TextFieldFormDataTable,
   WarningUnsavedForm,
 } from "@/components";
+import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import { FieldWrapper } from "@/forms/style";
 import client from "@/graphql/client";
 import deletePeerEvaluationStudentTeam from "@/requests/direct/mutation/deletePeerEvaluationStudentTeam";
 import peerEvaluationStudentTeamExist from "@/requests/direct/query/peerEvaluationStudentTeamExist";
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
+import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import useGetPeerEvaluationStudentTeams from "@/requests/hooks/query/useGetPeerEvaluationStudentTeams";
 import routing from "@/routing";
 import { ArrayObject } from "@/types/object";
@@ -71,6 +73,9 @@ const Teams: NextPage = () => {
     "useGetPeerEvaluationStudentTeams"
   );
 
+  const [updatePeerEvaluationStudentTeamCalculateResultsTable] =
+    useUpdatePeerEvaluationStudentTeamCalculateResultsTable("UpdatePeerEvaluationStudentTeamCalculateResultsTable");
+
   const [deletePeerEvaluationStudentTeamId, setDeletePeerEvaluationStudentTeamId] = useState<string | null>(null);
 
   const [isDeletePeerEvaluationStudentTeamConfirmationOpen, setDeletePeerEvaluationStudentTeamConfirmationOpen] =
@@ -94,6 +99,20 @@ const Teams: NextPage = () => {
     name: string;
     mark: string;
   }
+
+  const onCalculateMarks = async () => {
+    if (peerEvaluationId) {
+      await updatePeerEvaluationStudentTeamCalculateResultsTable({
+        variables: {
+          where: {
+            peerEvaluationId: peerEvaluationId,
+          },
+        },
+      });
+
+      await refetch();
+    }
+  };
 
   const onDeletePeerEvaluationColumnAccept = async () => {
     loadingNotification("Deleting team", "DeletePeerEvaluationStudentTeam");
@@ -134,8 +153,8 @@ const Teams: NextPage = () => {
     names: array().of(
       object().shape({
         name: string()
-          .min(2, "Team name too short")
-          .max(20, "Team name too long")
+          .min(2, "Team name is too short")
+          .max(330, "Team name is too long")
           .required("Team name is required")
           .test({
             name: "unique-peer-evaluation-team-name",
@@ -276,9 +295,16 @@ const Teams: NextPage = () => {
     },
     rowsPerPage: 100,
     customToolbar: (_) => (
-      <Button testId="" variant="contained" type="submit">
-        SAVE
-      </Button>
+      <>
+        <DataTableMarkActionButtonIcon
+          onClick={onCalculateMarks}
+          testId={"-refresh-peer-evaluation-table"}
+          toolTipLabel={"Calculate Marks"}
+        />
+        <Button testId="" variant="contained" type="submit">
+          SAVE
+        </Button>
+      </>
     ),
     customToolbarSelect: (selectedRows, displayData) => (
       <DataTableDeleteActionButtonIcon
@@ -321,6 +347,7 @@ const Teams: NextPage = () => {
     }
   }, [data]);
 
+  // TODO: Remove any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
     const dataModuleNormalized = getNormalizedObjectArray(data as unknown as ObjectNormalizedType);

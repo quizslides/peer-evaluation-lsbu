@@ -32,7 +32,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             <Layout>
               {pageProps.protected ? (
                 <AuthenticatedRoute roles={pageProps.roles}>
-                  <Component {...pageProps} key={router.asPath} />
+                  <Component {...pageProps} key={router.asPath} session={session} />
                 </AuthenticatedRoute>
               ) : (
                 <Component {...pageProps} key={router.asPath} />

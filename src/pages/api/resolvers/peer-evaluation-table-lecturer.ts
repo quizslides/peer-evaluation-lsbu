@@ -68,7 +68,7 @@ class UpsertPeerEvaluationTableLecturer {
         );
 
         const listPeerEvaluationRevieweesStudentToCreate = listPeerEvaluationRevieweesStudent.map((revieweesData) => ({
-          isInvalid: false,
+          isValid: true,
           comment: null,
           criteriaScoreTotal: null,
           studentReviewed: {
@@ -97,6 +97,7 @@ class UpsertPeerEvaluationTableLecturer {
             },
             PeerEvaluationReviewees: {
               create:
+                // TODO: Fix any
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 listPeerEvaluationRevieweesStudentToCreate as unknown as any,
             },

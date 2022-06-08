@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 
 import { Container, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
+import { Session } from "next-auth";
 import { object } from "yup";
 
 import {
@@ -42,6 +43,7 @@ interface IPeerEvaluationForm extends IPeerEvaluationData {
   onCancelForm: () => void;
   isNewPeerEvaluation: boolean;
   isViewOnly: boolean;
+  session: Session;
 }
 
 const PeerEvaluationForm = ({
@@ -49,6 +51,7 @@ const PeerEvaluationForm = ({
   onCancelForm,
   isViewOnly,
   isNewPeerEvaluation,
+  session,
   ...peerEvaluationData
 }: IPeerEvaluationForm) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
@@ -304,6 +307,7 @@ const PeerEvaluationForm = ({
                   testId={"peer-evaluation-form-peer-evaluation-member-field"}
                   name={"peerEvaluationTeachingMembers"}
                   isDisabled={isViewOnly}
+                  session={session}
                 />
               </FieldWrapper>
 

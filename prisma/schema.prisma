@@ -40,7 +40,7 @@ model Session {
   userId       String
 }
 
-// The peer evaluation object
+// The Peer Evaluation Object
 model PeerEvaluation {
   id                            String                         @id @default(cuid())
   createdAt                     DateTime                       @default(now())
@@ -61,7 +61,7 @@ model PeerEvaluation {
   PeerEvaluationStudentTeam     PeerEvaluationStudentTeam[]
 }
 
-// The peer evaluation data of each student
+// The Peer Evaluation Data of each student
 model PeerEvaluationStudent {
   id                               String                       @id @default(cuid())
   createdAt                        DateTime                     @default(now())
@@ -86,7 +86,7 @@ model PeerEvaluationStudent {
   @@unique([userId, peerEvaluationId])
 }
 
-// Full Review Table
+// Peer Evaluation Review Table Data
 model PeerEvaluationStudentReview {
   id                      String                   @id @default(cuid())
   createdAt               DateTime                 @default(now())
@@ -97,7 +97,7 @@ model PeerEvaluationStudentReview {
   isCompleted             Boolean
 }
 
-// Reviewee Row
+// Peer Evaluation Reviewee Row by Reviewee
 model PeerEvaluationReviewee {
   id                           String                         @id @default(cuid())
   createdAt                    DateTime                       @default(now())
@@ -109,10 +109,10 @@ model PeerEvaluationReviewee {
   peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id], onDelete: Cascade)
   peerEvaluationReviewId       String?
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
-  isInvalid                    Boolean
+  isValid                      Boolean
 }
 
-// Reviewee Column
+// Peer Evaluation Reviewee Column
 model PeerEvaluationRevieweeColumn {
   id                       String                 @id @default(cuid())
   createdAt                DateTime               @default(now())
@@ -133,6 +133,7 @@ model PeerEvaluationStudentTeam {
   mark                      Decimal
   peerEvaluation            PeerEvaluation          @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId          String
+  calculatedResults         Json?
 
   @@unique([name, peerEvaluationId])
 }

@@ -116,7 +116,7 @@ const PeerEvaluationsDataTable = ({
       (peerEvaluationTeachingMembers) => peerEvaluationTeachingMembers.userId === session?.user.id
     )[0];
 
-    if (userDeletingPeerEvaluation.role !== PeerEvaluationTeachingMemberRoles.OWNER) {
+    if (session?.user.role !== "ADMIN" && userDeletingPeerEvaluation.role !== PeerEvaluationTeachingMemberRoles.OWNER) {
       errorNotification("You do not have enough permissions to delete this peer evaluation");
       return null;
     }

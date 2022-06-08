@@ -21,7 +21,7 @@ const WelcomeBackText = styled(Typography)`
   font-size: 1rem;
 `;
 
-const HomePage = () => {
+const HomePageContainer = () => {
   const router = useRouter();
 
   const { data: session, status } = useSession();
@@ -79,4 +79,4 @@ const HomePage = () => {
   );
 };
 
-export default memo(HomePage);
+export default memo(HomePageContainer);

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
 import { PeerEvaluationStudentTable } from "@/containers";
 import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
 import useGetPeerEvaluationTableStudentLecturer from "@/requests/hooks/query/useGetPeerEvaluationTableStudentLecturer";
+import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
 
 const testId = "page-student-peer";
 
-const LecturerStudentPeerEvaluation: NextPage = () => {
+const LecturerStudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
   const { query } = useRouter();
 
   const [peerEvaluationTableData, setPeerEvaluationTableData] =
@@ -55,22 +57,21 @@ const LecturerStudentPeerEvaluation: NextPage = () => {
         variant="h4"
         margin="2em"
       />
-      {peerEvaluationTableData && <PeerEvaluationStudentTable onSubmit={() => null} data={peerEvaluationTableData} />}
+      {peerEvaluationTableData && session && (
+        <PeerEvaluationStudentTable onSubmit={() => null} data={peerEvaluationTableData} session={session} />
+      )}
     </Base>
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
   };
-};
+}
 
 export default LecturerStudentPeerEvaluation;

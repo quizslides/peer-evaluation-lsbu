@@ -8,8 +8,8 @@ import {
 } from "@generated/type-graphql";
 import { Prisma } from "@prisma/client";
 import MUIDataTable, { MUIDataTableOptions } from "mui-datatables";
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError } from "yup";
@@ -39,6 +39,7 @@ import getPeerEvaluationStudentTeamExist from "@/requests/direct/query/getPeerEv
 import useGetPeerEvaluationStudents from "@/requests/hooks/query/useGetPeerEvaluationStudents";
 import useGetUserPeerEvaluationTeachingMember from "@/requests/hooks/query/useGetUserPeerEvaluationTeachingMember";
 import { IPeerEvaluationStudent, sanitizePeerEvaluationStudentsDataOnFetch } from "@/transformers/students";
+import { NextPagePros } from "@/types/pages";
 import { IStudentsTeamData } from "@/types/peer-evaluation";
 import { IUserData } from "@/types/user";
 import { RoleScope, errorNotification, loadingNotification, promiseNotification, successNotification } from "@/utils";
@@ -46,9 +47,7 @@ import exampleFile from "@/utils/example-file";
 import { ObjectArray, objectToArrayOfObjectInline } from "@/utils/form";
 import { peerEvaluationStudentsTeams } from "@/utils/validator";
 
-const Students: NextPage = () => {
-  const { data: session } = useSession();
-
+const Students: NextPage<NextPagePros> = ({ session }) => {
   const { query, isFallback } = useRouter();
 
   const apolloClient = useApolloClient();
@@ -587,17 +586,14 @@ const Students: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
   };
-};
+}
 
 export default Students;

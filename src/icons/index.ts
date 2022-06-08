@@ -8,6 +8,7 @@ import DeleteIcon from "@/icons/DeleteIcon/DeleteIcon";
 import EditIcon from "@/icons/EditIcon/EditIcon";
 import EmailIcon from "@/icons/EmailIcon/EmailIcon";
 import EmailSentEmoji from "@/icons/EmailSentEmoji/EmailSentEmoji";
+import GradingIcon from "@/icons/GradingIcon/GradingIcon";
 import GridViewIcon from "@/icons/GridViewIcon/GridViewIcon";
 import GroupIcon from "@/icons/GroupIcon/GroupIcon";
 import GroupsIcon from "@/icons/GroupsIcon/GroupsIcon";
@@ -45,6 +46,7 @@ export {
   EditIcon,
   EmailIcon,
   EmailSentEmoji,
+  GradingIcon,
   GridViewIcon,
   GroupIcon,
   GroupsIcon,

@@ -8,7 +8,7 @@ import Error404 from "@/containers/Error404";
 import Error500 from "@/containers/Error500";
 import ErrorAuth from "@/containers/ErrorAuth";
 import ErrorContainer from "@/containers/ErrorContainer";
-import HomePage from "@/containers/HomePage";
+import HomePageContainer from "@/containers/HomePageContainer";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
@@ -38,7 +38,7 @@ export {
   Error500,
   ErrorAuth,
   ErrorContainer,
-  HomePage,
+  HomePageContainer,
   Layout,
   LoadingContainer,
   Navigation,

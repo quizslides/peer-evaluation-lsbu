@@ -1,10 +1,9 @@
 import React, { memo, useEffect, useState } from "react";
 
 import { PeerEvaluationStudentReview } from "@generated/type-graphql";
-import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 import { array, number, object, string } from "yup";
 import { OptionalObjectSchema } from "yup/lib/object";
 import { AnyObject } from "yup/lib/types";
@@ -20,15 +19,14 @@ import {
   WarningUnsavedForm,
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
-import { VisibilityOffIcon } from "@/icons";
 import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
-import { CenteredContent } from "@/styles";
 import { ObjectArray, getRangeNumberObject, objectToArrayOfObject } from "@/utils/form";
 
 const testId = "container-peer-evaluation-student-table";
 
 interface IPeerEvaluationStudentTable {
   data: PeerEvaluationTableStudentResponse;
+  session: Session;
   onSubmit: (data: IPeerEvaluationStudentTableForm[]) => void;
 }
 
@@ -42,9 +40,7 @@ interface IPeerEvaluationStudentTableForm {
   }[];
 }
 
-const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTable) => {
-  const { data: session } = useSession();
-
+const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluationStudentTable) => {
   const [dataTableColumns, setDataTableColumns] = useState<MUIDataTableColumn[]>([]);
 
   const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
@@ -65,7 +61,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
     rowHover: true,
     download: false,
     print: false,
-    pagination: true,
+    pagination: false,
     filter: false,
     search: false,
     viewColumns: false,
@@ -114,7 +110,13 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
       ),
       comments: array().of(
         object().shape({
-          comment: string().required("comment is required"),
+          comment: string()
+            .min(1, "Comment is required")
+            .max(500, "Only 500 characters allowed")
+            .required("Comment is required")
+            .transform((currentValue, originalValue) => {
+              return originalValue === null ? "" : currentValue;
+            }),
         })
       ),
       ...Object.assign(...columnsReviewerValidation),
@@ -148,17 +150,16 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         name: "studentName",
         label: "Student Name",
         options: {
-          customBodyRender: (value) => (
-            <FieldWrapper marginBottom="3em">{`${value} ${
-              session?.user.name === value ? "(Myself)" : ""
-            }`}</FieldWrapper>
-          ),
+          setCellProps: () => ({ style: { minWidth: "100px", width: "100px" } }),
+          setCellHeaderProps: () => ({ align: "center" }),
+          customBodyRender: (value) => <FieldWrapper marginBottom="1em">{value}</FieldWrapper>,
         },
       },
       {
         name: "criteriaScoreTotal",
         label: "Total",
         options: {
+          setCellProps: () => ({ style: { minWidth: "5px", width: "5px" } }),
           customBodyRender: (value, tableMeta, updateValue) => {
             const { rowIndex, currentTableData } = tableMeta;
 
@@ -180,13 +181,15 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
             }
 
             return (
-              <CriteriaScoreTotalFormDataTable
-                name={`criteriaScoreTotals[${tableMeta.rowIndex}].criteriaScoreTotal`}
-                testId={""}
-                initialValue={value}
-                updatedValue={criteriaScoreRow.toString()}
-                updateDataTableFormValue={updateValue}
-              />
+              <FieldWrapper marginBottom="1em">
+                <CriteriaScoreTotalFormDataTable
+                  name={`criteriaScoreTotals[${tableMeta.rowIndex}].criteriaScoreTotal`}
+                  testId={""}
+                  initialValue={value}
+                  updatedValue={criteriaScoreRow.toString()}
+                  updateDataTableFormValue={updateValue}
+                />
+              </FieldWrapper>
             );
           },
         },
@@ -196,8 +199,10 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
         label: "Comment",
         options: {
           display: true,
+          setCellProps: () => ({ style: { minWidth: "200px", width: "200px" } }),
+          setCellHeaderProps: () => ({ align: "center" }),
           customBodyRender: (_, tableMeta, updateValue) => (
-            <FieldWrapper marginBottom="3em">
+            <FieldWrapper marginBottom="1em">
               <TextFieldFormDataTable
                 updateDataTableFormValue={updateValue}
                 validationSchema={validationSchema}
@@ -205,11 +210,13 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
                 testId=""
                 name={`comments[${tableMeta.rowIndex}].comment`}
                 props={{
+                  size: "small",
                   name: `comments[${tableMeta.rowIndex}].comment`,
                   required: true,
                   fullWidth: true,
                   label: "Comment",
                   type: "text",
+                  multiline: true,
                   variant: "outlined",
                   disabled: isReadOnly,
                 }}
@@ -226,12 +233,15 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           name: column.id,
           label: column.description,
           options: {
+            setCellProps: () => ({ style: { minWidth: "180px", width: "180px" } }),
+            setCellHeaderProps: () => ({ align: "center" }),
             customBodyRender: (_, tableMeta, updateValue) => (
-              <FieldWrapper marginBottom="3em">
+              <FieldWrapper marginBottom="1em">
                 <SelectFieldFormDataTable
                   name={`${column.id}s[${tableMeta.rowIndex}].${column.id}.criteriaScore`}
                   options={rangeSelectField}
                   props={{
+                    size: "small",
                     name: `${column.id}s[${tableMeta.rowIndex}].${column.id}.criteriaScore`,
                     required: true,
                     label: "Criteria Score",
@@ -285,8 +295,14 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
           },
         })) as [{}];
 
+        let studentName = peerEvaluationReviewee.studentReviewed?.studentName || "";
+
+        if (peerEvaluationReviewee.studentReviewed?.user?.name === session?.user.name) {
+          studentName = `${studentName} (Myself)`;
+        }
+
         return {
-          studentName: peerEvaluationReviewee.studentReviewed?.studentName,
+          studentName: studentName,
           studentEmail: peerEvaluationReviewee.studentReviewed?.user?.email,
           peerEvaluationStudentId: peerEvaluationStudentId,
           comment: peerEvaluationReviewee.comment,
@@ -306,7 +322,7 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
 
       setPeerEvaluationTableData(sanitizedPeerEvaluationStudentTableOnFetch);
     }
-  }, [data.peerEvaluationStudentReview]);
+  }, [data.peerEvaluationStudentReview, session?.user.name]);
 
   useEffect(() => {
     if (dataTableColumns.length && peerEvaluationTableData.length) {
@@ -322,16 +338,6 @@ const PeerEvaluationStudentTable = ({ data, onSubmit }: IPeerEvaluationStudentTa
       setPeerEvaluationTableFormInitialState(initialValues);
     }
   }, [dataTableColumns, peerEvaluationTableData]);
-
-  if (!data.visible) {
-    return (
-      <CenteredContent>
-        <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-          <VisibilityOffIcon testId={`${testId}-visibility-off-icon`} fontSize="large" />
-        </Stack>
-      </CenteredContent>
-    );
-  }
 
   if (peerEvaluationTableFormInitialState.length === 0 || !validationSchemaState) {
     return <LoadingContainer loading />;

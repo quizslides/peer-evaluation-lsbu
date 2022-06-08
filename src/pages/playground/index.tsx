@@ -1,21 +1,27 @@
 import React from "react";
 
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import type { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 
 import { Base } from "@/components";
 import { CenteredContent } from "@/styles";
+import { NextPagePros } from "@/types/pages";
 
-const Playground: NextPage = () => {
-  const { data: session, status } = useSession();
-
-  const loading = status === "loading";
-
+const Playground: NextPage<NextPagePros> = ({ session }) => {
   return (
-    <Base loading={loading} topLeftComponent={session ? "menu" : "backArrow"}>
+    <Base topLeftComponent={session ? "menu" : "backArrow"}>
       <CenteredContent>Playground</CenteredContent>
     </Base>
   );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  return {
+    props: {
+      session: await getSession(context),
+      protected: true,
+    },
+  };
+}
 
 export default Playground;

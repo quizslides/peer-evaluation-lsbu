@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
@@ -9,15 +9,18 @@ import {
   Button,
   DataTable,
   DataTableRefreshActionButtonIcon,
+  FormikResetComponent,
   IconButtonWrapper,
   TextFieldFormDataTable,
   WarningUnsavedForm,
 } from "@/components";
+import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import LoadingContainer from "@/containers/LoadingContainer";
 import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
 import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
 import useUpdatePeerEvaluationStudentsLecturerMark from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentsLecturerMark";
+import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import routing from "@/routing";
 import { IPeerEvaluationStudent } from "@/transformers/students";
 import { ObjectArray, ObjectNormalizedType, getNormalizedObjectArray, objectToArrayOfObject } from "@/utils/form";
@@ -53,9 +56,16 @@ const PeerEvaluationStudentsDataTable = ({
 
   const [isRedirecting, setRedirecting] = useState(false);
 
+  const [tableData, setTableData] = useState<[IPeerEvaluationStudent] | [] | null>(null);
+
+  const [dataTableFormValues, setDataTableFormValues] = useState<IStudentLecturerMarkTable | [] | null>(null);
+
   const [updatePeerEvaluationStudentsLecturerMark] = useUpdatePeerEvaluationStudentsLecturerMark(
     "UpdatePeerEvaluationStudentsLecturerMark"
   );
+
+  const [updatePeerEvaluationStudentTeamCalculateResultsTable] =
+    useUpdatePeerEvaluationStudentTeamCalculateResultsTable("UpdatePeerEvaluationStudentTeamCalculateResultsTable");
 
   const validationSchema = object({
     lecturerAdjustedMarks: array().of(
@@ -73,6 +83,20 @@ const PeerEvaluationStudentsDataTable = ({
     push({
       pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
     });
+  };
+
+  const onCalculateMarks = async () => {
+    if (peerEvaluationId) {
+      await updatePeerEvaluationStudentTeamCalculateResultsTable({
+        variables: {
+          where: {
+            peerEvaluationId: peerEvaluationId,
+          },
+        },
+      });
+
+      await onRefreshStudents();
+    }
   };
 
   const dataTableColumns: MUIDataTableColumn[] = [
@@ -95,7 +119,7 @@ const PeerEvaluationStudentsDataTable = ({
                 testId={""}
                 variant="contained"
               >
-                Results
+                Peer Evaluation
               </Button>
             </FieldWrapper>
           );
@@ -249,6 +273,11 @@ const PeerEvaluationStudentsDataTable = ({
           testId={"peer-evaluation-students-refresh-icon"}
           toolTipLabel={"Refresh"}
         />
+        <DataTableMarkActionButtonIcon
+          onClick={onCalculateMarks}
+          testId={"-refresh-peer-evaluation-table"}
+          toolTipLabel={"Calculate Marks"}
+        />
         <IconButtonWrapper type="submit" testId={""} tooltip={"Save"} disabled={isReadOnly}>
           <SaveIcon testId="" fontSize="medium" color="inherit" />
         </IconButtonWrapper>
@@ -256,7 +285,7 @@ const PeerEvaluationStudentsDataTable = ({
     ),
   };
 
-  const onSubmitStudentLecturerMarks = async (data: IStudentLecturerMarkTable) => {
+  const onSubmitStudentLecturerMarks = async (data: IStudentLecturerMarkTable | []) => {
     const studentLecturerMarks = getNormalizedObjectArray(
       data as unknown as ObjectNormalizedType
     ) as IStudentLecturerMark[];
@@ -273,31 +302,41 @@ const PeerEvaluationStudentsDataTable = ({
         },
       },
     });
-    onRefreshStudents();
+
+    await onRefreshStudents();
   };
 
-  const isLoading = !data || isRedirecting;
+  const isLoading = !!!tableData || isRedirecting;
 
-  if (isLoading) {
+  useEffect(() => {
+    setTableData(data);
+
+    const tableInitialForm = {
+      ids: objectToArrayOfObject("id", data as unknown as ObjectArray),
+      lecturerAdjustedMarks: objectToArrayOfObject("lecturerAdjustedMark", data as unknown as ObjectArray),
+    };
+
+    setDataTableFormValues(tableInitialForm);
+  }, [data, tableData]);
+
+  if (isLoading || !dataTableFormValues) {
     return <LoadingContainer loading />;
   }
 
   return (
     <Formik
-      initialValues={{
-        ids: objectToArrayOfObject("id", data as unknown as ObjectArray),
-        lecturerAdjustedMarks: objectToArrayOfObject("lecturerAdjustedMark", data as unknown as ObjectArray),
-      }}
+      initialValues={dataTableFormValues}
       validationSchema={validationSchema}
       onSubmit={(data) => onSubmitStudentLecturerMarks(data)}
     >
       {({ dirty }) => (
         <Form>
+          <FormikResetComponent data={dataTableFormValues} />
           <WarningUnsavedForm areChangesUnsaved={dirty} />
           <DataTable
             testId={"peer-evaluation-students-datatable"}
-            isVisible={!!data}
-            data={data}
+            isVisible={!!tableData}
+            data={tableData}
             columns={dataTableColumns}
             options={dataTableOptions}
           />

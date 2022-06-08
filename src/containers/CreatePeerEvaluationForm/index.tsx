@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 
-import { LoadingContainer } from "@/containers";
 import { PeerEvaluationForm } from "@/forms";
 import createPeerEvaluation from "@/requests/direct/mutation/createPeerEvaluation";
 import { sanitizePeerEvaluationDataOnCreate } from "@/transformers/peer-evaluation";
@@ -12,13 +10,12 @@ import { IPeerEvaluationData, initialPeerEvaluationState } from "@/types/peer-ev
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
 
 interface ICreateUserForm {
+  session: Session;
   onSubmit: () => void;
   onCancel: () => void;
 }
 
-const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
-  const { data: session, status } = useSession();
-
+const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserForm) => {
   const apolloClient = useApolloClient();
 
   const [peerEvaluationValues, setPeerEvaluationValues] = useState(initialPeerEvaluationState);
@@ -40,7 +37,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
     onSubmit();
   };
 
-  const loading = status === "loading";
+  // const loading = status === "loading";
 
   useEffect(() => {
     if (session) {
@@ -60,9 +57,9 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
     }
   }, [session, peerEvaluationValues]);
 
-  if (loading) {
-    return <LoadingContainer loading={loading} />;
-  }
+  // if (loading) {
+  //   return <LoadingContainer loading={loading} />;
+  // }
 
   return (
     <PeerEvaluationForm
@@ -84,6 +81,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel }: ICreateUserForm) => {
       peerEvaluationTeachingMembers={peerEvaluationValues.peerEvaluationTeachingMembers}
       onSubmitForm={submitForm}
       onCancelForm={onCancel}
+      session={session}
     />
   );
 };
