@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.19...v1.0.0-staging.20) (2022-06-08)
+
+
+### Features
+
+* disable upload students when a peer evaluation already have students ([87f8898](https://github.com/quizslides/peer-evaluation-lsbu/commit/87f8898bbb5910e2b45267204aaf49d9b44c58c4))
+
 ## [1.0.0-staging.19](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.18...v1.0.0-staging.19) (2022-06-08)
 
 
