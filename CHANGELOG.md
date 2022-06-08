@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.22](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.21...v1.0.0-staging.22) (2022-06-08)
+
+
+### Features
+
+* adding modal to view peer evaluation student table as a modal of a single student ([330bf39](https://github.com/quizslides/peer-evaluation-lsbu/commit/330bf399619afa5a086693c5a9301964a21d80e8))
+
 ## [1.0.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.20...v1.0.0-staging.21) (2022-06-08)
 
 
