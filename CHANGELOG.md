@@ -2,6 +2,21 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.19](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.18...v1.0.0-staging.19) (2022-06-08)
+
+
+### Features
+
+* adding peer evaluation info ([4249f2f](https://github.com/quizslides/peer-evaluation-lsbu/commit/4249f2f68cadd296ed4fd9d2ecc07b17453d35ea))
+* Improve naming ([01a8740](https://github.com/quizslides/peer-evaluation-lsbu/commit/01a8740d11920ea75793973f3a055e6c93a6257c))
+* improve typing ([4d4790b](https://github.com/quizslides/peer-evaluation-lsbu/commit/4d4790ba6d1baf15ff29e2b538ec22baa94c0bf2))
+* updating info table of the peer evaluation for the student ([75e4192](https://github.com/quizslides/peer-evaluation-lsbu/commit/75e4192fc15927881ba8afd2120f5efc59b6c49f))
+
+
+### Code Refactoring
+
+* removing white space between info lines ([e9293c0](https://github.com/quizslides/peer-evaluation-lsbu/commit/e9293c03d1cc037f6df76087a3dea5898d5ac6f8))
+
 ## [1.0.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.17...v1.0.0-staging.18) (2022-06-08)
 
 
