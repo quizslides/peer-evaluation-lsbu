@@ -3,7 +3,7 @@ import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client"
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
 const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEvaluationStatuses | undefined) => {
-  if ((role === "STUDENT" && status === "PUBLISHED") || role !== "STUDENT") {
+  if (status === "PUBLISHED") {
     return false;
   }
 
@@ -106,11 +106,11 @@ class PeerEvaluationTableStudentQuery {
       },
     });
 
-    if (!user || !peerEvaluationData) {
+    if (!user || !peerEvaluationData || !peerEvaluationStudentList) {
       return {
         readOnly: undefined,
         visible: undefined,
-        message: "Peer Evaluation Table is not available",
+        message: "Peer Evaluation student table is not available or does not exist",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
       };
@@ -126,7 +126,7 @@ class PeerEvaluationTableStudentQuery {
       return {
         visible: isPeerEvaluationVisible,
         readOnly: undefined,
-        message: "Peer Evaluation Table is not visible",
+        message: "Peer Evaluation table is not visible",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
       };
@@ -211,7 +211,7 @@ class PeerEvaluationTableStudentQuery {
     return {
       readOnly: isPeerEvaluationReadOnly,
       visible: isPeerEvaluationVisible,
-      message: "Peer Evaluation fetched successfully",
+      message: "Peer Evaluation table fetched successfully",
       peerEvaluation: peerEvaluationData,
       peerEvaluationStudentReview: peerEvaluationStudentReviewData,
     };
