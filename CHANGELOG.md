@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.23](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.22...v1.0.0-staging.23) (2022-06-08)
+
+
+### Bug Fixes
+
+* adding a refetch when a student team has been modified ([887be97](https://github.com/quizslides/peer-evaluation-lsbu/commit/887be9786333b91db11141b7e5124ba9453c2352))
+* making the comment field nullable for the backend response ([4a940a7](https://github.com/quizslides/peer-evaluation-lsbu/commit/4a940a7fba70e47cdc9f1de9977f1867ceac829a))
+
 ## [1.0.0-staging.22](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.21...v1.0.0-staging.22) (2022-06-08)
 
 
