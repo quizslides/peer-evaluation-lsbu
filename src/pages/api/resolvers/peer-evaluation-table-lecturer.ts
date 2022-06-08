@@ -68,7 +68,7 @@ class UpsertPeerEvaluationTableLecturer {
         );
 
         const listPeerEvaluationRevieweesStudentToCreate = listPeerEvaluationRevieweesStudent.map((revieweesData) => ({
-          isInvalid: false,
+          isValid: true,
           comment: null,
           criteriaScoreTotal: null,
           studentReviewed: {

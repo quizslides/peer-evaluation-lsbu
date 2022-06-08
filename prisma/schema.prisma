@@ -109,7 +109,7 @@ model PeerEvaluationReviewee {
   peerEvaluationReview         PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id], onDelete: Cascade)
   peerEvaluationReviewId       String?
   PeerEvaluationRevieweeColumn PeerEvaluationRevieweeColumn[]
-  isInvalid                    Boolean
+  isValid                      Boolean
 }
 
 // Peer Evaluation Reviewee Column
