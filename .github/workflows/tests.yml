@@ -7,7 +7,7 @@ jobs:
   tests:
     name: Tests Workflow
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       matrix:
         node-version: [16.13.2]
