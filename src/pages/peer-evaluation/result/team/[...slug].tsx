@@ -1,17 +1,31 @@
 import React, { useEffect, useState } from "react";
 
+import styled from "@emotion/styled";
+import { Stack } from "@mui/material";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { Base, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
+import { Base, Button, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
+import Typography from "@/components/Typography/Typography";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
+import { GradingIcon, VisibilityOffIcon } from "@/icons";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam";
 import useGetPeerEvaluationStudentTeamCalculatedResultsTable from "@/requests/hooks/query/useGetPeerEvaluationStudentTeamCalculatedResultsTable";
+import { CenteredContent } from "@/styles";
 import { RoleScope } from "@/utils";
 
 const testId = "page-report-team";
+
+const Message = styled(Typography)`
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  max-width: 200px;
+`;
+
+type TTableData = Array<object | number[] | string[]>;
 
 const ReportTeam: NextPage = () => {
   const { query } = useRouter();
@@ -24,9 +38,13 @@ const ReportTeam: NextPage = () => {
   const [getPeerEvaluationStudentTeamCalculatedResultsTable, { loading: loadingQuery, error, data, refetch }] =
     useGetPeerEvaluationStudentTeamCalculatedResultsTable("GetPeerEvaluationStudentTeamCalculatedResultsTable");
 
-  // TODO: Fix any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [tableData, setTableData] = useState<any>(null);
+  const [tableData, setTableData] = useState<TTableData | null>(null);
+
+  const [isQueryLoading, setIsQueryLoading] = useState<boolean>(true);
+
+  const [resultsAvailable, setResultsAvailable] = useState<boolean | null>(null);
+
+  const [areMarksCalculated, setAreMarksCalculated] = useState<boolean | null>(null);
 
   const [tableColumns, setTableColumns] = useState<MUIDataTableColumn[] | null>(null);
 
@@ -132,22 +150,58 @@ const ReportTeam: NextPage = () => {
         },
       ];
 
-      setTableColumns([
-        ...initialTableColumns,
-        ...data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList,
-      ]);
+      if (
+        data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList &&
+        data.peerEvaluationStudentTeamCalculatedResultsTable.table
+      ) {
+        setTableColumns([
+          ...initialTableColumns,
+          ...data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList,
+        ]);
 
-      const tableData = JSON.parse(data.peerEvaluationStudentTeamCalculatedResultsTable.table);
+        const tableData = JSON.parse(data.peerEvaluationStudentTeamCalculatedResultsTable.table) as TTableData;
 
-      setTableData(tableData);
+        setTableData(tableData);
+        setAreMarksCalculated(true);
+        setResultsAvailable(true);
+      } else if (!data.peerEvaluationStudentTeamCalculatedResultsTable.isAvailable) {
+        setResultsAvailable(false);
+      } else if (!data.peerEvaluationStudentTeamCalculatedResultsTable.areMarksCalculated) {
+        setAreMarksCalculated(false);
+      }
+
+      setIsQueryLoading(false);
     }
   }, [data]);
 
-  const isLoading = loadingQuery;
+  const isLoading = loadingQuery || isQueryLoading;
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
-      <PageTitle title={"Report Team"} testId={`${testId}-title`} variant="h4" margin="2em" />
+      <PageTitle title={"Results"} testId={`${testId}-title`} variant="h4" margin="2em" />
+      {resultsAvailable !== null && !resultsAvailable && (
+        <CenteredContent>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <VisibilityOffIcon testId={`${testId}-visibility-off-icon`} fontSize="large" />
+            <Message testId={"500-error-container-text"}>
+              {"Peer Evaluation is not available or does not exist"}
+            </Message>
+          </Stack>
+        </CenteredContent>
+      )}
+
+      {areMarksCalculated !== null && !areMarksCalculated && (
+        <CenteredContent>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <GradingIcon testId={`${testId}-grading-icon`} fontSize="large" />
+            <Message testId={""}>{"Peer Evaluation marks have not been calculated"}</Message>
+            <Button size="large" testId="" variant="contained" onClick={onCalculateMarks}>
+              Calculate Marks
+            </Button>
+          </Stack>
+        </CenteredContent>
+      )}
+
       {tableColumns && tableData && data && (
         <>
           <PeerEvaluationStudentTeamResultCard

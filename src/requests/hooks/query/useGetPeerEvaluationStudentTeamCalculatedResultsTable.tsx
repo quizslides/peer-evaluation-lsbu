@@ -16,8 +16,8 @@ const useGetPeerEvaluationStudentTeamCalculatedResultsTable = (notificationsId: 
     onError: (error) => {
       errorNotification(error.message, notificationsId);
     },
-    onCompleted: () => {
-      successNotification("Peer evaluation Student Team table fetched successfully", notificationsId);
+    onCompleted: (data) => {
+      successNotification(data.peerEvaluationStudentTeamCalculatedResultsTable.message, notificationsId);
     },
   });
 };

@@ -326,6 +326,9 @@ const GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE = gql`
       teamName
       updatedAt
       mark
+      isAvailable
+      areMarksCalculated
+      message
     }
   }
 `;
