@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.16...v1.0.0-staging.17) (2022-06-08)
+
+
+### Features
+
+* adding validation for peer evaluation to query the table as a student ([5664624](https://github.com/quizslides/peer-evaluation-lsbu/commit/5664624ad878c129717e1c23fa5f95bd3944316d))
+
+
+### Bug Fixes
+
+* fixing team name is too long with a max 330 characters for the team name field ([17a3ceb](https://github.com/quizslides/peer-evaluation-lsbu/commit/17a3ceb0bff4b74203b0010abc2485bfea1c762b))
+
 ## [1.0.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.15...v1.0.0-staging.16) (2022-06-07)
 
 
