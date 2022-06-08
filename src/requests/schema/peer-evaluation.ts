@@ -599,7 +599,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
           criteriaScoreTotal
           studentReviewedId
           comment
-          isInvalid
+          isValid
           studentReviewed {
             studentName
             user {
@@ -667,7 +667,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
           criteriaScoreTotal
           studentReviewedId
           comment
-          isInvalid
+          isValid
           studentReviewed {
             studentName
             user {

@@ -7,7 +7,7 @@ jobs:
   tests:
     name: Tests Workflow
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       matrix:
         node-version: [16.13.2]
@@ -34,7 +34,8 @@ jobs:
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          # yamllint disable-line
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/schema.prisma') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 

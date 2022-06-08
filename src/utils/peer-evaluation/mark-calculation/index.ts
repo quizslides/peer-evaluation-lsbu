@@ -42,7 +42,7 @@ interface PeerEvaluationReviewee {
   studentReviewed: StudentReviewed;
   criteriaScoreTotal: number;
   comment: string;
-  isInvalid: boolean;
+  isValid: boolean;
   studentReviewedId: string;
   peerEvaluationReview: PeerEvaluationReview;
 }
@@ -79,7 +79,7 @@ interface IPeerEvaluationTeamReviewerResult {
   revieweeEmail: string;
   criteriaScoreTotal: number | null;
   comment: string | null;
-  isInvalid: boolean;
+  isValid: boolean;
 }
 
 const getPeerEvaluationDataById = async (peerEvaluationId: string) => {
@@ -125,7 +125,7 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
               },
               criteriaScoreTotal: true,
               comment: true,
-              isInvalid: true,
+              isValid: true,
               studentReviewedId: true,
               peerEvaluationReview: {
                 select: {
@@ -191,14 +191,14 @@ const getStudentTeamEmailList = (peerEvaluationStudentTeam: PeerEvaluationStuden
 
 const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IPeerEvaluationStudentTeam) => {
   return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) =>
-    student.PeerEvaluationReviewees.map(({ criteriaScoreTotal, comment, isInvalid, peerEvaluationReview }) => ({
+    student.PeerEvaluationReviewees.map(({ criteriaScoreTotal, comment, isValid, peerEvaluationReview }) => ({
       reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
       reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",
       revieweeName: student.user.name,
       revieweeEmail: student.user.email,
       criteriaScoreTotal,
       comment,
-      isInvalid,
+      isValid,
     }))
   );
 };
@@ -210,10 +210,10 @@ const getReviewees = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: s
   data.filter(({ revieweeEmail }) => revieweeEmail === studentEmail);
 
 const getRevieweesValid = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
-  data.filter(({ revieweeEmail, isInvalid }) => revieweeEmail === studentEmail && isInvalid === false);
+  data.filter(({ revieweeEmail, isValid }) => revieweeEmail === studentEmail && isValid === true);
 
 const getRevieweesInvalidCount = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
-  data.filter(({ revieweeEmail, isInvalid }) => revieweeEmail === studentEmail && isInvalid === true).length;
+  data.filter(({ revieweeEmail, isValid }) => revieweeEmail === studentEmail && isValid === false).length;
 
 const getCommentsByReviewer = (dataReviewees: IPeerEvaluationTeamReviewerResult[]) => {
   const listCommentsByReviewer = dataReviewees

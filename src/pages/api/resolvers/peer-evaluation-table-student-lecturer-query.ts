@@ -164,7 +164,7 @@ class PeerEvaluationTableStudentLecturerQuery {
             criteriaScoreTotal: true,
             studentReviewedId: true,
             comment: true,
-            isInvalid: true,
+            isValid: true,
             studentReviewed: {
               select: {
                 user: {
