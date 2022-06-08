@@ -134,6 +134,7 @@ model PeerEvaluationStudentTeam {
   peerEvaluation            PeerEvaluation          @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId          String
   calculatedResults         Json?
+  comment                   String?
 
   @@unique([name, peerEvaluationId])
 }

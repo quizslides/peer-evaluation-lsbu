@@ -30,6 +30,10 @@ const peerEvaluationTeachingMemberIdValidator = {
   name: string(),
 };
 
+const peerEvaluationStudentTeamResultComment = {
+  comment: string().max(1000, content.peerEvaluationResultTeamCommentFormComment.maxLength).nullable(),
+};
+
 const userRoleValidator = {
   role: mixed()
     .oneOf([...Object.keys(Role)], content.userRole.oneOf)
@@ -208,6 +212,7 @@ export {
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
   peerEvaluationStudentsTeams,
+  peerEvaluationStudentTeamResultComment,
   peerEvaluationSubmissionsLockDateValidator,
   peerEvaluationTeachingMemberIdValidator,
   peerEvaluationTeachingMemberNameValidator,

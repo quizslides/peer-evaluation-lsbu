@@ -91,6 +91,9 @@ const validatorContent = {
     required: "Select a role for the peerEvaluation teaching member",
     oneOf: "Invalid role entered",
   },
+  peerEvaluationResultTeamCommentFormComment: {
+    maxLength: "Comment cannot be longer than 1000 characters",
+  },
 };
 
 export default validatorContent;

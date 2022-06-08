@@ -22,6 +22,7 @@ const getReturnOfNotAvailablePeerEvaluation = (teamName: string) => {
     teamName: teamName,
     updatedAt: undefined,
     mark: undefined,
+    comment: null,
     message: "Peer Evaluation Results are not available",
   };
 };
@@ -132,6 +133,12 @@ class PeerEvaluationStudentTeamCalculatedResultsTableResponse {
 
   @Field((_type) => String, {
     nullable: false,
+    description: "Peer Evaluation Student Team Comment",
+  })
+  comment!: string | null;
+
+  @Field((_type) => String, {
+    nullable: false,
     description: "Peer Evaluation Student Team Marks response message",
   })
   message!: string;
@@ -172,6 +179,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
         mark: true,
         updatedAt: true,
         createdAt: true,
+        comment: true,
       },
       where: {
         peerEvaluationId: {
@@ -196,6 +204,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
         teamName: peerEvaluationStudentTeamName,
         updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
         mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,
+        comment: null,
         message: "Peer Evaluation Marks are not calculated",
       };
     }
@@ -251,6 +260,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
       teamName: peerEvaluationStudentTeamName,
       updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
       mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,
+      comment: peerEvaluationStudentTeamData.comment,
       message: "Peer evaluation Student Team Results fetched successfully",
     };
   }
