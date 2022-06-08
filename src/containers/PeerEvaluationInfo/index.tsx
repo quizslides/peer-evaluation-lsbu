@@ -9,7 +9,7 @@ import useGetSessionUser from "@/requests/hooks/query/useGetSessionUser";
 
 interface IPeerEvaluationInfo {
   teamName: string;
-  submissionDeadline: DateTime | null;
+  submissionDeadline: Date | null;
 }
 
 const PeerEvaluationInfo = ({ teamName, submissionDeadline }: IPeerEvaluationInfo) => {
