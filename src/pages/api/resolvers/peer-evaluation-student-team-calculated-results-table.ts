@@ -138,7 +138,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTableResponse {
   areMarksCalculated!: boolean;
 
   @Field((_type) => String, {
-    nullable: false,
+    nullable: true,
     description: "Peer Evaluation Student Team Comment",
   })
   comment!: string | null;
