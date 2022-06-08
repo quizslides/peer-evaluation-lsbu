@@ -139,6 +139,7 @@ const ReportTeam: NextPage = () => {
         },
       },
     });
+    await onRefreshTable();
   };
 
   useEffect(() => {
