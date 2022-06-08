@@ -68,6 +68,7 @@ interface IPeerEvaluationStudentMarksByTeam {
   reviews: IPeerEvaluationTeamReviewerResult[];
   studentName: string;
   email: string;
+  studentId: string;
   averageCriteriaScore: number;
   comments: string;
 }
@@ -392,6 +393,7 @@ const getListStudentMarkData = async (
       systemAdjustedMark,
       reviews,
       studentName: "",
+      studentId: "",
       lecturerAdjustedMark,
       finalMark,
     };
@@ -458,6 +460,7 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
       const peerEvaluationStudentDataReviewer = await prisma.peerEvaluationStudent.findFirst({
         select: {
           studentName: true,
+          id: true,
         },
         where: {
           peerEvaluationId: {
@@ -470,6 +473,8 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
           },
         },
       });
+
+      reviewer.studentId = peerEvaluationStudentDataReviewer?.id || "";
 
       reviewer.studentName = peerEvaluationStudentDataReviewer?.studentName || "";
     }

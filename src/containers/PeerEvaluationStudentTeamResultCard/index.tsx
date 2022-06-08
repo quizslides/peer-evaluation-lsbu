@@ -4,13 +4,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-interface PeerEvaluationStudentTeamResultCard {
+interface IPeerEvaluationStudentTeamResultCard {
   teamName: string;
   mark: number | undefined;
   updatedAt: string | undefined;
 }
 
-const PeerEvaluationStudentTeamResultCard = ({ teamName, mark, updatedAt }: PeerEvaluationStudentTeamResultCard) => {
+const PeerEvaluationStudentTeamResultCard = ({ teamName, mark, updatedAt }: IPeerEvaluationStudentTeamResultCard) => {
   return (
     <Card sx={{ minWidth: 275, width: 275, marginBottom: "3px" }}>
       <CardContent>

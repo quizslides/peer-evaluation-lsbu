@@ -103,6 +103,7 @@
     "react-use": "^17.4.0",
     "react-window": "^1.8.6",
     "reflect-metadata": "0.1.13",
+    "sort-nested-json": "^0.3.2",
     "swr": "^1.2.2",
     "type-graphql": "1.1.1",
     "typegraphql-prisma": "0.19.0",

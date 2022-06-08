@@ -1,10 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import sorter from "sort-nested-json";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
 import { getSortedObject } from "@/utils/form";
 import { IPeerEvaluationStudentMarksByTeam } from "@/utils/peer-evaluation/mark-calculation";
+import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
 type PeerEvaluationStudentTableRow =
   | "averageCriteriaScore"
@@ -42,15 +44,19 @@ const extractRowDataPeerEvaluationStudentTable = (
   };
 };
 
-const getStudentsColumnList = (peerEvaluationStudentTeamCalculatedResults: IPeerEvaluationStudentMarksByTeam[]) =>
-  Object.values(
+const getStudentsColumnList = (peerEvaluationStudentTeamCalculatedResults: IPeerEvaluationStudentMarksByTeam[]) => {
+  const dataColumnList = Object.values(
     getSortedObject(
       peerEvaluationStudentTeamCalculatedResults.reduce((previous, current) => {
         return { [current.email]: { name: current.email, label: current.studentName }, ...previous };
       }, {})
     )
-  ) as [PeerEvaluationStudentTeamCalculatedResultsTableColumnList];
+  );
 
+  const studentsColumnListSorted = sorter.sort(dataColumnList).asc("label");
+
+  return studentsColumnListSorted as unknown as [PeerEvaluationStudentTeamCalculatedResultsTableColumnList];
+};
 @InputType({
   isAbstract: true,
   description: "Peer Evaluation Student Team Calculated Results Table Where Input",
@@ -214,35 +220,20 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
 
     const studentsColumnList = getStudentsColumnList(peerEvaluationStudentTeamCalculatedResults);
 
-    const studentsData = peerEvaluationStudentTeamCalculatedResults.map(({ studentName, reviews }) => {
+    const studentsData = peerEvaluationStudentTeamCalculatedResults.map(({ studentName, reviews, studentId }) => {
       const reviewerData = reviews.reduce((previous, current) => {
         return { [current.revieweeEmail]: current.criteriaScoreTotal, ...previous };
       }, {});
-      return { studentName, ...getSortedObject(reviewerData) };
+      return {
+        studentName: {
+          studentName: studentName,
+          studentId: studentId,
+        },
+        ...getSortedObject(reviewerData),
+      };
     });
 
-    const dataStudentToBeExtractedList = [
-      {
-        columnName: "Average Criteria Score",
-        keyName: "averageCriteriaScore",
-      },
-      {
-        columnName: "System Calculated Mark",
-        keyName: "systemCalculatedMark",
-      },
-      {
-        columnName: "System Adjusted Mark",
-        keyName: "systemAdjustedMark",
-      },
-      {
-        columnName: "Lecturer Adjusted Mark",
-        keyName: "lecturerAdjustedMark",
-      },
-      {
-        columnName: "Final Mark",
-        keyName: "finalMark",
-      },
-    ];
+    const studentsDataSorted = sorter.sort(studentsData).asc("studentName.studentName");
 
     const peerEvaluationStudentTeamDataCalculationRows = dataStudentToBeExtractedList.flatMap((column) =>
       extractRowDataPeerEvaluationStudentTable(
@@ -256,7 +247,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
       isAvailable: true,
       areMarksCalculated: true,
       studentsColumnList: studentsColumnList,
-      table: JSON.stringify([...studentsData, ...peerEvaluationStudentTeamDataCalculationRows]),
+      table: JSON.stringify([...studentsDataSorted, ...peerEvaluationStudentTeamDataCalculationRows]),
       teamName: peerEvaluationStudentTeamName,
       updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
       mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,

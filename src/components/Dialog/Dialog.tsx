@@ -12,11 +12,12 @@ interface IDialog extends DialogProps {
   title: string;
   content: React.ReactNode;
   rightButton: string;
-  leftButton: string;
+  leftButton?: string;
   rightButtonVariant?: ButtonVariant;
   leftButtonVariant?: ButtonVariant;
+  isDisableLeftButton?: boolean;
   onClickRightButton: () => void;
-  onClickLeftButton: () => void;
+  onClickLeftButton?: () => void;
   extraRightButton?: React.ReactNode | null;
 }
 
@@ -31,6 +32,7 @@ const Dialog = ({
   rightButtonVariant = "text",
   leftButtonVariant = "text",
   extraRightButton,
+  isDisableLeftButton = false,
   ...props
 }: IDialog) => {
   return (
@@ -38,9 +40,11 @@ const Dialog = ({
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>{content}</DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left-button`}>
-          {leftButton}
-        </Button>
+        {!isDisableLeftButton && (
+          <Button autoFocus onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left-button`}>
+            {leftButton}
+          </Button>
+        )}
         <Button onClick={onClickRightButton} variant={rightButtonVariant} testId={`${testId}-right-button`}>
           {rightButton}
         </Button>

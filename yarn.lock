@@ -13240,6 +13240,11 @@ sonic-boom@^2.2.1:
   dependencies:
     atomic-sleep "^1.0.0"
 
+sort-nested-json@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/sort-nested-json/-/sort-nested-json-0.3.2.tgz#c6c091a90323f3411ba59571daa5bd1b5f1d8b7e"
+  integrity sha512-i7OXxiksckvOAQbvtb7ilsKUVi0b0P1JHlsQSDqjsdVQPtTYfiZHn+TXOFCvdeMHMl+HJt+59iOFD54DxbQhPA==
+
 source-map-js@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"

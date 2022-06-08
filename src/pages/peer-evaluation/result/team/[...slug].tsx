@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, Button, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import Typography from "@/components/Typography/Typography";
+import PeerEvaluationStudentTableDialog from "@/containers/PeerEvaluationStudentTableDialog";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
 import { PeerEvaluationResultTeamCommentForm } from "@/forms";
 import { IPeerEvaluationResultTeamCommentFormData } from "@/forms/PeerEvaluationResultTeamCommentForm";
@@ -17,7 +19,9 @@ import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUp
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam";
 import useGetPeerEvaluationStudentTeamCalculatedResultsTable from "@/requests/hooks/query/useGetPeerEvaluationStudentTeamCalculatedResultsTable";
 import { CenteredContent } from "@/styles";
+import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
+import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
 const testId = "page-report-team";
 
@@ -30,7 +34,7 @@ const Message = styled(Typography)`
 
 type TTableData = Array<object | number[] | string[]>;
 
-const ReportTeam: NextPage = () => {
+const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
   const { query } = useRouter();
 
   const [updatePeerEvaluationStudentTeamCalculateResultsTableByTeam] =
@@ -54,6 +58,10 @@ const ReportTeam: NextPage = () => {
   const [peerEvaluationId, setPeerEvaluationId] = useState<string | null>(null);
 
   const [peerEvaluationTeamName, setPeerEvaluationTeamName] = useState<string | null>(null);
+
+  const [studentIdDialog, setStudentIdDialog] = useState<string | null>(null);
+
+  const [studentTableDialogOpen, setStudentTableDialogOpen] = useState<boolean>(false);
 
   const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
 
@@ -142,6 +150,11 @@ const ReportTeam: NextPage = () => {
     await onRefreshTable();
   };
 
+  const openStudentPeerEvaluationDialog = (studentId: string) => {
+    setStudentIdDialog(studentId);
+    setStudentTableDialogOpen(true);
+  };
+
   useEffect(() => {
     const slug = query.slug;
 
@@ -167,10 +180,33 @@ const ReportTeam: NextPage = () => {
 
   useEffect(() => {
     if (data) {
+      const defaultColumnsDataTable = dataStudentToBeExtractedList.flatMap(({ columnName }) => columnName);
+
       const initialTableColumns: MUIDataTableColumn[] = [
         {
           name: "studentName",
           label: "Student Name",
+          options: {
+            customBodyRender: (columnData) => {
+              if (typeof columnData === "string" && defaultColumnsDataTable.includes(columnData)) {
+                return columnData;
+              }
+
+              return (
+                <Button
+                  variant={"outlined"}
+                  testId={""}
+                  onClick={() => openStudentPeerEvaluationDialog(columnData.studentId)}
+                  size="small"
+                  style={{
+                    fontSize: "0.7rem",
+                  }}
+                >
+                  {columnData.studentName}
+                </Button>
+              );
+            },
+          },
         },
       ];
 
@@ -228,7 +264,7 @@ const ReportTeam: NextPage = () => {
 
       {tableColumns && tableData && data && (
         <>
-          <Stack direction="row" justifyContent="space-between" alignItems="end" spacing={2}>
+          <Grid container direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center">
             <PeerEvaluationStudentTeamResultCard
               teamName={data.peerEvaluationStudentTeamCalculatedResultsTable.teamName}
               mark={data.peerEvaluationStudentTeamCalculatedResultsTable.mark}
@@ -239,7 +275,17 @@ const ReportTeam: NextPage = () => {
               onSubmitForm={onSaveCommentForm}
               testId={testId}
             />
-          </Stack>
+          </Grid>
+
+          {session && peerEvaluationId && studentIdDialog && (
+            <PeerEvaluationStudentTableDialog
+              session={session}
+              peerEvaluationId={peerEvaluationId}
+              studentId={studentIdDialog}
+              isDialogOpen={studentTableDialogOpen}
+              updateDialogState={(state) => setStudentTableDialogOpen(state)}
+            />
+          )}
 
           <DataTable
             testId={`${testId}-datatable`}
@@ -254,17 +300,14 @@ const ReportTeam: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
   };
-};
+}
 
 export default ReportTeam;
