@@ -10,7 +10,10 @@ import { Base, Button, DataTable, DataTableRefreshActionButtonIcon, PageTitle } 
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import Typography from "@/components/Typography/Typography";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
+import { PeerEvaluationResultTeamCommentForm } from "@/forms";
+import { IPeerEvaluationResultTeamCommentFormData } from "@/forms/PeerEvaluationResultTeamCommentForm";
 import { GradingIcon, VisibilityOffIcon } from "@/icons";
+import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam";
 import useGetPeerEvaluationStudentTeamCalculatedResultsTable from "@/requests/hooks/query/useGetPeerEvaluationStudentTeamCalculatedResultsTable";
 import { CenteredContent } from "@/styles";
@@ -51,6 +54,8 @@ const ReportTeam: NextPage = () => {
   const [peerEvaluationId, setPeerEvaluationId] = useState<string | null>(null);
 
   const [peerEvaluationTeamName, setPeerEvaluationTeamName] = useState<string | null>(null);
+
+  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
 
   const tableOptions: MUIDataTableOptions = {
     textLabels: {
@@ -116,6 +121,24 @@ const ReportTeam: NextPage = () => {
 
       await onRefreshTable();
     }
+  };
+
+  const onSaveCommentForm = async ({ comment }: IPeerEvaluationResultTeamCommentFormData) => {
+    await updatePeerEvaluationStudentTeam({
+      variables: {
+        data: {
+          comment: {
+            set: comment || "",
+          },
+        },
+        where: {
+          name_peerEvaluationId: {
+            peerEvaluationId: peerEvaluationId || "",
+            name: peerEvaluationTeamName || "",
+          },
+        },
+      },
+    });
   };
 
   useEffect(() => {
@@ -204,11 +227,19 @@ const ReportTeam: NextPage = () => {
 
       {tableColumns && tableData && data && (
         <>
-          <PeerEvaluationStudentTeamResultCard
-            teamName={data.peerEvaluationStudentTeamCalculatedResultsTable.teamName}
-            mark={data.peerEvaluationStudentTeamCalculatedResultsTable.mark}
-            updatedAt={data.peerEvaluationStudentTeamCalculatedResultsTable.updatedAt}
-          />
+          <Stack direction="row" justifyContent="space-between" alignItems="end" spacing={2}>
+            <PeerEvaluationStudentTeamResultCard
+              teamName={data.peerEvaluationStudentTeamCalculatedResultsTable.teamName}
+              mark={data.peerEvaluationStudentTeamCalculatedResultsTable.mark}
+              updatedAt={data.peerEvaluationStudentTeamCalculatedResultsTable.updatedAt}
+            />
+            <PeerEvaluationResultTeamCommentForm
+              comment={data.peerEvaluationStudentTeamCalculatedResultsTable.comment}
+              onSubmitForm={onSaveCommentForm}
+              testId={testId}
+            />
+          </Stack>
+
           <DataTable
             testId={`${testId}-datatable`}
             isVisible

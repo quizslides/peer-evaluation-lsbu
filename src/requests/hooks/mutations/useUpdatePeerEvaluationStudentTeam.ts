@@ -20,7 +20,7 @@ const useUpdatePeerEvaluationStudentTeam = (notificationsId: string) => {
       errorNotification(error.message, notificationsId);
     },
     onCompleted: () => {
-      successNotification("Teams updated successfully", notificationsId);
+      successNotification("Updated successfully", notificationsId);
     },
   });
 };

@@ -208,6 +208,18 @@ const content = {
         closeText: "No",
       },
     },
+    PeerEvaluationResultTeamCommentForm: {
+      form: {
+        comment: {
+          label: "Comment",
+          placeholder: "Comment of the team",
+        },
+        button: {
+          submit: "Save",
+          cancel: "Cancel",
+        },
+      },
+    },
   },
   pages: {
     homePage: {

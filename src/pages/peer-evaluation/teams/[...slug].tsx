@@ -13,6 +13,7 @@ import {
   ConfirmationDialog,
   DataTable,
   DataTableDeleteActionButtonIcon,
+  IconButtonWrapper,
   PageTitle,
   SelectFieldFormDataTable,
   TextFieldFormDataTable,
@@ -22,6 +23,7 @@ import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButto
 import { PeerEvaluationNavigationFab } from "@/containers";
 import { FieldWrapper } from "@/forms/style";
 import client from "@/graphql/client";
+import { SaveIcon } from "@/icons";
 import deletePeerEvaluationStudentTeam from "@/requests/direct/mutation/deletePeerEvaluationStudentTeam";
 import peerEvaluationStudentTeamExist from "@/requests/direct/query/peerEvaluationStudentTeamExist";
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
@@ -55,6 +57,11 @@ interface IPeerEvaluationStudentTableForm {
       id: string;
     }
   ];
+  comments: [
+    {
+      comment: string;
+    }
+  ];
 }
 
 const Teams: NextPage = () => {
@@ -81,7 +88,7 @@ const Teams: NextPage = () => {
   const [isDeletePeerEvaluationStudentTeamConfirmationOpen, setDeletePeerEvaluationStudentTeamConfirmationOpen] =
     useState(false);
 
-  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("useUpdatePeerEvaluationStudentTeam");
+  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
 
   const rangeSelectField = getRangeNumberObject(100, 0);
 
@@ -178,6 +185,11 @@ const Teams: NextPage = () => {
           }),
       })
     ),
+    comments: array().of(
+      object().shape({
+        comment: string().nullable(),
+      })
+    ),
   });
 
   const dataTableColumns: MUIDataTableColumn[] = [
@@ -263,6 +275,31 @@ const Teams: NextPage = () => {
       },
     },
     {
+      name: "comment",
+      label: "Comment",
+      options: {
+        customBodyRender: (_, tableMeta, updateValue) => (
+          <FieldWrapper marginBottom="1em">
+            <TextFieldFormDataTable
+              updateDataTableFormValue={updateValue}
+              validationSchema={validationSchema}
+              validationFieldPath={"comments.comment"}
+              testId=""
+              name={`comments[${tableMeta.rowIndex}].comment`}
+              props={{
+                name: `comments[${tableMeta.rowIndex}].comment`,
+                fullWidth: true,
+                multiline: true,
+                label: "Comment",
+                type: "text",
+                variant: "outlined",
+              }}
+            />
+          </FieldWrapper>
+        ),
+      },
+    },
+    {
       name: "_count.peerEvaluationStudentList",
       label: "Total Students",
       options: {
@@ -301,9 +338,9 @@ const Teams: NextPage = () => {
           testId={"-refresh-peer-evaluation-table"}
           toolTipLabel={"Calculate Marks"}
         />
-        <Button testId="" variant="contained" type="submit">
-          SAVE
-        </Button>
+        <IconButtonWrapper type="submit" testId={""} tooltip={"Save"}>
+          <SaveIcon testId="" fontSize="medium" color="inherit" />
+        </IconButtonWrapper>
       </>
     ),
     customToolbarSelect: (selectedRows, displayData) => (
@@ -341,6 +378,7 @@ const Teams: NextPage = () => {
         marks: objectToArrayOfObject("mark", data.peerEvaluationStudentTeams as unknown as ObjectArray),
         ids: objectToArrayOfObject("id", data.peerEvaluationStudentTeams as unknown as ObjectArray),
         names: objectToArrayOfObject("name", data.peerEvaluationStudentTeams as unknown as ObjectArray),
+        comments: objectToArrayOfObject("comment", data.peerEvaluationStudentTeams as unknown as ObjectArray),
       } as unknown as IPeerEvaluationStudentTableForm;
 
       setPeerEvaluationTableFormInitialState(initialValues);
@@ -353,7 +391,7 @@ const Teams: NextPage = () => {
     const dataModuleNormalized = getNormalizedObjectArray(data as unknown as ObjectNormalizedType);
 
     for (const index in dataModuleNormalized) {
-      const { name, mark } = dataModuleNormalized[index];
+      const { name, mark, comment } = dataModuleNormalized[index];
 
       const currentName = peerEvaluationTableFormInitialState?.names[index].name;
 
@@ -365,6 +403,9 @@ const Teams: NextPage = () => {
             },
             name: {
               set: name,
+            },
+            comment: {
+              set: comment,
             },
           },
           where: {

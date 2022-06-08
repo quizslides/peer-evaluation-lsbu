@@ -73,6 +73,7 @@ const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
       mark
       name
       id
+      comment
       _count {
         peerEvaluationStudentList
       }
@@ -328,6 +329,7 @@ const GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE = gql`
       mark
       isAvailable
       areMarksCalculated
+      comment
       message
     }
   }
