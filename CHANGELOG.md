@@ -2,6 +2,23 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.17...v1.0.0-staging.18) (2022-06-08)
+
+
+### Features
+
+* adding flow to calculated marks page ([f9311d4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f9311d4f101ea8e7e9dce6529d009f8dcced9355))
+* adding hash to schema.prisma to avoid failing pipeline when there is a new migration ([f98f11e](https://github.com/quizslides/peer-evaluation-lsbu/commit/f98f11ec6f17fde93bc5525f8c90f2591a718706))
+* adding migration for isInvalid to isValid on the peer evaluation table ([0f5592a](https://github.com/quizslides/peer-evaluation-lsbu/commit/0f5592a88a35ee9b48ab7d7011a5337d37f3c559))
+* increasing timeout to test jobs on the pipeline to 20 minutes ([b8a3afd](https://github.com/quizslides/peer-evaluation-lsbu/commit/b8a3afdb30021176aeb7d554e4ae132d2517c289))
+
+
+### Bug Fixes
+
+* fixing deleting peer evaluation as admin ([6b1e90e](https://github.com/quizslides/peer-evaluation-lsbu/commit/6b1e90e06ccb53b53cd63046df49928465cb9f73))
+* fixing github action template for hashing cache during runtime ([dbef42e](https://github.com/quizslides/peer-evaluation-lsbu/commit/dbef42e956a109d50355104161fc8be8032a503e))
+* fixing the expression is not closed as an unescaped ([32b15c0](https://github.com/quizslides/peer-evaluation-lsbu/commit/32b15c0b88f4ec0f7c92f70aadb98157d0160004))
+
 ## [1.0.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.16...v1.0.0-staging.17) (2022-06-08)
 
 
