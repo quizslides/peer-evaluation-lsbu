@@ -417,6 +417,8 @@ const Teams: NextPage = () => {
         },
       });
     }
+
+    await refetch();
   };
 
   return (
