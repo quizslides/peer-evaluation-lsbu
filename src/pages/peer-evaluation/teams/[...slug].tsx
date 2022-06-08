@@ -153,8 +153,8 @@ const Teams: NextPage = () => {
     names: array().of(
       object().shape({
         name: string()
-          .min(2, "Team name too short")
-          .max(20, "Team name too long")
+          .min(2, "Team name is too short")
+          .max(330, "Team name is too long")
           .required("Team name is required")
           .test({
             name: "unique-peer-evaluation-team-name",
