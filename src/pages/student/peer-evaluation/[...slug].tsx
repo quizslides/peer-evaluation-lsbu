@@ -99,17 +99,6 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
-      <PageTitle
-        title={peerEvaluationTableData?.peerEvaluation?.title || ""}
-        testId={`${testId}-title`}
-        variant="h4"
-        margin="2em"
-      />
-      <PeerEvaluationInfo
-        teamName={peerEvaluationTableData?.peerEvaluation?.title || ""}
-        submissionDeadline={peerEvaluationTableData?.peerEvaluation?.submissionsLockDate}
-      />
-
       {peerEvaluationTableData && !peerEvaluationTableData.visible && (
         <CenteredContent>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
@@ -126,6 +115,15 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
             variant="h4"
             margin="2em"
           />
+          {peerEvaluationTableData.peerEvaluationStudentInfo && (
+            <PeerEvaluationInfo
+              teamName={peerEvaluationTableData.peerEvaluationStudentInfo.studentTeamName}
+              submissionDeadline={peerEvaluationTableData.peerEvaluationStudentInfo.submissionsLockDate}
+              updatedAt={peerEvaluationTableData.peerEvaluationStudentInfo.updatedAt}
+              studentEmail={peerEvaluationTableData.peerEvaluationStudentInfo.studentEmail}
+              studentName={peerEvaluationTableData.peerEvaluationStudentInfo.studentName}
+            />
+          )}
           <PeerEvaluationStudentTable
             onSubmit={onSubmitPeerEvaluation}
             session={session}

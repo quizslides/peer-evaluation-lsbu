@@ -67,26 +67,11 @@ const GET_LECTURER_USERS = gql`
   }
 `;
 
-const GET_SESSION_USER = gql`
-  query SessionUser($where: UserWhereUniqueInput!) {
-    user(where: $where) {
-      id
-      createdAt
-      updatedAt
-      name
-      email
-      role
-      emailVerified
-    }
-  }
-`;
-
 export {
   CREATE_MULTIPLE_USERS,
   CREATE_ONE_USER,
   DELETE_USERS,
   GET_LECTURER_USERS,
-  GET_SESSION_USER,
   GET_USERS,
   GROUP_BY_USER,
   UPDATE_USER,
