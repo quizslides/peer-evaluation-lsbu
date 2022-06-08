@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.20...v1.0.0-staging.21) (2022-06-08)
+
+
+### Features
+
+* adding comment field to peer evaluation result team and teams table ([67ef92e](https://github.com/quizslides/peer-evaluation-lsbu/commit/67ef92e8f682c1193ce504418afd5c23ee1f2418))
+
+
+### Bug Fixes
+
+* adding a refetch when a comment has been saved of peer evaluation student team ([04f66eb](https://github.com/quizslides/peer-evaluation-lsbu/commit/04f66ebd41d8884a92a7c678cd3bd494edde9673))
+
 ## [1.0.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.19...v1.0.0-staging.20) (2022-06-08)
 
 
