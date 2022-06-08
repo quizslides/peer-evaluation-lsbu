@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { Base, Button, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import Typography from "@/components/Typography/Typography";
+import { PeerEvaluationNavigationFab } from "@/containers";
 import PeerEvaluationStudentTableDialog from "@/containers/PeerEvaluationStudentTableDialog";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
 import { PeerEvaluationResultTeamCommentForm } from "@/forms";
@@ -62,6 +63,8 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
   const [studentIdDialog, setStudentIdDialog] = useState<string | null>(null);
 
   const [studentTableDialogOpen, setStudentTableDialogOpen] = useState<boolean>(false);
+
+  const [isRedirecting, setRedirecting] = useState(false);
 
   const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
 
@@ -219,6 +222,8 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
           ...data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList,
         ]);
 
+        console.log(data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList);
+
         const tableData = JSON.parse(data.peerEvaluationStudentTeamCalculatedResultsTable.table) as TTableData;
 
         setTableData(tableData);
@@ -234,11 +239,14 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
     }
   }, [data]);
 
-  const isLoading = loadingQuery || isQueryLoading;
+  const isLoading = loadingQuery || isQueryLoading || isRedirecting;
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
       <PageTitle title={"Results"} testId={`${testId}-title`} variant="h4" margin="2em" />
+
+      <PeerEvaluationNavigationFab setRedirecting={() => setRedirecting(true)} />
+
       {resultsAvailable !== null && !resultsAvailable && (
         <CenteredContent>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
