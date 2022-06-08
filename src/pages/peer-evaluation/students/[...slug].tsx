@@ -517,7 +517,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
         />
       )}
 
-      {!openPeerEvaluationEditAction && (
+      {!openPeerEvaluationEditAction && !peerEvaluationStudentsData?.length && (
         <Fab icon={<WidgetsIcon testId={""} />}>
           <Action text="Edit" onClick={() => setOpenEditBulkDialog(true)}>
             <EditIcon testId={""} />
