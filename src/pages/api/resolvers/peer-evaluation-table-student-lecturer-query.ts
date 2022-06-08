@@ -2,6 +2,8 @@ import { PeerEvaluation, PeerEvaluationStudentReview } from "@generated/type-gra
 import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
+import { PeerEvaluationTableStudentInfoResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+
 @InputType({
   isAbstract: true,
   description: "Peer Evaluation Table Student Where Input",
@@ -54,6 +56,12 @@ class PeerEvaluationTableStudentLecturerResponse {
     description: "Peer Evaluation Student Review Data",
   })
   peerEvaluationStudentReview: PeerEvaluationStudentReview | undefined;
+
+  @Field((_type) => PeerEvaluationTableStudentInfoResponse, {
+    nullable: true,
+    description: "Peer Evaluation Student Info Data",
+  })
+  peerEvaluationStudentInfo: PeerEvaluationTableStudentInfoResponse | undefined;
 }
 
 @Resolver()
@@ -101,19 +109,32 @@ class PeerEvaluationTableStudentLecturerQuery {
     });
 
     const peerEvaluationStudentList = await ctx.prisma.peerEvaluationStudent.findFirst({
+      select: {
+        id: true,
+        updatedAt: true,
+        studentName: true,
+        peerEvaluationStudentTeam: true,
+        peerEvaluation: true,
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
       where: {
         peerEvaluationId: peerEvaluationData?.id,
         userId: user?.id,
       },
     });
 
-    if (!user || !peerEvaluationData) {
+    if (!user || !peerEvaluationData || !peerEvaluationStudentList) {
       return {
         readOnly: undefined,
         visible: undefined,
-        message: "Peer Evaluation data does not exist",
+        message: "Peer Evaluation student table is not available or does not exist",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
+        peerEvaluationStudentInfo: undefined,
       };
     }
 
@@ -194,12 +215,22 @@ class PeerEvaluationTableStudentLecturerQuery {
       },
     })) as PeerEvaluationStudentReview;
 
+    const peerEvaluationStudentInfo = {
+      studentName: peerEvaluationStudentList.studentName,
+      studentEmail: peerEvaluationStudentList.user.email,
+      submissionsLockDate:
+        peerEvaluationStudentList.peerEvaluation.submissionsLockDate?.toLocaleString("en-GB") || "N/A",
+      studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
+      updatedAt: peerEvaluationStudentList.updatedAt.toLocaleString("en-GB") || "N/A",
+    };
+
     return {
       readOnly: true,
       visible: true,
-      message: "Peer Evaluation fetched successfully",
+      message: "Peer Evaluation table fetched successfully",
       peerEvaluation: peerEvaluationData,
       peerEvaluationStudentReview: peerEvaluationStudentReviewData,
+      peerEvaluationStudentInfo: peerEvaluationStudentInfo,
     };
   }
 }

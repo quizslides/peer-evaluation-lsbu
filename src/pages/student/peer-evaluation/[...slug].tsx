@@ -7,7 +7,7 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
-import { PeerEvaluationStudentTable } from "@/containers";
+import { PeerEvaluationInfo, PeerEvaluationStudentTable } from "@/containers";
 import { IPeerEvaluationStudentTableForm } from "@/containers/PeerEvaluationStudentTable";
 import { VisibilityOffIcon } from "@/icons";
 import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
@@ -115,6 +115,15 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
             variant="h4"
             margin="2em"
           />
+          {peerEvaluationTableData.peerEvaluationStudentInfo && (
+            <PeerEvaluationInfo
+              teamName={peerEvaluationTableData.peerEvaluationStudentInfo.studentTeamName}
+              submissionDeadline={peerEvaluationTableData.peerEvaluationStudentInfo.submissionsLockDate}
+              updatedAt={peerEvaluationTableData.peerEvaluationStudentInfo.updatedAt}
+              studentEmail={peerEvaluationTableData.peerEvaluationStudentInfo.studentEmail}
+              studentName={peerEvaluationTableData.peerEvaluationStudentInfo.studentName}
+            />
+          )}
           <PeerEvaluationStudentTable
             onSubmit={onSubmitPeerEvaluation}
             session={session}

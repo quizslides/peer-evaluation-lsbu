@@ -634,6 +634,13 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
         title
         code
       }
+      peerEvaluationStudentInfo {
+        studentName
+        studentEmail
+        submissionsLockDate
+        studentTeamName
+        updatedAt
+      }
     }
   }
 `;

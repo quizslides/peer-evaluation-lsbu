@@ -30,6 +30,42 @@ class PeerEvaluationTableStudentWhereInput {
 
 @ObjectType({
   isAbstract: true,
+  description: "Peer Evaluation Table Student Info Response",
+})
+class PeerEvaluationTableStudentInfoResponse {
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation Student Name",
+  })
+  studentName!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation Student Email",
+  })
+  studentEmail!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation Submission Lock Date",
+  })
+  submissionsLockDate!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation Student Team Name",
+  })
+  studentTeamName!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
+    description: "Peer Evaluation Student Team Dame Updated At",
+  })
+  updatedAt!: string;
+}
+
+@ObjectType({
+  isAbstract: true,
   description: "Peer Evaluation Table Student Response",
 })
 class PeerEvaluationTableStudentResponse {
@@ -62,6 +98,12 @@ class PeerEvaluationTableStudentResponse {
     description: "Peer Evaluation Student Review Data",
   })
   peerEvaluationStudentReview: PeerEvaluationStudentReview | undefined;
+
+  @Field((_type) => PeerEvaluationTableStudentInfoResponse, {
+    nullable: true,
+    description: "Peer Evaluation Student Info Data",
+  })
+  peerEvaluationStudentInfo: PeerEvaluationTableStudentInfoResponse | undefined;
 }
 
 @Resolver()
@@ -100,6 +142,18 @@ class PeerEvaluationTableStudentQuery {
     });
 
     const peerEvaluationStudentList = await ctx.prisma.peerEvaluationStudent.findFirst({
+      select: {
+        id: true,
+        updatedAt: true,
+        studentName: true,
+        peerEvaluationStudentTeam: true,
+        peerEvaluation: true,
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
       where: {
         peerEvaluationId: peerEvaluationData?.id,
         userId: user?.id,
@@ -113,8 +167,18 @@ class PeerEvaluationTableStudentQuery {
         message: "Peer Evaluation student table is not available or does not exist",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
+        peerEvaluationStudentInfo: undefined,
       };
     }
+
+    const peerEvaluationStudentInfo = {
+      studentName: peerEvaluationStudentList.studentName,
+      studentEmail: peerEvaluationStudentList.user.email,
+      submissionsLockDate:
+        peerEvaluationStudentList.peerEvaluation.submissionsLockDate?.toLocaleString("en-GB") || "N/A",
+      studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
+      updatedAt: peerEvaluationStudentList.updatedAt.toLocaleString("en-GB") || "N/A",
+    };
 
     const peerEvaluationStudentId = peerEvaluationStudentList?.id;
 
@@ -129,6 +193,7 @@ class PeerEvaluationTableStudentQuery {
         message: "Peer Evaluation table is not visible",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
+        peerEvaluationStudentInfo: peerEvaluationStudentInfo,
       };
     }
 
@@ -214,8 +279,14 @@ class PeerEvaluationTableStudentQuery {
       message: "Peer Evaluation table fetched successfully",
       peerEvaluation: peerEvaluationData,
       peerEvaluationStudentReview: peerEvaluationStudentReviewData,
+      peerEvaluationStudentInfo: peerEvaluationStudentInfo,
     };
   }
 }
 
-export { PeerEvaluationTableStudentQuery, PeerEvaluationTableStudentResponse, PeerEvaluationTableStudentWhereInput };
+export {
+  PeerEvaluationTableStudentInfoResponse,
+  PeerEvaluationTableStudentQuery,
+  PeerEvaluationTableStudentResponse,
+  PeerEvaluationTableStudentWhereInput,
+};
