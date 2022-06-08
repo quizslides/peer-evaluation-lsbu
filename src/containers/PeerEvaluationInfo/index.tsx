@@ -22,19 +22,19 @@ const PeerEvaluationInfo = ({
   return (
     <Card sx={{ minWidth: 275, width: 275, marginBottom: "1rem" }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
           <strong>Student Email: </strong>
           {studentEmail}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
           <strong>Student Name: </strong>
           {studentName}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
           <strong>Team Name: </strong>
           {teamName}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
           <strong>Last Updated: </strong>
           {updatedAt}
         </Typography>
