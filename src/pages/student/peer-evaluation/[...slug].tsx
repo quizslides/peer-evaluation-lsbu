@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
+import { Stack } from "@mui/material";
 import { NextPage, NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -8,9 +9,11 @@ import { useRouter } from "next/router";
 import { Base, PageTitle } from "@/components";
 import { PeerEvaluationStudentTable } from "@/containers";
 import { IPeerEvaluationStudentTableForm } from "@/containers/PeerEvaluationStudentTable";
+import { VisibilityOffIcon } from "@/icons";
 import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
 import updatePeerEvaluationTableStudent from "@/requests/direct/mutation/updatePeerEvaluationTableStudent";
 import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
+import { CenteredContent } from "@/styles";
 import { getSanitizedPeerEvaluationTableOnUpdate } from "@/transformers/peer-evaluation-student-table";
 import { NextPagePros } from "@/types/pages";
 import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
@@ -96,18 +99,28 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
-      <PageTitle
-        title={peerEvaluationTableData?.peerEvaluation?.title || ""}
-        testId={`${testId}-title`}
-        variant="h4"
-        margin="2em"
-      />
-      {peerEvaluationTableData && session && (
-        <PeerEvaluationStudentTable
-          onSubmit={onSubmitPeerEvaluation}
-          session={session}
-          data={peerEvaluationTableData}
-        />
+      {peerEvaluationTableData && !peerEvaluationTableData.visible && (
+        <CenteredContent>
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <VisibilityOffIcon testId={`${testId}-visibility-off-icon`} fontSize="large" />
+          </Stack>
+        </CenteredContent>
+      )}
+
+      {peerEvaluationTableData && peerEvaluationTableData.visible && session && (
+        <>
+          <PageTitle
+            title={peerEvaluationTableData?.peerEvaluation?.title || ""}
+            testId={`${testId}-title`}
+            variant="h4"
+            margin="2em"
+          />
+          <PeerEvaluationStudentTable
+            onSubmit={onSubmitPeerEvaluation}
+            session={session}
+            data={peerEvaluationTableData}
+          />
+        </>
       )}
     </Base>
   );

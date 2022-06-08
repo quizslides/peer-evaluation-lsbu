@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 
 import { PeerEvaluationStudentReview } from "@generated/type-graphql";
-import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
@@ -20,9 +19,7 @@ import {
   WarningUnsavedForm,
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
-import { VisibilityOffIcon } from "@/icons";
 import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
-import { CenteredContent } from "@/styles";
 import { ObjectArray, getRangeNumberObject, objectToArrayOfObject } from "@/utils/form";
 
 const testId = "container-peer-evaluation-student-table";
@@ -341,16 +338,6 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
       setPeerEvaluationTableFormInitialState(initialValues);
     }
   }, [dataTableColumns, peerEvaluationTableData]);
-
-  if (!data.visible) {
-    return (
-      <CenteredContent>
-        <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
-          <VisibilityOffIcon testId={`${testId}-visibility-off-icon`} fontSize="large" />
-        </Stack>
-      </CenteredContent>
-    );
-  }
 
   if (peerEvaluationTableFormInitialState.length === 0 || !validationSchemaState) {
     return <LoadingContainer loading />;
