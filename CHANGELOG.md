@@ -2,6 +2,16 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.24](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.23...v1.0.0-staging.24) (2022-06-09)
+
+
+### Features
+
+* add 1000 character limit to comment field ([0b6c2f9](https://github.com/quizslides/peer-evaluation-lsbu/commit/0b6c2f9704d7bcb3faba793a24f443fecb16b108))
+* adding feature to make a single submission invalid ([0d72554](https://github.com/quizslides/peer-evaluation-lsbu/commit/0d72554c74b841c01f6f817032d8e781acc693b0))
+* adding navigation fab for peer evaluation to peer evaluation result page ([d38aced](https://github.com/quizslides/peer-evaluation-lsbu/commit/d38aced74d3873a41f8b351c024aaec8235a5eb1))
+* renaming last updated with date team mark last updated ([62d2588](https://github.com/quizslides/peer-evaluation-lsbu/commit/62d25885b9123a55ffa7b2df806ff9f4733d97aa))
+
 ## [1.0.0-staging.23](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.22...v1.0.0-staging.23) (2022-06-08)
 
 
