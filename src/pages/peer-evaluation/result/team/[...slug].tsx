@@ -230,6 +230,11 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
     await onCalculateMarksTrigger();
   };
 
+  const updatePeerEvaluationStudentTableDialogState = (state: boolean) => {
+    setStudentTableDialogOpen(state);
+    setStudentIdDialog(null);
+  };
+
   useEffect(() => {
     const slug = query.slug;
 
@@ -440,13 +445,14 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                     columns={tableColumns}
                     options={tableOptions}
                   />
+
                   {peerEvaluationId && studentIdDialog !== null && (
                     <PeerEvaluationStudentTableDialog
                       session={session}
                       peerEvaluationId={peerEvaluationId}
                       studentId={studentIdDialog}
                       isDialogOpen={studentTableDialogOpen}
-                      updateDialogState={(state) => setStudentTableDialogOpen(state)}
+                      updateDialogState={updatePeerEvaluationStudentTableDialogState}
                     />
                   )}
                 </Form>
