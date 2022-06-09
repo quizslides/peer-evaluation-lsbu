@@ -12,11 +12,22 @@ interface IPeerEvaluationStudentTeamResultCard {
 
 const PeerEvaluationStudentTeamResultCard = ({ teamName, mark, updatedAt }: IPeerEvaluationStudentTeamResultCard) => {
   return (
-    <Card sx={{ minWidth: 275, width: 275, marginBottom: "3px" }}>
+    <Card sx={{ minWidth: 275, maxWidth: 450, marginBottom: "3px" }}>
       <CardContent>
-        <Typography fontSize={14}>{`Team Name: ${teamName}`}</Typography>
-        <Typography fontSize={14}>{`Mark: ${mark || "Not available"}`}</Typography>
-        <Typography fontSize={14}>{`Last Updated: ${updatedAt || "Not available"}`}</Typography>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+          <strong>Team Name: </strong>
+          {teamName}
+        </Typography>
+
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+          <strong>Mark: </strong>
+          {mark || "Not available"}
+        </Typography>
+
+        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+          <strong>Date Team Mark Last Calculated: </strong>
+          {updatedAt || "Not available"}
+        </Typography>
       </CardContent>
     </Card>
   );
