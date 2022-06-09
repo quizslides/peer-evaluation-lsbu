@@ -1,7 +1,7 @@
 {
   "name": "peer-evaluation-lsbu",
   "description": "The full stack web app of the Peer Evaluation App of LSBU",
-  "version": "1.0.0-staging.24",
+  "version": "1.0.0-staging.25",
   "private": true,
   "author": "Juan Carlos Blanco Delgado <juancarlosjr97@gmail.com>",
   "license": "UNLICENSED",

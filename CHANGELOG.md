@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.25](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.24...v1.0.0-staging.25) (2022-06-09)
+
+
+### Features
+
+* Adding link to welcome email ([de4beea](https://github.com/quizslides/peer-evaluation-lsbu/commit/de4beea6c49db18587f06f466c30b08849de561f))
+
 ## [1.0.0-staging.24](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.23...v1.0.0-staging.24) (2022-06-09)
 
 
