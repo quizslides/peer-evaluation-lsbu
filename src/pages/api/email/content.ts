@@ -15,6 +15,7 @@ const content = {
       subject: "Welcome to Peer Evaluation LSBU",
       variables: {
         preHeader: "Account created",
+        baseUrl: process.env.NEXTAUTH_URL,
       },
     },
   },
