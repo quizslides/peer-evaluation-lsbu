@@ -222,7 +222,10 @@ const getRevieweesValid = (data: IPeerEvaluationTeamReviewerResult[], studentEma
   data.filter(({ revieweeEmail, isValid }) => revieweeEmail === studentEmail && isValid === true);
 
 const getRevieweesInvalidCount = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
-  data.filter(({ revieweeEmail, isValid }) => revieweeEmail === studentEmail && isValid === false).length;
+  data.filter(
+    ({ revieweeEmail, isValid, criteriaScoreTotal }) =>
+      revieweeEmail === studentEmail && (isValid === false || criteriaScoreTotal === null)
+  ).length;
 
 const getCommentsByReviewer = (dataReviewees: IPeerEvaluationTeamReviewerResult[]) => {
   const listCommentsByReviewer = dataReviewees
