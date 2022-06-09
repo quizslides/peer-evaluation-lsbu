@@ -347,7 +347,12 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
     <Formik
       initialValues={peerEvaluationTableFormInitialState}
       validationSchema={validationSchemaState}
-      onSubmit={(data) => onSubmit(data)}
+      onSubmit={(data, { resetForm }) => {
+        onSubmit(data);
+        resetForm({
+          values: data,
+        });
+      }}
     >
       {({ dirty }) => (
         <Form>

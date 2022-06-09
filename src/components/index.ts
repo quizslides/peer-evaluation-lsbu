@@ -2,6 +2,7 @@ import AutocompleteFieldForm from "@/components/AutocompleteFieldForm/Autocomple
 import BackArrowButton from "@/components/BackArrowButton/BackArrowButton";
 import Base from "@/components/Base/Base";
 import Button from "@/components/Button/Button";
+import ButtonFieldFormDataTablePeerEvaluationValidity from "@/components/ButtonFieldFormDataTablePeerEvaluationValidity/ButtonFieldFormDataTablePeerEvaluationValidity";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import CriteriaScoreTotalFormDataTable from "@/components/CriteriaScoreTotalFormDataTable/CriteriaScoreTotalFormDataTable";
 import DataTable from "@/components/DataTable/DataTable";
@@ -26,6 +27,7 @@ import PageTitle from "@/components/PageTitle/PageTitle";
 import SelectFieldForm from "@/components/SelectFieldForm/SelectFieldForm";
 import SelectFieldFormDataTable from "@/components/SelectFieldFormDataTable/SelectFieldFormDataTable";
 import SelectMultipleFieldForm from "@/components/SelectMultipleFieldForm/SelectMultipleFieldForm";
+import SwitchForm from "@/components/SwitchForm/SwitchForm";
 import TextField from "@/components/TextField/TextField";
 import TextFieldForm from "@/components/TextFieldForm/TextFieldForm";
 import TextFieldFormDataTable from "@/components/TextFieldFormDataTable/TextFieldFormDataTable";
@@ -41,6 +43,7 @@ export {
   BackArrowButton,
   Base,
   Button,
+  ButtonFieldFormDataTablePeerEvaluationValidity,
   ConfirmationDialog,
   CriteriaScoreTotalFormDataTable,
   DataTable,
@@ -65,6 +68,7 @@ export {
   SelectFieldForm,
   SelectFieldFormDataTable,
   SelectMultipleFieldForm,
+  SwitchForm,
   TextField,
   TextFieldForm,
   TextFieldFormDataTable,

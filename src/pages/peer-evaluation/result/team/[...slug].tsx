@@ -2,25 +2,40 @@ import React, { useEffect, useState } from "react";
 
 import styled from "@emotion/styled";
 import { Grid, Stack } from "@mui/material";
+import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { NextPage, NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { array, object } from "yup";
+import { AnyObject, OptionalObjectSchema } from "yup/lib/object";
 
-import { Base, Button, DataTable, DataTableRefreshActionButtonIcon, PageTitle } from "@/components";
+import {
+  Base,
+  Button,
+  ButtonFieldFormDataTablePeerEvaluationValidity,
+  DataTable,
+  DataTableRefreshActionButtonIcon,
+  IconButtonWrapper,
+  PageTitle,
+  WarningUnsavedForm,
+} from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import Typography from "@/components/Typography/Typography";
+import { PeerEvaluationNavigationFab } from "@/containers";
 import PeerEvaluationStudentTableDialog from "@/containers/PeerEvaluationStudentTableDialog";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
 import { PeerEvaluationResultTeamCommentForm } from "@/forms";
 import { IPeerEvaluationResultTeamCommentFormData } from "@/forms/PeerEvaluationResultTeamCommentForm";
-import { GradingIcon, VisibilityOffIcon } from "@/icons";
+import { GradingIcon, SaveIcon, VisibilityOffIcon } from "@/icons";
+import useUpdatePeerEvaluationReviewee from "@/requests/hooks/mutations/useUpdatePeerEvaluationReviewee";
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam";
 import useGetPeerEvaluationStudentTeamCalculatedResultsTable from "@/requests/hooks/query/useGetPeerEvaluationStudentTeamCalculatedResultsTable";
 import { CenteredContent } from "@/styles";
 import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
+import { ObjectArray, objectToArrayOfObject } from "@/utils/form";
 import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
 const testId = "page-report-team";
@@ -34,16 +49,22 @@ const Message = styled(Typography)`
 
 type TTableData = Array<object | number[] | string[]>;
 
+type RowDataStudentTable = {
+  comment: string;
+  criteriaScoreTotal: number;
+  isValid: boolean;
+  peerEvaluationReviewId: string;
+  studentId: string;
+};
+
+interface IPeerEvaluationResultStudentTeamTableForm {
+  [x: string]: {
+    [x: string]: object;
+  }[];
+}
+
 const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
   const { query } = useRouter();
-
-  const [updatePeerEvaluationStudentTeamCalculateResultsTableByTeam] =
-    useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam(
-      "UpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam"
-    );
-
-  const [getPeerEvaluationStudentTeamCalculatedResultsTable, { loading: loadingQuery, error, data, refetch }] =
-    useGetPeerEvaluationStudentTeamCalculatedResultsTable("GetPeerEvaluationStudentTeamCalculatedResultsTable");
 
   const [tableData, setTableData] = useState<TTableData | null>(null);
 
@@ -63,7 +84,23 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
   const [studentTableDialogOpen, setStudentTableDialogOpen] = useState<boolean>(false);
 
-  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
+  const [isRedirecting, setRedirecting] = useState(false);
+
+  const [tableFormInitialState, setTableFormInitialState] = useState<IPeerEvaluationResultStudentTeamTableForm[]>([]);
+
+  const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
+
+  const [updatePeerEvaluationStudentTeamCalculateResultsTableByTeam] =
+    useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam(
+      "UpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam"
+    );
+
+  const [getPeerEvaluationStudentTeamCalculatedResultsTable, { loading: loadingQuery, error, data, refetch }] =
+    useGetPeerEvaluationStudentTeamCalculatedResultsTable("GetPeerEvaluationStudentTeamCalculatedResultsTable");
+
+  const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UpdatePeerEvaluationStudentTeam");
+
+  const [updatePeerEvaluationReviewee] = useUpdatePeerEvaluationReviewee("useUpdatePeerEvaluationReviewee");
 
   const tableOptions: MUIDataTableOptions = {
     textLabels: {
@@ -92,7 +129,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
     customToolbar: (_) => (
       <>
         <DataTableMarkActionButtonIcon
-          onClick={onCalculateMarks}
+          onClick={onCalculateMarksTrigger}
           testId={`${testId}-refresh-peer-evaluation-table`}
           toolTipLabel={"Calculate Marks"}
         />
@@ -101,6 +138,9 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
           testId={`${testId}-refresh-peer-evaluation-table`}
           toolTipLabel={"Refresh"}
         />
+        <IconButtonWrapper type="submit" testId={""} tooltip={"Save"}>
+          <SaveIcon testId="" fontSize="medium" color="inherit" />
+        </IconButtonWrapper>
       </>
     ),
   };
@@ -116,7 +156,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
     }
   };
 
-  const onCalculateMarks = async () => {
+  const onCalculateMarksTrigger = async () => {
     if (peerEvaluationId && peerEvaluationTeamName) {
       await updatePeerEvaluationStudentTeamCalculateResultsTableByTeam({
         variables: {
@@ -147,12 +187,47 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
         },
       },
     });
-    await onRefreshTable();
+
+    await onCalculateMarksTrigger();
   };
 
   const openStudentPeerEvaluationDialog = (studentId: string) => {
     setStudentIdDialog(studentId);
     setStudentTableDialogOpen(true);
+  };
+
+  const updateValidityPeerEvaluationReviewee = async (peerEvaluationRevieweeId: string, isValid: boolean) => {
+    await updatePeerEvaluationReviewee({
+      variables: {
+        data: {
+          isValid: {
+            set: isValid,
+          },
+        },
+        where: {
+          id: peerEvaluationRevieweeId,
+        },
+      },
+    });
+  };
+
+  const onSaveTableForm = async (tableDataForm: IPeerEvaluationResultStudentTeamTableForm[]) => {
+    const listPromises = [];
+
+    for (const studentIdTable in tableDataForm) {
+      for (const rowData of tableDataForm[studentIdTable] as unknown as []) {
+        const rowDataValues = rowData[studentIdTable.slice(0, -1)];
+        if (typeof rowDataValues === "object" && rowDataValues !== null) {
+          const rowDataSanitized = rowDataValues as RowDataStudentTable;
+          listPromises.push(
+            updateValidityPeerEvaluationReviewee(rowDataSanitized.peerEvaluationReviewId, rowDataSanitized.isValid)
+          );
+        }
+      }
+    }
+
+    await Promise.all(listPromises);
+    await onCalculateMarksTrigger();
   };
 
   useEffect(() => {
@@ -187,7 +262,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
           name: "studentName",
           label: "Student Name",
           options: {
-            customBodyRender: (columnData) => {
+            customBodyRender: (columnData, tableMeta) => {
               if (typeof columnData === "string" && defaultColumnsDataTable.includes(columnData)) {
                 return columnData;
               }
@@ -214,15 +289,79 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
         data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList &&
         data.peerEvaluationStudentTeamCalculatedResultsTable.table
       ) {
-        setTableColumns([
-          ...initialTableColumns,
-          ...data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList,
-        ]);
+        const studentsColumnList = data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList.map(
+          (data) =>
+            ({
+              ...data,
+              options: {
+                setCellProps: () => ({ style: { minWidth: "100px", width: "100px" } }),
+                setCellHeaderProps: () => ({ align: "center" }),
+                customBodyRender: (columnData, tableMeta, updateValue) => {
+                  if (typeof columnData === "object" && columnData !== null) {
+                    if (!columnData.criteriaScoreTotal) {
+                      return null;
+                    }
+
+                    return (
+                      <ButtonFieldFormDataTablePeerEvaluationValidity
+                        name={`[${data.name}s].[${tableMeta.rowIndex}].[${data.name}]`}
+                        props={{
+                          variant: "outlined",
+                          testId: "",
+                        }}
+                        criteriaScoreTotal={columnData.criteriaScoreTotal}
+                        updateDataTableFormValue={updateValue}
+                        formValue={columnData}
+                      />
+                    );
+                  }
+
+                  // TODO: Button Final Mark
+                  return (
+                    <Button variant="text" fullWidth testId={""} size="small" disabled>
+                      {columnData}
+                    </Button>
+                  );
+                },
+              },
+            } as MUIDataTableColumn)
+        );
+
+        setTableColumns([...initialTableColumns, ...studentsColumnList]);
 
         const tableData = JSON.parse(data.peerEvaluationStudentTeamCalculatedResultsTable.table) as TTableData;
 
+        const studentColumnList = data.peerEvaluationStudentTeamCalculatedResultsTable.studentsColumnList.flatMap(
+          ({ name }) => name
+        );
+
+        const initialValues = Object.assign(
+          {},
+          ...studentColumnList.map((columnName) => ({
+            [`${columnName}s`]: objectToArrayOfObject(columnName, tableData as unknown as ObjectArray),
+          }))
+        );
+
+        const columnsStudentValidation = studentColumnList.map((columnName) => ({
+          [`${columnName}s`]: array().of(
+            object().shape({
+              [columnName]: object().nullable().notRequired(),
+            })
+          ),
+        })) as [{}];
+
+        const validationSchema = object({
+          ...Object.assign(...columnsStudentValidation),
+        });
+
+        setValidationSchemaState(validationSchema);
+
+        setTableFormInitialState(initialValues);
+
         setTableData(tableData);
+
         setAreMarksCalculated(true);
+
         setResultsAvailable(true);
       } else if (!data.peerEvaluationStudentTeamCalculatedResultsTable.isAvailable) {
         setResultsAvailable(false);
@@ -234,11 +373,14 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
     }
   }, [data]);
 
-  const isLoading = loadingQuery || isQueryLoading;
+  const isLoading = loadingQuery || isQueryLoading || isRedirecting;
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
       <PageTitle title={"Results"} testId={`${testId}-title`} variant="h4" margin="2em" />
+
+      <PeerEvaluationNavigationFab setRedirecting={() => setRedirecting(true)} />
+
       {resultsAvailable !== null && !resultsAvailable && (
         <CenteredContent>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
@@ -255,7 +397,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <GradingIcon testId={`${testId}-grading-icon`} fontSize="large" />
             <Message testId={""}>{"Peer Evaluation marks have not been calculated"}</Message>
-            <Button size="large" testId="" variant="contained" onClick={onCalculateMarks}>
+            <Button size="large" testId="" variant="contained" onClick={onCalculateMarksTrigger}>
               Calculate Marks
             </Button>
           </Stack>
@@ -277,23 +419,40 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
             />
           </Grid>
 
-          {session && peerEvaluationId && studentIdDialog && (
-            <PeerEvaluationStudentTableDialog
-              session={session}
-              peerEvaluationId={peerEvaluationId}
-              studentId={studentIdDialog}
-              isDialogOpen={studentTableDialogOpen}
-              updateDialogState={(state) => setStudentTableDialogOpen(state)}
-            />
+          {session && tableFormInitialState && validationSchemaState && (
+            <Formik
+              initialValues={tableFormInitialState}
+              validationSchema={validationSchemaState}
+              onSubmit={async (data, { resetForm }) => {
+                await onSaveTableForm(data);
+                resetForm({
+                  values: data,
+                });
+              }}
+            >
+              {({ dirty }) => (
+                <Form>
+                  <WarningUnsavedForm areChangesUnsaved={dirty} />
+                  <DataTable
+                    testId={`${testId}-datatable`}
+                    isVisible
+                    data={tableData}
+                    columns={tableColumns}
+                    options={tableOptions}
+                  />
+                  {peerEvaluationId && studentIdDialog !== null && (
+                    <PeerEvaluationStudentTableDialog
+                      session={session}
+                      peerEvaluationId={peerEvaluationId}
+                      studentId={studentIdDialog}
+                      isDialogOpen={studentTableDialogOpen}
+                      updateDialogState={(state) => setStudentTableDialogOpen(state)}
+                    />
+                  )}
+                </Form>
+              )}
+            </Formik>
           )}
-
-          <DataTable
-            testId={`${testId}-datatable`}
-            isVisible
-            data={tableData}
-            columns={tableColumns}
-            options={tableOptions}
-          />
         </>
       )}
     </Base>

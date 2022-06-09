@@ -11,6 +11,10 @@ interface ITextFieldForm extends ITextField {
 const TextFieldForm = ({ testId, name, props }: ITextFieldForm) => {
   const [field, meta] = useField(name);
 
+  if (props.type === "number" || props.type === "text") {
+    field.value = !field.value && field.value !== 0 ? "" : field.value;
+  }
+
   if (meta && meta.touched && meta.error) {
     props.error = true;
     props.helperText = meta.error;

@@ -38,7 +38,7 @@ const extractRowDataPeerEvaluationStudentTable = (
     studentName: columnName,
     ...getSortedObject(
       peerEvaluationStudentTeamCalculatedResults.reduce((previous, current) => {
-        return { [current.email]: current[keyName], ...previous };
+        return { [current.studentId]: current[keyName], ...previous };
       }, {})
     ),
   };
@@ -48,7 +48,7 @@ const getStudentsColumnList = (peerEvaluationStudentTeamCalculatedResults: IPeer
   const dataColumnList = Object.values(
     getSortedObject(
       peerEvaluationStudentTeamCalculatedResults.reduce((previous, current) => {
-        return { [current.email]: { name: current.email, label: current.studentName }, ...previous };
+        return { [current.studentId]: { name: current.studentId, label: current.studentName }, ...previous };
       }, {})
     )
   );
@@ -222,7 +222,16 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
 
     const studentsData = peerEvaluationStudentTeamCalculatedResults.map(({ studentName, reviews, studentId }) => {
       const reviewerData = reviews.reduce((previous, current) => {
-        return { [current.revieweeEmail]: current.criteriaScoreTotal, ...previous };
+        return {
+          [current.revieweeStudentId]: {
+            studentId: studentId,
+            peerEvaluationReviewId: current.peerEvaluationReviewId,
+            criteriaScoreTotal: current.criteriaScoreTotal,
+            isValid: current.isValid,
+            comment: current.comment,
+          },
+          ...previous,
+        };
       }, {});
       return {
         studentName: {
