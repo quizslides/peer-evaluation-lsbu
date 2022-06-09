@@ -45,6 +45,7 @@ interface PeerEvaluationReviewee {
   isValid: boolean;
   studentReviewedId: string;
   peerEvaluationReview: PeerEvaluationReview;
+  id: string;
 }
 
 interface PeerEvaluationStudentList {
@@ -74,6 +75,7 @@ interface IPeerEvaluationStudentMarksByTeam {
 }
 
 interface IPeerEvaluationTeamReviewerResult {
+  revieweeStudentId: string;
   reviewerName: string;
   reviewerEmail: string;
   revieweeName: string;
@@ -81,6 +83,7 @@ interface IPeerEvaluationTeamReviewerResult {
   criteriaScoreTotal: number | null;
   comment: string | null;
   isValid: boolean;
+  peerEvaluationReviewId: string;
 }
 
 const getPeerEvaluationDataById = async (peerEvaluationId: string) => {
@@ -142,6 +145,7 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
                   },
                 },
               },
+              id: true,
             },
           },
           studentName: true,
@@ -192,15 +196,19 @@ const getStudentTeamEmailList = (peerEvaluationStudentTeam: PeerEvaluationStuden
 
 const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IPeerEvaluationStudentTeam) => {
   return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) =>
-    student.PeerEvaluationReviewees.map(({ criteriaScoreTotal, comment, isValid, peerEvaluationReview }) => ({
-      reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
-      reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",
-      revieweeName: student.user.name,
-      revieweeEmail: student.user.email,
-      criteriaScoreTotal,
-      comment,
-      isValid,
-    }))
+    student.PeerEvaluationReviewees.map(
+      ({ criteriaScoreTotal, comment, isValid, peerEvaluationReview, id, studentReviewedId }) => ({
+        reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
+        reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",
+        revieweeName: student.user.name,
+        revieweeEmail: student.user.email,
+        criteriaScoreTotal,
+        comment,
+        isValid,
+        peerEvaluationReviewId: id,
+        revieweeStudentId: studentReviewedId,
+      })
+    )
   );
 };
 

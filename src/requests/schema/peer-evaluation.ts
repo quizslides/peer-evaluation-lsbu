@@ -10,6 +10,17 @@ const UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK = gql`
   }
 `;
 
+const UPDATE_PEER_EVALUATION_REVIEWEE = gql`
+  mutation UpdatePeerEvaluationReviewee(
+    $data: PeerEvaluationRevieweeUpdateInput!
+    $where: PeerEvaluationRevieweeWhereUniqueInput!
+  ) {
+    updatePeerEvaluationReviewee(data: $data, where: $where) {
+      id
+    }
+  }
+`;
+
 const DELETE_PEER_EVALUATION_STUDENT_TEAM = gql`
   mutation DeletePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
     deletePeerEvaluationStudentTeam(where: $where) {
@@ -740,6 +751,7 @@ export {
   PEER_EVALUATION_STUDENTS,
   UPDATE_PEER_EVALUATION,
   UPDATE_PEER_EVALUATION_EMAIL,
+  UPDATE_PEER_EVALUATION_REVIEWEE,
   UPDATE_PEER_EVALUATION_STUDENT,
   UPDATE_PEER_EVALUATION_STUDENT_TEAM,
   UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE,

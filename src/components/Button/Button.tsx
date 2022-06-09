@@ -13,4 +13,6 @@ const Button: FC<IButton> = ({ variant, testId, ...props }) => {
   return <ButtonMUI data-testid={testId} {...props} variant={variant} />;
 };
 
+export type { IButton };
+
 export default memo(Button);
