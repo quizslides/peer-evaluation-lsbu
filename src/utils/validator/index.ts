@@ -31,7 +31,12 @@ const peerEvaluationTeachingMemberIdValidator = {
 };
 
 const peerEvaluationStudentTeamResultComment = {
-  comment: string().max(1000, content.peerEvaluationResultTeamCommentFormComment.maxLength).nullable(),
+  comment: string()
+    .max(1000, content.peerEvaluationResultTeamCommentFormComment.maxLength)
+    .nullable()
+    .transform((currentValue) => {
+      return currentValue === null ? "" : currentValue;
+    }),
 };
 
 const userRoleValidator = {

@@ -31,7 +31,13 @@ import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/
 import useGetPeerEvaluationStudentTeams from "@/requests/hooks/query/useGetPeerEvaluationStudentTeams";
 import routing from "@/routing";
 import { ArrayObject } from "@/types/object";
-import { RoleScope, errorNotification, loadingNotification, successNotification } from "@/utils";
+import {
+  RoleScope,
+  errorNotification,
+  loadingNotification,
+  peerEvaluationStudentTeamResultComment,
+  successNotification,
+} from "@/utils";
 import {
   ObjectArray,
   ObjectNormalizedType,
@@ -187,7 +193,7 @@ const Teams: NextPage = () => {
     ),
     comments: array().of(
       object().shape({
-        comment: string().nullable(),
+        comment: peerEvaluationStudentTeamResultComment.comment,
       })
     ),
   });
