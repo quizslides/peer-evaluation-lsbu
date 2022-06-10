@@ -267,7 +267,9 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
           name: "studentName",
           label: "Student Name",
           options: {
-            customBodyRender: (columnData, tableMeta) => {
+            setCellProps: () => ({ style: { minWidth: "100px", width: "100px" } }),
+            setCellHeaderProps: () => ({ align: "left" }),
+            customBodyRender: (columnData) => {
               if (typeof columnData === "string" && defaultColumnsDataTable.includes(columnData)) {
                 return columnData;
               }
