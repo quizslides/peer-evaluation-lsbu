@@ -32,9 +32,8 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
     null
   );
 
-  const [getPeerEvaluationTableStudent, { loading: loadingFetch, error, data }] = useGetPeerEvaluationTableStudent(
-    "useGetPeerEvaluationTableStudent"
-  );
+  const [getPeerEvaluationTableStudent, { loading: loadingFetch, error, data, refetch }] =
+    useGetPeerEvaluationTableStudent("useGetPeerEvaluationTableStudent");
 
   const onSubmitPeerEvaluation = async (data: IPeerEvaluationStudentTableForm[]) => {
     loadingNotification("Updating Peer Evaluation", "onSubmitPeerEvaluation");
@@ -53,6 +52,7 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
 
       if (response.data.updatePeerEvaluationTableStudent.completed) {
         successNotification(response.data.updatePeerEvaluationTableStudent.message, "onSubmitPeerEvaluation");
+        await refetch();
       } else {
         errorNotification(response.data.updatePeerEvaluationTableStudent.message, "onSubmitPeerEvaluation");
       }

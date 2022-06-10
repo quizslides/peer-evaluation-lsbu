@@ -171,20 +171,30 @@ class PeerEvaluationTableStudentQuery {
       };
     }
 
+    const peerEvaluationStudentId = peerEvaluationStudentList?.id;
+
+    const isPeerEvaluationVisible = peerEvaluationData?.status !== "DRAFT";
+
+    const isPeerEvaluationReadOnly = getIsPeerEvaluationReadOnly(user?.role, peerEvaluationData?.status);
+
+    const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
+      select: {
+        updatedAt: true,
+      },
+      where: {
+        isCompleted: true,
+        peerEvaluationStudentId: peerEvaluationStudentId,
+      },
+    });
+
     const peerEvaluationStudentInfo = {
       studentName: peerEvaluationStudentList.studentName,
       studentEmail: peerEvaluationStudentList.user.email,
       submissionsLockDate:
         peerEvaluationStudentList.peerEvaluation.submissionsLockDate?.toLocaleString("en-GB") || "N/A",
       studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
-      updatedAt: peerEvaluationStudentList.updatedAt.toLocaleString("en-GB") || "N/A",
+      updatedAt: peerEvaluationStudentTableInfo?.updatedAt.toLocaleString("en-GB") || "N/A",
     };
-
-    const peerEvaluationStudentId = peerEvaluationStudentList?.id;
-
-    const isPeerEvaluationVisible = peerEvaluationData?.status !== "DRAFT";
-
-    const isPeerEvaluationReadOnly = getIsPeerEvaluationReadOnly(user?.role, peerEvaluationData?.status);
 
     if (!isPeerEvaluationVisible) {
       return {
