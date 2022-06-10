@@ -219,13 +219,10 @@ const getReviewees = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: s
   data.filter(({ revieweeEmail }) => revieweeEmail === studentEmail);
 
 const getRevieweesValid = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
-  data.filter(({ revieweeEmail, isValid }) => revieweeEmail === studentEmail && isValid === true);
-
-const getRevieweesInvalidCount = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
   data.filter(
     ({ revieweeEmail, isValid, criteriaScoreTotal }) =>
-      revieweeEmail === studentEmail && (isValid === false || criteriaScoreTotal === null)
-  ).length;
+      revieweeEmail === studentEmail && isValid === true && criteriaScoreTotal !== null
+  );
 
 const getCommentsByReviewer = (dataReviewees: IPeerEvaluationTeamReviewerResult[]) => {
   const listCommentsByReviewer = dataReviewees
@@ -250,11 +247,9 @@ const getAvgCriteriaScoreData = (
 
     const listRevieweesValid = getRevieweesValid(listRevieweesByReviewee, studentEmail);
 
-    const revieweesInvalidCount = getRevieweesInvalidCount(listRevieweesByReviewee, studentEmail);
-
     const criteriaScoreTotalSum = getCriteriaTotalSum(listRevieweesValid);
 
-    const totalValidSubmissions = listRevieweesValid.length - revieweesInvalidCount;
+    const totalValidSubmissions = listRevieweesValid.length;
 
     const listCommentsByReviewer = getCommentsByReviewer(listRevieweesByReviewee);
 
