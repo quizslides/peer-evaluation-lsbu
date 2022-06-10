@@ -78,11 +78,13 @@ const PeerEvaluationStudentsDataTable = ({
     ),
   });
 
-  const onViewResultsPeerEvaluationStudent = (studentId: string) => {
-    setRedirecting(true);
-    push({
-      pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
-    });
+  const onViewResultsPeerEvaluationStudent = async (studentId: string) => {
+    try {
+      push({
+        pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
+      });
+      setRedirecting(true);
+    } catch {}
   };
 
   const onCalculateMarks = async () => {

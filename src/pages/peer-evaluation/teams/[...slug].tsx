@@ -70,7 +70,15 @@ interface IPeerEvaluationStudentTableForm {
   ];
 }
 
+interface IPeerEvaluationStudentTeam {
+  id: string;
+  name: string;
+  mark: string;
+}
+
 const Teams: NextPage = () => {
+  const peerEvaluationStudentTeamsColumnOrder = ["_", "id", "name", "mark", "__"];
+
   const apolloClient = useApolloClient();
 
   const { push, query } = useRouter();
@@ -98,20 +106,14 @@ const Teams: NextPage = () => {
 
   const rangeSelectField = getRangeNumberObject(100, 0);
 
-  const onViewResultsPeerEvaluationTeam = (teamName: string) => {
-    setRedirecting(true);
-    push({
-      pathname: `${routing.peerEvaluation.result.team}/${peerEvaluationId}/${teamName}`,
-    });
+  const onViewResultsPeerEvaluationTeam = async (teamName: string) => {
+    try {
+      await push({
+        pathname: `${routing.peerEvaluation.result.team}/${peerEvaluationId}/${teamName}`,
+      });
+      setRedirecting(true);
+    } catch {}
   };
-
-  const peerEvaluationStudentTeamsColumnOrder = ["_", "id", "name", "mark", "__"];
-
-  interface IPeerEvaluationStudentTeam {
-    id: string;
-    name: string;
-    mark: string;
-  }
 
   const onCalculateMarks = async () => {
     if (peerEvaluationId) {
