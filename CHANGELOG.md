@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.28](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.27...v1.0.0-staging.28) (2022-06-10)
+
+
+### Features
+
+* adding script to add sql dump to a running container for local development ([ee7f395](https://github.com/quizslides/peer-evaluation-lsbu/commit/ee7f39586dd85e4ef6c6433b12c9a0fdf82d0a84))
+
+
+### Bug Fixes
+
+* updating how avg of the sum of the criteria score is calculated ([d601aa7](https://github.com/quizslides/peer-evaluation-lsbu/commit/d601aa73ecca09a06efceac4d9a66738110359d0))
+
 ## [1.0.0-staging.27](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.26...v1.0.0-staging.27) (2022-06-10)
 
 
