@@ -26,7 +26,7 @@ import {
   SchoolsDataTable,
   SchoolsDropdown,
 } from "@/types/peer-evaluation";
-import { getDateLocaleDateString, getDateLocaleString } from "@/utils/date";
+import { getDateLocaleDateString } from "@/utils/date";
 
 type ColumnCreateMany = PeerEvaluationColumnCreateWithoutPeerEvaluationInput[];
 
