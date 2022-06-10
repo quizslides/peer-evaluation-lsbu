@@ -232,7 +232,13 @@ const getCommentsByReviewer = (dataReviewees: IPeerEvaluationTeamReviewerResult[
   return listCommentsByReviewer.slice(0, listCommentsByReviewer.lastIndexOf("\n"));
 };
 
-const getAverageCriteriaScore = (criteriaScore: number, validSubmissions: number) => criteriaScore / validSubmissions;
+const getAverageCriteriaScore = (criteriaScore: number, validSubmissions: number) => {
+  const avgCriteriaScore = criteriaScore / validSubmissions;
+
+  const avgCriteriaScoreSanitized = Number.isNaN(avgCriteriaScore) ? 0 : avgCriteriaScore;
+
+  return avgCriteriaScoreSanitized;
+};
 
 const getAvgCriteriaScoreData = (
   peerEvaluationTeamReviewerResults: IPeerEvaluationTeamReviewerResult[],
