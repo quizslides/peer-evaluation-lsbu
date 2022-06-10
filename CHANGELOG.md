@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.31](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.30...v1.0.0-staging.31) (2022-06-10)
+
+
+### Bug Fixes
+
+* fixing last updated time of the peer evaluation of the student ([f4be334](https://github.com/quizslides/peer-evaluation-lsbu/commit/f4be334cd72a6a21608dedf824443aebac5d17e1))
+* fixing rounding decimal places for mark calculations ([03b4be9](https://github.com/quizslides/peer-evaluation-lsbu/commit/03b4be907f8b7150fd20503fc0df28c0c9645ff5))
+
 ## [1.0.0-staging.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.29...v1.0.0-staging.30) (2022-06-10)
 
 
