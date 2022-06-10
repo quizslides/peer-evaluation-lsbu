@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.29...v1.0.0-staging.30) (2022-06-10)
+
+
+### Features
+
+* adding two decimal places round up/down method to calculate marks ([5f6135f](https://github.com/quizslides/peer-evaluation-lsbu/commit/5f6135f7e766fad65ea4ad97070a73655839160e))
+
 ## [1.0.0-staging.29](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.28...v1.0.0-staging.29) (2022-06-10)
 
 
