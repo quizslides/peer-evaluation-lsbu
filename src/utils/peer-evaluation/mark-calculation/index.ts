@@ -2,6 +2,7 @@ import { PeerEvaluationStudentTeam } from "@generated/type-graphql";
 import { Decimal } from "@prisma/client/runtime";
 
 import prisma, { Prisma } from "@/pages/api/prisma";
+import { roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
 import { getUserIdByEmail } from "@/utils/user";
 
 interface AvgCriteriaScoreByStudent {
@@ -237,7 +238,7 @@ const getAverageCriteriaScore = (criteriaScore: number, validSubmissions: number
 
   const avgCriteriaScoreSanitized = Number.isNaN(avgCriteriaScore) ? 0 : avgCriteriaScore;
 
-  return avgCriteriaScoreSanitized;
+  return roundTwoDecimalPlaces(avgCriteriaScoreSanitized);
 };
 
 const getAvgCriteriaScoreData = (
@@ -277,7 +278,7 @@ const getAvgCriteriaScoreData = (
 };
 
 const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) =>
-  averageCriteriaScore / sumAvgCriteriaScoreByStudent;
+  roundTwoDecimalPlaces(averageCriteriaScore / sumAvgCriteriaScoreByStudent);
 
 const getSystemCalculatedMark = (
   averageCriteriaScoreByTeamMember: number,
