@@ -101,6 +101,14 @@ npx prisma generate
 npx prisma migrate dev
 ```
 
+### Restore Database from SQL Dump
+
+To restore a database dump to a running container run:
+
+```bash
+./scripts/restore-database.sh /path/to/sql_dump/${SQL_DUMP}.sql
+```
+
 ### Seed Database Manually
 
 The file `./prisma/seed.ts` contains with data that is required for the application to start:
