@@ -5,13 +5,13 @@ const getDate = (date: Date, offSet = 0) => new Date(new Date(date).getTime() + 
 const getDateLocaleString = (date: Date) => {
   const currentDateOffSet = getDateOffSetValue(date);
 
-  return getDate(date, currentDateOffSet).toLocaleString("en-GB");
+  return getDate(date, currentDateOffSet).toLocaleString("en-GB", { timeZone: "Europe/London" });
 };
 
 const getDateLocaleDateString = (date: Date) => {
   let currentDateOffSet = getDateOffSetValue(date);
 
-  return getDate(date, currentDateOffSet).toLocaleDateString("en-GB");
+  return getDate(date, currentDateOffSet).toLocaleDateString("en-GB", { timeZone: "Europe/London" });
 };
 
 export { getDateLocaleDateString, getDateLocaleString };
