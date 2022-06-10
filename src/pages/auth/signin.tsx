@@ -139,7 +139,16 @@ const SignIn: NextPage = () => {
 
         <Grid item xs={12}>
           <Container maxWidth="sm">
-            <Formik initialValues={valuesForm} validationSchema={validationSchema} onSubmit={submitForm}>
+            <Formik
+              initialValues={valuesForm}
+              validationSchema={validationSchema}
+              onSubmit={async (data, { resetForm }) => {
+                await submitForm(data);
+                resetForm({
+                  values: data,
+                });
+              }}
+            >
               {({ dirty }) => (
                 <Form>
                   <WarningUnsavedForm areChangesUnsaved={dirty} />

@@ -58,7 +58,12 @@ const PeerEvaluationColumnForm = ({
           ...columnFormData,
         }}
         validationSchema={validationSchema}
-        onSubmit={submitForm}
+        onSubmit={(data, { resetForm }) => {
+          submitForm(data);
+          resetForm({
+            values: data,
+          });
+        }}
       >
         {({ dirty }) => (
           <Form>

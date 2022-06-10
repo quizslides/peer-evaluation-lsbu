@@ -27,7 +27,7 @@ const testId = "container-peer-evaluation-student-table";
 interface IPeerEvaluationStudentTable {
   data: PeerEvaluationTableStudentResponse;
   session: Session;
-  onSubmit: (data: IPeerEvaluationStudentTableForm[]) => void;
+  onSubmit?: (data: IPeerEvaluationStudentTableForm[]) => Promise<void>;
 }
 
 interface IPeerEvaluationStudentData {
@@ -347,8 +347,8 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
     <Formik
       initialValues={peerEvaluationTableFormInitialState}
       validationSchema={validationSchemaState}
-      onSubmit={(data, { resetForm }) => {
-        onSubmit(data);
+      onSubmit={async (data, { resetForm }) => {
+        onSubmit ? await onSubmit(data) : null;
         resetForm({
           values: data,
         });

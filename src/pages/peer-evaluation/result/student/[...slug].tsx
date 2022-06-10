@@ -58,7 +58,7 @@ const LecturerStudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
         margin="2em"
       />
       {peerEvaluationTableData && session && (
-        <PeerEvaluationStudentTable onSubmit={() => null} data={peerEvaluationTableData} session={session} />
+        <PeerEvaluationStudentTable data={peerEvaluationTableData} session={session} />
       )}
     </Base>
   );

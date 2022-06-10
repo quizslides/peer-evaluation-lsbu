@@ -53,7 +53,12 @@ const UserForm = ({ email, name, role, formTitle, state, updateUserFormState, on
           role,
         }}
         validationSchema={validationSchema}
-        onSubmit={submitForm}
+        onSubmit={(data, { resetForm }) => {
+          submitForm(data);
+          resetForm({
+            values: data,
+          });
+        }}
       >
         {({ dirty }) => (
           <Form>

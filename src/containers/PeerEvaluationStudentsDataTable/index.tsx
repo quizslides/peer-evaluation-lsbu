@@ -327,7 +327,12 @@ const PeerEvaluationStudentsDataTable = ({
     <Formik
       initialValues={dataTableFormValues}
       validationSchema={validationSchema}
-      onSubmit={(data) => onSubmitStudentLecturerMarks(data)}
+      onSubmit={async (data, { resetForm }) => {
+        await onSubmitStudentLecturerMarks(data);
+        resetForm({
+          values: data,
+        });
+      }}
     >
       {({ dirty }) => (
         <Form>

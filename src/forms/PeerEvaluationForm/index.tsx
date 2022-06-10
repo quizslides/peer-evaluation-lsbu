@@ -102,7 +102,12 @@ const PeerEvaluationForm = ({
           ...peerEvaluationData,
         }}
         validationSchema={validationSchema}
-        onSubmit={submitForm}
+        onSubmit={(data, { resetForm }) => {
+          submitForm(data);
+          resetForm({
+            values: data,
+          });
+        }}
       >
         {({ setFieldValue, dirty }) => (
           <Form>

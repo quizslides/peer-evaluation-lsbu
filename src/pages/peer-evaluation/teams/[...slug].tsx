@@ -435,7 +435,12 @@ const Teams: NextPage = () => {
         <Formik
           initialValues={peerEvaluationTableFormInitialState}
           validationSchema={validationSchema}
-          onSubmit={(data) => onSubmit(data)}
+          onSubmit={async (data, { resetForm }) => {
+            await onSubmit(data);
+            resetForm({
+              values: data,
+            });
+          }}
         >
           {({ dirty }) => (
             <Form>

@@ -53,9 +53,7 @@ const PeerEvaluationStudentTableDialog = ({
       title={"Peer Evaluation Student Table"}
       content={
         <Base topLeftComponent="none" loading={isLoading} error={!!error}>
-          {peerEvaluationTableData && (
-            <PeerEvaluationStudentTable onSubmit={() => null} data={peerEvaluationTableData} session={session} />
-          )}
+          {peerEvaluationTableData && <PeerEvaluationStudentTable data={peerEvaluationTableData} session={session} />}
         </Base>
       }
       fullScreen

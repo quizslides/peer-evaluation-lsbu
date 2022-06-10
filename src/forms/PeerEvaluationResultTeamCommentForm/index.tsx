@@ -61,7 +61,12 @@ const PeerEvaluationResultTeamCommentForm = ({
             comment: comment,
           }}
           validationSchema={validationSchema}
-          onSubmit={submitForm}
+          onSubmit={async (data, { resetForm }) => {
+            await submitForm(data);
+            resetForm({
+              values: data,
+            });
+          }}
         >
           {({ dirty }) => (
             <Form>
