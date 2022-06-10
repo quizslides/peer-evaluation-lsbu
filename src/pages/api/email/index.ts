@@ -46,10 +46,10 @@ const sendSignInEmail = async (email: string, signInUrl: string) => {
   }
 };
 
-const sendWelcomeEmail = async (email: string, name: string) => {
+const sendWelcomeEmail = async (email: string, name: string, role: User["role"]) => {
   const isUserCreated = await isAccountCreated(email);
 
-  if (!isUserCreated) {
+  if (!isUserCreated && role !== "STUDENT") {
     try {
       const emailTransporter = createEmailTransport();
 
@@ -78,10 +78,12 @@ const sendWelcomeEmailBulk = async (users: [User]) => {
 
     const name = user.name;
 
+    const role = user.role;
+
     const isUserCreated = await isAccountCreated(email);
 
     if (!isUserCreated) {
-      await sendWelcomeEmail(email, name);
+      await sendWelcomeEmail(email, name, role);
     }
   }
 };
