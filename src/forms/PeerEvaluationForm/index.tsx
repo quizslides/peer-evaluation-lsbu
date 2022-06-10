@@ -13,7 +13,6 @@ import {
   SelectFieldForm,
   SelectMultipleFieldForm,
   TextFieldForm,
-  WYSIWYGForm,
   WarningUnsavedForm,
 } from "@/components";
 import PeerEvaluationTeachingMemberFormWrapper from "@/components/PeerEvaluationTeachingMemberFormWrapper";
@@ -240,34 +239,6 @@ const PeerEvaluationForm = ({
                   name="columns"
                   helperText={content.containers.peerEvaluationForm.form.columnManagement.helperText}
                   testId={"peer-evaluation-form-peer-evaluation-peer-evaluation-column-management-field"}
-                  isDisabled={isViewOnly}
-                />
-              </FieldWrapper>
-
-              <Divider>Email Reminder</Divider>
-
-              <FieldWrapper marginBottom="3em">
-                <TextFieldForm
-                  testId="peer-evaluation-form-email-subject-field"
-                  name="emailSubjectReminder"
-                  props={{
-                    required: true,
-                    fullWidth: true,
-                    label: content.containers.peerEvaluationForm.form.emailSubjectReminder.label,
-                    type: "text",
-                    variant: "outlined",
-                    placeholder: content.containers.peerEvaluationForm.form.emailSubjectReminder.placeholder,
-                    disabled: isViewOnly,
-                  }}
-                />
-              </FieldWrapper>
-
-              <FieldWrapper marginBottom="3em">
-                <WYSIWYGForm
-                  testId={"peer-evaluation-form-email-body-field"}
-                  helperText={content.containers.peerEvaluationForm.form.emailBodyReminder.helperText}
-                  fieldName={"emailBodyReminder"}
-                  resetButtonText={content.containers.peerEvaluationForm.form.emailBodyReminder.resetButtonText}
                   isDisabled={isViewOnly}
                 />
               </FieldWrapper>

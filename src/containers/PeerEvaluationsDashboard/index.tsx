@@ -214,25 +214,6 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
       label: "Completed Peer Evaluations",
     },
     {
-      name: "reminder",
-      label: "Reminder",
-      options: {
-        // eslint-disable-next-line react/no-multi-comp
-        customBodyRender: () => {
-          return (
-            <Button
-              variant={"outlined"}
-              testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.email)}
-              size="small"
-            >
-              Send reminder
-            </Button>
-          );
-        },
-      },
-    },
-    {
       name: "submissionsLockDate",
       label: "Submissions Lock Date",
       options: {

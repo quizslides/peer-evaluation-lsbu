@@ -37,8 +37,6 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserFo
     onSubmit();
   };
 
-  // const loading = status === "loading";
-
   useEffect(() => {
     if (session) {
       const setCurrentUserAsOwner = (peerEvaluationData: IPeerEvaluationData, session: Session) => {
@@ -56,10 +54,6 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserFo
       setCurrentUserAsOwner(peerEvaluationValuesUpdated, session);
     }
   }, [session, peerEvaluationValues]);
-
-  // if (loading) {
-  //   return <LoadingContainer loading={loading} />;
-  // }
 
   return (
     <PeerEvaluationForm

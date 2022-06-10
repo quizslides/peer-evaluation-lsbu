@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Action, Fab } from "react-tiny-fab";
 
-import { DashboardIcon, EmailIcon, PagesIcon, StudentIcon, TeamIcon } from "@/icons";
+import { DashboardIcon, PagesIcon, StudentIcon, TeamIcon } from "@/icons";
 import routing from "@/routing";
 
 interface IPeerEvaluationNavigationFab {
@@ -54,12 +54,6 @@ const PeerEvaluationNavigationFab = ({ setRedirecting, hide }: IPeerEvaluationNa
       pageRoute: routing.peerEvaluation.students,
       testId: `${testIdBase}-students`,
       Icon: StudentIcon,
-    },
-    {
-      text: "Email",
-      pageRoute: routing.peerEvaluation.email,
-      testId: `${testIdBase}-email`,
-      Icon: EmailIcon,
     },
   ];
 
