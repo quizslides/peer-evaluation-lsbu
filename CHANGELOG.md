@@ -2,6 +2,19 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.26](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.25...v1.0.0-staging.26) (2022-06-10)
+
+
+### Features
+
+* adding reset form when is a submission when formik validation ([4f9e967](https://github.com/quizslides/peer-evaluation-lsbu/commit/4f9e967021a8cd520671300f952a036caad6bc3a))
+
+
+### Bug Fixes
+
+* fixing invalid count of peer evaluation for avg ([53bb0ef](https://github.com/quizslides/peer-evaluation-lsbu/commit/53bb0ef3e65f1dff88d3755fa71255bac80add17))
+* fixing modal to open the correct peer evaluation student table ([2b3bef4](https://github.com/quizslides/peer-evaluation-lsbu/commit/2b3bef448364ab51844f758a95571a8c69aab917))
+
 ## [1.0.0-staging.25](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.24...v1.0.0-staging.25) (2022-06-09)
 
 
