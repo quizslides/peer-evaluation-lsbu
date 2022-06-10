@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.29](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.28...v1.0.0-staging.29) (2022-06-10)
+
+
+### Bug Fixes
+
+* fixing when the whole student has been invalidated ([457339e](https://github.com/quizslides/peer-evaluation-lsbu/commit/457339e8b48366361cb5b5bda48a9721c634a80b))
+
+
+### Code Refactoring
+
+* renaming database restore script ([0dae54f](https://github.com/quizslides/peer-evaluation-lsbu/commit/0dae54f658037b58e95f2e2dd2581122271023df))
+
 ## [1.0.0-staging.28](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.27...v1.0.0-staging.28) (2022-06-10)
 
 
