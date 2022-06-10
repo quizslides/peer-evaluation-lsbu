@@ -278,13 +278,13 @@ const getAvgCriteriaScoreData = (
 };
 
 const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) =>
-  roundTwoDecimalPlaces(averageCriteriaScore / sumAvgCriteriaScoreByStudent);
+  averageCriteriaScore / sumAvgCriteriaScoreByStudent;
 
 const getSystemCalculatedMark = (
   averageCriteriaScoreByTeamMember: number,
   totalPeerEvaluationStudentCount: number,
   peerEvaluationTeamMark: number
-) => averageCriteriaScoreByTeamMember * totalPeerEvaluationStudentCount * peerEvaluationTeamMark;
+) => roundTwoDecimalPlaces(averageCriteriaScoreByTeamMember * totalPeerEvaluationStudentCount * peerEvaluationTeamMark);
 
 const getSystemAdjustedMark = (
   systemCalculatedMark: number,

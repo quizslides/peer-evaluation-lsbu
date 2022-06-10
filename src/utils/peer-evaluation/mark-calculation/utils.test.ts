@@ -14,6 +14,10 @@ describe("Round Number to two decimal places", () => {
   });
 
   test("Rounding up a number with many decimals", () => {
+    expect(roundTwoDecimalPlaces(108.07628915662651)).toBe(108.08);
+  });
+
+  test("Rounding down a number with many decimals", () => {
     expect(roundTwoDecimalPlaces(108.07228915662651)).toBe(108.07);
   });
 
