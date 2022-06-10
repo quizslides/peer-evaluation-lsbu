@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.27](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.26...v1.0.0-staging.27) (2022-06-10)
+
+
+### Bug Fixes
+
+* fixing routing next when form is dirty ([772040d](https://github.com/quizslides/peer-evaluation-lsbu/commit/772040d19a67c3a69397543ad6d5840c08c47998))
+
 ## [1.0.0-staging.26](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.25...v1.0.0-staging.26) (2022-06-10)
 
 
