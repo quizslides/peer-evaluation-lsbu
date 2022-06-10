@@ -125,7 +125,7 @@ const Teams: NextPage = () => {
         },
       });
 
-      await refetch();
+      await refetchTableStudentTeamsData();
     }
   };
 
@@ -144,7 +144,7 @@ const Teams: NextPage = () => {
       successNotification("Team deleted successfully", "DeletePeerEvaluationStudentTeam");
     }
 
-    await refetch();
+    await refetchTableStudentTeamsData();
 
     setDeletePeerEvaluationStudentTeamConfirmationOpen(false);
   };
@@ -171,6 +171,7 @@ const Teams: NextPage = () => {
           .min(2, "Team name is too short")
           .max(330, "Team name is too long")
           .required("Team name is required")
+          .matches(/^\S(?!.*\s{2}).*?\S$/, "Team name cannot start or end with a empty spaces")
           .test({
             name: "unique-peer-evaluation-team-name",
             message: "Team name must be unique within the peer evaluation",
@@ -382,16 +383,28 @@ const Teams: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      const initialValues = {
+      const formInitialValues = {
         marks: objectToArrayOfObject("mark", data.peerEvaluationStudentTeams as unknown as ObjectArray),
         ids: objectToArrayOfObject("id", data.peerEvaluationStudentTeams as unknown as ObjectArray),
         names: objectToArrayOfObject("name", data.peerEvaluationStudentTeams as unknown as ObjectArray),
         comments: objectToArrayOfObject("comment", data.peerEvaluationStudentTeams as unknown as ObjectArray),
       } as unknown as IPeerEvaluationStudentTableForm;
 
-      setPeerEvaluationTableFormInitialState(initialValues);
+      setPeerEvaluationTableFormInitialState(formInitialValues);
     }
   }, [data]);
+
+  const refetchTableStudentTeamsData = async () => {
+    if (peerEvaluationId) {
+      refetch({
+        where: {
+          peerEvaluationId: {
+            equals: peerEvaluationId,
+          },
+        },
+      });
+    }
+  };
 
   // TODO: Remove any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -400,6 +413,8 @@ const Teams: NextPage = () => {
 
     for (const index in dataModuleNormalized) {
       const { name, mark, comment } = dataModuleNormalized[index];
+
+      const teamName = name as string;
 
       const currentName = peerEvaluationTableFormInitialState?.names[index].name;
 
@@ -410,7 +425,7 @@ const Teams: NextPage = () => {
               set: mark,
             },
             name: {
-              set: name,
+              set: teamName.trim(),
             },
             comment: {
               set: comment,
@@ -426,7 +441,7 @@ const Teams: NextPage = () => {
       });
     }
 
-    await refetch();
+    await refetchTableStudentTeamsData();
   };
 
   return (
