@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
 import { PeerEvaluationTableStudentInfoResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import { getDateLocaleString } from "@/utils/date";
 
 @InputType({
   isAbstract: true,
@@ -215,13 +216,26 @@ class PeerEvaluationTableStudentLecturerQuery {
       },
     })) as PeerEvaluationStudentReview;
 
+    const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
+      select: {
+        updatedAt: true,
+      },
+      where: {
+        isCompleted: true,
+        peerEvaluationStudentId: peerEvaluationStudentId,
+      },
+    });
+
     const peerEvaluationStudentInfo = {
       studentName: peerEvaluationStudentList.studentName,
       studentEmail: peerEvaluationStudentList.user.email,
-      submissionsLockDate:
-        peerEvaluationStudentList.peerEvaluation.submissionsLockDate?.toLocaleString("en-GB") || "N/A",
+      submissionsLockDate: peerEvaluationStudentList.peerEvaluation.submissionsLockDate
+        ? getDateLocaleString(peerEvaluationStudentList.peerEvaluation.submissionsLockDate)
+        : "N/A",
       studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
-      updatedAt: peerEvaluationStudentList.updatedAt.toLocaleString("en-GB") || "N/A",
+      updatedAt: peerEvaluationStudentTableInfo?.updatedAt
+        ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
+        : "N/A",
     };
 
     return {

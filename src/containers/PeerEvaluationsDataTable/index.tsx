@@ -32,6 +32,7 @@ import {
   peerEvaluationDataTableColumnOrder,
 } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
+import { getDateLocaleString } from "@/utils/date";
 
 interface IPeerEvaluationsDataTable {
   redirectUrl: string;
@@ -208,8 +209,8 @@ const PeerEvaluationsDataTable = ({
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: string) => {
-          return new Date(date).toLocaleString("en-GB");
+        customBodyRender: (date: Date) => {
+          return getDateLocaleString(date);
         },
       },
     },
@@ -221,8 +222,8 @@ const PeerEvaluationsDataTable = ({
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: string) => {
-          return new Date(date).toLocaleString("en-GB");
+        customBodyRender: (date: Date) => {
+          return getDateLocaleString(date);
         },
       },
     },

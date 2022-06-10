@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react";
 import sorter from "sort-nested-json";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
+import { getDateLocaleString } from "@/utils/date";
 import { getSortedObject } from "@/utils/form";
 import { IPeerEvaluationStudentMarksByTeam } from "@/utils/peer-evaluation/mark-calculation";
 import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
@@ -208,7 +209,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
         studentsColumnList: undefined,
         table: undefined,
         teamName: peerEvaluationStudentTeamName,
-        updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
+        updatedAt: getDateLocaleString(peerEvaluationStudentTeamData.updatedAt),
         mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,
         comment: null,
         message: "Peer Evaluation Marks are not calculated",
@@ -258,7 +259,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
       studentsColumnList: studentsColumnList,
       table: JSON.stringify([...studentsDataSorted, ...peerEvaluationStudentTeamDataCalculationRows]),
       teamName: peerEvaluationStudentTeamName,
-      updatedAt: peerEvaluationStudentTeamData?.updatedAt.toLocaleString("en-GB"),
+      updatedAt: getDateLocaleString(peerEvaluationStudentTeamData.updatedAt),
       mark: peerEvaluationStudentTeamData?.mark ? Number(peerEvaluationStudentTeamData?.mark) : undefined,
       comment: peerEvaluationStudentTeamData.comment,
       message: "Peer evaluation Student Team Results fetched successfully",

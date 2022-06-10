@@ -2,6 +2,8 @@ import { PeerEvaluation, PeerEvaluationStudentReview } from "@generated/type-gra
 import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
+import { getDateLocaleString } from "@/utils/date";
+
 const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEvaluationStatuses | undefined) => {
   if (status === "PUBLISHED") {
     return false;
@@ -190,10 +192,13 @@ class PeerEvaluationTableStudentQuery {
     const peerEvaluationStudentInfo = {
       studentName: peerEvaluationStudentList.studentName,
       studentEmail: peerEvaluationStudentList.user.email,
-      submissionsLockDate:
-        peerEvaluationStudentList.peerEvaluation.submissionsLockDate?.toLocaleString("en-GB") || "N/A",
+      submissionsLockDate: peerEvaluationStudentList.peerEvaluation.submissionsLockDate
+        ? getDateLocaleString(peerEvaluationStudentList.peerEvaluation.submissionsLockDate)
+        : "N/A",
       studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
-      updatedAt: peerEvaluationStudentTableInfo?.updatedAt.toLocaleString("en-GB") || "N/A",
+      updatedAt: peerEvaluationStudentTableInfo?.updatedAt
+        ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
+        : "N/A",
     };
 
     if (!isPeerEvaluationVisible) {

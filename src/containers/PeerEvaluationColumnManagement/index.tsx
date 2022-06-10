@@ -15,6 +15,7 @@ import content from "@/content";
 import { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
 import { ArrayObject } from "@/types/object";
 import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/peer-evaluation";
+import { getDateLocaleString } from "@/utils/date";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
 interface IPeerEvaluationColumnManagement {
@@ -156,8 +157,8 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: string) => {
-          return new Date(date).toLocaleString("en-GB");
+        customBodyRender: (date: Date) => {
+          return getDateLocaleString(date);
         },
       },
     },
@@ -168,8 +169,8 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: string) => {
-          return new Date(date).toLocaleString("en-GB");
+        customBodyRender: (date: Date) => {
+          return getDateLocaleString(date);
         },
       },
     },
