@@ -2,6 +2,25 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.32](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.31...v1.0.0-staging.32) (2022-06-12)
+
+
+### Features
+
+* adding date utils for off set calculation of date ([4d36af9](https://github.com/quizslides/peer-evaluation-lsbu/commit/4d36af9dee9f391a7587660fbca80390ab1ddf61))
+
+
+### Bug Fixes
+
+* adding timeZone to date method to return the correct date for UK, London ([3f8821b](https://github.com/quizslides/peer-evaluation-lsbu/commit/3f8821b2f06397b762020c980f6ca594f6bfb00f))
+* adding validation to remove spaces from the start and the end of the team name ([0e5c56d](https://github.com/quizslides/peer-evaluation-lsbu/commit/0e5c56d82a61b43cb71fdf54e5f7db9dd9c52319))
+
+
+### Code Refactoring
+
+* disable emails when a user with a role of student is created ([f0d3f39](https://github.com/quizslides/peer-evaluation-lsbu/commit/f0d3f395a73e305995f6f78de766f668dc2ac60d))
+* removing email reminder from peer evaluation create/update, navigation and dashboard ([3f9aa6a](https://github.com/quizslides/peer-evaluation-lsbu/commit/3f9aa6a48d381f73adf9c0625c9e0069759c535b))
+
 ## [1.0.0-staging.31](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.30...v1.0.0-staging.31) (2022-06-10)
 
 
