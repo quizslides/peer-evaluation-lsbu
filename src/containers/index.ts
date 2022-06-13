@@ -13,7 +13,7 @@ import HomePageContainer from "@/containers/HomePageContainer";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
 import Navigation from "@/containers/Navigation";
-import PeerEvaluationCard from "@/containers/PeerEvaluationCard";
+import PeerEvaluationCardInfo from "@/containers/PeerEvaluationCardInfo";
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import PeerEvaluationInfo from "@/containers/PeerEvaluationInfo";
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
@@ -47,7 +47,7 @@ export {
   Layout,
   LoadingContainer,
   Navigation,
-  PeerEvaluationCard,
+  PeerEvaluationCardInfo,
   PeerEvaluationColumnManagement,
   PeerEvaluationInfo,
   PeerEvaluationNavigationFab,

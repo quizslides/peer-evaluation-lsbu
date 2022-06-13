@@ -47,12 +47,16 @@ const getSortedObject = (o: any) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .reduce((r: any, k) => ((r[k] = o[k]), r), {});
 
+const getUniqueObjectArray = (objArr: ObjectArray) =>
+  [...new Set(objArr.map((o) => JSON.stringify(o)))].map((s) => JSON.parse(s));
+
 export {
   arrayToObject,
   getMergedKeyValuesObject,
   getNormalizedObjectArray,
   getRangeNumberObject,
   getSortedObject,
+  getUniqueObjectArray,
   objectToArrayOfObject,
   objectToArrayOfObjectInline,
   rangeNumber,

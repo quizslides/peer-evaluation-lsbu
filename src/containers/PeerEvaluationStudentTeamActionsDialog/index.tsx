@@ -4,7 +4,7 @@ import React, { memo } from "react";
 import { PeerEvaluation } from "@generated/type-graphql";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
-import PeerEvaluationCard from "../PeerEvaluationCard";
+import PeerEvaluationCardInfo from "../PeerEvaluationCardInfo";
 
 import { DataTable, Dialog } from "@/components";
 
@@ -16,6 +16,8 @@ enum EditBulkAction {
 interface IPeerEvaluationStudentTeamActionsDialog {
   isOpen: boolean;
   peerEvaluationStatus: PeerEvaluation["status"];
+  peerEvaluationTitle: string;
+  peerEvaluationCode: string;
   studentTeamToCreate: ITeamToCreateBulk[];
   studentToCreate: IStudentTeamToEditBulk[];
   studentToUpdate: IStudentTeamToEditBulk[];
@@ -81,7 +83,7 @@ const DataTableTeamsToCreate = ({ studentTeamToCreate }: IDataTableTeamsToCreate
   return (
     <DataTable
       isVisible={true}
-      title={"Teams Bulk Create"}
+      title={"The following teams will be created/updated"}
       data={studentTeamToCreate}
       columns={dataTableColumns}
       options={dataTableOptions}
@@ -137,7 +139,7 @@ const DataTableStudentsBulkCreateUpdate = ({
   return (
     <DataTable
       isVisible={true}
-      title={"Students Bulk Edit/Create"}
+      title={"The following students will be updated/created"}
       data={data}
       columns={dataTableColumns}
       options={dataTableOptions}
@@ -148,6 +150,8 @@ const DataTableStudentsBulkCreateUpdate = ({
 
 const PeerEvaluationStudentTeamActionsDialog = ({
   isOpen,
+  peerEvaluationTitle,
+  peerEvaluationCode,
   peerEvaluationStatus,
   studentTeamToCreate,
   studentToCreate,
@@ -158,10 +162,14 @@ const PeerEvaluationStudentTeamActionsDialog = ({
   return (
     <Dialog
       testId={"peer-evaluation-student-team-action-dialog"}
-      title={"Bulk Edit Actions"}
+      title={"Please review the changes before you continue"}
       content={
         <>
-          <PeerEvaluationCard status={peerEvaluationStatus} />
+          <PeerEvaluationCardInfo
+            peerEvaluationStatus={peerEvaluationStatus}
+            peerEvaluationTitle={peerEvaluationTitle}
+            peerEvaluationCode={peerEvaluationCode}
+          />
           <br />
           <DataTableStudentsBulkCreateUpdate studentToCreate={studentToCreate} studentToUpdate={studentToUpdate} />
           <br />
