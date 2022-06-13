@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
-import {
-  PeerEvaluation,
-  PeerEvaluationStudentTeamCreateManyInput,
-  PeerEvaluationTeachingMember,
-} from "@generated/type-graphql";
+import { PeerEvaluationStudentTeamCreateManyInput, PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import { Prisma } from "@prisma/client";
 import MUIDataTable, { MUIDataTableOptions } from "mui-datatables";
 import { NextPage, NextPageContext } from "next";
@@ -21,6 +17,7 @@ import {
   PeerEvaluationStudentTeamActionsDialog,
   PeerEvaluationStudentsDataTable,
 } from "@/containers";
+import { IPeerEvaluationCard } from "@/containers/PeerEvaluationCardInfo";
 import {
   EditBulkAction,
   IStudentTeamToEditBulk,
@@ -34,7 +31,7 @@ import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEv
 import upsertPeerEvaluationTableLecturer from "@/requests/direct/mutation/upsertPeerEvaluationTableLecturer";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
-import getPeerEvaluationStatus from "@/requests/direct/query/getPeerEvaluationStatus";
+import getPeerEvaluationInfo from "@/requests/direct/query/getPeerEvaluationInfo";
 import getPeerEvaluationStudentTeamExist from "@/requests/direct/query/getPeerEvaluationStudentTeamExist";
 import useGetPeerEvaluationStudents from "@/requests/hooks/query/useGetPeerEvaluationStudents";
 import useGetUserPeerEvaluationTeachingMember from "@/requests/hooks/query/useGetUserPeerEvaluationTeachingMember";
@@ -44,7 +41,7 @@ import { IStudentsTeamData } from "@/types/peer-evaluation";
 import { IUserData } from "@/types/user";
 import { RoleScope, errorNotification, loadingNotification, promiseNotification, successNotification } from "@/utils";
 import exampleFile from "@/utils/example-file";
-import { ObjectArray, objectToArrayOfObjectInline } from "@/utils/form";
+import { ObjectArray, getUniqueObjectArray, objectToArrayOfObjectInline } from "@/utils/form";
 import { peerEvaluationStudentsTeams } from "@/utils/validator";
 
 const Students: NextPage<NextPagePros> = ({ session }) => {
@@ -68,7 +65,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
 
   const [studentToUpdateState, setStudentToUpdateState] = useState<IStudentTeamToEditBulk[]>([]);
 
-  const [peerEvaluationStatusState, setPeerEvaluationStatusState] = useState<PeerEvaluation["status"]>("DRAFT");
+  const [peerEvaluationInfo, setPeerEvaluationInfo] = useState<IPeerEvaluationCard | null>(null);
 
   const [teachingMemberRole, setTeachingMemberRole] = useState<PeerEvaluationTeachingMember["role"]>("VIEWER");
 
@@ -175,10 +172,8 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       // Get Peer Evaluation Status
 
       const {
-        data: {
-          peerEvaluation: { status: PeerEvaluationStatus },
-        },
-      } = await getPeerEvaluationStatus(apolloClient, peerEvaluationId);
+        data: { peerEvaluation: peerEvaluationInfo },
+      } = await getPeerEvaluationInfo(apolloClient, peerEvaluationId);
 
       // Students Team
 
@@ -232,10 +227,14 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       }
 
       // Create Student Team Table
-      const studentTeamsToCreateTable = studentTeamsToCreate.map((teamName) => ({
+      const studentTeamsToCreateTableRepeatedTeams = studentTeamsToCreate.map((teamName) => ({
         action: EditBulkAction.CREATE,
         teamName: teamName,
       })) as [ITeamToCreateBulk];
+
+      const studentTeamsToCreateTable = getUniqueObjectArray(
+        studentTeamsToCreateTableRepeatedTeams as unknown as ObjectArray
+      ) as [ITeamToCreateBulk];
 
       // Create Student Table
       const studentToCreateTable = studentsTeamsDataSanitized.map((student) => {
@@ -269,7 +268,12 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
         (student) => student !== null
       ) as IStudentTeamToEditBulk[];
 
-      setPeerEvaluationStatusState(PeerEvaluationStatus);
+      setPeerEvaluationInfo({
+        peerEvaluationTitle: peerEvaluationInfo.title,
+        peerEvaluationCode: peerEvaluationInfo.code,
+        peerEvaluationStatus: peerEvaluationInfo.status,
+      });
+
       setStudentTeamToCreateState(studentTeamsToCreateTable);
       setStudentToCreateState(studentToCreateTableSanitized);
       setStudentToUpdateState(studentToUpdateTableSanitized);
@@ -571,15 +575,19 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
         open={studentsTeamsDataErrors !== null}
       />
 
-      <PeerEvaluationStudentTeamActionsDialog
-        isOpen={openPeerEvaluationEditAction}
-        peerEvaluationStatus={peerEvaluationStatusState}
-        studentTeamToCreate={studentTeamToCreateState}
-        studentToCreate={studentToCreateState}
-        studentToUpdate={studentToUpdateState}
-        onAccept={onUploadCSVStudentsTeamAccept}
-        onCancel={() => setOpenPeerEvaluationEditAction(false)}
-      />
+      {peerEvaluationInfo && (
+        <PeerEvaluationStudentTeamActionsDialog
+          isOpen={openPeerEvaluationEditAction}
+          peerEvaluationTitle={peerEvaluationInfo.peerEvaluationTitle}
+          peerEvaluationCode={peerEvaluationInfo.peerEvaluationCode}
+          peerEvaluationStatus={peerEvaluationInfo.peerEvaluationStatus}
+          studentTeamToCreate={studentTeamToCreateState}
+          studentToCreate={studentToCreateState}
+          studentToUpdate={studentToUpdateState}
+          onAccept={onUploadCSVStudentsTeamAccept}
+          onCancel={() => setOpenPeerEvaluationEditAction(false)}
+        />
+      )}
     </Base>
   );
 };
