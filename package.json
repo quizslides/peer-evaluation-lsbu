@@ -118,7 +118,7 @@
     "@cypress/code-coverage": "^3.9.12",
     "@cypress/react": "^5.12.3",
     "@cypress/webpack-dev-server": "^1.8.1",
-    "@semantic-release/changelog": "6.0.1",
+    "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "10.0.1",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "5.16.1",
