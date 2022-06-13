@@ -2,6 +2,20 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.33](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.32...v1.0.0-staging.33) (2022-06-13)
+
+
+### Features
+
+* adding scale explanation and instructions to peer evalution table ([ae0ae6d](https://github.com/quizslides/peer-evaluation-lsbu/commit/ae0ae6def0158becff5a71609dff270dda2095ba))
+
+
+### Bug Fixes
+
+* fixing dialog off set height when content is large and needs to be scrolled ([f8e3f3f](https://github.com/quizslides/peer-evaluation-lsbu/commit/f8e3f3f7db9f18beeac4c503990938f602bbd435))
+* fixing missing @semantic-release/changelog ([3eef5da](https://github.com/quizslides/peer-evaluation-lsbu/commit/3eef5da8d5b1b4bdef14f00aee51e26f0f6c0df4))
+* updating semantic-release template to run from package.json ([e9c1e23](https://github.com/quizslides/peer-evaluation-lsbu/commit/e9c1e2360c86f1a2f3be07855f7527855dd72613))
+
 ## [1.0.0-staging.32](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.31...v1.0.0-staging.32) (2022-06-12)
 
 
