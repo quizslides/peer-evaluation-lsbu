@@ -13,6 +13,11 @@ const useGetLecturerUsers = () => {
           in: ["LECTURER"],
         },
       },
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
     },
     onError: (error) => {
       errorNotification(error.message);

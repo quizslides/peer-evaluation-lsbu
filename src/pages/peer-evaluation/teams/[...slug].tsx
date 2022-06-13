@@ -367,15 +367,22 @@ const Teams: NextPage = () => {
     const slug = query.slug;
 
     if (Array.isArray(slug)) {
-      setPeerEvaluationId(slug[0]);
+      const peerEvaluationIdSlug = slug[0];
+
+      setPeerEvaluationId(peerEvaluationIdSlug);
 
       getPeerEvaluationStudentTeams({
         variables: {
           where: {
             peerEvaluationId: {
-              equals: slug[0],
+              equals: peerEvaluationIdSlug,
             },
           },
+          orderBy: [
+            {
+              createdAt: "asc",
+            },
+          ],
         },
       });
     }

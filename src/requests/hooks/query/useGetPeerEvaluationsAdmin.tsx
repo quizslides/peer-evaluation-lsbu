@@ -7,6 +7,13 @@ import { errorNotification, successNotification } from "@/utils";
 const useGetPeerEvaluationsAdmin = (notificationsId: string) => {
   return useQuery<{ peerEvaluations: PeerEvaluation[] }>(GET_PEER_EVALUATIONS, {
     fetchPolicy: "no-cache",
+    variables: {
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
+    },
     onError: (error) => {
       errorNotification(error.message, notificationsId);
     },

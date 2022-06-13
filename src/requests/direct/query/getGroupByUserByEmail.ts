@@ -15,6 +15,11 @@ const getGroupByUserByEmail = (apolloClient: TApolloClientType, emails: string[]
           in: emails,
         },
       },
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
     },
   });
 };

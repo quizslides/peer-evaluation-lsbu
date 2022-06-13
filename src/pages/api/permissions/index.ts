@@ -206,7 +206,7 @@ const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: 
   async (_parent, _args: { where: PeerEvaluationsByLecturerWhereInput }, { req }: Context) => {
     const session = await getSession({ req });
 
-    if (session?.user.email === _args.where.email) {
+    if (session?.user.email === _args.where.lecturerEmail) {
       return true;
     }
 

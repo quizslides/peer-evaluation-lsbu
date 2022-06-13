@@ -12,7 +12,7 @@ import { IPeerEvaluationData } from "@/types/peer-evaluation";
 import { RoleScope } from "@/utils";
 
 const PeerEvaluations: NextPage<NextPagePros> = ({ session }) => {
-  const [getPeerEvaluations, { loading: loadingQuery, error, data, refetch: runRefreshPeerEvaluations }] =
+  const [getPeerEvaluationsByLecturer, { loading: loadingQuery, error, data, refetch: runRefreshPeerEvaluations }] =
     useGetPeerEvaluationsByLecturer("GetPeerEvaluationsByLecturer");
 
   const loading = loadingQuery;
@@ -29,15 +29,15 @@ const PeerEvaluations: NextPage<NextPagePros> = ({ session }) => {
 
   useEffect(() => {
     if (session && session.user.email) {
-      getPeerEvaluations({
+      getPeerEvaluationsByLecturer({
         variables: {
           where: {
-            email: session.user.email,
+            lecturerEmail: session.user.email,
           },
         },
       });
     }
-  }, [getPeerEvaluations, session]);
+  }, [getPeerEvaluationsByLecturer, session]);
 
   return (
     <PeerEvaluationsDataTable

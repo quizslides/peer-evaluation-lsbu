@@ -363,11 +363,9 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       },
     }));
 
-    const createPeerEvaluationStudents = createBulkStudents.map((student) =>
-      createPeerEvaluationStudent(apolloClient, student)
-    );
-
-    await Promise.all(createPeerEvaluationStudents);
+    for (const student of createBulkStudents) {
+      await createPeerEvaluationStudent(apolloClient, student);
+    }
 
     const updatePeerEvaluationStudents = studentToUpdateState.map(({ studentEmail, teamName }) =>
       updatePeerEvaluationStudent(
@@ -476,7 +474,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
           },
           orderBy: [
             {
-              updatedAt: "asc",
+              createdAt: "asc",
             },
           ],
         },

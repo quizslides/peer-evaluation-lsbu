@@ -1,5 +1,9 @@
 import { useLazyQuery } from "@apollo/client";
-import { PeerEvaluationStudentTeam, PeerEvaluationStudentTeamWhereInput } from "@generated/type-graphql";
+import {
+  PeerEvaluationStudentTeam,
+  PeerEvaluationStudentTeamOrderByWithRelationInput,
+  PeerEvaluationStudentTeamWhereInput,
+} from "@generated/type-graphql";
 
 import { GET_PEER_EVALUATION_STUDENT_TEAMS } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
@@ -7,7 +11,7 @@ import { errorNotification, successNotification } from "@/utils";
 const useGetPeerEvaluationStudentTeams = (notificationsId: string) => {
   return useLazyQuery<
     { peerEvaluationStudentTeams: [PeerEvaluationStudentTeam] },
-    { where: PeerEvaluationStudentTeamWhereInput }
+    { where: PeerEvaluationStudentTeamWhereInput; orderBy: [PeerEvaluationStudentTeamOrderByWithRelationInput] }
   >(GET_PEER_EVALUATION_STUDENT_TEAMS, {
     fetchPolicy: "no-cache",
     onError: (error) => {

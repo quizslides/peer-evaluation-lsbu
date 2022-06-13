@@ -55,7 +55,7 @@ class PeerEvaluationsByLecturerWhereInput {
     nullable: false,
     description: "Lecturer email",
   })
-  email!: string;
+  lecturerEmail!: string;
 }
 
 @Resolver()
@@ -72,12 +72,15 @@ class PeerEvaluationsByLecturerQuery {
             user: {
               is: {
                 email: {
-                  equals: where.email,
+                  equals: where.lecturerEmail,
                 },
               },
             },
           },
         },
+      },
+      orderBy: {
+        createdAt: "asc",
       },
       include: {
         _count: {

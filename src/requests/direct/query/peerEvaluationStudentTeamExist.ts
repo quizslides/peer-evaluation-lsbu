@@ -21,6 +21,11 @@ const peerEvaluationStudentTeamExist = (
           equals: peerEvaluationId,
         },
       },
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
     },
   });
 };

@@ -12,6 +12,11 @@ const getPeerEvaluationColumns = (apolloClient: TApolloClientType, peerEvaluatio
       where: {
         id: peerEvaluationId,
       },
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
     },
   });
 };

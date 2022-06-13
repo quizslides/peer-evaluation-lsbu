@@ -7,6 +7,13 @@ import { errorNotification } from "@/utils";
 const useGetUsers = () => {
   return useQuery<{ users: User[] }>(GET_USERS, {
     fetchPolicy: "no-cache",
+    variables: {
+      orderBy: [
+        {
+          createdAt: "asc",
+        },
+      ],
+    },
     onError: (error) => {
       errorNotification(error.message);
     },
