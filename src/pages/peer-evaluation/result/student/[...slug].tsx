@@ -4,8 +4,8 @@ import { NextPage, NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { Base, PageTitle } from "@/components";
-import { PeerEvaluationStudentTable } from "@/containers";
+import { Base } from "@/components";
+import { PeerEvaluationStudentPeerEvaluationContainer } from "@/containers";
 import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
 import useGetPeerEvaluationTableStudentLecturer from "@/requests/hooks/query/useGetPeerEvaluationTableStudentLecturer";
 import { NextPagePros } from "@/types/pages";
@@ -51,15 +51,11 @@ const LecturerStudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
 
   return (
     <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
-      <PageTitle
-        title={peerEvaluationTableData?.peerEvaluation?.title || ""}
-        testId={`${testId}-title`}
-        variant="h4"
-        margin="2em"
+      <PeerEvaluationStudentPeerEvaluationContainer
+        peerEvaluationTableData={peerEvaluationTableData}
+        session={session}
+        testId={testId}
       />
-      {peerEvaluationTableData && session && (
-        <PeerEvaluationStudentTable data={peerEvaluationTableData} session={session} />
-      )}
     </Base>
   );
 };

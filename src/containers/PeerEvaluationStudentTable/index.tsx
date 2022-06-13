@@ -356,7 +356,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
     >
       {({ dirty }) => (
         <Form>
-          <WarningUnsavedForm areChangesUnsaved={dirty} />
+          <WarningUnsavedForm areChangesUnsaved={isReadOnly ? false : dirty} />
           <DataTable
             testId={`${testId}-datatable`}
             isVisible

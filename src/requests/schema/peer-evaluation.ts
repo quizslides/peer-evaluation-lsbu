@@ -321,6 +321,8 @@ const GET_PEER_EVALUATION = gql`
       }
       createdAt
       updatedAt
+      instructions
+      scaleExplanation
     }
   }
 `;
@@ -350,40 +352,6 @@ const CREATE_PEER_EVALUATION = gql`
   mutation CreatePeerEvaluation($data: PeerEvaluationCreateInput!) {
     createPeerEvaluation(data: $data) {
       id
-      title
-      createdAt
-      updatedAt
-      schools
-      code
-      status
-      maxMarkIncrease
-      maxMarkDecrease
-      submissionsLockDate
-      criteriaScoreRangeMin
-      criteriaScoreRangeMax
-      _count {
-        peerEvaluationStudents
-        peerEvaluationTeachingMembers
-        columns
-      }
-      reminderEmail {
-        id
-        body
-        subject
-        updatedAt
-        createdAt
-      }
-      columns {
-        id
-        description
-      }
-      peerEvaluationTeachingMembers {
-        role
-        user {
-          email
-          name
-        }
-      }
     }
   }
 `;
@@ -646,6 +614,8 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
         submissionsLockDate
         title
         code
+        instructions
+        scaleExplanation
       }
       peerEvaluationStudentInfo {
         studentName
@@ -721,6 +691,15 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
         submissionsLockDate
         title
         code
+        instructions
+        scaleExplanation
+      }
+      peerEvaluationStudentInfo {
+        studentName
+        studentEmail
+        submissionsLockDate
+        studentTeamName
+        updatedAt
       }
     }
   }

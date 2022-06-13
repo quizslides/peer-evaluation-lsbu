@@ -13,6 +13,7 @@ import {
   SelectFieldForm,
   SelectMultipleFieldForm,
   TextFieldForm,
+  WYSIWYGForm,
   WarningUnsavedForm,
 } from "@/components";
 import PeerEvaluationTeachingMemberFormWrapper from "@/components/PeerEvaluationTeachingMemberFormWrapper";
@@ -27,8 +28,10 @@ import {
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
   peerEvaluationEmailSubjectValidator,
+  peerEvaluationInstructionsValidator,
   peerEvaluationMaxMarkDecreaseValidator,
   peerEvaluationMaxMarkIncreaseValidator,
+  peerEvaluationScaleExplanation,
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
   peerEvaluationSubmissionsLockDateValidator,
@@ -71,8 +74,10 @@ const PeerEvaluationForm = ({
     ...peerEvaluationCriteriaScoreRangeMinValidator,
     ...peerEvaluationEmailBodyValidator,
     ...peerEvaluationEmailSubjectValidator,
+    ...peerEvaluationInstructionsValidator,
     ...peerEvaluationMaxMarkDecreaseValidator,
     ...peerEvaluationMaxMarkIncreaseValidator,
+    ...peerEvaluationScaleExplanation,
     ...peerEvaluationSchoolValidator,
     ...peerEvaluationStatusValidator,
     ...peerEvaluationSubmissionsLockDateValidator,
@@ -239,6 +244,30 @@ const PeerEvaluationForm = ({
                   name="columns"
                   helperText={content.containers.peerEvaluationForm.form.columnManagement.helperText}
                   testId={"peer-evaluation-form-peer-evaluation-peer-evaluation-column-management-field"}
+                  isDisabled={isViewOnly}
+                />
+              </FieldWrapper>
+
+              <Divider>Instructions</Divider>
+
+              <FieldWrapper marginBottom="3em">
+                <WYSIWYGForm
+                  testId={"peer-evaluation-form-instruction-field"}
+                  helperText={content.containers.peerEvaluationForm.form.instructions.helperText}
+                  fieldName={"instructions"}
+                  resetButtonText={content.containers.peerEvaluationForm.form.instructions.resetButtonText}
+                  isDisabled={isViewOnly}
+                />
+              </FieldWrapper>
+
+              <Divider>Scale Explanation</Divider>
+
+              <FieldWrapper marginBottom="3em">
+                <WYSIWYGForm
+                  testId={"peer-evaluation-form-scale-explanation-field"}
+                  helperText={content.containers.peerEvaluationForm.form.scaleExplanation.helperText}
+                  fieldName={"scaleExplanation"}
+                  resetButtonText={content.containers.peerEvaluationForm.form.scaleExplanation.resetButtonText}
                   isDisabled={isViewOnly}
                 />
               </FieldWrapper>

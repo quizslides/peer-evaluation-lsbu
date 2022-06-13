@@ -30,7 +30,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
 
   const [isPeerEvaluationViewOnly, setPeerEvaluationViewOnly] = useState<boolean | null>(null);
 
-  const [getPeerEvaluations, { loading: loadingFetch, error, data }] = useGetPeerEvaluation("UpdatePeerEvaluation");
+  const [getPeerEvaluation, { loading: loadingFetch, error, data }] = useGetPeerEvaluation("UpdatePeerEvaluation");
 
   const submitForm = async (valuesForm: IPeerEvaluationData) => {
     loadingNotification("Updating peer evaluation", "UpdatePeerEvaluationForm");
@@ -73,14 +73,14 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
   const isLoading = loadingFetch || !peerEvaluationValues;
 
   useEffect(() => {
-    getPeerEvaluations({
+    getPeerEvaluation({
       variables: {
         where: {
           id: peerEvaluationId,
         },
       },
     });
-  }, [getPeerEvaluations, peerEvaluationId]);
+  }, [getPeerEvaluation, peerEvaluationId]);
 
   useEffect(() => {
     if (error) {
@@ -131,6 +131,8 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
       criteriaScoreRangeMax={peerEvaluationValues.criteriaScoreRangeMax}
       columns={peerEvaluationValues.columns}
       peerEvaluationTeachingMembers={peerEvaluationValues.peerEvaluationTeachingMembers}
+      instructions={peerEvaluationValues.instructions}
+      scaleExplanation={peerEvaluationValues.scaleExplanation}
       onSubmitForm={submitForm}
       onCancelForm={onCancel}
       session={session}

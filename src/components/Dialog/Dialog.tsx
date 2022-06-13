@@ -9,7 +9,7 @@ import Button, { ButtonVariant } from "@/components/Button/Button";
 
 interface IDialog extends DialogProps {
   testId: string;
-  title: string;
+  title?: string;
   content: React.ReactNode;
   rightButton: string;
   leftButton?: string;

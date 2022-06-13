@@ -86,6 +86,8 @@ class PeerEvaluationTableStudentLecturerQuery {
         criteriaScoreRangeMin: true,
         criteriaScoreRangeMax: true,
         submissionsLockDate: true,
+        instructions: true,
+        scaleExplanation: true,
       },
       where: {
         id: {

@@ -17,6 +17,7 @@ import Divider from "@/components/Divider/Divider";
 import Error from "@/components/Error/Error";
 import FormikResetComponent from "@/components/FormikResetComponent/FormikResetComponent";
 import HelpButton from "@/components/HelpButton/HelpButton";
+import HtmlRenderText from "@/components/HtmlRenderText/HtmlRenderText";
 import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper";
 import Link from "@/components/Link/Link";
 import LoaderSpinner from "@/components/LoaderSpinner/LoaderSpinner";
@@ -58,6 +59,7 @@ export {
   Error,
   FormikResetComponent,
   HelpButton,
+  HtmlRenderText,
   IconButtonWrapper,
   Link,
   LoaderSpinner,

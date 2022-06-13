@@ -143,6 +143,14 @@ const peerEvaluationEmailBodyValidator = {
   }),
 };
 
+const peerEvaluationInstructionsValidator = {
+  instructions: string().nullable(),
+};
+
+const peerEvaluationScaleExplanation = {
+  scaleExplanation: string().nullable(),
+};
+
 const peerEvaluationColumnValidator = {
   description: string()
     .min(2, content.column.minLength)
@@ -212,8 +220,10 @@ export {
   peerEvaluationCriteriaScoreRangeMinValidator,
   peerEvaluationEmailBodyValidator,
   peerEvaluationEmailSubjectValidator,
+  peerEvaluationInstructionsValidator,
   peerEvaluationMaxMarkDecreaseValidator,
   peerEvaluationMaxMarkIncreaseValidator,
+  peerEvaluationScaleExplanation,
   peerEvaluationSchoolValidator,
   peerEvaluationStatusValidator,
   peerEvaluationStudentsTeams,

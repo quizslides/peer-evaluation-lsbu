@@ -101,6 +101,14 @@ const content = {
           helperText: "Email body of the reminder",
           resetButtonText: "Reset Email Body",
         },
+        instructions: {
+          helperText: "Instructions for the student",
+          resetButtonText: "Reset",
+        },
+        scaleExplanation: {
+          helperText: "Scale Explanation for the student",
+          resetButtonText: "Reset",
+        },
         columnManagement: {
           helperText: "List of columns of the peer evaluation",
         },

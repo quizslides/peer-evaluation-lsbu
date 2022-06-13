@@ -8,6 +8,7 @@ import Error404 from "@/containers/Error404";
 import Error500 from "@/containers/Error500";
 import ErrorAuth from "@/containers/ErrorAuth";
 import ErrorContainer from "@/containers/ErrorContainer";
+import HelperContainerWrapper from "@/containers/HelperContainerWrapper";
 import HomePageContainer from "@/containers/HomePageContainer";
 import Layout from "@/containers/Layout";
 import LoadingContainer from "@/containers/LoadingContainer";
@@ -17,8 +18,11 @@ import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnMan
 import PeerEvaluationInfo from "@/containers/PeerEvaluationInfo";
 import PeerEvaluationsDataTable from "@/containers/PeerEvaluationsDataTable";
 import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
+import PeerEvaluationStudentPeerEvaluationContainer from "@/containers/PeerEvaluationStudentPeerEvaluationContainer";
 import PeerEvaluationStudentsDataTable from "@/containers/PeerEvaluationStudentsDataTable";
 import PeerEvaluationStudentTable from "@/containers/PeerEvaluationStudentTable";
+import PeerEvaluationStudentTableInstructions from "@/containers/PeerEvaluationStudentTableInstructions";
+import PeerEvaluationStudentTableScaleExplanation from "@/containers/PeerEvaluationStudentTableScaleExplanation";
 import PeerEvaluationStudentTeamActionsDialog from "@/containers/PeerEvaluationStudentTeamActionsDialog";
 import SignInWrapper from "@/containers/SignInWrapper";
 import UnauthorizedContainer from "@/containers/UnauthorizedContainer";
@@ -38,6 +42,7 @@ export {
   Error500,
   ErrorAuth,
   ErrorContainer,
+  HelperContainerWrapper,
   HomePageContainer,
   Layout,
   LoadingContainer,
@@ -48,8 +53,11 @@ export {
   PeerEvaluationNavigationFab,
   PeerEvaluationsDataTable,
   PeerEvaluationStatusContainer,
+  PeerEvaluationStudentPeerEvaluationContainer,
   PeerEvaluationStudentsDataTable,
   PeerEvaluationStudentTable,
+  PeerEvaluationStudentTableInstructions,
+  PeerEvaluationStudentTableScaleExplanation,
   PeerEvaluationStudentTeamActionsDialog,
   SignInWrapper,
   UnauthorizedContainer,

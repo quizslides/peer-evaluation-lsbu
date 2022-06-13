@@ -129,6 +129,8 @@ class PeerEvaluationTableStudentQuery {
         criteriaScoreRangeMin: true,
         criteriaScoreRangeMax: true,
         submissionsLockDate: true,
+        instructions: true,
+        scaleExplanation: true,
       },
       where: {
         code: {

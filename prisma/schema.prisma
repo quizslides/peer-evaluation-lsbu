@@ -59,6 +59,8 @@ model PeerEvaluation {
   criteriaScoreRangeMax         Int                            @default(5)
   peerEvaluationStudents        PeerEvaluationStudent[]
   PeerEvaluationStudentTeam     PeerEvaluationStudentTeam[]
+  instructions                  String                         @default("")
+  scaleExplanation              String                         @default("")
 }
 
 // The Peer Evaluation Data of each student

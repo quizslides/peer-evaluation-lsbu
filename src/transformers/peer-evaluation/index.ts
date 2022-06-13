@@ -290,6 +290,8 @@ const sanitizePeerEvaluationDataOnCreate = (data: IPeerEvaluationData): PeerEval
     emailBodyReminder,
     peerEvaluationTeachingMembers,
     columns,
+    instructions,
+    scaleExplanation,
   } = data;
 
   return {
@@ -313,6 +315,8 @@ const sanitizePeerEvaluationDataOnCreate = (data: IPeerEvaluationData): PeerEval
     columns: {
       create: sanitizeColumnsDataOnCreate(columns),
     },
+    instructions,
+    scaleExplanation,
   };
 };
 
@@ -331,6 +335,8 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
     emailBodyReminder,
     peerEvaluationTeachingMembers,
     columns,
+    instructions,
+    scaleExplanation,
   } = data;
 
   const getPeerEvaluationTeachingMemberVariables = () => {
@@ -441,6 +447,12 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
     },
     columns: {
       ...columnVariables,
+    },
+    instructions: {
+      set: instructions,
+    },
+    scaleExplanation: {
+      set: scaleExplanation,
     },
   };
 
