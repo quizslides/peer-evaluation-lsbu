@@ -36,7 +36,7 @@ const Dialog = ({
   ...props
 }: IDialog) => {
   return (
-    <DialogMUI data-testid={testId} {...props}>
+    <DialogMUI data-testid={testId} {...props} scroll={"body"}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>{content}</DialogContent>
       <DialogActions>
