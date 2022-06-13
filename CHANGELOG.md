@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.34](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.33...v1.0.0-staging.34) (2022-06-13)
+
+
+### Features
+
+* adding sorting by fields to all queries to the backend ([d54da0d](https://github.com/quizslides/peer-evaluation-lsbu/commit/d54da0dfb88dd46586801defbcc50f3e99000370))
+
 ## [1.0.0-staging.33](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.32...v1.0.0-staging.33) (2022-06-13)
 
 
