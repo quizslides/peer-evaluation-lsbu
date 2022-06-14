@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.36](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.35...v1.0.0-staging.36) (2022-06-14)
+
+
+### Bug Fixes
+
+* adding sorting by createdAt to student team and initial createdAt ([6d77a91](https://github.com/quizslides/peer-evaluation-lsbu/commit/6d77a919cc40705dd8cf1279c71c0b5cb4c0b13b))
+
 ## [1.0.0-staging.35](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.34...v1.0.0-staging.35) (2022-06-13)
 
 
