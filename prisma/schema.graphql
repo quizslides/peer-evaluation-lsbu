@@ -387,6 +387,13 @@ type Query {
   peerEvaluationsByLecturer(where: PeerEvaluationsByLecturerWhereInput!): [PeerEvaluation!]!
   peerEvaluationDashboard(where: PeerEvaluationDashboardWhereInput!): PeerEvaluationDashboard
   peerEvaluationStudentTeamExist(where: PeerEvaluationStudentTeamExistWhereInput!): PeerEvaluationStudentTeamExist
+  peerEvaluationStudentTeamCalculatedResultsTable(
+    where: PeerEvaluationStudentTeamCalculatedResultsTableWhereInput!
+  ): PeerEvaluationStudentTeamCalculatedResultsTableResponse!
+  peerEvaluationTableStudent(where: PeerEvaluationTableStudentWhereInput!): PeerEvaluationTableStudentResponse!
+  peerEvaluationTableStudentLecturer(
+    where: PeerEvaluationTableStudentLecturerWhereInput!
+  ): PeerEvaluationTableStudentLecturerResponse!
 }
 
 type Email {
@@ -412,11 +419,13 @@ type PeerEvaluation {
   schools: [Schools!]!
   code: String!
   status: PeerEvaluationStatuses!
-  maxGradeIncrease: Int!
-  maxGradeDecrease: Int!
+  maxMarkIncrease: Int!
+  maxMarkDecrease: Int!
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int!
   criteriaScoreRangeMax: Int!
+  instructions: String!
+  scaleExplanation: String!
   _count: PeerEvaluationCount
   peerEvaluationTeachingMembers(
     where: PeerEvaluationTeachingMemberWhereInput
@@ -729,8 +738,8 @@ input PeerEvaluationWhereInput {
   schools: EnumSchoolsNullableListFilter
   code: StringFilter
   status: EnumPeerEvaluationStatusesFilter
-  maxGradeIncrease: IntFilter
-  maxGradeDecrease: IntFilter
+  maxMarkIncrease: IntFilter
+  maxMarkDecrease: IntFilter
   submissionsLockDate: DateTimeNullableFilter
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberListRelationFilter
   reminderEmail: EmailRelationFilter
@@ -739,6 +748,8 @@ input PeerEvaluationWhereInput {
   criteriaScoreRangeMax: IntFilter
   peerEvaluationStudents: PeerEvaluationStudentListRelationFilter
   PeerEvaluationStudentTeam: PeerEvaluationStudentTeamListRelationFilter
+  instructions: StringFilter
+  scaleExplanation: StringFilter
 }
 
 input EnumSchoolsNullableListFilter {
@@ -869,7 +880,6 @@ input PeerEvaluationRevieweeColumnWhereInput {
   peerEvaluationRevieweeId: StringFilter
   peerEvaluationColumn: PeerEvaluationColumnRelationFilter
   peerEvaluationColumnId: StringFilter
-  isInvalid: BoolFilter
 }
 
 input IntNullableFilter {
@@ -908,11 +918,12 @@ input PeerEvaluationRevieweeWhereInput {
   updatedAt: DateTimeFilter
   studentReviewed: PeerEvaluationStudentRelationFilter
   studentReviewedId: StringFilter
-  criteriaScore: IntNullableFilter
-  revieweeComment: StringFilter
+  criteriaScoreTotal: IntNullableFilter
+  comment: StringNullableFilter
   peerEvaluationReview: PeerEvaluationStudentReviewRelationFilter
   peerEvaluationReviewId: StringNullableFilter
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnListRelationFilter
+  isValid: BoolFilter
 }
 
 input PeerEvaluationStudentRelationFilter {
@@ -931,6 +942,7 @@ input PeerEvaluationStudentWhereInput {
   userId: StringFilter
   peerEvaluation: PeerEvaluationRelationFilter
   peerEvaluationId: StringFilter
+  studentName: StringFilter
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamRelationFilter
   peerEvaluationStudentTeamId: StringNullableFilter
   averageCriteriaScore: DecimalNullableFilter
@@ -938,7 +950,8 @@ input PeerEvaluationStudentWhereInput {
   systemCalculatedMark: DecimalNullableFilter
   systemAdjustedMark: DecimalNullableFilter
   lecturerAdjustedMark: DecimalNullableFilter
-  mark: DecimalNullableFilter
+  finalMark: DecimalNullableFilter
+  comments: StringNullableFilter
   peerEvaluationReviewed: PeerEvaluationStudentReviewRelationFilter
   PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
 }
@@ -960,6 +973,8 @@ input PeerEvaluationStudentTeamWhereInput {
   mark: DecimalFilter
   peerEvaluation: PeerEvaluationRelationFilter
   peerEvaluationId: StringFilter
+  calculatedResults: JsonNullableFilter
+  comment: StringNullableFilter
 }
 
 input PeerEvaluationStudentListRelationFilter {
@@ -994,6 +1009,16 @@ input NestedDecimalFilter {
   gte: Decimal
   not: NestedDecimalFilter
 }
+
+input JsonNullableFilter {
+  equals: JSON
+  not: JSON
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 input DecimalNullableFilter {
   equals: Decimal
@@ -1131,8 +1156,8 @@ input PeerEvaluationOrderByWithRelationInput {
   schools: SortOrder
   code: SortOrder
   status: SortOrder
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   submissionsLockDate: SortOrder
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberOrderByRelationAggregateInput
   reminderEmail: EmailOrderByWithRelationInput
@@ -1141,6 +1166,8 @@ input PeerEvaluationOrderByWithRelationInput {
   criteriaScoreRangeMax: SortOrder
   peerEvaluationStudents: PeerEvaluationStudentOrderByRelationAggregateInput
   PeerEvaluationStudentTeam: PeerEvaluationStudentTeamOrderByRelationAggregateInput
+  instructions: SortOrder
+  scaleExplanation: SortOrder
 }
 
 input EmailOrderByWithRelationInput {
@@ -1186,13 +1213,15 @@ type PeerEvaluationStudent {
   updatedAt: DateTime!
   userId: String!
   peerEvaluationId: String!
+  studentName: String!
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   _count: PeerEvaluationStudentCount
   user: User!
   peerEvaluation: PeerEvaluation!
@@ -1219,6 +1248,8 @@ type PeerEvaluationStudentTeam {
   name: String!
   mark: Decimal!
   peerEvaluationId: String!
+  calculatedResults: JSON
+  comment: String
   _count: PeerEvaluationStudentTeamCount
   peerEvaluationStudentList(
     where: PeerEvaluationStudentWhereInput
@@ -1243,6 +1274,7 @@ input PeerEvaluationStudentOrderByWithRelationInput {
   userId: SortOrder
   peerEvaluation: PeerEvaluationOrderByWithRelationInput
   peerEvaluationId: SortOrder
+  studentName: SortOrder
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamOrderByWithRelationInput
   peerEvaluationStudentTeamId: SortOrder
   averageCriteriaScore: SortOrder
@@ -1250,7 +1282,8 @@ input PeerEvaluationStudentOrderByWithRelationInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
+  comments: SortOrder
   peerEvaluationReviewed: PeerEvaluationStudentReviewOrderByWithRelationInput
   PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
 }
@@ -1264,6 +1297,8 @@ input PeerEvaluationStudentTeamOrderByWithRelationInput {
   mark: SortOrder
   peerEvaluation: PeerEvaluationOrderByWithRelationInput
   peerEvaluationId: SortOrder
+  calculatedResults: SortOrder
+  comment: SortOrder
 }
 
 input PeerEvaluationStudentReviewOrderByWithRelationInput {
@@ -1296,13 +1331,15 @@ enum PeerEvaluationStudentScalarFieldEnum {
   updatedAt
   userId
   peerEvaluationId
+  studentName
   peerEvaluationStudentTeamId
   averageCriteriaScore
   averageCriteriaScoreByTeamMember
   systemCalculatedMark
   systemAdjustedMark
   lecturerAdjustedMark
-  mark
+  finalMark
+  comments
 }
 
 type PeerEvaluationStudentReview {
@@ -1332,9 +1369,10 @@ type PeerEvaluationReviewee {
   createdAt: DateTime!
   updatedAt: DateTime!
   studentReviewedId: String!
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean!
   _count: PeerEvaluationRevieweeCount
   studentReviewed: PeerEvaluationStudent!
   peerEvaluationReview: PeerEvaluationStudentReview
@@ -1359,7 +1397,6 @@ type PeerEvaluationRevieweeColumn {
   criteriaScore: Int
   peerEvaluationRevieweeId: String!
   peerEvaluationColumnId: String!
-  isInvalid: Boolean!
   peerEvaluationReviewee: PeerEvaluationReviewee!
   peerEvaluationColumn: PeerEvaluationColumn!
 }
@@ -1395,7 +1432,6 @@ input PeerEvaluationRevieweeColumnOrderByWithRelationInput {
   peerEvaluationRevieweeId: SortOrder
   peerEvaluationColumn: PeerEvaluationColumnOrderByWithRelationInput
   peerEvaluationColumnId: SortOrder
-  isInvalid: SortOrder
 }
 
 input PeerEvaluationRevieweeOrderByWithRelationInput {
@@ -1404,11 +1440,12 @@ input PeerEvaluationRevieweeOrderByWithRelationInput {
   updatedAt: SortOrder
   studentReviewed: PeerEvaluationStudentOrderByWithRelationInput
   studentReviewedId: SortOrder
-  criteriaScore: SortOrder
-  revieweeComment: SortOrder
+  criteriaScoreTotal: SortOrder
+  comment: SortOrder
   peerEvaluationReview: PeerEvaluationStudentReviewOrderByWithRelationInput
   peerEvaluationReviewId: SortOrder
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
+  isValid: SortOrder
 }
 
 input PeerEvaluationRevieweeColumnOrderByRelationAggregateInput {
@@ -1436,7 +1473,6 @@ enum PeerEvaluationRevieweeColumnScalarFieldEnum {
   criteriaScore
   peerEvaluationRevieweeId
   peerEvaluationColumnId
-  isInvalid
 }
 
 input PeerEvaluationRevieweeWhereUniqueInput {
@@ -1448,9 +1484,10 @@ enum PeerEvaluationRevieweeScalarFieldEnum {
   createdAt
   updatedAt
   studentReviewedId
-  criteriaScore
-  revieweeComment
+  criteriaScoreTotal
+  comment
   peerEvaluationReviewId
+  isValid
 }
 
 input PeerEvaluationColumnWhereUniqueInput {
@@ -1488,6 +1525,8 @@ enum PeerEvaluationStudentTeamScalarFieldEnum {
   name
   mark
   peerEvaluationId
+  calculatedResults
+  comment
 }
 
 input EmailWhereUniqueInput {
@@ -1712,11 +1751,13 @@ enum PeerEvaluationScalarFieldEnum {
   schools
   code
   status
-  maxGradeIncrease
-  maxGradeDecrease
+  maxMarkIncrease
+  maxMarkDecrease
   submissionsLockDate
   criteriaScoreRangeMin
   criteriaScoreRangeMax
+  instructions
+  scaleExplanation
 }
 
 type AggregatePeerEvaluation {
@@ -1735,24 +1776,26 @@ type PeerEvaluationCountAggregate {
   schools: Int!
   code: Int!
   status: Int!
-  maxGradeIncrease: Int!
-  maxGradeDecrease: Int!
+  maxMarkIncrease: Int!
+  maxMarkDecrease: Int!
   submissionsLockDate: Int!
   criteriaScoreRangeMin: Int!
   criteriaScoreRangeMax: Int!
+  instructions: Int!
+  scaleExplanation: Int!
   _all: Int!
 }
 
 type PeerEvaluationAvgAggregate {
-  maxGradeIncrease: Float
-  maxGradeDecrease: Float
+  maxMarkIncrease: Float
+  maxMarkDecrease: Float
   criteriaScoreRangeMin: Float
   criteriaScoreRangeMax: Float
 }
 
 type PeerEvaluationSumAggregate {
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
 }
@@ -1764,11 +1807,13 @@ type PeerEvaluationMinAggregate {
   title: String
   code: String
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
 }
 
 type PeerEvaluationMaxAggregate {
@@ -1778,11 +1823,13 @@ type PeerEvaluationMaxAggregate {
   title: String
   code: String
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
 }
 
 type PeerEvaluationGroupBy {
@@ -1793,11 +1840,13 @@ type PeerEvaluationGroupBy {
   schools: [Schools!]
   code: String!
   status: PeerEvaluationStatuses!
-  maxGradeIncrease: Int!
-  maxGradeDecrease: Int!
+  maxMarkIncrease: Int!
+  maxMarkDecrease: Int!
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int!
   criteriaScoreRangeMax: Int!
+  instructions: String!
+  scaleExplanation: String!
   _count: PeerEvaluationCountAggregate
   _avg: PeerEvaluationAvgAggregate
   _sum: PeerEvaluationSumAggregate
@@ -1813,11 +1862,13 @@ input PeerEvaluationOrderByWithAggregationInput {
   schools: SortOrder
   code: SortOrder
   status: SortOrder
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   submissionsLockDate: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
+  instructions: SortOrder
+  scaleExplanation: SortOrder
   _count: PeerEvaluationCountOrderByAggregateInput
   _avg: PeerEvaluationAvgOrderByAggregateInput
   _max: PeerEvaluationMaxOrderByAggregateInput
@@ -1833,16 +1884,18 @@ input PeerEvaluationCountOrderByAggregateInput {
   schools: SortOrder
   code: SortOrder
   status: SortOrder
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   submissionsLockDate: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
+  instructions: SortOrder
+  scaleExplanation: SortOrder
 }
 
 input PeerEvaluationAvgOrderByAggregateInput {
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
 }
@@ -1854,11 +1907,13 @@ input PeerEvaluationMaxOrderByAggregateInput {
   title: SortOrder
   code: SortOrder
   status: SortOrder
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   submissionsLockDate: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
+  instructions: SortOrder
+  scaleExplanation: SortOrder
 }
 
 input PeerEvaluationMinOrderByAggregateInput {
@@ -1868,16 +1923,18 @@ input PeerEvaluationMinOrderByAggregateInput {
   title: SortOrder
   code: SortOrder
   status: SortOrder
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   submissionsLockDate: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
+  instructions: SortOrder
+  scaleExplanation: SortOrder
 }
 
 input PeerEvaluationSumOrderByAggregateInput {
-  maxGradeIncrease: SortOrder
-  maxGradeDecrease: SortOrder
+  maxMarkIncrease: SortOrder
+  maxMarkDecrease: SortOrder
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
 }
@@ -1893,11 +1950,13 @@ input PeerEvaluationScalarWhereWithAggregatesInput {
   schools: EnumSchoolsNullableListFilter
   code: StringWithAggregatesFilter
   status: EnumPeerEvaluationStatusesWithAggregatesFilter
-  maxGradeIncrease: IntWithAggregatesFilter
-  maxGradeDecrease: IntWithAggregatesFilter
+  maxMarkIncrease: IntWithAggregatesFilter
+  maxMarkDecrease: IntWithAggregatesFilter
   submissionsLockDate: DateTimeNullableWithAggregatesFilter
   criteriaScoreRangeMin: IntWithAggregatesFilter
   criteriaScoreRangeMax: IntWithAggregatesFilter
+  instructions: StringWithAggregatesFilter
+  scaleExplanation: StringWithAggregatesFilter
 }
 
 input EnumPeerEvaluationStatusesWithAggregatesFilter {
@@ -2092,18 +2151,19 @@ type PeerEvaluationRevieweeCountAggregate {
   createdAt: Int!
   updatedAt: Int!
   studentReviewedId: Int!
-  criteriaScore: Int!
-  revieweeComment: Int!
+  criteriaScoreTotal: Int!
+  comment: Int!
   peerEvaluationReviewId: Int!
+  isValid: Int!
   _all: Int!
 }
 
 type PeerEvaluationRevieweeAvgAggregate {
-  criteriaScore: Float
+  criteriaScoreTotal: Float
 }
 
 type PeerEvaluationRevieweeSumAggregate {
-  criteriaScore: Int
+  criteriaScoreTotal: Int
 }
 
 type PeerEvaluationRevieweeMinAggregate {
@@ -2111,9 +2171,10 @@ type PeerEvaluationRevieweeMinAggregate {
   createdAt: DateTime
   updatedAt: DateTime
   studentReviewedId: String
-  criteriaScore: Int
-  revieweeComment: String
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean
 }
 
 type PeerEvaluationRevieweeMaxAggregate {
@@ -2121,9 +2182,10 @@ type PeerEvaluationRevieweeMaxAggregate {
   createdAt: DateTime
   updatedAt: DateTime
   studentReviewedId: String
-  criteriaScore: Int
-  revieweeComment: String
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean
 }
 
 type PeerEvaluationRevieweeGroupBy {
@@ -2131,9 +2193,10 @@ type PeerEvaluationRevieweeGroupBy {
   createdAt: DateTime!
   updatedAt: DateTime!
   studentReviewedId: String!
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean!
   _count: PeerEvaluationRevieweeCountAggregate
   _avg: PeerEvaluationRevieweeAvgAggregate
   _sum: PeerEvaluationRevieweeSumAggregate
@@ -2146,9 +2209,10 @@ input PeerEvaluationRevieweeOrderByWithAggregationInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   studentReviewedId: SortOrder
-  criteriaScore: SortOrder
-  revieweeComment: SortOrder
+  criteriaScoreTotal: SortOrder
+  comment: SortOrder
   peerEvaluationReviewId: SortOrder
+  isValid: SortOrder
   _count: PeerEvaluationRevieweeCountOrderByAggregateInput
   _avg: PeerEvaluationRevieweeAvgOrderByAggregateInput
   _max: PeerEvaluationRevieweeMaxOrderByAggregateInput
@@ -2161,13 +2225,14 @@ input PeerEvaluationRevieweeCountOrderByAggregateInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   studentReviewedId: SortOrder
-  criteriaScore: SortOrder
-  revieweeComment: SortOrder
+  criteriaScoreTotal: SortOrder
+  comment: SortOrder
   peerEvaluationReviewId: SortOrder
+  isValid: SortOrder
 }
 
 input PeerEvaluationRevieweeAvgOrderByAggregateInput {
-  criteriaScore: SortOrder
+  criteriaScoreTotal: SortOrder
 }
 
 input PeerEvaluationRevieweeMaxOrderByAggregateInput {
@@ -2175,9 +2240,10 @@ input PeerEvaluationRevieweeMaxOrderByAggregateInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   studentReviewedId: SortOrder
-  criteriaScore: SortOrder
-  revieweeComment: SortOrder
+  criteriaScoreTotal: SortOrder
+  comment: SortOrder
   peerEvaluationReviewId: SortOrder
+  isValid: SortOrder
 }
 
 input PeerEvaluationRevieweeMinOrderByAggregateInput {
@@ -2185,13 +2251,14 @@ input PeerEvaluationRevieweeMinOrderByAggregateInput {
   createdAt: SortOrder
   updatedAt: SortOrder
   studentReviewedId: SortOrder
-  criteriaScore: SortOrder
-  revieweeComment: SortOrder
+  criteriaScoreTotal: SortOrder
+  comment: SortOrder
   peerEvaluationReviewId: SortOrder
+  isValid: SortOrder
 }
 
 input PeerEvaluationRevieweeSumOrderByAggregateInput {
-  criteriaScore: SortOrder
+  criteriaScoreTotal: SortOrder
 }
 
 input PeerEvaluationRevieweeScalarWhereWithAggregatesInput {
@@ -2202,9 +2269,10 @@ input PeerEvaluationRevieweeScalarWhereWithAggregatesInput {
   createdAt: DateTimeWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
   studentReviewedId: StringWithAggregatesFilter
-  criteriaScore: IntNullableWithAggregatesFilter
-  revieweeComment: StringWithAggregatesFilter
+  criteriaScoreTotal: IntNullableWithAggregatesFilter
+  comment: StringNullableWithAggregatesFilter
   peerEvaluationReviewId: StringNullableWithAggregatesFilter
+  isValid: BoolWithAggregatesFilter
 }
 
 input IntNullableWithAggregatesFilter {
@@ -2250,6 +2318,22 @@ input NestedFloatNullableFilter {
   not: NestedFloatNullableFilter
 }
 
+input BoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
+input NestedBoolWithAggregatesFilter {
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+  _count: NestedIntFilter
+  _min: NestedBoolFilter
+  _max: NestedBoolFilter
+}
+
 type AggregatePeerEvaluationRevieweeColumn {
   _count: PeerEvaluationRevieweeColumnCountAggregate
   _avg: PeerEvaluationRevieweeColumnAvgAggregate
@@ -2265,7 +2349,6 @@ type PeerEvaluationRevieweeColumnCountAggregate {
   criteriaScore: Int!
   peerEvaluationRevieweeId: Int!
   peerEvaluationColumnId: Int!
-  isInvalid: Int!
   _all: Int!
 }
 
@@ -2284,7 +2367,6 @@ type PeerEvaluationRevieweeColumnMinAggregate {
   criteriaScore: Int
   peerEvaluationRevieweeId: String
   peerEvaluationColumnId: String
-  isInvalid: Boolean
 }
 
 type PeerEvaluationRevieweeColumnMaxAggregate {
@@ -2294,7 +2376,6 @@ type PeerEvaluationRevieweeColumnMaxAggregate {
   criteriaScore: Int
   peerEvaluationRevieweeId: String
   peerEvaluationColumnId: String
-  isInvalid: Boolean
 }
 
 type PeerEvaluationRevieweeColumnGroupBy {
@@ -2304,7 +2385,6 @@ type PeerEvaluationRevieweeColumnGroupBy {
   criteriaScore: Int
   peerEvaluationRevieweeId: String!
   peerEvaluationColumnId: String!
-  isInvalid: Boolean!
   _count: PeerEvaluationRevieweeColumnCountAggregate
   _avg: PeerEvaluationRevieweeColumnAvgAggregate
   _sum: PeerEvaluationRevieweeColumnSumAggregate
@@ -2319,7 +2399,6 @@ input PeerEvaluationRevieweeColumnOrderByWithAggregationInput {
   criteriaScore: SortOrder
   peerEvaluationRevieweeId: SortOrder
   peerEvaluationColumnId: SortOrder
-  isInvalid: SortOrder
   _count: PeerEvaluationRevieweeColumnCountOrderByAggregateInput
   _avg: PeerEvaluationRevieweeColumnAvgOrderByAggregateInput
   _max: PeerEvaluationRevieweeColumnMaxOrderByAggregateInput
@@ -2334,7 +2413,6 @@ input PeerEvaluationRevieweeColumnCountOrderByAggregateInput {
   criteriaScore: SortOrder
   peerEvaluationRevieweeId: SortOrder
   peerEvaluationColumnId: SortOrder
-  isInvalid: SortOrder
 }
 
 input PeerEvaluationRevieweeColumnAvgOrderByAggregateInput {
@@ -2348,7 +2426,6 @@ input PeerEvaluationRevieweeColumnMaxOrderByAggregateInput {
   criteriaScore: SortOrder
   peerEvaluationRevieweeId: SortOrder
   peerEvaluationColumnId: SortOrder
-  isInvalid: SortOrder
 }
 
 input PeerEvaluationRevieweeColumnMinOrderByAggregateInput {
@@ -2358,7 +2435,6 @@ input PeerEvaluationRevieweeColumnMinOrderByAggregateInput {
   criteriaScore: SortOrder
   peerEvaluationRevieweeId: SortOrder
   peerEvaluationColumnId: SortOrder
-  isInvalid: SortOrder
 }
 
 input PeerEvaluationRevieweeColumnSumOrderByAggregateInput {
@@ -2375,23 +2451,6 @@ input PeerEvaluationRevieweeColumnScalarWhereWithAggregatesInput {
   criteriaScore: IntNullableWithAggregatesFilter
   peerEvaluationRevieweeId: StringWithAggregatesFilter
   peerEvaluationColumnId: StringWithAggregatesFilter
-  isInvalid: BoolWithAggregatesFilter
-}
-
-input BoolWithAggregatesFilter {
-  equals: Boolean
-  not: NestedBoolWithAggregatesFilter
-  _count: NestedIntFilter
-  _min: NestedBoolFilter
-  _max: NestedBoolFilter
-}
-
-input NestedBoolWithAggregatesFilter {
-  equals: Boolean
-  not: NestedBoolWithAggregatesFilter
-  _count: NestedIntFilter
-  _min: NestedBoolFilter
-  _max: NestedBoolFilter
 }
 
 type AggregatePeerEvaluationStudent {
@@ -2408,13 +2467,15 @@ type PeerEvaluationStudentCountAggregate {
   updatedAt: Int!
   userId: Int!
   peerEvaluationId: Int!
+  studentName: Int!
   peerEvaluationStudentTeamId: Int!
   averageCriteriaScore: Int!
   averageCriteriaScoreByTeamMember: Int!
   systemCalculatedMark: Int!
   systemAdjustedMark: Int!
   lecturerAdjustedMark: Int!
-  mark: Int!
+  finalMark: Int!
+  comments: Int!
   _all: Int!
 }
 
@@ -2424,7 +2485,7 @@ type PeerEvaluationStudentAvgAggregate {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
 }
 
 type PeerEvaluationStudentSumAggregate {
@@ -2433,7 +2494,7 @@ type PeerEvaluationStudentSumAggregate {
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
 }
 
 type PeerEvaluationStudentMinAggregate {
@@ -2442,13 +2503,15 @@ type PeerEvaluationStudentMinAggregate {
   updatedAt: DateTime
   userId: String
   peerEvaluationId: String
+  studentName: String
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 type PeerEvaluationStudentMaxAggregate {
@@ -2457,13 +2520,15 @@ type PeerEvaluationStudentMaxAggregate {
   updatedAt: DateTime
   userId: String
   peerEvaluationId: String
+  studentName: String
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 type PeerEvaluationStudentGroupBy {
@@ -2472,13 +2537,15 @@ type PeerEvaluationStudentGroupBy {
   updatedAt: DateTime!
   userId: String!
   peerEvaluationId: String!
+  studentName: String!
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   _count: PeerEvaluationStudentCountAggregate
   _avg: PeerEvaluationStudentAvgAggregate
   _sum: PeerEvaluationStudentSumAggregate
@@ -2492,13 +2559,15 @@ input PeerEvaluationStudentOrderByWithAggregationInput {
   updatedAt: SortOrder
   userId: SortOrder
   peerEvaluationId: SortOrder
+  studentName: SortOrder
   peerEvaluationStudentTeamId: SortOrder
   averageCriteriaScore: SortOrder
   averageCriteriaScoreByTeamMember: SortOrder
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
+  comments: SortOrder
   _count: PeerEvaluationStudentCountOrderByAggregateInput
   _avg: PeerEvaluationStudentAvgOrderByAggregateInput
   _max: PeerEvaluationStudentMaxOrderByAggregateInput
@@ -2512,13 +2581,15 @@ input PeerEvaluationStudentCountOrderByAggregateInput {
   updatedAt: SortOrder
   userId: SortOrder
   peerEvaluationId: SortOrder
+  studentName: SortOrder
   peerEvaluationStudentTeamId: SortOrder
   averageCriteriaScore: SortOrder
   averageCriteriaScoreByTeamMember: SortOrder
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
+  comments: SortOrder
 }
 
 input PeerEvaluationStudentAvgOrderByAggregateInput {
@@ -2527,7 +2598,7 @@ input PeerEvaluationStudentAvgOrderByAggregateInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
 }
 
 input PeerEvaluationStudentMaxOrderByAggregateInput {
@@ -2536,13 +2607,15 @@ input PeerEvaluationStudentMaxOrderByAggregateInput {
   updatedAt: SortOrder
   userId: SortOrder
   peerEvaluationId: SortOrder
+  studentName: SortOrder
   peerEvaluationStudentTeamId: SortOrder
   averageCriteriaScore: SortOrder
   averageCriteriaScoreByTeamMember: SortOrder
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
+  comments: SortOrder
 }
 
 input PeerEvaluationStudentMinOrderByAggregateInput {
@@ -2551,13 +2624,15 @@ input PeerEvaluationStudentMinOrderByAggregateInput {
   updatedAt: SortOrder
   userId: SortOrder
   peerEvaluationId: SortOrder
+  studentName: SortOrder
   peerEvaluationStudentTeamId: SortOrder
   averageCriteriaScore: SortOrder
   averageCriteriaScoreByTeamMember: SortOrder
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
+  comments: SortOrder
 }
 
 input PeerEvaluationStudentSumOrderByAggregateInput {
@@ -2566,7 +2641,7 @@ input PeerEvaluationStudentSumOrderByAggregateInput {
   systemCalculatedMark: SortOrder
   systemAdjustedMark: SortOrder
   lecturerAdjustedMark: SortOrder
-  mark: SortOrder
+  finalMark: SortOrder
 }
 
 input PeerEvaluationStudentScalarWhereWithAggregatesInput {
@@ -2578,13 +2653,15 @@ input PeerEvaluationStudentScalarWhereWithAggregatesInput {
   updatedAt: DateTimeWithAggregatesFilter
   userId: StringWithAggregatesFilter
   peerEvaluationId: StringWithAggregatesFilter
+  studentName: StringWithAggregatesFilter
   peerEvaluationStudentTeamId: StringNullableWithAggregatesFilter
   averageCriteriaScore: DecimalNullableWithAggregatesFilter
   averageCriteriaScoreByTeamMember: DecimalNullableWithAggregatesFilter
   systemCalculatedMark: DecimalNullableWithAggregatesFilter
   systemAdjustedMark: DecimalNullableWithAggregatesFilter
   lecturerAdjustedMark: DecimalNullableWithAggregatesFilter
-  mark: DecimalNullableWithAggregatesFilter
+  finalMark: DecimalNullableWithAggregatesFilter
+  comments: StringNullableWithAggregatesFilter
 }
 
 input DecimalNullableWithAggregatesFilter {
@@ -2735,6 +2812,8 @@ type PeerEvaluationStudentTeamCountAggregate {
   name: Int!
   mark: Int!
   peerEvaluationId: Int!
+  calculatedResults: Int!
+  comment: Int!
   _all: Int!
 }
 
@@ -2753,6 +2832,7 @@ type PeerEvaluationStudentTeamMinAggregate {
   name: String
   mark: Decimal
   peerEvaluationId: String
+  comment: String
 }
 
 type PeerEvaluationStudentTeamMaxAggregate {
@@ -2762,6 +2842,7 @@ type PeerEvaluationStudentTeamMaxAggregate {
   name: String
   mark: Decimal
   peerEvaluationId: String
+  comment: String
 }
 
 type PeerEvaluationStudentTeamGroupBy {
@@ -2771,6 +2852,8 @@ type PeerEvaluationStudentTeamGroupBy {
   name: String!
   mark: Decimal!
   peerEvaluationId: String!
+  calculatedResults: JSON
+  comment: String
   _count: PeerEvaluationStudentTeamCountAggregate
   _avg: PeerEvaluationStudentTeamAvgAggregate
   _sum: PeerEvaluationStudentTeamSumAggregate
@@ -2785,6 +2868,8 @@ input PeerEvaluationStudentTeamOrderByWithAggregationInput {
   name: SortOrder
   mark: SortOrder
   peerEvaluationId: SortOrder
+  calculatedResults: SortOrder
+  comment: SortOrder
   _count: PeerEvaluationStudentTeamCountOrderByAggregateInput
   _avg: PeerEvaluationStudentTeamAvgOrderByAggregateInput
   _max: PeerEvaluationStudentTeamMaxOrderByAggregateInput
@@ -2799,6 +2884,8 @@ input PeerEvaluationStudentTeamCountOrderByAggregateInput {
   name: SortOrder
   mark: SortOrder
   peerEvaluationId: SortOrder
+  calculatedResults: SortOrder
+  comment: SortOrder
 }
 
 input PeerEvaluationStudentTeamAvgOrderByAggregateInput {
@@ -2812,6 +2899,7 @@ input PeerEvaluationStudentTeamMaxOrderByAggregateInput {
   name: SortOrder
   mark: SortOrder
   peerEvaluationId: SortOrder
+  comment: SortOrder
 }
 
 input PeerEvaluationStudentTeamMinOrderByAggregateInput {
@@ -2821,6 +2909,7 @@ input PeerEvaluationStudentTeamMinOrderByAggregateInput {
   name: SortOrder
   mark: SortOrder
   peerEvaluationId: SortOrder
+  comment: SortOrder
 }
 
 input PeerEvaluationStudentTeamSumOrderByAggregateInput {
@@ -2837,6 +2926,8 @@ input PeerEvaluationStudentTeamScalarWhereWithAggregatesInput {
   name: StringWithAggregatesFilter
   mark: DecimalWithAggregatesFilter
   peerEvaluationId: StringWithAggregatesFilter
+  calculatedResults: JsonNullableWithAggregatesFilter
+  comment: StringNullableWithAggregatesFilter
 }
 
 input DecimalWithAggregatesFilter {
@@ -2869,6 +2960,19 @@ input NestedDecimalWithAggregatesFilter {
   _sum: NestedDecimalFilter
   _min: NestedDecimalFilter
   _max: NestedDecimalFilter
+}
+
+input JsonNullableWithAggregatesFilter {
+  equals: JSON
+  not: JSON
+  _count: NestedIntNullableFilter
+  _min: NestedJsonNullableFilter
+  _max: NestedJsonNullableFilter
+}
+
+input NestedJsonNullableFilter {
+  equals: JSON
+  not: JSON
 }
 
 type AggregatePeerEvaluationTeachingMember {
@@ -3324,7 +3428,7 @@ PeerEvaluation exist input
 """
 input PeerEvaluationExistWhereInput {
   """
-  PeerEvaluation code unique value
+  Peer Evaluation code unique value
   """
   code: String!
 }
@@ -3336,11 +3440,11 @@ input PeerEvaluationsByLecturerWhereInput {
   """
   Lecturer email
   """
-  email: String!
+  lecturerEmail: String!
 }
 
 """
-PeerEvaluation Dashboard Object
+Peer Evaluation Dashboard Object
 """
 type PeerEvaluationDashboard {
   id: String!
@@ -3350,11 +3454,13 @@ type PeerEvaluationDashboard {
   schools: [Schools!]!
   code: String!
   status: PeerEvaluationStatuses!
-  maxGradeIncrease: Int!
-  maxGradeDecrease: Int!
+  maxMarkIncrease: Int!
+  maxMarkDecrease: Int!
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int!
   criteriaScoreRangeMax: Int!
+  instructions: String!
+  scaleExplanation: String!
   _count: PeerEvaluationCount
   peerEvaluationTeachingMembers(
     where: PeerEvaluationTeachingMemberWhereInput
@@ -3394,17 +3500,17 @@ type PeerEvaluationDashboard {
 }
 
 """
-PeerEvaluation dashboard input
+Peer Evaluation dashboard input
 """
 input PeerEvaluationDashboardWhereInput {
   """
-  PeerEvaluation id value
+  Peer Evaluation id value
   """
-  id: String!
+  peerEvaluationId: String!
 }
 
 """
-PeerEvaluation Student Team Exist Input
+Peer Evaluation Student Team Exist Input
 """
 type PeerEvaluationStudentTeamExist {
   """
@@ -3414,7 +3520,7 @@ type PeerEvaluationStudentTeamExist {
 }
 
 """
-PeerEvaluation Student Team Exist Response
+Peer Evaluation Student Team Exist Response
 """
 type PeerEvaluationStudentTeamExistResponse {
   """
@@ -3429,7 +3535,7 @@ type PeerEvaluationStudentTeamExistResponse {
 }
 
 """
-PeerEvaluation Student Team Exist Where Input
+Peer Evaluation Student Team Exist Where Input
 """
 input PeerEvaluationStudentTeamExistWhereInput {
   """
@@ -3441,6 +3547,216 @@ input PeerEvaluationStudentTeamExistWhereInput {
   Peer Evaluation ID
   """
   peerEvaluationId: String!
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Response
+"""
+type PeerEvaluationStudentTeamCalculatedResultsTableResponse {
+  """
+  Peer Evaluation Students Table Column List
+  """
+  studentsColumnList: [PeerEvaluationStudentTeamCalculatedResultsTableColumnList!]
+
+  """
+  Peer Evaluation Student Team Calculated Results Table Stringified
+  """
+  table: String
+
+  """
+  Peer Evaluation Student Team Name
+  """
+  teamName: String
+
+  """
+  Peer Evaluation Student Team Updated At
+  """
+  updatedAt: String
+
+  """
+  Peer Evaluation Student Team Mark
+  """
+  mark: String
+
+  """
+  Peer Evaluation Student Team Mark is Available
+  """
+  isAvailable: Boolean!
+
+  """
+  Peer Evaluation Student Team Marks are Calculated
+  """
+  areMarksCalculated: Boolean!
+
+  """
+  Peer Evaluation Student Team Comment
+  """
+  comment: String
+
+  """
+  Peer Evaluation Student Team Marks response message
+  """
+  message: String!
+}
+
+"""
+Peer Evaluation Student Table Column List
+"""
+type PeerEvaluationStudentTeamCalculatedResultsTableColumnList {
+  """
+  Column Name
+  """
+  name: String!
+
+  """
+  Column Label
+  """
+  label: String
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Where Input
+"""
+input PeerEvaluationStudentTeamCalculatedResultsTableWhereInput {
+  """
+  Peer Evaluation Student Team Name
+  """
+  peerEvaluationStudentTeamName: String!
+
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String!
+}
+
+"""
+Peer Evaluation Table Student Response
+"""
+type PeerEvaluationTableStudentResponse {
+  """
+  Peer Evaluation Table is Read Only
+  """
+  readOnly: Boolean
+
+  """
+  Peer Evaluation is visible
+  """
+  visible: Boolean
+
+  """
+  Peer Evaluation notification message
+  """
+  message: String!
+
+  """
+  Peer Evaluation Student Review Data
+  """
+  peerEvaluation: PeerEvaluation
+
+  """
+  Peer Evaluation Student Review Data
+  """
+  peerEvaluationStudentReview: PeerEvaluationStudentReview
+
+  """
+  Peer Evaluation Student Info Data
+  """
+  peerEvaluationStudentInfo: PeerEvaluationTableStudentInfoResponse
+}
+
+"""
+Peer Evaluation Table Student Info Response
+"""
+type PeerEvaluationTableStudentInfoResponse {
+  """
+  Peer Evaluation Student Name
+  """
+  studentName: String!
+
+  """
+  Peer Evaluation Student Email
+  """
+  studentEmail: String!
+
+  """
+  Peer Evaluation Submission Lock Date
+  """
+  submissionsLockDate: String!
+
+  """
+  Peer Evaluation Student Team Name
+  """
+  studentTeamName: String!
+
+  """
+  Peer Evaluation Student Team Dame Updated At
+  """
+  updatedAt: String!
+}
+
+"""
+Peer Evaluation Table Student Where Input
+"""
+input PeerEvaluationTableStudentWhereInput {
+  """
+  Peer Evaluation code unique value
+  """
+  peerEvaluationCode: String!
+
+  """
+  User ID
+  """
+  userId: String!
+}
+
+"""
+Peer Evaluation Table Student Response
+"""
+type PeerEvaluationTableStudentLecturerResponse {
+  """
+  Peer Evaluation Table is Read Only
+  """
+  readOnly: Boolean
+
+  """
+  Peer Evaluation is visible
+  """
+  visible: Boolean
+
+  """
+  Peer Evaluation notification message
+  """
+  message: String!
+
+  """
+  Peer Evaluation Student Review Data
+  """
+  peerEvaluation: PeerEvaluation
+
+  """
+  Peer Evaluation Student Review Data
+  """
+  peerEvaluationStudentReview: PeerEvaluationStudentReview
+
+  """
+  Peer Evaluation Student Info Data
+  """
+  peerEvaluationStudentInfo: PeerEvaluationTableStudentInfoResponse
+}
+
+"""
+Peer Evaluation Table Student Where Input
+"""
+input PeerEvaluationTableStudentLecturerWhereInput {
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String!
+
+  """
+  User ID
+  """
+  studentId: String!
 }
 
 type Mutation {
@@ -3636,6 +3952,21 @@ type Mutation {
     create: VerificationTokenCreateInput!
     update: VerificationTokenUpdateInput!
   ): VerificationToken!
+  updatePeerEvaluationStudentsLecturerMark(
+    where: PeerEvaluationStudentsLecturerMarkInputData!
+  ): PeerEvaluationStudentsLecturerMarkResponse!
+  peerEvaluationStudentTeamCalculateResultsTable(
+    where: PeerEvaluationStudentTeamCalculateResultsTableWhereInput!
+  ): PeerEvaluationStudentTeamCalculateResultsTableResponse!
+  peerEvaluationStudentTeamCalculateResultsTableByTeam(
+    where: PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput!
+  ): PeerEvaluationStudentTeamCalculateResultsTableByTeamResponse!
+  upsertPeerEvaluationTableLecturer(
+    where: UpsertPeerEvaluationTableLecturerWhereInput!
+  ): UpsertPeerEvaluationTableLecturerResponse!
+  updatePeerEvaluationTableStudent(
+    where: UpdatePeerEvaluationTableStudentDataInputList!
+  ): UpdatePeerEvaluationTableStudentDataResponse!
 }
 
 input EmailCreateInput {
@@ -3660,11 +3991,13 @@ input PeerEvaluationCreateWithoutReminderEmailInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
@@ -3749,12 +4082,14 @@ input PeerEvaluationStudentCreateWithoutUserInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
@@ -3774,11 +4109,13 @@ input PeerEvaluationCreateWithoutPeerEvaluationStudentsInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
@@ -3832,7 +4169,6 @@ input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  isInvalid: Boolean!
   peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
 }
 
@@ -3846,8 +4182,9 @@ input PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
+  isValid: Boolean!
   studentReviewed: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
   peerEvaluationReview: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput
 }
@@ -3862,12 +4199,14 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationRevieweesInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
@@ -3920,11 +4259,13 @@ input PeerEvaluationCreateWithoutPeerEvaluationTeachingMembersInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
@@ -3943,12 +4284,14 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
@@ -3967,6 +4310,8 @@ input PeerEvaluationStudentTeamCreateWithoutPeerEvaluationStudentListInput {
   updatedAt: DateTime
   name: String!
   mark: Decimal!
+  calculatedResults: JSON
+  comment: String
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamInput!
 }
 
@@ -3983,11 +4328,13 @@ input PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
@@ -4030,8 +4377,9 @@ input PeerEvaluationRevieweeCreateWithoutPeerEvaluationReviewInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
+  isValid: Boolean!
   studentReviewed: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
 }
@@ -4048,7 +4396,6 @@ input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  isInvalid: Boolean!
   peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
 }
 
@@ -4079,11 +4426,13 @@ input PeerEvaluationCreateWithoutColumnsInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
@@ -4104,6 +4453,8 @@ input PeerEvaluationStudentTeamCreateWithoutPeerEvaluationInput {
   updatedAt: DateTime
   name: String!
   mark: Decimal!
+  calculatedResults: JSON
+  comment: String
   peerEvaluationStudentList: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationStudentTeamInput
 }
 
@@ -4118,12 +4469,14 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationStudentTeamInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
@@ -4141,8 +4494,9 @@ input PeerEvaluationRevieweeCreateWithoutStudentReviewedInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
+  isValid: Boolean!
   peerEvaluationReview: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
 }
@@ -4171,12 +4525,14 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationReviewedInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
@@ -4207,9 +4563,10 @@ input PeerEvaluationRevieweeCreateManyStudentReviewedInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean!
 }
 
 input PeerEvaluationStudentCreateOrConnectWithoutPeerEvaluationStudentTeamInput {
@@ -4228,12 +4585,14 @@ input PeerEvaluationStudentCreateManyPeerEvaluationStudentTeamInput {
   updatedAt: DateTime
   userId: String!
   peerEvaluationId: String!
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 input PeerEvaluationStudentTeamCreateOrConnectWithoutPeerEvaluationInput {
@@ -4252,6 +4611,8 @@ input PeerEvaluationStudentTeamCreateManyPeerEvaluationInput {
   updatedAt: DateTime
   name: String!
   mark: Decimal!
+  calculatedResults: JSON
+  comment: String
 }
 
 input PeerEvaluationCreateOrConnectWithoutColumnsInput {
@@ -4280,7 +4641,6 @@ input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationRevieweeInput {
   updatedAt: DateTime
   criteriaScore: Int
   peerEvaluationColumnId: String!
-  isInvalid: Boolean!
 }
 
 input PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationReviewInput {
@@ -4298,8 +4658,9 @@ input PeerEvaluationRevieweeCreateManyPeerEvaluationReviewInput {
   createdAt: DateTime
   updatedAt: DateTime
   studentReviewedId: String!
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
+  isValid: Boolean!
 }
 
 input PeerEvaluationStudentReviewCreateOrConnectWithoutPeerEvaluationStudentInput {
@@ -4322,13 +4683,15 @@ input PeerEvaluationStudentCreateManyPeerEvaluationInput {
   createdAt: DateTime
   updatedAt: DateTime
   userId: String!
+  studentName: String!
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 input PeerEvaluationCreateOrConnectWithoutPeerEvaluationTeachingMembersInput {
@@ -4385,7 +4748,6 @@ input PeerEvaluationRevieweeColumnCreateManyPeerEvaluationColumnInput {
   updatedAt: DateTime
   criteriaScore: Int
   peerEvaluationRevieweeId: String!
-  isInvalid: Boolean!
 }
 
 input PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationInput {
@@ -4425,13 +4787,15 @@ input PeerEvaluationStudentCreateManyUserInput {
   createdAt: DateTime
   updatedAt: DateTime
   peerEvaluationId: String!
+  studentName: String!
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 input UserCreateOrConnectWithoutPeerEvaluationTeachingMembersInput {
@@ -4514,11 +4878,13 @@ input PeerEvaluationUpdateWithoutReminderEmailInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
@@ -4684,12 +5050,14 @@ input PeerEvaluationStudentUpdateWithoutUserInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
@@ -4702,6 +5070,10 @@ input NullableDecimalFieldUpdateOperationsInput {
   decrement: Decimal
   multiply: Decimal
   divide: Decimal
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
 }
 
 input PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput {
@@ -4724,11 +5096,13 @@ input PeerEvaluationUpdateWithoutPeerEvaluationStudentsInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
@@ -4812,7 +5186,6 @@ input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationColumnInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  isInvalid: BoolFieldUpdateOperationsInput
   peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
 }
 
@@ -4822,10 +5195,6 @@ input NullableIntFieldUpdateOperationsInput {
   decrement: Int
   multiply: Int
   divide: Int
-}
-
-input BoolFieldUpdateOperationsInput {
-  set: Boolean
 }
 
 input PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput {
@@ -4845,10 +5214,15 @@ input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  criteriaScore: NullableIntFieldUpdateOperationsInput
-  revieweeComment: StringFieldUpdateOperationsInput
+  criteriaScoreTotal: NullableIntFieldUpdateOperationsInput
+  comment: NullableStringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
   studentReviewed: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
   peerEvaluationReview: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
 }
 
 input PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput {
@@ -4868,12 +5242,14 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationRevieweesInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
@@ -4953,11 +5329,13 @@ input PeerEvaluationUpdateWithoutPeerEvaluationTeachingMembersInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
@@ -4989,12 +5367,14 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
@@ -5022,6 +5402,8 @@ input PeerEvaluationStudentTeamUpdateWithoutPeerEvaluationStudentListInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   mark: DecimalFieldUpdateOperationsInput
+  calculatedResults: JSON
+  comment: NullableStringFieldUpdateOperationsInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamInput
 }
 
@@ -5053,11 +5435,13 @@ input PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
@@ -5112,8 +5496,9 @@ input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationReviewInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  criteriaScore: NullableIntFieldUpdateOperationsInput
-  revieweeComment: StringFieldUpdateOperationsInput
+  criteriaScoreTotal: NullableIntFieldUpdateOperationsInput
+  comment: NullableStringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
   studentReviewed: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
 }
@@ -5143,7 +5528,6 @@ input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationRevieweeInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  isInvalid: BoolFieldUpdateOperationsInput
   peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
 }
 
@@ -5188,11 +5572,13 @@ input PeerEvaluationUpdateWithoutColumnsInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
@@ -5226,6 +5612,8 @@ input PeerEvaluationStudentTeamUpdateWithoutPeerEvaluationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   mark: DecimalFieldUpdateOperationsInput
+  calculatedResults: JSON
+  comment: NullableStringFieldUpdateOperationsInput
   peerEvaluationStudentList: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationStudentTeamInput
 }
 
@@ -5253,12 +5641,14 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationStudentTeamInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
@@ -5289,8 +5679,9 @@ input PeerEvaluationRevieweeUpdateWithoutStudentReviewedInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  criteriaScore: NullableIntFieldUpdateOperationsInput
-  revieweeComment: StringFieldUpdateOperationsInput
+  criteriaScoreTotal: NullableIntFieldUpdateOperationsInput
+  comment: NullableStringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
   peerEvaluationReview: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
 }
@@ -5335,12 +5726,14 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationReviewedInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
@@ -5365,17 +5758,19 @@ input PeerEvaluationRevieweeScalarWhereInput {
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
   studentReviewedId: StringFilter
-  criteriaScore: IntNullableFilter
-  revieweeComment: StringFilter
+  criteriaScoreTotal: IntNullableFilter
+  comment: StringNullableFilter
   peerEvaluationReviewId: StringNullableFilter
+  isValid: BoolFilter
 }
 
 input PeerEvaluationRevieweeUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  criteriaScore: NullableIntFieldUpdateOperationsInput
-  revieweeComment: StringFieldUpdateOperationsInput
+  criteriaScoreTotal: NullableIntFieldUpdateOperationsInput
+  comment: NullableStringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
 }
 
 input PeerEvaluationStudentUpdateWithWhereUniqueWithoutPeerEvaluationStudentTeamInput {
@@ -5397,25 +5792,29 @@ input PeerEvaluationStudentScalarWhereInput {
   updatedAt: DateTimeFilter
   userId: StringFilter
   peerEvaluationId: StringFilter
+  studentName: StringFilter
   peerEvaluationStudentTeamId: StringNullableFilter
   averageCriteriaScore: DecimalNullableFilter
   averageCriteriaScoreByTeamMember: DecimalNullableFilter
   systemCalculatedMark: DecimalNullableFilter
   systemAdjustedMark: DecimalNullableFilter
   lecturerAdjustedMark: DecimalNullableFilter
-  mark: DecimalNullableFilter
+  finalMark: DecimalNullableFilter
+  comments: StringNullableFilter
 }
 
 input PeerEvaluationStudentUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
 }
 
 input PeerEvaluationStudentTeamUpdateWithWhereUniqueWithoutPeerEvaluationInput {
@@ -5438,6 +5837,8 @@ input PeerEvaluationStudentTeamScalarWhereInput {
   name: StringFilter
   mark: DecimalFilter
   peerEvaluationId: StringFilter
+  calculatedResults: JsonNullableFilter
+  comment: StringNullableFilter
 }
 
 input PeerEvaluationStudentTeamUpdateManyMutationInput {
@@ -5446,6 +5847,8 @@ input PeerEvaluationStudentTeamUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   mark: DecimalFieldUpdateOperationsInput
+  calculatedResults: JSON
+  comment: NullableStringFieldUpdateOperationsInput
 }
 
 input PeerEvaluationRevieweeColumnUpdateWithWhereUniqueWithoutPeerEvaluationRevieweeInput {
@@ -5468,7 +5871,6 @@ input PeerEvaluationRevieweeColumnScalarWhereInput {
   criteriaScore: IntNullableFilter
   peerEvaluationRevieweeId: StringFilter
   peerEvaluationColumnId: StringFilter
-  isInvalid: BoolFilter
 }
 
 input PeerEvaluationRevieweeColumnUpdateManyMutationInput {
@@ -5476,7 +5878,6 @@ input PeerEvaluationRevieweeColumnUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  isInvalid: BoolFieldUpdateOperationsInput
 }
 
 input PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutPeerEvaluationReviewInput {
@@ -5601,11 +6002,13 @@ input PeerEvaluationCreateInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
@@ -5621,11 +6024,13 @@ input PeerEvaluationCreateManyInput {
   title: String!
   code: String!
   status: PeerEvaluationStatuses
-  maxGradeIncrease: Int
-  maxGradeDecrease: Int
+  maxMarkIncrease: Int
+  maxMarkDecrease: Int
   submissionsLockDate: DateTime
   criteriaScoreRangeMin: Int
   criteriaScoreRangeMax: Int
+  instructions: String
+  scaleExplanation: String
   schools: PeerEvaluationCreateManyschoolsInput
 }
 
@@ -5640,11 +6045,13 @@ input PeerEvaluationUpdateInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
@@ -5660,11 +6067,13 @@ input PeerEvaluationUpdateManyMutationInput {
   title: StringFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   status: EnumPeerEvaluationStatusesFieldUpdateOperationsInput
-  maxGradeIncrease: IntFieldUpdateOperationsInput
-  maxGradeDecrease: IntFieldUpdateOperationsInput
+  maxMarkIncrease: IntFieldUpdateOperationsInput
+  maxMarkDecrease: IntFieldUpdateOperationsInput
   submissionsLockDate: NullableDateTimeFieldUpdateOperationsInput
   criteriaScoreRangeMin: IntFieldUpdateOperationsInput
   criteriaScoreRangeMax: IntFieldUpdateOperationsInput
+  instructions: StringFieldUpdateOperationsInput
+  scaleExplanation: StringFieldUpdateOperationsInput
   schools: PeerEvaluationUpdateschoolsInput
 }
 
@@ -5698,8 +6107,9 @@ input PeerEvaluationRevieweeCreateInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
+  isValid: Boolean!
   studentReviewed: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
   peerEvaluationReview: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
@@ -5710,17 +6120,19 @@ input PeerEvaluationRevieweeCreateManyInput {
   createdAt: DateTime
   updatedAt: DateTime
   studentReviewedId: String!
-  criteriaScore: Int
-  revieweeComment: String!
+  criteriaScoreTotal: Int
+  comment: String
   peerEvaluationReviewId: String
+  isValid: Boolean!
 }
 
 input PeerEvaluationRevieweeUpdateInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  criteriaScore: NullableIntFieldUpdateOperationsInput
-  revieweeComment: StringFieldUpdateOperationsInput
+  criteriaScoreTotal: NullableIntFieldUpdateOperationsInput
+  comment: NullableStringFieldUpdateOperationsInput
+  isValid: BoolFieldUpdateOperationsInput
   studentReviewed: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
   peerEvaluationReview: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput
   PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
@@ -5731,7 +6143,6 @@ input PeerEvaluationRevieweeColumnCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  isInvalid: Boolean!
   peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
   peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
 }
@@ -5743,7 +6154,6 @@ input PeerEvaluationRevieweeColumnCreateManyInput {
   criteriaScore: Int
   peerEvaluationRevieweeId: String!
   peerEvaluationColumnId: String!
-  isInvalid: Boolean!
 }
 
 input PeerEvaluationRevieweeColumnUpdateInput {
@@ -5751,7 +6161,6 @@ input PeerEvaluationRevieweeColumnUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  isInvalid: BoolFieldUpdateOperationsInput
   peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
   peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
 }
@@ -5760,12 +6169,14 @@ input PeerEvaluationStudentCreateInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
+  studentName: String!
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
@@ -5779,25 +6190,29 @@ input PeerEvaluationStudentCreateManyInput {
   updatedAt: DateTime
   userId: String!
   peerEvaluationId: String!
+  studentName: String!
   peerEvaluationStudentTeamId: String
   averageCriteriaScore: Decimal
   averageCriteriaScoreByTeamMember: Decimal
   systemCalculatedMark: Decimal
   systemAdjustedMark: Decimal
   lecturerAdjustedMark: Decimal
-  mark: Decimal
+  finalMark: Decimal
+  comments: String
 }
 
 input PeerEvaluationStudentUpdateInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  studentName: StringFieldUpdateOperationsInput
   averageCriteriaScore: NullableDecimalFieldUpdateOperationsInput
   averageCriteriaScoreByTeamMember: NullableDecimalFieldUpdateOperationsInput
   systemCalculatedMark: NullableDecimalFieldUpdateOperationsInput
   systemAdjustedMark: NullableDecimalFieldUpdateOperationsInput
   lecturerAdjustedMark: NullableDecimalFieldUpdateOperationsInput
-  mark: NullableDecimalFieldUpdateOperationsInput
+  finalMark: NullableDecimalFieldUpdateOperationsInput
+  comments: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
@@ -5844,6 +6259,8 @@ input PeerEvaluationStudentTeamCreateInput {
   updatedAt: DateTime
   name: String!
   mark: Decimal!
+  calculatedResults: JSON
+  comment: String
   peerEvaluationStudentList: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationStudentTeamInput
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamInput!
 }
@@ -5855,6 +6272,8 @@ input PeerEvaluationStudentTeamCreateManyInput {
   name: String!
   mark: Decimal!
   peerEvaluationId: String!
+  calculatedResults: JSON
+  comment: String
 }
 
 input PeerEvaluationStudentTeamUpdateInput {
@@ -5863,6 +6282,8 @@ input PeerEvaluationStudentTeamUpdateInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   mark: DecimalFieldUpdateOperationsInput
+  calculatedResults: JSON
+  comment: NullableStringFieldUpdateOperationsInput
   peerEvaluationStudentList: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationStudentTeamInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamInput
 }
@@ -6031,4 +6452,231 @@ input VerificationTokenUpdateManyMutationInput {
   identifier: StringFieldUpdateOperationsInput
   token: StringFieldUpdateOperationsInput
   expires: DateTimeFieldUpdateOperationsInput
+}
+
+"""
+Peer Evaluation Table Students Response
+"""
+type PeerEvaluationStudentsLecturerMarkResponse {
+  """
+  Completed successfully
+  """
+  completed: Boolean!
+
+  """
+  Message of the action updating students lecturer mark
+  """
+  message: String!
+
+  """
+  Code of the action updating students lecturer mark
+  """
+  code: Float!
+}
+
+"""
+Update Peer Evaluation Table Students Data Input
+"""
+input PeerEvaluationStudentsLecturerMarkInputData {
+  """
+  Peer Evaluation Students Lecturer Mark Input Data
+  """
+  peerEvaluationStudentsLecturerMarkData: [PeerEvaluationStudentsLecturerMarkInput!]
+}
+
+"""
+Peer Evaluation Students Lecturer Mark Input
+"""
+input PeerEvaluationStudentsLecturerMarkInput {
+  """
+  Peer Evaluation Students ID
+  """
+  id: String!
+
+  """
+  Peer Evaluation is completed
+  """
+  lecturerAdjustedMark: Float
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Response
+"""
+type PeerEvaluationStudentTeamCalculateResultsTableResponse {
+  """
+  Completed successfully
+  """
+  completed: Boolean!
+
+  """
+  Message of the action updating students lecturer mark
+  """
+  message: String!
+
+  """
+  Code of the action updating students lecturer mark
+  """
+  code: Float!
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Where Input
+"""
+input PeerEvaluationStudentTeamCalculateResultsTableWhereInput {
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String!
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Response
+"""
+type PeerEvaluationStudentTeamCalculateResultsTableByTeamResponse {
+  """
+  Completed successfully
+  """
+  completed: Boolean!
+
+  """
+  Message of the action updating students lecturer mark
+  """
+  message: String!
+
+  """
+  Code of the action updating students lecturer mark
+  """
+  code: Float!
+}
+
+"""
+Peer Evaluation Student Team Calculated Results Table Where Input
+"""
+input PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput {
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String!
+
+  """
+  Peer Evaluation Student Team Name
+  """
+  peerEvaluationStudentTeamName: String!
+}
+
+type UpsertPeerEvaluationTableLecturerResponse {
+  """
+  Peer Evaluations Table Updated and Inserted Successfully
+  """
+  completed: Boolean
+}
+
+"""
+Update Insert Peer Evaluation Table Where Input
+"""
+input UpsertPeerEvaluationTableLecturerWhereInput {
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String!
+}
+
+"""
+Peer Evaluation Table Student Response
+"""
+type UpdatePeerEvaluationTableStudentDataResponse {
+  """
+  Completed successfully
+  """
+  completed: Boolean!
+
+  """
+  Message of the action updating the peer evaluation table
+  """
+  message: String!
+
+  """
+  Code of the action updating the peer evaluation table
+  """
+  code: Float!
+}
+
+"""
+PeerEvaluationTable Data List
+"""
+input UpdatePeerEvaluationTableStudentDataInputList {
+  """
+  PeerEvaluationTable Data List
+  """
+  peerEvaluationTableDataList: [UpdatePeerEvaluationTableStudentDataInput!]!
+}
+
+"""
+Update Peer Evaluation Table Student Data Input
+"""
+input UpdatePeerEvaluationTableStudentDataInput {
+  """
+  Peer Evaluation Table to be Updated
+  """
+  peerEvaluationTable: PeerEvaluationTableInput
+
+  """
+  Peer Evaluation Reviewee to be Updated
+  """
+  peerEvaluationReviewee: PeerEvaluationRevieweeInput
+
+  """
+  Peer Evaluation Columns Reviewee to be Updated
+  """
+  columnsReviewee: [PeerEvaluationColumnsRevieweeInput!]
+}
+
+"""
+Peer EvaluationTable Data
+"""
+input PeerEvaluationTableInput {
+  """
+  Peer Evaluation Table ID
+  """
+  id: String!
+
+  """
+  Peer Evaluation is completed
+  """
+  isCompleted: Boolean!
+}
+
+"""
+Peer Evaluation Reviewee
+"""
+input PeerEvaluationRevieweeInput {
+  """
+  Peer Evaluation Reviewee ID
+  """
+  id: String!
+
+  """
+  Peer Evaluation Reviewee Comment
+  """
+  comment: String!
+
+  """
+  Peer Evaluation Criteria Score Total
+  """
+  criteriaScoreTotal: Float!
+}
+
+"""
+Peer Evaluation Columns Reviewee Input
+"""
+input PeerEvaluationColumnsRevieweeInput {
+  """
+  Peer Evaluation Column Reviewee ID
+  """
+  id: String!
+
+  """
+  Peer Evaluation Reviewee Criteria Score
+  """
+  criteriaScore: Float!
 }

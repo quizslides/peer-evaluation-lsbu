@@ -19,8 +19,8 @@ const CREATE_ONE_USER = gql`
 `;
 
 const GET_USERS = gql`
-  query Users {
-    users {
+  query Users($orderBy: [UserOrderByWithRelationInput!]) {
+    users(orderBy: $orderBy) {
       name
       email
       role
@@ -48,8 +48,12 @@ const DELETE_USERS = gql`
 `;
 
 const GROUP_BY_USER = gql`
-  query GroupByUser($by: [UserScalarFieldEnum!]!, $where: UserWhereInput) {
-    groupByUser(by: $by, where: $where) {
+  query GroupByUser(
+    $by: [UserScalarFieldEnum!]!
+    $where: UserWhereInput
+    $orderBy: [UserOrderByWithAggregationInput!]
+  ) {
+    groupByUser(by: $by, where: $where, orderBy: $orderBy) {
       email
       id
     }
@@ -57,8 +61,8 @@ const GROUP_BY_USER = gql`
 `;
 
 const GET_LECTURER_USERS = gql`
-  query Users($where: UserWhereInput) {
-    users(where: $where) {
+  query Users($where: UserWhereInput, $orderBy: [UserOrderByWithRelationInput!]) {
+    users(where: $where, orderBy: $orderBy) {
       id
       name
       email

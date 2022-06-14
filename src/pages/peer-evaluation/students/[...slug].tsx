@@ -40,6 +40,7 @@ import { NextPagePros } from "@/types/pages";
 import { IStudentsTeamData } from "@/types/peer-evaluation";
 import { IUserData } from "@/types/user";
 import { RoleScope, errorNotification, loadingNotification, promiseNotification, successNotification } from "@/utils";
+import { timeDelayInMs } from "@/utils/date";
 import exampleFile from "@/utils/example-file";
 import { ObjectArray, getUniqueObjectArray, objectToArrayOfObjectInline } from "@/utils/form";
 import { peerEvaluationStudentsTeams } from "@/utils/validator";
@@ -230,7 +231,6 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       const studentTeamsToCreateTableRepeatedTeams = studentTeamsToCreate.map((teamName) => ({
         action: EditBulkAction.CREATE,
         teamName: teamName,
-        createdAt: new Date().toISOString(),
       })) as [ITeamToCreateBulk];
 
       const studentTeamsToCreateTable = getUniqueObjectArray(
@@ -299,11 +299,18 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       peerEvaluationId: "",
     };
 
-    const studentTeamsData = studentTeamToCreateState.map((data) => ({
-      ...initialStudentTeam,
-      name: data.teamName,
-      peerEvaluationId: peerEvaluationId,
-    })) as [PeerEvaluationStudentTeamCreateManyInput];
+    const studentTeamsData = [];
+
+    for (const studentTeamData of studentTeamToCreateState) {
+      await timeDelayInMs(10);
+
+      studentTeamsData.push({
+        ...initialStudentTeam,
+        name: studentTeamData.teamName,
+        peerEvaluationId: peerEvaluationId,
+        createdAt: new Date().toISOString(),
+      } as unknown as PeerEvaluationStudentTeamCreateManyInput);
+    }
 
     const { errors } = await createManyPeerEvaluationStudentTeams(apolloClient, studentTeamsData);
 

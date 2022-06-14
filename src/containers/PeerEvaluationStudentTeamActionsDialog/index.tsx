@@ -28,7 +28,6 @@ interface IPeerEvaluationStudentTeamActionsDialog {
 interface ITeamToCreateBulk {
   action: EditBulkAction;
   teamName: string;
-  createdAt: string;
 }
 
 interface IStudentTeamToEditBulk {

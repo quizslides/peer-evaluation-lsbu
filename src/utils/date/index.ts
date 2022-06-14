@@ -14,4 +14,6 @@ const getDateLocaleDateString = (date: Date) => {
   return getDate(date, currentDateOffSet).toLocaleDateString("en-GB", { timeZone: "Europe/London" });
 };
 
-export { getDateLocaleDateString, getDateLocaleString };
+const timeDelayInMs = (time: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, time));
+
+export { getDateLocaleDateString, getDateLocaleString, timeDelayInMs };

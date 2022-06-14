@@ -9,7 +9,7 @@ const getGroupByUserByEmail = (apolloClient: TApolloClientType, emails: string[]
     errorPolicy: "all",
     fetchPolicy: "no-cache",
     variables: {
-      by: ["email", "id"],
+      by: ["email", "id", "createdAt"],
       where: {
         email: {
           in: emails,

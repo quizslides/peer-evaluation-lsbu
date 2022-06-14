@@ -5,7 +5,7 @@ import { CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS } from "@/requests/schema/pee
 
 const createManyPeerEvaluationStudentTeams = (
   apolloClient: TApolloClientType,
-  studentTeamsData: [PeerEvaluationStudentTeamCreateManyInput]
+  studentTeamsData: PeerEvaluationStudentTeamCreateManyInput[]
 ) => {
   return apolloClient.mutate({
     mutation: CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,

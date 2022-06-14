@@ -148,8 +148,8 @@ const GET_PEER_EVALUATION_COLUMNS = gql`
 `;
 
 const GET_PEER_EVALUATIONS = gql`
-  query PeerEvaluations {
-    peerEvaluations {
+  query PeerEvaluations($orderBy: [PeerEvaluationOrderByWithRelationInput!]) {
+    peerEvaluations(orderBy: $orderBy) {
       id
       updatedAt
       createdAt
@@ -446,8 +446,11 @@ const PEER_EVALUATION_EXIST = gql`
 `;
 
 const PEER_EVALUATION_STUDENT_TEAM_EXIST = gql`
-  query FindFirstPeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereInput) {
-    findFirstPeerEvaluationStudentTeam(where: $where) {
+  query FindFirstPeerEvaluationStudentTeam(
+    $where: PeerEvaluationStudentTeamWhereInput
+    $orderBy: [PeerEvaluationStudentTeamOrderByWithRelationInput!]
+  ) {
+    findFirstPeerEvaluationStudentTeam(where: $where, orderBy: $orderBy) {
       name
     }
   }
