@@ -230,6 +230,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
       const studentTeamsToCreateTableRepeatedTeams = studentTeamsToCreate.map((teamName) => ({
         action: EditBulkAction.CREATE,
         teamName: teamName,
+        createdAt: new Date().toISOString(),
       })) as [ITeamToCreateBulk];
 
       const studentTeamsToCreateTable = getUniqueObjectArray(

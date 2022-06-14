@@ -79,8 +79,12 @@ const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
 `;
 
 const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
-  query PeerEvaluationStudentTeams($where: PeerEvaluationStudentTeamWhereInput) {
-    peerEvaluationStudentTeams(where: $where) {
+  query PeerEvaluationStudentTeams(
+    $where: PeerEvaluationStudentTeamWhereInput
+    $orderBy: [PeerEvaluationStudentTeamOrderByWithRelationInput!]
+  ) {
+    peerEvaluationStudentTeams(where: $where, orderBy: $orderBy) {
+      createdAt
       mark
       name
       id
