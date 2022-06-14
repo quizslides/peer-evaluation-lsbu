@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.35](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.34...v1.0.0-staging.35) (2022-06-13)
+
+
+### Code Refactoring
+
+* adding set of teams to be created and peer evaluation card info with correct data ([14380f4](https://github.com/quizslides/peer-evaluation-lsbu/commit/14380f488326e4b0499d166213812ca442c6f7f4))
+
 ## [1.0.0-staging.34](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.33...v1.0.0-staging.34) (2022-06-13)
 
 
