@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.38](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.37...v1.0.0-staging.38) (2022-06-18)
+
+
+### Code Refactoring
+
+* refactoring when a peer evaluation student table is created ([c44a098](https://github.com/quizslides/peer-evaluation-lsbu/commit/c44a098461cdad9176ddda231ca2c390b129059d))
+
 ## [1.0.0-staging.37](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.36...v1.0.0-staging.37) (2022-06-14)
 
 
