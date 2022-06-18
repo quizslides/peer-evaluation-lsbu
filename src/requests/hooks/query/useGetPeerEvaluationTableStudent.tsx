@@ -4,7 +4,7 @@ import { PeerEvaluationRevieweeOrderByWithRelationInput } from "@generated/type-
 import {
   PeerEvaluationTableStudentResponse,
   PeerEvaluationTableStudentWhereInput,
-} from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+} from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { GET_PEER_EVALUATION_TABLE_STUDENT } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

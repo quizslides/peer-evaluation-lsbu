@@ -14,7 +14,7 @@ import {
   PeerEvaluationUpdateInput,
 } from "@generated/type-graphql";
 
-import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import {
   FieldStatus,
   IPeerEvaluationColumn,

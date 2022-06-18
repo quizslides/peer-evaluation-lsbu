@@ -18,7 +18,7 @@ import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButto
 import LoadingContainer from "@/containers/LoadingContainer";
 import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
-import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
+import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
 import useUpdatePeerEvaluationStudentsLecturerMark from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentsLecturerMark";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import routing from "@/routing";

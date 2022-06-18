@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import { Base } from "@/components";
 import { PeerEvaluationStudentPeerEvaluationContainer } from "@/containers";
-import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
+import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
 import useGetPeerEvaluationTableStudentLecturer from "@/requests/hooks/query/useGetPeerEvaluationTableStudentLecturer";
 import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";

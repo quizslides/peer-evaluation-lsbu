@@ -519,14 +519,6 @@ const PEER_EVALUATION_STUDENTS = gql`
   }
 `;
 
-const UPSERT_PEER_EVALUATION_TABLE_LECTURER = gql`
-  mutation UpsertPeerEvaluationTableLecturer($where: UpsertPeerEvaluationTableLecturerWhereInput!) {
-    upsertPeerEvaluationTableLecturer(where: $where) {
-      completed
-    }
-  }
-`;
-
 const UPDATE_PEER_EVALUATION_STUDENT = gql`
   mutation UpdatePeerEvaluationStudent(
     $data: PeerEvaluationStudentUpdateInput!
@@ -746,5 +738,4 @@ export {
   UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE_BY_TEAM,
   UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK,
   UPDATE_PEER_EVALUATION_TABLE_STUDENT,
-  UPSERT_PEER_EVALUATION_TABLE_LECTURER,
 };

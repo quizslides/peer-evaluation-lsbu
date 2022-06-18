@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import {
   PeerEvaluationStudentTeamCalculatedResultsTableResponse,
   PeerEvaluationStudentTeamCalculatedResultsTableWhereInput,
-} from "@/pages/api/resolvers/peer-evaluation-student-team-calculated-results-table";
+} from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculated-results-table";
 import { GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

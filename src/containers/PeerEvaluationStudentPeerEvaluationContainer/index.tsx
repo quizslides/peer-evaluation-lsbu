@@ -11,8 +11,8 @@ import PeerEvaluationStudentTableScaleExplanation from "../PeerEvaluationStudent
 
 import { PageTitle } from "@/components";
 import { VisibilityOffIcon } from "@/icons";
-import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { CenteredContent } from "@/styles";
 
 interface IPeerEvaluationStudentPeerEvaluationContainer {

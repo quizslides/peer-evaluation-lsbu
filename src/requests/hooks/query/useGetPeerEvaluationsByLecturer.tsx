@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { PeerEvaluation } from "@generated/type-graphql";
 
-import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { GET_PEER_EVALUATIONS_BY_LECTURER } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

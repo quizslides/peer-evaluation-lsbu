@@ -19,7 +19,7 @@ import {
   WarningUnsavedForm,
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { ObjectArray, getRangeNumberObject, objectToArrayOfObject } from "@/utils/form";
 
 const testId = "container-peer-evaluation-student-table";

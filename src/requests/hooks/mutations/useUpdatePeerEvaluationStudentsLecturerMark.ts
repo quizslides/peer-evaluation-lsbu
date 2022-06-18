@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import {
   PeerEvaluationStudentsLecturerMarkInputData,
   PeerEvaluationStudentsLecturerMarkResponse,
-} from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
+} from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
 import { UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

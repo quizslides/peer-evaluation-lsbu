@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { Base, PageTitle } from "@/components";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import PeerEvaluationsDashboard from "@/containers/PeerEvaluationsDashboard";
-import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import useGetPeerEvaluationDashboard from "@/requests/hooks/query/useGetPeerEvaluationDashboard";
 import { theme } from "@/styles/index";
 import { sanitizePeerEvaluationViewDataOnFetch } from "@/transformers/peer-evaluation";

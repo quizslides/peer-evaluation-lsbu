@@ -28,7 +28,6 @@ import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/cre
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
-import upsertPeerEvaluationTableLecturer from "@/requests/direct/mutation/upsertPeerEvaluationTableLecturer";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
 import getPeerEvaluationInfo from "@/requests/direct/query/getPeerEvaluationInfo";
@@ -390,8 +389,6 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
     );
 
     await Promise.all(updatePeerEvaluationStudents);
-
-    await upsertPeerEvaluationTableLecturer(apolloClient, peerEvaluationId);
 
     setOpenPeerEvaluationEditAction(false);
     runRefreshPeerEvaluationStudents();

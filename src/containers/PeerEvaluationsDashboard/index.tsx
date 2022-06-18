@@ -13,7 +13,7 @@ import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";
 import { Button, ConfirmationDialog, DataTable } from "@/components";
 import content from "@/content";
 import { CopyIcon } from "@/icons";
-import { PeerEvaluationDashboard } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
 import { PeerEvaluationStatus } from "@/types/peer-evaluation";

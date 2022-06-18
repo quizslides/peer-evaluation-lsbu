@@ -1,76 +1,34 @@
 import { PeerEvaluation, PeerEvaluationStudentReview } from "@generated/type-graphql";
-import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
+import { PeerEvaluationTableStudentInfoResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { getDateLocaleString } from "@/utils/date";
-
-const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEvaluationStatuses | undefined) => {
-  if (status === "PUBLISHED") {
-    return false;
-  }
-
-  return true;
-};
+import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student-table";
 
 @InputType({
   isAbstract: true,
   description: "Peer Evaluation Table Student Where Input",
 })
-class PeerEvaluationTableStudentWhereInput {
+class PeerEvaluationTableStudentLecturerWhereInput {
   @Field((_type) => String, {
     nullable: false,
-    description: "Peer Evaluation code unique value",
+    description: "Peer Evaluation ID",
   })
-  peerEvaluationCode!: string;
+  peerEvaluationId!: string;
 
   @Field((_type) => String, {
     nullable: false,
     description: "User ID",
   })
-  userId!: string;
-}
-
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Info Response",
-})
-class PeerEvaluationTableStudentInfoResponse {
-  @Field((_type) => String, {
-    nullable: false,
-    description: "Peer Evaluation Student Name",
-  })
-  studentName!: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-    description: "Peer Evaluation Student Email",
-  })
-  studentEmail!: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-    description: "Peer Evaluation Submission Lock Date",
-  })
-  submissionsLockDate!: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-    description: "Peer Evaluation Student Team Name",
-  })
-  studentTeamName!: string;
-
-  @Field((_type) => String, {
-    nullable: false,
-    description: "Peer Evaluation Student Team Dame Updated At",
-  })
-  updatedAt!: string;
+  studentId!: string;
 }
 
 @ObjectType({
   isAbstract: true,
   description: "Peer Evaluation Table Student Response",
 })
-class PeerEvaluationTableStudentResponse {
+class PeerEvaluationTableStudentLecturerResponse {
   @Field((_type) => Boolean, {
     nullable: true,
     description: "Peer Evaluation Table is Read Only",
@@ -109,15 +67,15 @@ class PeerEvaluationTableStudentResponse {
 }
 
 @Resolver()
-class PeerEvaluationTableStudentQuery {
-  @Query((_returns) => PeerEvaluationTableStudentResponse)
-  async peerEvaluationTableStudent(
+class PeerEvaluationTableStudentLecturerQuery {
+  @Query((_returns) => PeerEvaluationTableStudentLecturerResponse)
+  async peerEvaluationTableStudentLecturer(
     @Ctx() ctx: { prisma: PrismaClient },
-    @Arg("where") where: PeerEvaluationTableStudentWhereInput
-  ): Promise<PeerEvaluationTableStudentResponse> {
-    const peerEvaluationCode = where.peerEvaluationCode;
+    @Arg("where") where: PeerEvaluationTableStudentLecturerWhereInput
+  ): Promise<PeerEvaluationTableStudentLecturerResponse> {
+    const peerEvaluationId = where.peerEvaluationId;
 
-    const studentId = where.userId;
+    const studentId = where.studentId;
 
     const peerEvaluationData = (await ctx.prisma.peerEvaluation.findFirst({
       select: {
@@ -133,15 +91,24 @@ class PeerEvaluationTableStudentQuery {
         scaleExplanation: true,
       },
       where: {
-        code: {
-          equals: peerEvaluationCode,
+        id: {
+          equals: peerEvaluationId,
         },
       },
     })) as PeerEvaluation;
 
-    const user = await ctx.prisma.user.findFirst({
+    const studentData = await ctx.prisma.peerEvaluationStudent.findFirst({
+      select: {
+        userId: true,
+      },
       where: {
         id: studentId,
+      },
+    });
+
+    const user = await ctx.prisma.user.findFirst({
+      where: {
+        id: studentData?.userId || "",
       },
     });
 
@@ -164,6 +131,8 @@ class PeerEvaluationTableStudentQuery {
       },
     });
 
+    const peerEvaluationStudentTableExist = await isPeerEvaluationStudentTableExists(studentId);
+
     if (!user || !peerEvaluationData || !peerEvaluationStudentList) {
       return {
         readOnly: undefined,
@@ -175,44 +144,18 @@ class PeerEvaluationTableStudentQuery {
       };
     }
 
-    const peerEvaluationStudentId = peerEvaluationStudentList?.id;
-
-    const isPeerEvaluationVisible = peerEvaluationData?.status !== "DRAFT";
-
-    const isPeerEvaluationReadOnly = getIsPeerEvaluationReadOnly(user?.role, peerEvaluationData?.status);
-
-    const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
-      select: {
-        updatedAt: true,
-      },
-      where: {
-        isCompleted: true,
-        peerEvaluationStudentId: peerEvaluationStudentId,
-      },
-    });
-
-    const peerEvaluationStudentInfo = {
-      studentName: peerEvaluationStudentList.studentName,
-      studentEmail: peerEvaluationStudentList.user.email,
-      submissionsLockDate: peerEvaluationStudentList.peerEvaluation.submissionsLockDate
-        ? getDateLocaleString(peerEvaluationStudentList.peerEvaluation.submissionsLockDate)
-        : "N/A",
-      studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
-      updatedAt: peerEvaluationStudentTableInfo?.updatedAt
-        ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
-        : "N/A",
-    };
-
-    if (!isPeerEvaluationVisible) {
+    if (!peerEvaluationStudentTableExist) {
       return {
-        visible: isPeerEvaluationVisible,
         readOnly: undefined,
-        message: "Peer Evaluation table is not visible",
+        visible: undefined,
+        message: "Peer Evaluation student table has not been created",
         peerEvaluation: undefined,
         peerEvaluationStudentReview: undefined,
-        peerEvaluationStudentInfo: peerEvaluationStudentInfo,
+        peerEvaluationStudentInfo: undefined,
       };
     }
+
+    const peerEvaluationStudentId = peerEvaluationStudentList?.id;
 
     const peerEvaluationStudentReviewData = (await ctx.prisma.peerEvaluationStudentReview.findFirst({
       select: {
@@ -252,7 +195,7 @@ class PeerEvaluationTableStudentQuery {
         PeerEvaluationReviewees: {
           orderBy: {
             studentReviewed: {
-              studentName: "asc",
+              id: "asc",
             },
           },
           select: {
@@ -268,7 +211,6 @@ class PeerEvaluationTableStudentQuery {
                     email: true,
                   },
                 },
-                studentName: true,
               },
             },
             peerEvaluationReviewId: true,
@@ -290,9 +232,31 @@ class PeerEvaluationTableStudentQuery {
       },
     })) as PeerEvaluationStudentReview;
 
+    const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
+      select: {
+        updatedAt: true,
+      },
+      where: {
+        isCompleted: true,
+        peerEvaluationStudentId: peerEvaluationStudentId,
+      },
+    });
+
+    const peerEvaluationStudentInfo = {
+      studentName: peerEvaluationStudentList.studentName,
+      studentEmail: peerEvaluationStudentList.user.email,
+      submissionsLockDate: peerEvaluationStudentList.peerEvaluation.submissionsLockDate
+        ? getDateLocaleString(peerEvaluationStudentList.peerEvaluation.submissionsLockDate)
+        : "N/A",
+      studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
+      updatedAt: peerEvaluationStudentTableInfo?.updatedAt
+        ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
+        : "N/A",
+    };
+
     return {
-      readOnly: isPeerEvaluationReadOnly,
-      visible: isPeerEvaluationVisible,
+      readOnly: true,
+      visible: true,
       message: "Peer Evaluation table fetched successfully",
       peerEvaluation: peerEvaluationData,
       peerEvaluationStudentReview: peerEvaluationStudentReviewData,
@@ -302,8 +266,7 @@ class PeerEvaluationTableStudentQuery {
 }
 
 export {
-  PeerEvaluationTableStudentInfoResponse,
-  PeerEvaluationTableStudentQuery,
-  PeerEvaluationTableStudentResponse,
-  PeerEvaluationTableStudentWhereInput,
+  PeerEvaluationTableStudentLecturerQuery,
+  PeerEvaluationTableStudentLecturerResponse,
+  PeerEvaluationTableStudentLecturerWhereInput,
 };
