@@ -2,10 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
 
 import {
-  getPeerEvaluationStudentMarksByTeam,
+  calculatePeerEvaluationStudentMark,
   getPeerEvaluationStudentTeamIdByName,
-  saveCalculatedResultsPeerEvaluationTeam,
-  updatePeerEvaluationStudentTeamResultsByStudent,
 } from "@/utils/peer-evaluation/mark-calculation";
 
 @InputType({
@@ -65,15 +63,7 @@ class PeerEvaluationStudentTeamCalculateResultsTableByTeam {
     );
 
     if (peerEvaluationStudentTeamId) {
-      const peerEvaluationStudentMarksByTeam = await getPeerEvaluationStudentMarksByTeam(
-        peerEvaluationId,
-        peerEvaluationStudentTeamId
-      );
-
-      if (peerEvaluationStudentMarksByTeam) {
-        await updatePeerEvaluationStudentTeamResultsByStudent(peerEvaluationStudentMarksByTeam, peerEvaluationId);
-        await saveCalculatedResultsPeerEvaluationTeam(peerEvaluationStudentMarksByTeam, peerEvaluationStudentTeamId);
-      }
+      await calculatePeerEvaluationStudentMark(peerEvaluationId, peerEvaluationStudentTeamId);
     }
 
     return {

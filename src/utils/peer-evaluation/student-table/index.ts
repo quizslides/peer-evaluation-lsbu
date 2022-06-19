@@ -20,6 +20,23 @@ interface PeerEvaluationStudentTableRevieweeColumnsMutationObject {
   };
 }
 
+interface IPeerEvaluationRevieweesToBuildStudentTable {
+  isValid: boolean;
+  comment: null;
+  criteriaScoreTotal: null;
+  studentReviewed: {
+    connect: {
+      userId_peerEvaluationId: {
+        peerEvaluationId: string;
+        userId: string;
+      };
+    };
+  };
+  PeerEvaluationRevieweeColumn: {
+    create: PeerEvaluationStudentTableRevieweeColumnsMutationObject[];
+  };
+}
+
 const isPeerEvaluationStudentTableExists = async (peerEvaluationStudentId: string): Promise<boolean> => {
   const peerEvaluationStudentReviewData = await prisma.peerEvaluationStudentReview.findFirst({
     where: {
@@ -38,7 +55,11 @@ const getPeerEvaluationDataToBuildStudentTable = async (
   return await prisma.peerEvaluation.findFirst({
     select: {
       code: true,
-      peerEvaluationStudents: true,
+      peerEvaluationStudents: {
+        include: {
+          peerEvaluationReviewed: true,
+        },
+      },
       PeerEvaluationStudentTeam: true,
       columns: true,
     },
@@ -65,10 +86,7 @@ const getPeerEvaluationStudentTableRevieweeColumnsMutationObject = (
   }));
 };
 
-const getPeerEvaluationStudentTeamIdByUserId = async (
-  userId: string,
-  peerEvaluationId: string
-): Promise<string | null> => {
+const getPeerEvaluationStudentTeamId = async (userId: string, peerEvaluationId: string): Promise<string | null> => {
   const peerEvaluationStudentTeamData = await prisma.peerEvaluationStudentTeam.findFirst({
     select: {
       id: true,
@@ -108,7 +126,7 @@ const getPeerEvaluationRevieweesToBuildStudentTable = (
   peerEvaluationStudentTeamId: string,
   peerEvaluationStudents: PeerEvaluationStudent[],
   peerEvaluationColumns: PeerEvaluationColumn[]
-) => {
+): IPeerEvaluationRevieweesToBuildStudentTable[] => {
   const listPeerEvaluationRevieweesStudent = getListOfPeerEvaluationRevieweesByStudentTeamId(
     peerEvaluationStudentTeamId,
     peerEvaluationStudents
@@ -137,47 +155,34 @@ const getPeerEvaluationRevieweesToBuildStudentTable = (
   }));
 };
 
-const createPeerEvaluationStudentTableByStudentUserId = async (
-  userId: string,
-  peerEvaluationId: string
-): Promise<boolean> => {
-  const peerEvaluationStudentTeamId = await getPeerEvaluationStudentTeamIdByUserId(userId, peerEvaluationId);
-
-  const peerEvaluationData = await getPeerEvaluationDataToBuildStudentTable(peerEvaluationId);
-
-  if (!peerEvaluationStudentTeamId || !peerEvaluationData) {
-    return false;
-  }
-
-  const peerEvaluationRevieweesToBuildStudentTable = getPeerEvaluationRevieweesToBuildStudentTable(
-    peerEvaluationId,
-    peerEvaluationStudentTeamId,
-    peerEvaluationData.peerEvaluationStudents,
-    peerEvaluationData.columns
-  );
-
-  try {
-    await prisma.peerEvaluationStudentReview.create({
-      data: {
-        isCompleted: false,
-        peerEvaluationStudent: {
-          connect: {
-            userId_peerEvaluationId: {
-              peerEvaluationId: peerEvaluationId,
-              userId: userId,
-            },
-          },
-        },
-        PeerEvaluationReviewees: {
-          create: peerEvaluationRevieweesToBuildStudentTable,
-        },
+const getPeerEvaluationStudentId = async (userId: string, peerEvaluationId: string): Promise<string | null> => {
+  const peerEvaluationStudentData = await prisma.peerEvaluationStudent.findFirst({
+    select: {
+      id: true,
+    },
+    where: {
+      userId: {
+        equals: userId,
       },
-    });
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+    },
+  });
 
-    return true;
-  } catch {
-    return false;
+  if (peerEvaluationStudentData) {
+    return peerEvaluationStudentData.id;
   }
+
+  return null;
 };
 
-export { createPeerEvaluationStudentTableByStudentUserId, isPeerEvaluationStudentTableExists };
+export {
+  getPeerEvaluationDataToBuildStudentTable,
+  getPeerEvaluationRevieweesToBuildStudentTable,
+  getPeerEvaluationStudentId,
+  getPeerEvaluationStudentTeamId,
+  isPeerEvaluationStudentTableExists,
+};
+
+export type { IPeerEvaluationRevieweesToBuildStudentTable };

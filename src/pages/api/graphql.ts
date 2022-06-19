@@ -7,6 +7,10 @@ import { PageConfig } from "next";
 
 import ErrorHandler from "@/pages/api/error";
 import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
+import {
+  onUpdatePeerEvaluationStudentHookAfterData,
+  onUpdatePeerEvaluationStudentHookBeforeData,
+} from "@/pages/api/hooks/peer-evaluation";
 import { permissions } from "@/pages/api/permissions";
 import prisma from "@/pages/api/prisma";
 import schemaDefinitions from "@/pages/api/prisma/schema";
@@ -23,6 +27,38 @@ prisma.$use(async (params, next) => {
   }
 
   const result = await next(params);
+
+  return result;
+});
+
+prisma.$use(async (params, next) => {
+  let onUpdatePeerEvaluationStudentData = null;
+
+  if (params.model === "PeerEvaluationStudent" && params.action === "update") {
+    onUpdatePeerEvaluationStudentData = await onUpdatePeerEvaluationStudentHookBeforeData(params);
+  }
+
+  const result = await next(params);
+
+  if (
+    params.model === "PeerEvaluationStudent" &&
+    params.action === "update" &&
+    onUpdatePeerEvaluationStudentData &&
+    onUpdatePeerEvaluationStudentData.peerEvaluationStudentTeamIdPrevious
+  ) {
+    const peerEvaluationStudentTeamIdPrevious = onUpdatePeerEvaluationStudentData.peerEvaluationStudentTeamIdPrevious;
+
+    const peerEvaluationStudentTeamIdCurrent = result.peerEvaluationStudentTeamId;
+
+    if (peerEvaluationStudentTeamIdCurrent !== peerEvaluationStudentTeamIdPrevious) {
+      await onUpdatePeerEvaluationStudentHookAfterData(
+        onUpdatePeerEvaluationStudentData.userId,
+        onUpdatePeerEvaluationStudentData.peerEvaluationId,
+        peerEvaluationStudentTeamIdCurrent,
+        peerEvaluationStudentTeamIdPrevious
+      );
+    }
+  }
 
   return result;
 });

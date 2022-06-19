@@ -122,6 +122,7 @@ dist
 
 # Local development
 .history
+peer-evaluation-local-*.sql
 
 # Cypress 
 cypress/videos/*

@@ -551,7 +551,20 @@ const saveCalculatedResultsPeerEvaluationTeam = async (
   });
 };
 
+const calculatePeerEvaluationStudentMark = async (peerEvaluationId: string, peerEvaluationStudentTeamId: string) => {
+  const peerEvaluationStudentMarksByTeam = await getPeerEvaluationStudentMarksByTeam(
+    peerEvaluationId,
+    peerEvaluationStudentTeamId
+  );
+
+  if (peerEvaluationStudentMarksByTeam) {
+    await updatePeerEvaluationStudentTeamResultsByStudent(peerEvaluationStudentMarksByTeam, peerEvaluationId);
+    await saveCalculatedResultsPeerEvaluationTeam(peerEvaluationStudentMarksByTeam, peerEvaluationStudentTeamId);
+  }
+};
+
 export {
+  calculatePeerEvaluationStudentMark,
   getPeerEvaluationStudentMarksByTeam,
   getPeerEvaluationStudentTeamIdByName,
   saveCalculatedResultsPeerEvaluationTeam,

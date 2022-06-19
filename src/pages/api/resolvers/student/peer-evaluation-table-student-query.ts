@@ -3,10 +3,8 @@ import { PeerEvaluationStatuses, PrismaClient, UserRoles } from "@prisma/client"
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 
 import { getDateLocaleString } from "@/utils/date";
-import {
-  createPeerEvaluationStudentTableByStudentUserId,
-  isPeerEvaluationStudentTableExists,
-} from "@/utils/peer-evaluation/student-table";
+import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student-table";
+import { createPeerEvaluationStudentTableByStudentUserId } from "@/utils/peer-evaluation/student-table/create";
 
 const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEvaluationStatuses | undefined) => {
   if (status === "PUBLISHED") {
