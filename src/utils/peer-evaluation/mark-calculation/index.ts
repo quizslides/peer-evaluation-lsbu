@@ -182,7 +182,8 @@ const getPeerEvaluationStudentTeamIdByName = async (
   )?.id;
 };
 
-const getMaxMarkIncreaseStudent = (teamMark: number, maxMarkIncrease: number) => teamMark + maxMarkIncrease;
+const getMaxMarkIncreaseStudent = (teamMark: number, maxMarkIncrease: number) =>
+  teamMark + maxMarkIncrease > 100 ? 100 : teamMark + maxMarkIncrease;
 
 const getMaxMarkDecreaseStudent = (teamMark: number, maxMarkDecrease: number) =>
   teamMark - maxMarkDecrease < 0 ? 0 : teamMark - maxMarkDecrease;
