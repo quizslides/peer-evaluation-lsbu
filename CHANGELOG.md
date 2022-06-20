@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.41](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.40...v1.0.0-staging.41) (2022-06-20)
+
+
+### Features
+
+* adding delete student, team when the team is empty and calculate marks based on current data ([feb9e5b](https://github.com/quizslides/peer-evaluation-lsbu/commit/feb9e5bb83b6ceeff71d9ec0e993f8ec2c01ab92))
+* adding redirect from peer evaluation dashboard to marks as the student page ([72f94c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/72f94c59a830892a5314fd00d3b493cf6aa55cbf))
+
 ## [1.0.0-staging.40](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.39...v1.0.0-staging.40) (2022-06-20)
 
 
