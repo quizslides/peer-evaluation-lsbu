@@ -180,8 +180,18 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
       name: "marks",
       label: "Marks",
       options: {
+        // eslint-disable-next-line react/no-multi-comp
         customBodyRender: () => {
-          return "Manage Marks";
+          return (
+            <Button
+              variant={"outlined"}
+              testId={"peer-evaluation-dashboard-email-reminder"}
+              onClick={() => onRedirectToPage(routing.peerEvaluation.teams)}
+              size="medium"
+            >
+              Edit
+            </Button>
+          );
         },
       },
     },
