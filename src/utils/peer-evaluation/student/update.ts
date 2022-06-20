@@ -7,7 +7,7 @@ import {
   getPeerEvaluationDataToBuildStudentTable,
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentId,
-} from "@/utils/peer-evaluation/student-table";
+} from "@/utils/peer-evaluation/student";
 
 const deletePeerEvaluationStudentReviewByPeerEvaluationStudentId = async (peerEvaluationStudentId: string) => {
   await prisma.peerEvaluationStudentReview.delete({
@@ -73,7 +73,7 @@ const updatePeerEvaluationStudentReview = async (
   });
 };
 
-const updatePeerEvaluationStudentTableByStudentTeam = async (
+const updatePeerEvaluationStudentTableOnStudentTeamUpdated = async (
   userId: string,
   peerEvaluationId: string,
   peerEvaluationStudentTeamIdCurrent: string,
@@ -123,4 +123,4 @@ const updatePeerEvaluationStudentTableByStudentTeam = async (
   await calculatePeerEvaluationStudentMark(peerEvaluationId, peerEvaluationStudentTeamIdPrevious);
 };
 
-export { updatePeerEvaluationStudentTableByStudentTeam };
+export { updatePeerEvaluationStudentTableOnStudentTeamUpdated };

@@ -1,5 +1,5 @@
 import prisma, { Prisma } from "@/pages/api/prisma";
-import { updatePeerEvaluationStudentTableByStudentTeam } from "@/utils/peer-evaluation/student-table/update";
+import { updatePeerEvaluationStudentTableOnStudentTeamUpdated } from "@/utils/peer-evaluation/student/update";
 
 const onUpdatePeerEvaluationStudentHookBeforeData = async (params: Prisma.MiddlewareParams) => {
   const { userId, peerEvaluationId } = params.args.where.userId_peerEvaluationId;
@@ -35,7 +35,7 @@ const onUpdatePeerEvaluationStudentHookAfterData = async (
   peerEvaluationStudentTeamIdCurrent: string,
   peerEvaluationStudentTeamIdPrevious: string
 ) => {
-  await updatePeerEvaluationStudentTableByStudentTeam(
+  await updatePeerEvaluationStudentTableOnStudentTeamUpdated(
     userId,
     peerEvaluationId,
     peerEvaluationStudentTeamIdCurrent,

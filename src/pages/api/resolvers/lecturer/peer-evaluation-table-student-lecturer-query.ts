@@ -4,7 +4,7 @@ import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-gr
 
 import { PeerEvaluationTableStudentInfoResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { getDateLocaleString } from "@/utils/date";
-import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student-table";
+import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student";
 
 @InputType({
   isAbstract: true,

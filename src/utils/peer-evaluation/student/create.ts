@@ -4,7 +4,7 @@ import {
   getPeerEvaluationDataToBuildStudentTable,
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentTeamId,
-} from "@/utils/peer-evaluation/student-table";
+} from "@/utils/peer-evaluation/student";
 
 const createPeerEvaluationStudentReview = async (
   userId: string,
@@ -29,10 +29,7 @@ const createPeerEvaluationStudentReview = async (
   });
 };
 
-const createPeerEvaluationStudentTableByStudentUserId = async (
-  userId: string,
-  peerEvaluationId: string
-): Promise<void> => {
+const createPeerEvaluationStudentTableByStudent = async (userId: string, peerEvaluationId: string): Promise<void> => {
   const peerEvaluationStudentTeamId = await getPeerEvaluationStudentTeamId(userId, peerEvaluationId);
 
   const peerEvaluationData = await getPeerEvaluationDataToBuildStudentTable(peerEvaluationId);
@@ -51,4 +48,4 @@ const createPeerEvaluationStudentTableByStudentUserId = async (
   await createPeerEvaluationStudentReview(userId, peerEvaluationId, peerEvaluationRevieweesToBuildStudentTable);
 };
 
-export { createPeerEvaluationStudentTableByStudentUserId };
+export { createPeerEvaluationStudentTableByStudent };
