@@ -216,7 +216,7 @@ class PeerEvaluationTableStudentQuery {
       };
     }
 
-    const isPeerEvaluationStudentTableExistsData = await isPeerEvaluationStudentTableExists(peerEvaluationData.id);
+    const isPeerEvaluationStudentTableExistsData = await isPeerEvaluationStudentTableExists(peerEvaluationStudentId);
 
     if (!isPeerEvaluationStudentTableExistsData) {
       await createPeerEvaluationStudentTableByStudent(userId, peerEvaluationData.id);
