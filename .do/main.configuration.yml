@@ -2,18 +2,15 @@
 alerts:
   - rule: DEPLOYMENT_FAILED
   - rule: DOMAIN_FAILED
-databases:
-  - engine: PG
-    name: db-size-dev-prod
-    num_nodes: 1
-    size: db-s-dev-database
-    version: "12"
 domains:
   - domain: lsbupeerevaluation.software
     type: PRIMARY
     zone: lsbupeerevaluation.software
 envs:
   - key: ENVIRONMENT
+    scope: RUN_AND_BUILD_TIME
+    value: production
+  - key: LOGICAL_ENVIRONMENT
     scope: RUN_AND_BUILD_TIME
     value: production
   - key: NEXTAUTH_SECRET
@@ -45,7 +42,7 @@ envs:
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
-    value: EV[1:4T4y6rKSgnEVoOyfNSVsHSpQag9XhrCJ:0PRMoCJ+AWvLrG2jGCmwmkS4lnOuzhodh9NcpiSximyBvduLQ35/aVN6bN1+gjgVnGViL+oS3aWrFh/jzMKvru9nwhfibZsZ12FyDmGEcXDEoogQN7ncW919fN3RX2hdCTEiECtryRvAJ2qzw/iLLDmiHD7yY/LaOY4JsD8T99DcMp5rrpzG55g6+7vLDss+IORIa3UvcgEAEMaim8j25h7jn3dn8gCvPaiR0fW3LRhX5eRV0vd+Os8=]
+    value: EV[1:cZLZrRj9PVYc7ro6jfkDuxolvEwgxe45:a8mfuX7jTD9XrH8waaR/XcYN6Kn6KQObeh9H/0D8CQWVQB3HHMnFoQnxiOD+7T3c5FkOrGVaEGpA6zQoiQjRE6WN1mRGXoA12I2L0faXRPMokam/v1ATyTGlYyXiqyXHLhrZUrRGaSNSMvZfbE5q7Dt8VwYZnRMq3lM48RCzecGYUtD9ttjS99Da4OsPin43WTqzqWt1qWeSzhM7pn1ib5hxvp46vuWK7zs8gWXUez6lLi3mOHimEJIXcOWIETSFk/aGahw8cSEk2hxJGBLMvE1ibc6koNH+ymQ=]
   - key: SENTRY_DSN
     scope: RUN_AND_BUILD_TIME
     type: SECRET
@@ -82,7 +79,7 @@ services:
       timeout_seconds: 100
     http_port: 3000
     instance_count: 1
-    instance_size_slug: basic-xxs
+    instance_size_slug: professional-xs
     name: peer-evaluation-web-app-prod
     routes:
       - path: /
