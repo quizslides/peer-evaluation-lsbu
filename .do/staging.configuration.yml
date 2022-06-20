@@ -2,12 +2,6 @@
 alerts:
   - rule: DEPLOYMENT_FAILED
   - rule: DOMAIN_FAILED
-databases:
-  - engine: PG
-    name: db-size-dev-staging
-    num_nodes: 1
-    size: db-s-dev-database
-    version: "12"
 domains:
   - domain: staging.lsbupeerevaluation.software
     type: PRIMARY
@@ -48,7 +42,7 @@ envs:
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
-    value: EV[1:D3yFqjCVeHz1JC0ghdHemBWRrT3zY7Mv:FXDIfoVynoL54uTtktBLAuljUJrWc05vyzoQOGVZ8d5tIQPYqi3jWfdwN9qv/RYmPrWuYYIVStfO5koDtQfvKiIM6z7k75PbiHAtJz9tkGEEc46x19LUU4G9iQhviDNFZsSdyWXBks3BPSrJL0va6TWbjYvhSd5GVlxXfyONx22adyRUBVtrBy2sXtjJy1S4rEbPYO7+sjuNydkKs1xTx+uE991mnFq0U+XscGJaPr+Gakp2LbROVjOyXL01spE=]
+    value: EV[1:fIukmoOcM7Bsl6hfw1LzzT8G3CnOeI6N:rDgIFMFBRiHYnMEVlpSUsxdAQ415QM78aWIkfJDg3+a2iidVefpEeRxBX6V4PFkdtJ73FSBwS0v2yHh5nFPvtZyG5gNU6J1ha6RUcyHFrygNGXkYwOCId771gIkNn4OzstvIyK28wT1XKU3G1yKJVzwPUYxCmZxqWMp8ON1w0bLuAfRPYu6kMFq9Bj+7OVJwceU5r7Rk13mnuwWZgChVvGBZWR2zu43hQNMv4TI1cEEbFv222BIliXodE35Bh3K/EQpqKfu4AiWrJiJeYAqxHzw/ChE=]
   - key: SENTRY_DSN
     scope: RUN_AND_BUILD_TIME
     type: SECRET
