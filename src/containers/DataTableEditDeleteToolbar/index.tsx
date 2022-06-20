@@ -8,8 +8,8 @@ import { IDataTableIconButton } from "@/types/datatables";
 interface IDataTableEditActionButtonIcon {
   visibleEditButton?: boolean;
   visibleDeleteButton?: boolean;
-  editButton: IDataTableIconButton;
-  deleteButton: IDataTableIconButton;
+  editButton?: IDataTableIconButton;
+  deleteButton?: IDataTableIconButton;
 }
 
 const Container = styled.div`
@@ -24,7 +24,7 @@ const DataTableEditDeleteToolbar = ({
 }: IDataTableEditActionButtonIcon) => {
   return (
     <Container>
-      {visibleEditButton && (
+      {visibleEditButton && editButton && (
         <DataTableEditActionButtonIcon
           testId={editButton.testId}
           toolTipLabel={editButton.toolTipLabel}
@@ -32,7 +32,7 @@ const DataTableEditDeleteToolbar = ({
         />
       )}
 
-      {visibleDeleteButton && (
+      {visibleDeleteButton && deleteButton && (
         <DataTableDeleteActionButtonIcon
           testId={deleteButton.testId}
           toolTipLabel={deleteButton.toolTipLabel}

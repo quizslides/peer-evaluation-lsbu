@@ -1,4 +1,5 @@
 import prisma, { Prisma } from "@/pages/api/prisma";
+import { calculatePeerEvaluationStudentMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
 import { updatePeerEvaluationStudentTableOnStudentTeamUpdated } from "@/utils/peer-evaluation/student/update";
 
 const onUpdatePeerEvaluationStudentHookBeforeData = async (params: Prisma.MiddlewareParams) => {
@@ -43,4 +44,12 @@ const onUpdatePeerEvaluationStudentHookAfterData = async (
   );
 };
 
-export { onUpdatePeerEvaluationStudentHookAfterData, onUpdatePeerEvaluationStudentHookBeforeData };
+const onDeletePeerEvaluationStudentsHookAfter = async (peerEvaluationId: string) => {
+  await calculatePeerEvaluationStudentMarkByPeerEvaluationId(peerEvaluationId);
+};
+
+export {
+  onDeletePeerEvaluationStudentsHookAfter,
+  onUpdatePeerEvaluationStudentHookAfterData,
+  onUpdatePeerEvaluationStudentHookBeforeData,
+};

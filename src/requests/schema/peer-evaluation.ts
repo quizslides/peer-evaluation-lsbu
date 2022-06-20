@@ -21,6 +21,14 @@ const UPDATE_PEER_EVALUATION_REVIEWEE = gql`
   }
 `;
 
+const DELETE_MANY_PEER_EVALUATION_STUDENTS = gql`
+  mutation DeleteManyPeerEvaluationStudent($where: PeerEvaluationStudentWhereInput) {
+    deleteManyPeerEvaluationStudent(where: $where) {
+      count
+    }
+  }
+`;
+
 const DELETE_PEER_EVALUATION_STUDENT_TEAM = gql`
   mutation DeletePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
     deletePeerEvaluationStudentTeam(where: $where) {
@@ -710,6 +718,7 @@ export {
   CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
+  DELETE_MANY_PEER_EVALUATION_STUDENTS,
   DELETE_PEER_EVALUATION,
   DELETE_PEER_EVALUATION_STUDENT_TEAM,
   GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,

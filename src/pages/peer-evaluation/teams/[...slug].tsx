@@ -132,11 +132,7 @@ const Teams: NextPage = () => {
   const onDeletePeerEvaluationColumnAccept = async () => {
     loadingNotification("Deleting team", "DeletePeerEvaluationStudentTeam");
 
-    const { errors } = await deletePeerEvaluationStudentTeam(
-      apolloClient,
-      peerEvaluationId || "",
-      deletePeerEvaluationStudentTeamId || ""
-    );
+    const { errors } = await deletePeerEvaluationStudentTeam(apolloClient, deletePeerEvaluationStudentTeamId || "");
 
     if (errors?.length) {
       errorNotification("Whoops... You cannot delete a team with students", "DeletePeerEvaluationStudentTeam");
@@ -340,6 +336,12 @@ const Teams: NextPage = () => {
       enabled: true,
     },
     rowsPerPage: 100,
+    onTableChange: (action, tableState) => {
+      if (action === "propsUpdate") {
+        tableState.selectedRows.data = [];
+        tableState.selectedRows.lookup = [];
+      }
+    },
     customToolbar: (_) => (
       <>
         <DataTableMarkActionButtonIcon

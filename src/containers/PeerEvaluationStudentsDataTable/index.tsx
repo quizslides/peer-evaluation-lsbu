@@ -1,17 +1,22 @@
 import React, { memo, useEffect, useState } from "react";
 
 import { Form, Formik } from "formik";
-import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
+import { DisplayData, MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { useRouter } from "next/router";
 import { array, number, object } from "yup";
+
+import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 
 import {
   Button,
   DataTable,
   DataTableRefreshActionButtonIcon,
+  Dialog,
   FormikResetComponent,
   IconButtonWrapper,
   TextFieldFormDataTable,
+  Typography,
+  VirtualStringList,
   WarningUnsavedForm,
 } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
@@ -19,10 +24,12 @@ import LoadingContainer from "@/containers/LoadingContainer";
 import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
 import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
+import useDeleteManyStudents from "@/requests/hooks/mutations/useDeleteManyStudents";
 import useUpdatePeerEvaluationStudentsLecturerMark from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentsLecturerMark";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import routing from "@/routing";
 import { IPeerEvaluationStudent } from "@/transformers/students";
+import { loadingNotification } from "@/utils";
 import { ObjectArray, ObjectNormalizedType, getNormalizedObjectArray, objectToArrayOfObject } from "@/utils/form";
 
 interface IStudentLecturerMarkTable {
@@ -33,6 +40,11 @@ interface IStudentLecturerMarkTable {
     [x: string]: object;
   }[];
 }
+
+type StudentDeleteObject = {
+  id: string;
+  name: string;
+};
 
 interface IStudentLecturerMark {
   id: string;
@@ -60,9 +72,18 @@ const PeerEvaluationStudentsDataTable = ({
 
   const [dataTableFormValues, setDataTableFormValues] = useState<IStudentLecturerMarkTable | [] | null>(null);
 
+  const [listStudentToDeleteState, setListStudentToDeleteState] = useState<StudentDeleteObject[] | null>(null);
+
+  const [isDeleteStudentsDialogOpen, setIsDeleteStudentsDialogOpen] = useState<boolean>(false);
+
   const [updatePeerEvaluationStudentsLecturerMark] = useUpdatePeerEvaluationStudentsLecturerMark(
     "UpdatePeerEvaluationStudentsLecturerMark"
   );
+
+  const [
+    deleteManyStudents,
+    { data: dataDeleteStudents, loading: loadingDeleteStudents, reset: resetUseDeleteManyStudentsHook },
+  ] = useDeleteManyStudents("deleteManyStudents");
 
   const [updatePeerEvaluationStudentTeamCalculateResultsTable] =
     useUpdatePeerEvaluationStudentTeamCalculateResultsTable("UpdatePeerEvaluationStudentTeamCalculateResultsTable");
@@ -250,7 +271,7 @@ const PeerEvaluationStudentsDataTable = ({
     },
     responsive: "simple",
     tableBodyMaxHeight: "100%",
-    selectableRows: "none",
+    selectableRows: "multiple",
     selectableRowsHeader: true,
     rowHover: true,
     download: true,
@@ -268,6 +289,12 @@ const PeerEvaluationStudentsDataTable = ({
     draggableColumns: {
       enabled: true,
     },
+    onTableChange: (action, tableState) => {
+      if (action === "propsUpdate") {
+        tableState.selectedRows.data = [];
+        tableState.selectedRows.lookup = [];
+      }
+    },
     customToolbar: (_) => (
       <>
         <DataTableRefreshActionButtonIcon
@@ -284,6 +311,16 @@ const PeerEvaluationStudentsDataTable = ({
           <SaveIcon testId="" fontSize="medium" color="inherit" />
         </IconButtonWrapper>
       </>
+    ),
+    customToolbarSelect: (selectedRows, displayData) => (
+      <DataTableEditDeleteToolbar
+        visibleEditButton={false}
+        deleteButton={{
+          testId: "",
+          toolTipLabel: "Delete students",
+          onClick: () => onDeleteSelectPeerEvaluationStudents(selectedRows, displayData),
+        }}
+      />
     ),
   };
 
@@ -308,7 +345,62 @@ const PeerEvaluationStudentsDataTable = ({
     await onRefreshStudents();
   };
 
+  type SelectedRowsTable = {
+    data: {
+      index: number;
+      dataIndex: number;
+    }[];
+    lookup: {
+      [key: number]: boolean;
+    };
+  };
+
+  const onDeleteSelectPeerEvaluationStudents = (selectedRows: SelectedRowsTable, data: DisplayData) => {
+    const listStudentToDelete = selectedRows.data.map((v) => ({
+      id: data[v.index].data[1],
+      name: data[v.index].data[2],
+    })) as StudentDeleteObject[];
+
+    setListStudentToDeleteState(listStudentToDelete);
+
+    setIsDeleteStudentsDialogOpen(true);
+  };
+
+  const onAcceptDeleteStudents = () => {
+    if (listStudentToDeleteState) {
+      loadingNotification("Deleting Students", "deleteManyStudents");
+
+      const listStudentToDeleteIds = listStudentToDeleteState.map(({ id }) => id);
+
+      deleteManyStudents({
+        variables: {
+          where: {
+            id: {
+              in: listStudentToDeleteIds,
+            },
+          },
+        },
+      });
+    }
+
+    setIsDeleteStudentsDialogOpen(false);
+  };
+
+  const onCancelDeleteStudents = () => {
+    setListStudentToDeleteState(null);
+
+    setIsDeleteStudentsDialogOpen(false);
+  };
+
   const isLoading = !!!tableData || isRedirecting;
+
+  useEffect(() => {
+    if (dataDeleteStudents && !loadingDeleteStudents) {
+      resetUseDeleteManyStudentsHook();
+      onRefreshStudents();
+      setListStudentToDeleteState(null);
+    }
+  }, [dataDeleteStudents, loadingDeleteStudents, onRefreshStudents, resetUseDeleteManyStudentsHook]);
 
   useEffect(() => {
     setTableData(data);
@@ -326,30 +418,59 @@ const PeerEvaluationStudentsDataTable = ({
   }
 
   return (
-    <Formik
-      initialValues={dataTableFormValues}
-      validationSchema={validationSchema}
-      onSubmit={async (data, { resetForm }) => {
-        await onSubmitStudentLecturerMarks(data);
-        resetForm({
-          values: data,
-        });
-      }}
-    >
-      {({ dirty }) => (
-        <Form>
-          <FormikResetComponent data={dataTableFormValues} />
-          <WarningUnsavedForm areChangesUnsaved={dirty} />
-          <DataTable
-            testId={"peer-evaluation-students-datatable"}
-            isVisible={!!tableData}
-            data={tableData}
-            columns={dataTableColumns}
-            options={dataTableOptions}
-          />
-        </Form>
+    <>
+      <Formik
+        initialValues={dataTableFormValues}
+        validationSchema={validationSchema}
+        onSubmit={async (data, { resetForm }) => {
+          await onSubmitStudentLecturerMarks(data);
+          resetForm({
+            values: data,
+          });
+        }}
+      >
+        {({ dirty }) => (
+          <Form>
+            <FormikResetComponent data={dataTableFormValues} />
+            <WarningUnsavedForm areChangesUnsaved={dirty} />
+            <DataTable
+              testId={"peer-evaluation-students-datatable"}
+              isVisible={!!tableData}
+              data={tableData}
+              columns={dataTableColumns}
+              options={dataTableOptions}
+            />
+          </Form>
+        )}
+      </Formik>
+
+      {listStudentToDeleteState && (
+        <Dialog
+          testId={""}
+          title={"Deleting Student"}
+          content={
+            <>
+              <Typography testId={""}>Are you sure you want to delete the following students?</Typography>
+              <br />
+              <VirtualStringList
+                testId={""}
+                data={listStudentToDeleteState.map(({ name }) => name)}
+                height={120}
+                maxWidth={500}
+                itemSize={25}
+              />
+            </>
+          }
+          rightButton="Yes"
+          rightButtonVariant="contained"
+          leftButton="Cancel"
+          maxWidth="md"
+          onClickRightButton={onAcceptDeleteStudents}
+          onClickLeftButton={onCancelDeleteStudents}
+          open={isDeleteStudentsDialogOpen}
+        />
       )}
-    </Formik>
+    </>
   );
 };
 

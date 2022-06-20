@@ -8,6 +8,7 @@ import { PageConfig } from "next";
 import ErrorHandler from "@/pages/api/error";
 import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import {
+  onDeletePeerEvaluationStudentsHookAfter,
   onUpdatePeerEvaluationStudentHookAfterData,
   onUpdatePeerEvaluationStudentHookBeforeData,
 } from "@/pages/api/hooks/peer-evaluation";
@@ -57,6 +58,27 @@ prisma.$use(async (params, next) => {
         peerEvaluationStudentTeamIdCurrent,
         peerEvaluationStudentTeamIdPrevious
       );
+    }
+  }
+
+  return result;
+});
+
+prisma.$use(async (params, next) => {
+  const result = await next(params);
+
+  if (params.model === "PeerEvaluationStudent" && params.action === "deleteMany") {
+    const peerEvaluationData = await prisma.peerEvaluationStudent.findFirst({
+      where: {
+        id: params.args.where.id[0],
+      },
+      select: {
+        peerEvaluationId: true,
+      },
+    });
+
+    if (peerEvaluationData) {
+      await onDeletePeerEvaluationStudentsHookAfter(peerEvaluationData.peerEvaluationId);
     }
   }
 

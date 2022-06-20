@@ -440,7 +440,8 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
   const studentTeamEmailList = getStudentTeamEmailList(peerEvaluationStudentTeamData as PeerEvaluationStudentTeam);
 
   if (!studentTeamEmailList?.length) {
-    throw "Peer Evaluation does not contain any students.";
+    // Peer Evaluation does not contain any students;
+    return null;
   }
 
   const totalPeerEvaluationStudentCount = studentTeamEmailList.length;
@@ -563,8 +564,26 @@ const calculatePeerEvaluationStudentMark = async (peerEvaluationId: string, peer
   }
 };
 
+const calculatePeerEvaluationStudentMarkByPeerEvaluationId = async (peerEvaluationId: string) => {
+  const peerEvaluationStudentTeamsData = await prisma.peerEvaluationStudentTeam.findMany({
+    select: {
+      id: true,
+    },
+    where: {
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+    },
+  });
+
+  for (const { id } of peerEvaluationStudentTeamsData) {
+    await calculatePeerEvaluationStudentMark(peerEvaluationId, id);
+  }
+};
+
 export {
   calculatePeerEvaluationStudentMark,
+  calculatePeerEvaluationStudentMarkByPeerEvaluationId,
   getPeerEvaluationStudentMarksByTeam,
   getPeerEvaluationStudentTeamIdByName,
   saveCalculatedResultsPeerEvaluationTeam,
