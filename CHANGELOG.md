@@ -2,6 +2,23 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.39](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.38...v1.0.0-staging.39) (2022-06-20)
+
+
+### Features
+
+* adding edit team and users by moving users from a team to another team ([400b1ec](https://github.com/quizslides/peer-evaluation-lsbu/commit/400b1ec38e0e1ed835e6533bef30b391a329e262))
+
+
+### Bug Fixes
+
+* adding a default cap to 100 ([874ee8f](https://github.com/quizslides/peer-evaluation-lsbu/commit/874ee8f56632afc9384d01fc34479ced5f56e3af))
+
+
+### Code Refactoring
+
+* renaming methods to handle creating and update of peer evaluation student table data ([d231e4e](https://github.com/quizslides/peer-evaluation-lsbu/commit/d231e4ec3d62df8b5f13a9795ad4b2c364b4ee56))
+
 ## [1.0.0-staging.38](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.37...v1.0.0-staging.38) (2022-06-18)
 
 
