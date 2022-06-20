@@ -16,6 +16,9 @@ envs:
   - key: ENVIRONMENT
     scope: RUN_AND_BUILD_TIME
     value: production
+  - key: LOGICAL_ENVIRONMENT
+    scope: RUN_AND_BUILD_TIME
+    value: production
   - key: NEXTAUTH_SECRET
     scope: RUN_AND_BUILD_TIME
     type: SECRET
@@ -82,7 +85,7 @@ services:
       timeout_seconds: 100
     http_port: 3000
     instance_count: 1
-    instance_size_slug: basic-xxs
+    instance_size_slug: professional-xs
     name: peer-evaluation-web-app-prod
     routes:
       - path: /
