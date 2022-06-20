@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.0.0-staging.40](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.39...v1.0.0-staging.40) (2022-06-20)
+
+
+### Bug Fixes
+
+* fixing bug on first saved peer evaluations student table ([0e620eb](https://github.com/quizslides/peer-evaluation-lsbu/commit/0e620eba6defeca7b9acbbef51360bfc2817f37a))
+
 ## [1.0.0-staging.39](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0-staging.38...v1.0.0-staging.39) (2022-06-20)
 
 
