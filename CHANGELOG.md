@@ -2,6 +2,27 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0...v1.1.0-staging.1) (2022-06-20)
+
+
+### Features
+
+* adding delete student, team when the team is empty and calculate marks based on current data ([feb9e5b](https://github.com/quizslides/peer-evaluation-lsbu/commit/feb9e5bb83b6ceeff71d9ec0e993f8ec2c01ab92))
+* adding edit team and users by moving users from a team to another team ([400b1ec](https://github.com/quizslides/peer-evaluation-lsbu/commit/400b1ec38e0e1ed835e6533bef30b391a329e262))
+* adding redirect from peer evaluation dashboard to marks as the student page ([72f94c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/72f94c59a830892a5314fd00d3b493cf6aa55cbf))
+
+
+### Bug Fixes
+
+* adding a default cap to 100 ([874ee8f](https://github.com/quizslides/peer-evaluation-lsbu/commit/874ee8f56632afc9384d01fc34479ced5f56e3af))
+* fixing bug on first saved peer evaluations student table ([0e620eb](https://github.com/quizslides/peer-evaluation-lsbu/commit/0e620eba6defeca7b9acbbef51360bfc2817f37a))
+
+
+### Code Refactoring
+
+* refactoring when a peer evaluation student table is created ([c44a098](https://github.com/quizslides/peer-evaluation-lsbu/commit/c44a098461cdad9176ddda231ca2c390b129059d))
+* renaming methods to handle creating and update of peer evaluation student table data ([d231e4e](https://github.com/quizslides/peer-evaluation-lsbu/commit/d231e4ec3d62df8b5f13a9795ad4b2c364b4ee56))
+
 ## 1.0.0 (2022-06-20)
 
 ### Features
