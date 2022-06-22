@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.1...v1.1.0-staging.2) (2022-06-22)
+
+
+### Features
+
+* adding conditions on update peer evaluation, deleting columns or update students ([fe089e6](https://github.com/quizslides/peer-evaluation-lsbu/commit/fe089e6f3a44ecb1f021ac21f894136fb38b9a36))
+
 ## [1.1.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0...v1.1.0-staging.1) (2022-06-20)
 
 
