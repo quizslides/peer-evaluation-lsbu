@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
 
-import { calculatePeerEvaluationStudentMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
+import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
 
 @InputType({
   isAbstract: true,
@@ -48,7 +48,7 @@ class PeerEvaluationStudentTeamCalculateResultsTable {
   ): Promise<PeerEvaluationStudentTeamCalculateResultsTableResponse> {
     const { peerEvaluationId } = where;
 
-    await calculatePeerEvaluationStudentMarkByPeerEvaluationId(peerEvaluationId);
+    await calculatePeerEvaluationStudentsMarkByPeerEvaluationId(peerEvaluationId);
 
     return {
       code: 200,

@@ -7,6 +7,7 @@ import {
   getPeerEvaluationDataToBuildStudentTable,
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentId,
+  getPeerEvaluationStudentListByValidPeerEvaluationTables,
 } from "@/utils/peer-evaluation/student";
 
 const deletePeerEvaluationStudentReviewByPeerEvaluationStudentId = async (peerEvaluationStudentId: string) => {
@@ -44,23 +45,13 @@ const getPeerEvaluationStudentListByStudentUpdated = (
   userId: string
 ) => peerEvaluationStudents.filter(({ userId: peerEvaluationStudentUserId }) => peerEvaluationStudentUserId === userId);
 
-const getPeerEvaluationStudentListByValidPeerEvaluationTables = (
-  peerEvaluationStudents: PeerEvaluationStudent[],
-  peerEvaluationStudentTeamIdSearch: string
-) => {
-  return peerEvaluationStudents.filter(
-    ({ peerEvaluationStudentTeamId, peerEvaluationReviewed }) =>
-      peerEvaluationStudentTeamId === peerEvaluationStudentTeamIdSearch && peerEvaluationReviewed?.isCompleted === true
-  );
-};
-
 const updatePeerEvaluationStudentReview = async (
-  peerEvaluationStudentCurrentStudentTeamId: string,
+  peerEvaluationStudentId: string,
   peerEvaluationRevieweesToBuildStudentTable: IPeerEvaluationRevieweesToBuildStudentTable[]
 ) => {
   await prisma.peerEvaluationStudentReview.update({
     where: {
-      peerEvaluationStudentId: peerEvaluationStudentCurrentStudentTeamId,
+      peerEvaluationStudentId: peerEvaluationStudentId,
     },
     data: {
       isCompleted: {

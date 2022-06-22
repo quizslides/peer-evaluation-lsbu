@@ -121,6 +121,16 @@ const getListOfPeerEvaluationRevieweesByStudentTeamId = (
   );
 };
 
+const getPeerEvaluationStudentListByValidPeerEvaluationTables = (
+  peerEvaluationStudents: PeerEvaluationStudent[],
+  peerEvaluationStudentTeamIdSearch: string
+) => {
+  return peerEvaluationStudents.filter(
+    ({ peerEvaluationStudentTeamId, peerEvaluationReviewed }) =>
+      peerEvaluationStudentTeamId === peerEvaluationStudentTeamIdSearch && peerEvaluationReviewed !== null
+  );
+};
+
 const getPeerEvaluationRevieweesToBuildStudentTable = (
   peerEvaluationId: string,
   peerEvaluationStudentTeamId: string,
@@ -177,12 +187,27 @@ const getPeerEvaluationStudentId = async (userId: string, peerEvaluationId: stri
   return null;
 };
 
+const setPeerEvaluationStudentTableAsIncomplete = async (peerEvaluationStudentId: string) => {
+  await prisma.peerEvaluationStudentReview.update({
+    where: {
+      peerEvaluationStudentId: peerEvaluationStudentId,
+    },
+    data: {
+      isCompleted: {
+        set: false,
+      },
+    },
+  });
+};
+
 export {
   getPeerEvaluationDataToBuildStudentTable,
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentId,
+  getPeerEvaluationStudentListByValidPeerEvaluationTables,
   getPeerEvaluationStudentTeamId,
   isPeerEvaluationStudentTableExists,
+  setPeerEvaluationStudentTableAsIncomplete,
 };
 
 export type { IPeerEvaluationRevieweesToBuildStudentTable };

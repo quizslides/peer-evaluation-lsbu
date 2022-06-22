@@ -564,7 +564,7 @@ const calculatePeerEvaluationStudentMark = async (peerEvaluationId: string, peer
   }
 };
 
-const calculatePeerEvaluationStudentMarkByPeerEvaluationId = async (peerEvaluationId: string) => {
+const calculatePeerEvaluationStudentsMarkByPeerEvaluationId = async (peerEvaluationId: string) => {
   const peerEvaluationStudentTeamsData = await prisma.peerEvaluationStudentTeam.findMany({
     select: {
       id: true,
@@ -583,7 +583,7 @@ const calculatePeerEvaluationStudentMarkByPeerEvaluationId = async (peerEvaluati
 
 export {
   calculatePeerEvaluationStudentMark,
-  calculatePeerEvaluationStudentMarkByPeerEvaluationId,
+  calculatePeerEvaluationStudentsMarkByPeerEvaluationId,
   getPeerEvaluationStudentMarksByTeam,
   getPeerEvaluationStudentTeamIdByName,
   saveCalculatedResultsPeerEvaluationTeam,
