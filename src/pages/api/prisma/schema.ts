@@ -7,6 +7,7 @@ import {
   PeerEvaluationStudentTeamExistQuery,
   PeerEvaluationsByLecturerQuery,
 } from "@/pages/api/resolvers/lecturer/peer-evaluation";
+import { PeerEvaluationCreateStudentBulkMutationResolver } from "@/pages/api/resolvers/lecturer/peer-evaluation-create-student-bulk";
 import { PeerEvaluationStudentsLecturerMark } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
 import { PeerEvaluationStudentTeamCalculateResultsTable } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table";
 import { PeerEvaluationStudentTeamCalculateResultsTableByTeam } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table-by-team";
@@ -18,6 +19,7 @@ import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/student/p
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    PeerEvaluationCreateStudentBulkMutationResolver,
     PeerEvaluationStudentTeamCalculateResultsTableByTeam,
     PeerEvaluationStudentTeamCalculateResultsTable,
     PeerEvaluationStudentTeamCalculatedResultsTable,

@@ -714,10 +714,19 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
   }
 `;
 
+const CREATE_PEER_EVALUATION_STUDENT_BULK = gql`
+  mutation CreatePeerEvaluationStudentBulk($data: PeerEvaluationCreateStudentBulkInput!) {
+    createPeerEvaluationStudentBulk(data: $data) {
+      processSuccessfully
+    }
+  }
+`;
+
 export {
   CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
+  CREATE_PEER_EVALUATION_STUDENT_BULK,
   DELETE_MANY_PEER_EVALUATION_STUDENTS,
   DELETE_PEER_EVALUATION,
   DELETE_PEER_EVALUATION_STUDENT_TEAM,

@@ -1,10 +1,20 @@
+import { getPeerEvaluationStudentListByStudentUpdated, updatePeerEvaluationStudentReview } from "./update";
+
 import prisma from "@/pages/api/prisma";
 import {
   IPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationDataToBuildStudentTable,
+  getPeerEvaluationDataToBuildStudentTableByStudentTeamId,
   getPeerEvaluationRevieweesToBuildStudentTable,
+  getPeerEvaluationStudentListByValidPeerEvaluationTables,
   getPeerEvaluationStudentTeamId,
 } from "@/utils/peer-evaluation/student";
+import { getUserIdByEmail } from "@/utils/user";
+
+type TCreatePeerEvaluationStudentBulk = {
+  studentEmail: string;
+  studentTeamName: string;
+};
 
 const createPeerEvaluationStudentReview = async (
   userId: string,
@@ -48,4 +58,71 @@ const createPeerEvaluationStudentTableByStudent = async (userId: string, peerEva
   await createPeerEvaluationStudentReview(userId, peerEvaluationId, peerEvaluationRevieweesToBuildStudentTable);
 };
 
-export { createPeerEvaluationStudentTableByStudent };
+const onCreatePeerEvaluationStudentBulk = async (
+  peerEvaluationId: string,
+  createStudentBulkData: TCreatePeerEvaluationStudentBulk[]
+) => {
+  for (const studentCreated of createStudentBulkData) {
+    const getPeerEvaluationStudentTeamByName = async (peerEvaluationStudentTeamName: string) => {
+      return await prisma.peerEvaluationStudentTeam.findFirst({
+        select: {
+          id: true,
+        },
+        where: {
+          name: {
+            equals: peerEvaluationStudentTeamName,
+          },
+        },
+      });
+    };
+
+    const peerEvaluationStudentTeamData = await getPeerEvaluationStudentTeamByName(studentCreated.studentTeamName);
+
+    if (!peerEvaluationStudentTeamData) {
+      throw "Peer Evaluation Student Team does not exist.";
+    }
+
+    const peerEvaluationDataByTeam = await getPeerEvaluationDataToBuildStudentTableByStudentTeamId(
+      peerEvaluationId,
+      peerEvaluationStudentTeamData.id
+    );
+
+    if (!peerEvaluationDataByTeam) {
+      throw "Peer Evaluation does not exist.";
+    }
+
+    const userId = await getUserIdByEmail(studentCreated.studentEmail);
+
+    if (!userId) {
+      throw "User does not exist.";
+    }
+
+    const peerEvaluationStudentCreated = getPeerEvaluationStudentListByStudentUpdated(
+      peerEvaluationDataByTeam.peerEvaluationStudents,
+      userId
+    );
+
+    const peerEvaluationRevieweesToBuildStudentTable = getPeerEvaluationRevieweesToBuildStudentTable(
+      peerEvaluationId,
+      peerEvaluationStudentTeamData.id,
+      peerEvaluationStudentCreated,
+      peerEvaluationDataByTeam.columns
+    );
+
+    const peerEvaluationStudentsCurrentStudentTeam = getPeerEvaluationStudentListByValidPeerEvaluationTables(
+      peerEvaluationDataByTeam.peerEvaluationStudents,
+      peerEvaluationStudentTeamData.id
+    );
+
+    for (const peerEvaluationStudentCurrentStudentTeam of peerEvaluationStudentsCurrentStudentTeam) {
+      await updatePeerEvaluationStudentReview(
+        peerEvaluationStudentCurrentStudentTeam.id,
+        peerEvaluationRevieweesToBuildStudentTable
+      );
+    }
+  }
+};
+
+export type { TCreatePeerEvaluationStudentBulk };
+
+export { createPeerEvaluationStudentTableByStudent, onCreatePeerEvaluationStudentBulk };

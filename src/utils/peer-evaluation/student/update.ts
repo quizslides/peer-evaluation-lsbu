@@ -114,4 +114,8 @@ const updatePeerEvaluationStudentTableOnStudentTeamUpdated = async (
   await calculatePeerEvaluationStudentMark(peerEvaluationId, peerEvaluationStudentTeamIdPrevious);
 };
 
-export { updatePeerEvaluationStudentTableOnStudentTeamUpdated };
+export {
+  getPeerEvaluationStudentListByStudentUpdated,
+  updatePeerEvaluationStudentReview,
+  updatePeerEvaluationStudentTableOnStudentTeamUpdated,
+};

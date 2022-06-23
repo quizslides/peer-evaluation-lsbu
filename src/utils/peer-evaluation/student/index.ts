@@ -49,6 +49,7 @@ const isPeerEvaluationStudentTableExists = async (peerEvaluationStudentId: strin
   return !!peerEvaluationStudentReviewData?.id;
 };
 
+// TODO: Review if can be filtered by only teams
 const getPeerEvaluationDataToBuildStudentTable = async (
   peerEvaluationId: string
 ): Promise<IPeerEvaluationDataToBuildStudentTable | null> => {
@@ -65,6 +66,32 @@ const getPeerEvaluationDataToBuildStudentTable = async (
     },
     where: {
       id: peerEvaluationId,
+    },
+  });
+};
+
+const getPeerEvaluationDataToBuildStudentTableByStudentTeamId = async (
+  peerEvaluationId: string,
+  peerEvaluationStudentTeamId: string
+): Promise<IPeerEvaluationDataToBuildStudentTable | null> => {
+  return await prisma.peerEvaluation.findFirst({
+    select: {
+      code: true,
+      peerEvaluationStudents: {
+        include: {
+          peerEvaluationReviewed: true,
+        },
+      },
+      PeerEvaluationStudentTeam: true,
+      columns: true,
+    },
+    where: {
+      id: peerEvaluationId,
+      peerEvaluationStudents: {
+        some: {
+          peerEvaluationStudentTeamId: peerEvaluationStudentTeamId,
+        },
+      },
     },
   });
 };
@@ -202,6 +229,7 @@ const setPeerEvaluationStudentTableAsIncomplete = async (peerEvaluationStudentId
 
 export {
   getPeerEvaluationDataToBuildStudentTable,
+  getPeerEvaluationDataToBuildStudentTableByStudentTeamId,
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentId,
   getPeerEvaluationStudentListByValidPeerEvaluationTables,

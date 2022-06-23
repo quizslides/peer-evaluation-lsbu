@@ -27,6 +27,7 @@ import { CheckIcon, EditIcon, WidgetsIcon } from "@/icons";
 import createManyPeerEvaluationStudentTeams from "@/requests/direct/mutation/createManyPeerEvaluationStudentTeams";
 import createMultipleUsers from "@/requests/direct/mutation/createMultipleUsers";
 import createPeerEvaluationStudent from "@/requests/direct/mutation/createPeerEvaluationStudent";
+import createPeerEvaluationStudentBulk from "@/requests/direct/mutation/createPeerEvaluationStudentBulk";
 import updatePeerEvaluationStudent from "@/requests/direct/mutation/updatePeerEvaluationStudent";
 import getGroupByPeerEvaluationStudentTeam from "@/requests/direct/query/getGroupByPeerEvaluationStudentTeam";
 import getGroupByUserByEmail from "@/requests/direct/query/getGroupByUserByEmail";
@@ -393,7 +394,16 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
     setOpenPeerEvaluationEditAction(false);
     runRefreshPeerEvaluationStudents();
 
-    successNotification("Success", "onUploadCSVStudentsTeamAccept");
+    const newPeerEvaluationStudentsCreated = studentToCreateState.map(({ studentEmail, teamName }) => ({
+      studentEmail,
+      studentTeamName: teamName,
+    }));
+
+    if (newPeerEvaluationStudentsCreated.length && peerEvaluationStudentsData?.length) {
+      await createPeerEvaluationStudentBulk(apolloClient, newPeerEvaluationStudentsCreated, peerEvaluationId);
+    }
+
+    successNotification("Bulk process ran successfully", "onUploadCSVStudentsTeamAccept");
   };
 
   const columnsUserDataBulkError = [
