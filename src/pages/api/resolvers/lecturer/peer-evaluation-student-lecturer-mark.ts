@@ -96,16 +96,10 @@ class PeerEvaluationStudentsLecturerMark {
     };
 
     for (const { id, lecturerAdjustedMark } of where.peerEvaluationStudentsLecturerMarkData) {
-      console.log(id, lecturerAdjustedMark);
-
-      try {
-        if (lecturerAdjustedMark) {
-          await updateFinalMark(id, lecturerAdjustedMark);
-        } else {
-          await updateSystemAdjustedMark(id);
-        }
-      } catch (e) {
-        console.log(e);
+      if (lecturerAdjustedMark) {
+        await updateFinalMark(id, lecturerAdjustedMark);
+      } else {
+        await updateSystemAdjustedMark(id);
       }
     }
 
