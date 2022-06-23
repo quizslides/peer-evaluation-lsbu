@@ -286,8 +286,8 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
     ): IPeerEvaluationStudentData[] => {
       const peerEvaluationStudentId = data.peerEvaluationStudentId;
 
-      const sanitized = data.PeerEvaluationReviewees?.map((peerEvaluationReviewee) => {
-        const peerEvaluationRevieweesColumns = peerEvaluationReviewee.PeerEvaluationRevieweeColumn?.map((column) => ({
+      const sanitized = data.peerEvaluationReviewees?.map((peerEvaluationReviewee) => {
+        const peerEvaluationRevieweesColumns = peerEvaluationReviewee.peerEvaluationRevieweeColumns?.map((column) => ({
           [column.peerEvaluationColumnId]: {
             peerEvaluationRevieweeColumnId: column.id,
             columnId: column.peerEvaluationColumnId,

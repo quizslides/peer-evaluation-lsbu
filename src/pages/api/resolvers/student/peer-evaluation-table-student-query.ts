@@ -63,9 +63,15 @@ class PeerEvaluationTableStudentInfoResponse {
 
   @Field((_type) => String, {
     nullable: false,
-    description: "Peer Evaluation Student Team Dame Updated At",
+    description: "Peer Evaluation Student Team Date Updated At",
   })
   updatedAt!: string;
+
+  @Field((_type) => Boolean, {
+    nullable: false,
+    description: "Peer Evaluation Student Team is Completed",
+  })
+  isCompleted!: boolean;
 }
 
 @ObjectType({
@@ -186,9 +192,9 @@ class PeerEvaluationTableStudentQuery {
     const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
       select: {
         updatedAt: true,
+        isCompleted: true,
       },
       where: {
-        isCompleted: true,
         peerEvaluationStudentId: peerEvaluationStudentId,
       },
     });
@@ -203,6 +209,7 @@ class PeerEvaluationTableStudentQuery {
       updatedAt: peerEvaluationStudentTableInfo?.updatedAt
         ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
         : "N/A",
+      isCompleted: !!peerEvaluationStudentTableInfo?.isCompleted,
     };
 
     if (!isPeerEvaluationVisible) {
@@ -231,7 +238,7 @@ class PeerEvaluationTableStudentQuery {
         createdAt: true,
         _count: {
           select: {
-            PeerEvaluationReviewees: true,
+            peerEvaluationReviewees: true,
           },
         },
         peerEvaluationStudent: {
@@ -257,7 +264,7 @@ class PeerEvaluationTableStudentQuery {
             },
           },
         },
-        PeerEvaluationReviewees: {
+        peerEvaluationReviewees: {
           orderBy: {
             studentReviewed: {
               studentName: "asc",
@@ -280,7 +287,7 @@ class PeerEvaluationTableStudentQuery {
               },
             },
             peerEvaluationReviewId: true,
-            PeerEvaluationRevieweeColumn: {
+            peerEvaluationRevieweeColumns: {
               select: {
                 peerEvaluationColumnId: true,
                 criteriaScore: true,

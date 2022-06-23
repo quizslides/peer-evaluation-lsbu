@@ -32,7 +32,7 @@ const createPeerEvaluationStudentReview = async (
           },
         },
       },
-      PeerEvaluationReviewees: {
+      peerEvaluationReviewees: {
         create: peerEvaluationRevieweesToBuildStudentTable,
       },
     },

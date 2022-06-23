@@ -1,4 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
+import { PeerEvaluationRevieweeOrderByWithRelationInput } from "@generated/type-graphql";
 
 import {
   PeerEvaluationTableStudentLecturerResponse,
@@ -10,7 +11,7 @@ import { errorNotification, successNotification } from "@/utils";
 const useGetPeerEvaluationTableStudent = (notificationsId: string) => {
   return useLazyQuery<
     { peerEvaluationTableStudentLecturer: PeerEvaluationTableStudentLecturerResponse },
-    { where: PeerEvaluationTableStudentLecturerWhereInput }
+    { where: PeerEvaluationTableStudentLecturerWhereInput; orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput] }
   >(GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER, {
     fetchPolicy: "no-cache",
     onError: (error) => {

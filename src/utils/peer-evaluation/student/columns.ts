@@ -7,7 +7,7 @@ import {
 const onAddPeerEvaluationColumns = async (peerEvaluationId: string, columnIds: string[]) => {
   const peerEvaluationData = await prisma.peerEvaluation.findFirst({
     select: {
-      PeerEvaluationStudentTeam: true,
+      peerEvaluationStudentTeams: true,
       columns: {
         where: {
           id: {
@@ -28,7 +28,7 @@ const onAddPeerEvaluationColumns = async (peerEvaluationId: string, columnIds: s
     return null;
   }
 
-  for (const studentTeam of peerEvaluationData.PeerEvaluationStudentTeam) {
+  for (const studentTeam of peerEvaluationData.peerEvaluationStudentTeams) {
     const peerEvaluationStudentsCurrentTeam = getPeerEvaluationStudentListByValidPeerEvaluationTables(
       peerEvaluationData.peerEvaluationStudents,
       studentTeam.id

@@ -5,6 +5,7 @@ import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-gr
 import { PeerEvaluationTableStudentInfoResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { getDateLocaleString } from "@/utils/date";
 import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student";
+import { createPeerEvaluationStudentTableByStudent } from "@/utils/peer-evaluation/student/create";
 
 @InputType({
   isAbstract: true,
@@ -131,7 +132,7 @@ class PeerEvaluationTableStudentLecturerQuery {
       },
     });
 
-    const peerEvaluationStudentTableExist = await isPeerEvaluationStudentTableExists(studentId);
+    const isPeerEvaluationStudentTableExistsData = await isPeerEvaluationStudentTableExists(studentId);
 
     if (!user || !peerEvaluationData || !peerEvaluationStudentList) {
       return {
@@ -144,15 +145,8 @@ class PeerEvaluationTableStudentLecturerQuery {
       };
     }
 
-    if (!peerEvaluationStudentTableExist) {
-      return {
-        readOnly: undefined,
-        visible: undefined,
-        message: "Peer Evaluation student table has not been created",
-        peerEvaluation: undefined,
-        peerEvaluationStudentReview: undefined,
-        peerEvaluationStudentInfo: undefined,
-      };
+    if (!isPeerEvaluationStudentTableExistsData) {
+      await createPeerEvaluationStudentTableByStudent(user.id, peerEvaluationData.id);
     }
 
     const peerEvaluationStudentId = peerEvaluationStudentList?.id;
@@ -166,7 +160,7 @@ class PeerEvaluationTableStudentLecturerQuery {
         createdAt: true,
         _count: {
           select: {
-            PeerEvaluationReviewees: true,
+            peerEvaluationReviewees: true,
           },
         },
         peerEvaluationStudent: {
@@ -192,10 +186,10 @@ class PeerEvaluationTableStudentLecturerQuery {
             },
           },
         },
-        PeerEvaluationReviewees: {
+        peerEvaluationReviewees: {
           orderBy: {
             studentReviewed: {
-              id: "asc",
+              studentName: "asc",
             },
           },
           select: {
@@ -211,10 +205,11 @@ class PeerEvaluationTableStudentLecturerQuery {
                     email: true,
                   },
                 },
+                studentName: true,
               },
             },
             peerEvaluationReviewId: true,
-            PeerEvaluationRevieweeColumn: {
+            peerEvaluationRevieweeColumns: {
               select: {
                 peerEvaluationColumnId: true,
                 criteriaScore: true,
@@ -235,9 +230,9 @@ class PeerEvaluationTableStudentLecturerQuery {
     const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
       select: {
         updatedAt: true,
+        isCompleted: true,
       },
       where: {
-        isCompleted: true,
         peerEvaluationStudentId: peerEvaluationStudentId,
       },
     });
@@ -252,6 +247,7 @@ class PeerEvaluationTableStudentLecturerQuery {
       updatedAt: peerEvaluationStudentTableInfo?.updatedAt
         ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
         : "N/A",
+      isCompleted: !!peerEvaluationStudentTableInfo?.isCompleted,
     };
 
     return {

@@ -88,7 +88,7 @@ class PeerEvaluationsByLecturerQuery {
             peerEvaluationTeachingMembers: true,
             columns: true,
             peerEvaluationStudents: true,
-            PeerEvaluationStudentTeam: true,
+            peerEvaluationStudentTeams: true,
           },
         },
       },

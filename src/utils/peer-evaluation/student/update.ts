@@ -57,7 +57,7 @@ const updatePeerEvaluationStudentReview = async (
       isCompleted: {
         set: false,
       },
-      PeerEvaluationReviewees: {
+      peerEvaluationReviewees: {
         create: peerEvaluationRevieweesToBuildStudentTable,
       },
     },

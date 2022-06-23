@@ -51,7 +51,7 @@ interface PeerEvaluationReviewee {
 
 interface PeerEvaluationStudentList {
   user: User;
-  PeerEvaluationReviewees: PeerEvaluationReviewee[];
+  peerEvaluationReviewees: PeerEvaluationReviewee[];
   studentName: string;
 }
 
@@ -115,7 +115,7 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
               name: true,
             },
           },
-          PeerEvaluationReviewees: {
+          peerEvaluationReviewees: {
             select: {
               studentReviewed: {
                 select: {
@@ -198,7 +198,7 @@ const getStudentTeamEmailList = (peerEvaluationStudentTeam: PeerEvaluationStuden
 
 const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IPeerEvaluationStudentTeam) => {
   return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) =>
-    student.PeerEvaluationReviewees.map(
+    student.peerEvaluationReviewees.map(
       ({ criteriaScoreTotal, comment, isValid, peerEvaluationReview, id, studentReviewedId }) => ({
         reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
         reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",

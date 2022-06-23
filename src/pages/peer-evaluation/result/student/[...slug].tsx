@@ -38,6 +38,13 @@ const LecturerStudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
             peerEvaluationId: peerEvaluationId,
             studentId: studentId,
           },
+          orderBy: [
+            {
+              studentReviewed: {
+                studentName: "asc",
+              },
+            },
+          ],
         },
       });
     }

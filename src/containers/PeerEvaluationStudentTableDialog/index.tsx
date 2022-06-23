@@ -37,6 +37,13 @@ const PeerEvaluationStudentTableDialog = ({
           peerEvaluationId: peerEvaluationId,
           studentId: studentId,
         },
+        orderBy: [
+          {
+            studentReviewed: {
+              studentName: "asc",
+            },
+          },
+        ],
       },
     });
   }, [getPeerEvaluationTableStudentLecturer, peerEvaluationId, studentId, isDialogOpen]);

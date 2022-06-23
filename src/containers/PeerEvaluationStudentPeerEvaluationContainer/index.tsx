@@ -54,6 +54,8 @@ const PeerEvaluationStudentPeerEvaluationContainer = ({
                 updatedAt={peerEvaluationTableData.peerEvaluationStudentInfo.updatedAt}
                 studentEmail={peerEvaluationTableData.peerEvaluationStudentInfo.studentEmail}
                 studentName={peerEvaluationTableData.peerEvaluationStudentInfo.studentName}
+                isCompleted={peerEvaluationTableData.peerEvaluationStudentInfo.isCompleted}
+                testId={testId}
               />
               <HelperContainerWrapper>
                 <Stack direction="column" justifyContent="flex-start" alignItems="flex-end" spacing={2}>

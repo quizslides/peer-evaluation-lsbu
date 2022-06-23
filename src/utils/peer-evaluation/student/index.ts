@@ -3,7 +3,7 @@ import { PeerEvaluationColumn, PeerEvaluationStudent, PeerEvaluationStudentTeam 
 import prisma from "@/pages/api/prisma";
 
 interface IPeerEvaluationDataToBuildStudentTable {
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeam[];
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeam[];
   peerEvaluationStudents: PeerEvaluationStudent[];
   columns: PeerEvaluationColumn[];
 }
@@ -32,7 +32,7 @@ interface IPeerEvaluationRevieweesToBuildStudentTable {
       };
     };
   };
-  PeerEvaluationRevieweeColumn: {
+  peerEvaluationRevieweeColumns: {
     create: PeerEvaluationStudentTableRevieweeColumnsMutationObject[];
   };
 }
@@ -61,7 +61,7 @@ const getPeerEvaluationDataToBuildStudentTable = async (
           peerEvaluationReviewed: true,
         },
       },
-      PeerEvaluationStudentTeam: true,
+      peerEvaluationStudentTeams: true,
       columns: true,
     },
     where: {
@@ -82,7 +82,7 @@ const getPeerEvaluationDataToBuildStudentTableByStudentTeamId = async (
           peerEvaluationReviewed: true,
         },
       },
-      PeerEvaluationStudentTeam: true,
+      peerEvaluationStudentTeams: true,
       columns: true,
     },
     where: {
@@ -186,7 +186,7 @@ const getPeerEvaluationRevieweesToBuildStudentTable = (
         },
       },
     },
-    PeerEvaluationRevieweeColumn: {
+    peerEvaluationRevieweeColumns: {
       create: peerEvaluationRevieweeColumnsMutationObject,
     },
   }));
