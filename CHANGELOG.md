@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.3...v1.1.0-staging.4) (2022-06-23)
+
+
+### Bug Fixes
+
+* fixing updating peer evaluation when adding a new column ([d2433df](https://github.com/quizslides/peer-evaluation-lsbu/commit/d2433dff05781039662e18d12b26b58613388166))
+
 ## [1.1.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.2...v1.1.0-staging.3) (2022-06-23)
 
 
