@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.4...v1.1.0-staging.5) (2022-06-23)
+
+
+### Bug Fixes
+
+* fixing bug deleting team and refetching table of students ([b6ab83b](https://github.com/quizslides/peer-evaluation-lsbu/commit/b6ab83b71de2f7a746517fcdaedbd3f242ac86fb))
+
 ## [1.1.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.3...v1.1.0-staging.4) (2022-06-23)
 
 
