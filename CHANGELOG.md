@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.6...v1.1.0-staging.7) (2022-06-23)
+
+
+### Features
+
+* fixing last updated, lecturer opening per eval new lecturer, type changes and completed field ([b51ab96](https://github.com/quizslides/peer-evaluation-lsbu/commit/b51ab9656f56105d40d79b3037b0fc75ccc05e72))
+
 ## [1.1.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.5...v1.1.0-staging.6) (2022-06-23)
 
 
