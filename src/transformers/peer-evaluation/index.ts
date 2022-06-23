@@ -26,7 +26,7 @@ import {
   SchoolsDataTable,
   SchoolsDropdown,
 } from "@/types/peer-evaluation";
-import { getDateLocaleDateString } from "@/utils/date";
+import { getDateLocaleString } from "@/utils/date";
 
 type ColumnCreateMany = PeerEvaluationColumnCreateWithoutPeerEvaluationInput[];
 
@@ -53,7 +53,7 @@ const sanitizeSchoolsOnFetchPeerEvaluationView = (data: PeerEvaluationDashboard)
   return data;
 };
 
-const sanitizeSubmissionLockDate = (date: Date | null): string => (date ? getDateLocaleDateString(date) : "Not set");
+const getSanitizedSubmissionLockDate = (date: Date | null): string => (date ? getDateLocaleString(date) : "Not set");
 
 const sanitizeEmailReminderDataOnCreate = (
   subject: string,
@@ -524,10 +524,10 @@ const sanitizePeerEvaluationViewDataOnFetch = (data: PeerEvaluationDashboard): P
 };
 
 export {
+  getSanitizedSubmissionLockDate,
   sanitizePeerEvaluationDataOnCreate,
   sanitizePeerEvaluationDataOnFetch,
   sanitizePeerEvaluationDataOnUpdate,
   sanitizePeerEvaluationsDataOnFetch,
   sanitizePeerEvaluationViewDataOnFetch,
-  sanitizeSubmissionLockDate,
 };

@@ -23,7 +23,7 @@ import {
 import content from "@/content";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
-import { sanitizeSubmissionLockDate } from "@/transformers/peer-evaluation";
+import { getSanitizedSubmissionLockDate } from "@/transformers/peer-evaluation";
 import {
   IPeerEvaluationData,
   PeerEvaluationStatus,
@@ -273,7 +273,7 @@ const PeerEvaluationsDataTable = ({
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: Date) => sanitizeSubmissionLockDate(date),
+        customBodyRender: (date: Date) => getSanitizedSubmissionLockDate(date),
       },
     },
     {

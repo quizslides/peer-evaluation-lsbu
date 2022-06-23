@@ -1,22 +1,22 @@
 import React, { memo, useState } from "react";
 
-import { DatePicker as DatePickerMUI, DatePickerProps } from "@mui/lab";
+import { DateTimePicker as DatePickerMUI, DateTimePickerProps } from "@mui/lab";
 import { TextFieldProps } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 
 import TextField from "@/components/TextField/TextField";
 import { tomorrowDate } from "@/utils/form";
 
-type DatePickerPropsPartial = Pick<DatePickerProps, "disablePast" | "minDate" | "label">;
+type DateTimePickerPropsPartial = Pick<DateTimePickerProps, "disablePast" | "minDate" | "label">;
 
-interface IDatePickerForm extends DatePickerPropsPartial {
+interface IDatePickerForm extends DateTimePickerPropsPartial {
   testId: string;
   name: string;
   disabled?: boolean;
   props: TextFieldProps;
 }
 
-const DatePickerForm = ({ testId, name, label, disabled, props, ...datePickerProps }: IDatePickerForm) => {
+const DateTimePickerForm = ({ testId, name, label, disabled, props, ...datePickerProps }: IDatePickerForm) => {
   const { setFieldValue } = useFormikContext();
 
   const [field, meta] = useField(name);
@@ -43,7 +43,7 @@ const DatePickerForm = ({ testId, name, label, disabled, props, ...datePickerPro
       value={dateValue}
       label={label}
       disabled={disabled}
-      inputFormat="dd/MM/yyyy"
+      inputFormat="dd/MM/yyyy HH:mm"
       minDate={tomorrowDate()}
       onChange={(newValue) => {
         setDateValue(newValue as Date | null);
@@ -54,4 +54,4 @@ const DatePickerForm = ({ testId, name, label, disabled, props, ...datePickerPro
   );
 };
 
-export default memo(DatePickerForm);
+export default memo(DateTimePickerForm);

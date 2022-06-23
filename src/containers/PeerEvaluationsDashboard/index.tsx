@@ -18,6 +18,7 @@ import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluatio
 import routing from "@/routing";
 import { PeerEvaluationStatus } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
+import { getDateLocaleString, getDateTimeDiff } from "@/utils/date";
 
 interface IPeerEvaluationsDashboard {
   data: PeerEvaluationDashboard;
@@ -227,20 +228,14 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
       name: "submissionsLockDate",
       label: "Submissions Lock Date",
       options: {
-        customBodyRender: (date: string) => {
+        customBodyRender: (date: Date) => {
           if (!date) {
             return "Not set";
           }
 
-          const todaysDate = new Date().getTime();
+          const timeRemaining = getDateTimeDiff(new Date(date));
 
-          const submissionsLockDate = new Date(date).getTime();
-
-          const remainingDates = submissionsLockDate - todaysDate;
-
-          const remainingDays = Math.floor(remainingDates / (1000 * 3600 * 24));
-
-          return `${new Date(date).toDateString()} - ${remainingDays} days remaining`;
+          return `${getDateLocaleString(date)} - ${timeRemaining}`;
         },
       },
     },

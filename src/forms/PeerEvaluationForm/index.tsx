@@ -8,7 +8,7 @@ import { object } from "yup";
 import {
   Button,
   ConfirmationDialog,
-  DatePickerForm,
+  DateTimePickerForm,
   Divider,
   SelectFieldForm,
   SelectMultipleFieldForm,
@@ -226,7 +226,7 @@ const PeerEvaluationForm = ({
               </FieldWrapper>
 
               <FieldWrapper marginBottom="3em">
-                <DatePickerForm
+                <DateTimePickerForm
                   testId="peer-evaluation-form-peer-evaluation-submissions-lock-date-field"
                   name="submissionsLockDate"
                   disablePast

@@ -28,27 +28,27 @@ const PeerEvaluationInfo = ({
   return (
     <Card sx={{ minWidth: 275, width: 275, marginBottom: "1rem" }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Student Email: </strong>
           {studentEmail}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Student Name: </strong>
           {studentName}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Team Name: </strong>
           {teamName}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Last Updated: </strong>
           {updatedAt}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography noWrap sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Submission Deadline: </strong>
           {submissionDeadline}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary">
+        <Typography sx={{ fontSize: 13 }} color="text.secondary">
           <strong>Completed: </strong>
           {isCompleted ? (
             <CheckIcon

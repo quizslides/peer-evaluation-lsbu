@@ -6,7 +6,7 @@ import { render, screen } from "@testing-library/react";
 import { Form, Formik } from "formik";
 import { date, object } from "yup";
 
-import { DatePickerForm } from "@/components";
+import { DateTimePickerForm } from "@/components";
 
 describe("Testing MobileDateTimePicker component", () => {
   it("renders a MobileDateTimePicker with test id", () => {
@@ -29,7 +29,7 @@ describe("Testing MobileDateTimePicker component", () => {
         <Formik initialValues={initialFormState} validationSchema={validationSchema} onSubmit={jest.fn()}>
           {() => (
             <Form>
-              <DatePickerForm
+              <DateTimePickerForm
                 testId={testId}
                 name={fieldName}
                 disablePast
