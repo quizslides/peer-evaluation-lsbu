@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.2...v1.1.0-staging.3) (2022-06-23)
+
+
+### Features
+
+* adding on add student to sync reviewees across the same team ([eef23a7](https://github.com/quizslides/peer-evaluation-lsbu/commit/eef23a7611ec7af1ef25cc7e2122b777204f9e07))
+
 ## [1.1.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.1...v1.1.0-staging.2) (2022-06-22)
 
 
