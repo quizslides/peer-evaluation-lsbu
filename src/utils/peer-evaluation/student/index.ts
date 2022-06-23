@@ -215,7 +215,7 @@ const getPeerEvaluationStudentId = async (userId: string, peerEvaluationId: stri
 };
 
 const setPeerEvaluationStudentTableAsIncomplete = async (peerEvaluationStudentId: string) => {
-  await prisma.peerEvaluationStudentReview.update({
+  await prisma.peerEvaluationStudentReview.updateMany({
     where: {
       peerEvaluationStudentId: peerEvaluationStudentId,
     },
