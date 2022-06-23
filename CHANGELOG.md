@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.5...v1.1.0-staging.6) (2022-06-23)
+
+
+### Bug Fixes
+
+* fixing updating lecturerAdjustedMark as it was causing conflict with the hooks ([1428d8b](https://github.com/quizslides/peer-evaluation-lsbu/commit/1428d8b21a32c8ec415fff28c706838132086562))
+* removing console.log for debugging bug of lecturerAdjustedMark ([1efbfe1](https://github.com/quizslides/peer-evaluation-lsbu/commit/1efbfe15716e694074abc01e24e675295793d043))
+
 ## [1.1.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.4...v1.1.0-staging.5) (2022-06-23)
 
 
