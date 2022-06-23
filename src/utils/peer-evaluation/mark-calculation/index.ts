@@ -329,7 +329,7 @@ const updatePeerEvaluationStudentData = async (
   finalMark: number,
   comments: string
 ) => {
-  await prisma.peerEvaluationStudent.update({
+  await prisma.peerEvaluationStudent.updateMany({
     data: {
       averageCriteriaScore: averageCriteriaScore,
       averageCriteriaScoreByTeamMember: averageCriteriaScoreByTeamMember,
@@ -340,9 +340,11 @@ const updatePeerEvaluationStudentData = async (
       comments: comments,
     },
     where: {
-      userId_peerEvaluationId: {
-        peerEvaluationId: peerEvaluationId,
-        userId: userId,
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+      userId: {
+        equals: userId,
       },
     },
   });

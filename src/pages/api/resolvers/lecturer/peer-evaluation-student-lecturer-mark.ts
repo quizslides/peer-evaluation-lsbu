@@ -60,7 +60,7 @@ class PeerEvaluationStudentsLecturerMark {
     @Arg("where") where: PeerEvaluationStudentsLecturerMarkInputData
   ): Promise<PeerEvaluationStudentsLecturerMarkResponse> {
     const updateFinalMark = async (id: string, lecturerAdjustedMark: number) => {
-      await ctx.prisma.peerEvaluationStudent.update({
+      await ctx.prisma.peerEvaluationStudent.updateMany({
         data: {
           lecturerAdjustedMark,
           finalMark: lecturerAdjustedMark,
@@ -83,7 +83,7 @@ class PeerEvaluationStudentsLecturerMark {
 
       const systemAdjustedMark = peerEvaluationStudentData?.systemAdjustedMark;
 
-      await ctx.prisma.peerEvaluationStudent.update({
+      await ctx.prisma.peerEvaluationStudent.updateMany({
         data: {
           systemAdjustedMark,
           lecturerAdjustedMark: null,
@@ -96,10 +96,16 @@ class PeerEvaluationStudentsLecturerMark {
     };
 
     for (const { id, lecturerAdjustedMark } of where.peerEvaluationStudentsLecturerMarkData) {
-      if (lecturerAdjustedMark) {
-        await updateFinalMark(id, lecturerAdjustedMark);
-      } else {
-        await updateSystemAdjustedMark(id);
+      console.log(id, lecturerAdjustedMark);
+
+      try {
+        if (lecturerAdjustedMark) {
+          await updateFinalMark(id, lecturerAdjustedMark);
+        } else {
+          await updateSystemAdjustedMark(id);
+        }
+      } catch (e) {
+        console.log(e);
       }
     }
 
