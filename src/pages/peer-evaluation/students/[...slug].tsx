@@ -391,9 +391,6 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
 
     await Promise.all(updatePeerEvaluationStudents);
 
-    setOpenPeerEvaluationEditAction(false);
-    runRefreshPeerEvaluationStudents();
-
     const newPeerEvaluationStudentsCreated = studentToCreateState.map(({ studentEmail, teamName }) => ({
       studentEmail,
       studentTeamName: teamName,
@@ -402,6 +399,9 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
     if (newPeerEvaluationStudentsCreated.length && peerEvaluationStudentsData?.length) {
       await createPeerEvaluationStudentBulk(apolloClient, newPeerEvaluationStudentsCreated, peerEvaluationId);
     }
+
+    setOpenPeerEvaluationEditAction(false);
+    runRefreshPeerEvaluationStudents();
 
     successNotification("Bulk process ran successfully", "onUploadCSVStudentsTeamAccept");
   };

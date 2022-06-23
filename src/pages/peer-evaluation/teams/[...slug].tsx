@@ -132,6 +132,19 @@ const Teams: NextPage = () => {
   const onDeletePeerEvaluationColumnAccept = async () => {
     loadingNotification("Deleting team", "DeletePeerEvaluationStudentTeam");
 
+    const peerEvaluationStudentTeamToDelete = data?.peerEvaluationStudentTeams.find(
+      ({ id }) => deletePeerEvaluationStudentTeamId === id
+    );
+
+    if (
+      peerEvaluationStudentTeamToDelete?._count?.peerEvaluationStudentList &&
+      peerEvaluationStudentTeamToDelete._count.peerEvaluationStudentList > 0
+    ) {
+      errorNotification("Whoops... You cannot delete a team with students", "DeletePeerEvaluationStudentTeam");
+      setDeletePeerEvaluationStudentTeamConfirmationOpen(false);
+      return null;
+    }
+
     const { errors } = await deletePeerEvaluationStudentTeam(apolloClient, deletePeerEvaluationStudentTeamId || "");
 
     if (errors?.length) {
