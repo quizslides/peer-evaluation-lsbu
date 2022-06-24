@@ -8,6 +8,6 @@ describe("HomePage test", () => {
   });
 
   it("open home page and sign in button is visible", () => {
-    cy.get("[data-testid=homepage-routing-sign-in-button").contains("Sign In");
+    cy.get("[data-testid=homepage-title").contains("Sign In");
   });
 });
