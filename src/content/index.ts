@@ -231,7 +231,9 @@ const content = {
   },
   pages: {
     homePage: {
-      title: "Peer Evaluation",
+      title: "LSBU Peer Evaluation",
+      subTitleTop: "Fairer Teamwork",
+      subTitleBottom: "Assessment",
       signIn: {
         button: "Sign In",
       },

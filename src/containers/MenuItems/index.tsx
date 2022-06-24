@@ -11,7 +11,7 @@ import { NextRouter } from "next/router";
 import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem, { IMenuItem } from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import MenuSingleItems from "@/containers/MenuSingleItems";
-import { AddIcon, GridViewIcon, GroupIcon, ListIcon, LoginIcon, LogoutIcon, ViewModuleIcon } from "@/icons";
+import { GridViewIcon, GroupIcon, LoginIcon, LogoutIcon, ViewModuleIcon } from "@/icons";
 import routing from "@/routing";
 import { RoleScope } from "@/utils";
 

@@ -2,7 +2,21 @@ import styled from "@emotion/styled";
 
 import Typography from "@/components/Typography/Typography";
 
-export const Body = styled.div`
+interface BodyProps {
+  backgroundImage: string | null;
+}
+
+interface FooterTextProps {
+  color?: string;
+}
+
+export const Body = styled.div<BodyProps>`
+  background: ${(props) =>
+    props.backgroundImage
+      ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props.backgroundImage})`
+      : ""};
+  background-size: ${(props) => (props.backgroundImage ? "cover" : "")};
+  background-repeat: ${(props) => (props.backgroundImage ? "no-repeat" : "")};
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -45,12 +59,12 @@ export const Footer = styled(container)`
   padding-bottom: 1.5rem;
 `;
 
-export const FooterText = styled(Typography)`
-  opacity: 0.5;
+export const FooterText = styled(Typography)<FooterTextProps>`
+  opacity: "0.5";
+  color: ${(props) => (props.color ? props.color : "")};
 
   &:hover {
-    opacity: 0.7;
-  }
+    opacity:  "0.7";
 `;
 
 export const Main = styled(container)`
