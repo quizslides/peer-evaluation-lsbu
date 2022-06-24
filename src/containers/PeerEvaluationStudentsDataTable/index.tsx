@@ -21,7 +21,6 @@ import {
 } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
 import LoadingContainer from "@/containers/LoadingContainer";
-import { FieldWrapper } from "@/forms/style";
 import { CheckIcon, CloseIcon, SaveIcon } from "@/icons";
 import { PeerEvaluationStudentsLecturerMarkInput } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
 import useDeleteManyStudents from "@/requests/hooks/mutations/useDeleteManyStudents";
@@ -133,18 +132,17 @@ const PeerEvaluationStudentsDataTable = ({
         download: false,
         customBodyRender: (_, tableMeta) => {
           return (
-            <FieldWrapper marginBottom="1em">
-              <Button
-                onClick={() => {
-                  const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
-                  onViewResultsPeerEvaluationStudent(dataTable.data[1] as string);
-                }}
-                testId={""}
-                variant="contained"
-              >
-                Peer Evaluation
-              </Button>
-            </FieldWrapper>
+            <Button
+              size="small"
+              onClick={() => {
+                const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
+                onViewResultsPeerEvaluationStudent(dataTable.data[1] as string);
+              }}
+              testId={""}
+              variant="contained"
+            >
+              Peer Evaluation
+            </Button>
           );
         },
       },
@@ -213,25 +211,25 @@ const PeerEvaluationStudentsDataTable = ({
       name: "lecturerAdjustedMark",
       label: "Lectured Adjusted Mark",
       options: {
+        setCellProps: () => ({ style: { minWidth: "250px", width: "250px" } }),
         customBodyRender: (_, tableMeta, updateValue) => (
-          <FieldWrapper marginBottom="3em">
-            <TextFieldFormDataTable
-              updateDataTableFormValue={updateValue}
-              validationSchema={validationSchema}
-              validationFieldPath={"lecturerAdjustedMarks.lecturerAdjustedMark"}
-              testId=""
-              name={`lecturerAdjustedMarks[${tableMeta.rowIndex}].lecturerAdjustedMark`}
-              props={{
-                name: `lecturerAdjustedMarks[${tableMeta.rowIndex}].lecturerAdjustedMark`,
-                fullWidth: true,
-                label: "Mark",
-                type: "number",
-                variant: "outlined",
-                inputProps: { min: 0, max: 100, step: "0.01" },
-                disabled: isReadOnly,
-              }}
-            />
-          </FieldWrapper>
+          <TextFieldFormDataTable
+            updateDataTableFormValue={updateValue}
+            validationSchema={validationSchema}
+            validationFieldPath={"lecturerAdjustedMarks.lecturerAdjustedMark"}
+            testId=""
+            name={`lecturerAdjustedMarks[${tableMeta.rowIndex}].lecturerAdjustedMark`}
+            props={{
+              name: `lecturerAdjustedMarks[${tableMeta.rowIndex}].lecturerAdjustedMark`,
+              fullWidth: true,
+              size: "small",
+              label: "Mark",
+              type: "number",
+              variant: "outlined",
+              inputProps: { min: 0, max: 100, step: "0.01" },
+              disabled: isReadOnly,
+            }}
+          />
         ),
       },
     },
