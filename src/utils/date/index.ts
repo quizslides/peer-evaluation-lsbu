@@ -1,6 +1,6 @@
 const getDateOffSetValue = (date: Date) => new Date(date).getTimezoneOffset();
 
-const getDate = (date: Date, offSet = 0) => new Date(new Date(date).getTime() + offSet * 1000);
+const getDate = (date: Date, offSet = 0) => new Date(new Date(date).getTime() + offSet);
 
 const getDateLocaleString = (date: Date) => {
   const currentDateOffSet = getDateOffSetValue(date);
