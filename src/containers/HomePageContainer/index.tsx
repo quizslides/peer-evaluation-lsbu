@@ -30,7 +30,7 @@ const HomePageContainer = () => {
             />
             <PageTitle
               title={content.pages.homePage.subTitleTop}
-              testId="homepage-title"
+              testId="homepage-subtitle-top"
               variant="h3"
               fontColor="white"
               textAlignment="left"
@@ -38,7 +38,7 @@ const HomePageContainer = () => {
             />
             <PageTitle
               title={content.pages.homePage.subTitleBottom}
-              testId="homepage-title"
+              testId="homepage-subtitle-bottom"
               variant="h3"
               fontColor="white"
               textAlignment="left"

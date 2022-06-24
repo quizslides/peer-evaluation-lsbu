@@ -7,7 +7,7 @@ describe("HomePage test", () => {
     cy.visit("http://localhost:3000");
   });
 
-  it("open home page and sign in button is visible", () => {
-    cy.get("[data-testid=homepage-title").contains("Sign In");
+  it("open home page and title is visible", () => {
+    cy.get("[data-testid=homepage-title").contains("LSBU Peer Evaluation");
   });
 });
