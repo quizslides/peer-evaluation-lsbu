@@ -86,6 +86,20 @@ const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
   }
 `;
 
+const GET_PEER_EVALUATIONS_STUDENT = gql`
+  query PeerEvaluationsStudent {
+    peerEvaluationsStudent {
+      peerEvaluationsStudent {
+        updatedAt
+        code
+        isCompleted
+        submissionsLockDate
+        peerEvaluationStatus
+      }
+    }
+  }
+`;
+
 const GET_PEER_EVALUATION_STUDENT_TEAMS = gql`
   query PeerEvaluationStudentTeams(
     $where: PeerEvaluationStudentTeamWhereInput
@@ -748,6 +762,7 @@ export {
   GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,
+  GET_PEER_EVALUATIONS_STUDENT,
   PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
   PEER_EVALUATION_STUDENT_TEAM_EXIST,

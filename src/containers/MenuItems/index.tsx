@@ -11,16 +11,7 @@ import { NextRouter } from "next/router";
 import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem, { IMenuItem } from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import MenuSingleItems from "@/containers/MenuSingleItems";
-import {
-  AddIcon,
-  GridViewIcon,
-  GroupIcon,
-  ListIcon,
-  LoginIcon,
-  LogoutIcon,
-  VideogameAssetIcon,
-  ViewModuleIcon,
-} from "@/icons";
+import { AddIcon, GridViewIcon, GroupIcon, ListIcon, LoginIcon, LogoutIcon, ViewModuleIcon } from "@/icons";
 import routing from "@/routing";
 import { RoleScope } from "@/utils";
 
@@ -40,30 +31,23 @@ const menuExpandableItems: IMenuItemList = {
   admin: {
     scope: [RoleScope.ADMIN],
     menuTitle: "Administrator",
-    menuDescription: "Administrator menu",
+    menuDescription: "Administrator Access",
     menuItemList: [
       { icon: <GroupIcon testId={"menu-expandable-admin-users"} />, label: "Users", pathname: routing.admin.users },
       {
         icon: <ViewModuleIcon testId={"menu-expandable-admin-peer-evaluations"} />,
-        label: "Peer Evaluations",
+        label: "Admin Peer Evaluations",
         pathname: routing.admin.peerEvaluation,
       },
-    ],
-  },
-  peerEvaluations: {
-    scope: [RoleScope.ADMIN, RoleScope.LECTURER],
-    menuTitle: "Peer Evaluations",
-    menuDescription: "Peer Evaluations menu",
-    menuItemList: [
       {
-        icon: <ListIcon testId={"menu-expandable-peer-evaluations-list"} />,
-        label: "List Peer Evaluations",
-        pathname: routing.peerEvaluation.list,
+        icon: <ViewModuleIcon testId={"menu-expandable-admin-peer-evaluations"} />,
+        label: "Lecturer Peer Evaluations",
+        pathname: routing.lecturer.peerEvaluations,
       },
       {
-        icon: <AddIcon testId={"menu-expandable-peer-evaluations-add"} />,
-        label: "Create Peer Evaluation",
-        pathname: routing.peerEvaluation.create,
+        icon: <ViewModuleIcon testId={"menu-expandable-admin-peer-evaluations"} />,
+        label: "Student Peer Evaluations",
+        pathname: routing.student.peerEvaluations,
       },
     ],
   },
@@ -71,26 +55,26 @@ const menuExpandableItems: IMenuItemList = {
 
 const menuTopItems = [
   {
-    title: "Dashboard",
+    title: "Peer Evaluations",
     icon: <GridViewIcon testId={"menu-item-dashboard"} />,
-    pathname: routing.dashboard,
-    scope: [RoleScope.AUTHENTICATED],
+    pathname: routing.lecturer.peerEvaluations,
+    scope: [RoleScope.LECTURER],
   },
+  {
+    title: "Peer Evaluations",
+    icon: <GridViewIcon testId={"menu-item-dashboard"} />,
+    pathname: routing.student.peerEvaluations,
+    scope: [RoleScope.STUDENT],
+  },
+];
+
+const menuBottomItems = [
   {
     title: "Sign In",
     icon: <LoginIcon testId={"menu-item-sign-in"} />,
     pathname: routing.auth.signIn,
     scope: [RoleScope.UNAUTHENTICATED],
   },
-  {
-    title: "Playground",
-    icon: <VideogameAssetIcon testId={"menu-item-playground"} />,
-    pathname: routing.playground,
-    scope: undefined,
-  },
-];
-
-const menuBottomItems = [
   {
     title: "Sign out",
     icon: <LogoutIcon testId={"menu-expandable-account"} />,
@@ -144,7 +128,7 @@ const MenuItems = ({ router }: IMenuItems) => {
             />
           </ListItemButton>
 
-          <MenuSingleItems router={router} menuItems={menuTopItems} />
+          {session && session.user.role !== "ADMIN" && <MenuSingleItems router={router} menuItems={menuTopItems} />}
 
           {Object.keys(menuExpandableItems).map((menuItemList) => {
             return (

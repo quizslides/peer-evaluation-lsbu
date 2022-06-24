@@ -36,7 +36,7 @@ const PeerEvaluationEmail: NextPage<NextPagePros> = ({ session }) => {
       return query.redirectUrl;
     }
 
-    return routing.dashboard;
+    return routing.home;
   };
 
   const onCancelEmailReminderForm = () => {

@@ -28,7 +28,7 @@ const UpdatePeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
       return query.redirectUrl;
     }
 
-    return routing.dashboard;
+    return routing.home;
   };
 
   const onSubmitUpdatePeerEvaluation = () => {

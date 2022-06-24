@@ -20,11 +20,11 @@ import { PeerEvaluationStatus } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
 import { getDateLocaleString, getDateTimeDiff } from "@/utils/date";
 
-interface IPeerEvaluationsDashboard {
+interface IPeerEvaluationDashboardContainer {
   data: PeerEvaluationDashboard;
 }
 
-const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
+const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardContainer) => {
   const { push } = useRouter();
 
   const apolloClient = useApolloClient();
@@ -49,7 +49,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
     push({
       pathname: `${pagePath}/${peerEvaluationId}`,
       query: {
-        redirectUrl: `${routing.peerEvaluation.view}/${peerEvaluationId}`,
+        redirectUrl: `${routing.lecturer.peerEvaluation.view}/${peerEvaluationId}`,
       },
     });
   };
@@ -72,7 +72,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
 
       if (!errors) {
         successNotification("Peer Evaluation deleted successfully", "DeletingPeerEvaluation");
-        push(routing.dashboard);
+        push(routing.home);
       } else {
         // TODO: Create a granular error notification to the user with all the errors
         errorNotification("Error deleting peer evaluation", "DeletingPeerEvaluation");
@@ -130,7 +130,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.students)}
+              onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.students)}
               size="medium"
             >
               {total} Edit
@@ -149,7 +149,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.edit)}
+              onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.edit)}
               size="medium"
             >
               {total} Edit
@@ -168,7 +168,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.teams)}
+              onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.teams)}
               size="medium"
             >
               {total} Edit
@@ -187,7 +187,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
             <Button
               variant={"outlined"}
               testId={"peer-evaluation-dashboard-email-reminder"}
-              onClick={() => onRedirectToPage(routing.peerEvaluation.teams)}
+              onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.teams)}
               size="medium"
             >
               Edit
@@ -275,7 +275,7 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
         editButton={{
           testId: "peer-evaluation-view-update",
           toolTipLabel: "Update",
-          onClick: () => onRedirectToPage(routing.peerEvaluation.edit),
+          onClick: () => onRedirectToPage(routing.lecturer.peerEvaluation.edit),
         }}
         visibleDeleteButton={isOwnerRole}
         deleteButton={{
@@ -308,4 +308,4 @@ const PeerEvaluationsDashboard = ({ data }: IPeerEvaluationsDashboard) => {
   );
 };
 
-export default memo(PeerEvaluationsDashboard);
+export default memo(PeerEvaluationDashboardContainer);

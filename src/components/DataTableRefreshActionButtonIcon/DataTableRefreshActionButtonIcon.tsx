@@ -8,7 +8,7 @@ import { IDataTableIconButton } from "@/types/datatables";
 const DataTableRefreshActionButtonIcon = ({ onClick, testId, toolTipLabel }: IDataTableIconButton) => {
   return (
     <IconButtonWrapper testId={testId} tooltip={toolTipLabel} onClick={onClick}>
-      <RefreshIcon testId={`${testId}-icon`} />
+      <RefreshIcon testId={`${testId}-data-table-refresh-action-button-icon`} />
     </IconButtonWrapper>
   );
 };

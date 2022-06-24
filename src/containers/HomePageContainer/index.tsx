@@ -29,7 +29,7 @@ const HomePageContainer = () => {
   const loading = status === "loading";
 
   return (
-    <Base topLeftComponent="none">
+    <Base topLeftComponent="menu">
       <TopRight>
         <HelpButton />
       </TopRight>
@@ -44,7 +44,7 @@ const HomePageContainer = () => {
                     {content.pages.homePage.dashboard.welcomeBack.text.replace("userName", session.user?.name || "")}
                   </WelcomeBackText>
                   <ButtonMargin
-                    onClick={() => router.push(routing.dashboard)}
+                    onClick={() => router.push(routing.home)}
                     size="large"
                     testId="homepage-routing-dashboard-button"
                     variant="contained"
@@ -62,15 +62,6 @@ const HomePageContainer = () => {
                   {content.pages.homePage.signIn.button}
                 </ButtonMargin>
               )}
-
-              <ButtonMargin
-                onClick={() => router.push(routing.playground)}
-                size="large"
-                testId="homepage-routing-playground-button"
-                variant="outlined"
-              >
-                {content.pages.homePage.playground.button}
-              </ButtonMargin>
             </Stack>
           </Box>
         </LoaderSpinner>

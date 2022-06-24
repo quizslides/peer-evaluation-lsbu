@@ -19,12 +19,12 @@ const content = {
       text: "Sorry, something went wrong...",
     },
     404: {
-      button: "Press here",
+      button: "Go Home",
       text: "Sorry, page not found",
       href: routing.home,
     },
     500: {
-      button: "Press here",
+      button: "Go Home",
       text: "Sorry, something went wrong...",
       href: routing.home,
     },
@@ -235,9 +235,6 @@ const content = {
       signIn: {
         button: "Sign In",
       },
-      playground: {
-        button: "Playground",
-      },
       dashboard: {
         welcomeBack: {
           text: "Hi userName!",
@@ -255,7 +252,6 @@ const content = {
           },
           button: {
             submit: "Sign In",
-            playground: "Playground",
           },
         },
         linkSent: {
@@ -269,6 +265,11 @@ const content = {
     unauthorized: {
       text: "Looks like you do not have permission to visit this page...",
       button: "Go to my dashboard",
+    },
+    student: {
+      peerEvaluations: {
+        title: "Peer Evaluations",
+      },
     },
   },
 };

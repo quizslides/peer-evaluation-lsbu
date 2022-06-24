@@ -15,10 +15,12 @@ import { PeerEvaluationStudentTeamCalculatedResultsTable } from "@/pages/api/res
 import { PeerEvaluationTableStudentLecturerQuery } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
 import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/student/peer-evaluation-table-student-mutation";
 import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
+import { PeerEvaluationsStudentQueryResolver } from "@/pages/api/resolvers/student/peer-evaluations-query";
 
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    PeerEvaluationsStudentQueryResolver,
     PeerEvaluationCreateStudentBulkMutationResolver,
     PeerEvaluationStudentTeamCalculateResultsTableByTeam,
     PeerEvaluationStudentTeamCalculateResultsTable,

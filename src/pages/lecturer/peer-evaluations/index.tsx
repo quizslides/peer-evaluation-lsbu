@@ -41,7 +41,7 @@ const PeerEvaluations: NextPage<NextPagePros> = ({ session }) => {
 
   return (
     <PeerEvaluationsDataTable
-      redirectUrl={routing.peerEvaluation.list}
+      redirectUrl={routing.lecturer.peerEvaluations}
       isLoading={loading}
       peerEvaluationsData={peerEvaluationsData}
       isError={!!error}

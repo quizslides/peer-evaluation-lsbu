@@ -20,7 +20,7 @@ const CreatePeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
       return router.query.redirectUrl;
     }
 
-    return routing.dashboard;
+    return routing.home;
   };
 
   const onSubmitCreatePeerEvaluation = () => {

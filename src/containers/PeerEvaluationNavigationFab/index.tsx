@@ -39,19 +39,19 @@ const PeerEvaluationNavigationFab = ({ setRedirecting, hide }: IPeerEvaluationNa
   const listActionIcon = [
     {
       text: "Dashboard",
-      pageRoute: routing.peerEvaluation.view,
+      pageRoute: routing.lecturer.peerEvaluation.view,
       testId: `${testIdBase}-dashboard`,
       Icon: DashboardIcon,
     },
     {
       text: "Teams",
-      pageRoute: routing.peerEvaluation.teams,
+      pageRoute: routing.lecturer.peerEvaluation.teams,
       testId: `${testIdBase}-teams`,
       Icon: TeamIcon,
     },
     {
       text: "Students",
-      pageRoute: routing.peerEvaluation.students,
+      pageRoute: routing.lecturer.peerEvaluation.students,
       testId: `${testIdBase}-students`,
       Icon: StudentIcon,
     },

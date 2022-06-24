@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
 import { PeerEvaluationNavigationFab } from "@/containers";
-import PeerEvaluationsDashboard from "@/containers/PeerEvaluationsDashboard";
+import PeerEvaluationDashboardContainer from "@/containers/PeerEvaluationDashboardContainer";
 import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import useGetPeerEvaluationDashboard from "@/requests/hooks/query/useGetPeerEvaluationDashboard";
 import { theme } from "@/styles/index";
@@ -75,7 +75,7 @@ const ViewPeerEvaluation: NextPage = () => {
             },
           })}
         >
-          {peerEvaluationData && <PeerEvaluationsDashboard data={peerEvaluationData} />}
+          {peerEvaluationData && <PeerEvaluationDashboardContainer data={peerEvaluationData} />}
         </ThemeProvider>
       </Container>
       <PeerEvaluationNavigationFab setRedirecting={() => setRedirecting(true)} />

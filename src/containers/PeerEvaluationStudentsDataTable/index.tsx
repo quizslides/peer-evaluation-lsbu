@@ -102,7 +102,7 @@ const PeerEvaluationStudentsDataTable = ({
   const onViewResultsPeerEvaluationStudent = async (studentId: string) => {
     try {
       push({
-        pathname: `${routing.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
+        pathname: `${routing.lecturer.peerEvaluation.result.student}/${peerEvaluationId}/${studentId}`,
       });
       setRedirecting(true);
     } catch {}

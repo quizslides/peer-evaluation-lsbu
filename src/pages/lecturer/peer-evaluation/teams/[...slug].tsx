@@ -109,7 +109,7 @@ const Teams: NextPage = () => {
   const onViewResultsPeerEvaluationTeam = async (teamName: string) => {
     try {
       await push({
-        pathname: `${routing.peerEvaluation.result.team}/${peerEvaluationId}/${teamName}`,
+        pathname: `${routing.lecturer.peerEvaluation.result.team}/${peerEvaluationId}/${teamName}`,
       });
       setRedirecting(true);
     } catch {}
