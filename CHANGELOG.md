@@ -2,6 +2,19 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.8...v1.1.0-staging.9) (2022-06-24)
+
+
+### Features
+
+* adding peer evaluation student table, redirect to home instead of dashboard ([268a8f0](https://github.com/quizslides/peer-evaluation-lsbu/commit/268a8f03ae0cb4ca80e8e28d73c680c787cb565f))
+* Use NEXT_PUBLIC as prefix of environment variables to configure sentry ([18e0237](https://github.com/quizslides/peer-evaluation-lsbu/commit/18e02375efd8e85d5b3b80d86f4468cf609208ff))
+
+
+### Bug Fixes
+
+* fixing datetime of submissionsLockDate showing an incorrect time with minutes behind ([f3e7792](https://github.com/quizslides/peer-evaluation-lsbu/commit/f3e7792de0e4baf3a0db69c8bcc56e6a9c66d136))
+
 ## [1.1.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.7...v1.1.0-staging.8) (2022-06-23)
 
 
