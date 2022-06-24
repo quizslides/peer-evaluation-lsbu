@@ -13,7 +13,7 @@ interface FooterTextProps {
 export const Body = styled.div<BodyProps>`
   background: ${(props) =>
     props.backgroundImage
-      ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${props.backgroundImage})`
+      ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(${props.backgroundImage})`
       : ""};
   background-size: ${(props) => (props.backgroundImage ? "cover" : "")};
   background-repeat: ${(props) => (props.backgroundImage ? "no-repeat" : "")};
