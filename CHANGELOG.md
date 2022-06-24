@@ -2,6 +2,23 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.9...v1.1.0-staging.10) (2022-06-24)
+
+
+### Features
+
+* updating homepage style and navigation for homepage ([20c45cc](https://github.com/quizslides/peer-evaluation-lsbu/commit/20c45cc29df45481a65d9a342fdff52505746a6c))
+
+
+### Bug Fixes
+
+* fixing test and updating background darknest gradient ([6cd3bad](https://github.com/quizslides/peer-evaluation-lsbu/commit/6cd3badb4272cc47e2208bb918adb3644cf7145f))
+
+
+### Code Refactoring
+
+* updating peer evaluation students table with a more compact view ([802e44a](https://github.com/quizslides/peer-evaluation-lsbu/commit/802e44a9c43c2fc8fff5ff774366a74456fb8310))
+
 ## [1.1.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.8...v1.1.0-staging.9) (2022-06-24)
 
 
