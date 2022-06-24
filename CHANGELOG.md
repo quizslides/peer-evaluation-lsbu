@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.7...v1.1.0-staging.8) (2022-06-23)
+
+
+### Features
+
+* adding submissionsLockDate as date time and show time remaining ([f28dee4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f28dee43e6d005ea682d58e991db0f75d4bc0b1b))
+
 ## [1.1.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.6...v1.1.0-staging.7) (2022-06-23)
 
 
