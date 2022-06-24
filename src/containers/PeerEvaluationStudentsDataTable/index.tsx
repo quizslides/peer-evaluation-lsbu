@@ -130,6 +130,7 @@ const PeerEvaluationStudentsDataTable = ({
         sort: false,
         empty: false,
         download: false,
+        setCellProps: () => ({ style: { minWidth: "180px", width: "180px" } }),
         customBodyRender: (_, tableMeta) => {
           return (
             <Button
