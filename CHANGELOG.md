@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.11...v1.1.0-staging.12) (2022-06-25)
+
+
+### Features
+
+* adding redirect to peer evaluation table after it has been created ([7ec0b24](https://github.com/quizslides/peer-evaluation-lsbu/commit/7ec0b24f57f7108a68885983fb17699385ede194))
+* removing unpublished status and adding description as helper text selecting an status ([187b36a](https://github.com/quizslides/peer-evaluation-lsbu/commit/187b36a7f76c351806a1b56c7b5b4fbaccea6f31))
+
 ## [1.1.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.10...v1.1.0-staging.11) (2022-06-25)
 
 
