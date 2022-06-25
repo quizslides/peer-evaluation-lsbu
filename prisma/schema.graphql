@@ -394,6 +394,7 @@ type Query {
   peerEvaluationTableStudentLecturer(
     where: PeerEvaluationTableStudentLecturerWhereInput!
   ): PeerEvaluationTableStudentLecturerResponse!
+  peerEvaluationsStudent: PeerEvaluationsStudentResponse!
 }
 
 type Email {
@@ -452,7 +453,7 @@ type PeerEvaluation {
     skip: Int
     distinct: [PeerEvaluationStudentScalarFieldEnum!]
   ): [PeerEvaluationStudent!]!
-  PeerEvaluationStudentTeam(
+  peerEvaluationStudentTeams(
     where: PeerEvaluationStudentTeamWhereInput
     orderBy: [PeerEvaluationStudentTeamOrderByWithRelationInput!]
     cursor: PeerEvaluationStudentTeamWhereUniqueInput
@@ -483,7 +484,7 @@ type PeerEvaluationCount {
   peerEvaluationTeachingMembers: Int!
   columns: Int!
   peerEvaluationStudents: Int!
-  PeerEvaluationStudentTeam: Int!
+  peerEvaluationStudentTeams: Int!
 }
 
 type PeerEvaluationTeachingMember {
@@ -747,7 +748,7 @@ input PeerEvaluationWhereInput {
   criteriaScoreRangeMin: IntFilter
   criteriaScoreRangeMax: IntFilter
   peerEvaluationStudents: PeerEvaluationStudentListRelationFilter
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamListRelationFilter
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamListRelationFilter
   instructions: StringFilter
   scaleExplanation: StringFilter
 }
@@ -859,7 +860,7 @@ input PeerEvaluationColumnWhereInput {
   description: StringFilter
   peerEvaluation: PeerEvaluationRelationFilter
   peerEvaluationId: StringFilter
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnListRelationFilter
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnListRelationFilter
 }
 
 input PeerEvaluationRevieweeColumnListRelationFilter {
@@ -922,7 +923,7 @@ input PeerEvaluationRevieweeWhereInput {
   comment: StringNullableFilter
   peerEvaluationReview: PeerEvaluationStudentReviewRelationFilter
   peerEvaluationReviewId: StringNullableFilter
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnListRelationFilter
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnListRelationFilter
   isValid: BoolFilter
 }
 
@@ -953,7 +954,7 @@ input PeerEvaluationStudentWhereInput {
   finalMark: DecimalNullableFilter
   comments: StringNullableFilter
   peerEvaluationReviewed: PeerEvaluationStudentReviewRelationFilter
-  PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
+  peerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
 }
 
 input PeerEvaluationStudentTeamRelationFilter {
@@ -1056,7 +1057,7 @@ input PeerEvaluationStudentReviewWhereInput {
   updatedAt: DateTimeFilter
   peerEvaluationStudent: PeerEvaluationStudentRelationFilter
   peerEvaluationStudentId: StringFilter
-  PeerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
+  peerEvaluationReviewees: PeerEvaluationRevieweeListRelationFilter
   isCompleted: BoolFilter
 }
 
@@ -1165,7 +1166,7 @@ input PeerEvaluationOrderByWithRelationInput {
   criteriaScoreRangeMin: SortOrder
   criteriaScoreRangeMax: SortOrder
   peerEvaluationStudents: PeerEvaluationStudentOrderByRelationAggregateInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamOrderByRelationAggregateInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamOrderByRelationAggregateInput
   instructions: SortOrder
   scaleExplanation: SortOrder
 }
@@ -1227,7 +1228,7 @@ type PeerEvaluationStudent {
   peerEvaluation: PeerEvaluation!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeam
   peerEvaluationReviewed: PeerEvaluationStudentReview
-  PeerEvaluationReviewees(
+  peerEvaluationReviewees(
     where: PeerEvaluationRevieweeWhereInput
     orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
     cursor: PeerEvaluationRevieweeWhereUniqueInput
@@ -1238,7 +1239,7 @@ type PeerEvaluationStudent {
 }
 
 type PeerEvaluationStudentCount {
-  PeerEvaluationReviewees: Int!
+  peerEvaluationReviewees: Int!
 }
 
 type PeerEvaluationStudentTeam {
@@ -1285,7 +1286,7 @@ input PeerEvaluationStudentOrderByWithRelationInput {
   finalMark: SortOrder
   comments: SortOrder
   peerEvaluationReviewed: PeerEvaluationStudentReviewOrderByWithRelationInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
 }
 
 input PeerEvaluationStudentTeamOrderByWithRelationInput {
@@ -1307,7 +1308,7 @@ input PeerEvaluationStudentReviewOrderByWithRelationInput {
   updatedAt: SortOrder
   peerEvaluationStudent: PeerEvaluationStudentOrderByWithRelationInput
   peerEvaluationStudentId: SortOrder
-  PeerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeOrderByRelationAggregateInput
   isCompleted: SortOrder
 }
 
@@ -1350,7 +1351,7 @@ type PeerEvaluationStudentReview {
   isCompleted: Boolean!
   _count: PeerEvaluationStudentReviewCount
   peerEvaluationStudent: PeerEvaluationStudent!
-  PeerEvaluationReviewees(
+  peerEvaluationReviewees(
     where: PeerEvaluationRevieweeWhereInput
     orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
     cursor: PeerEvaluationRevieweeWhereUniqueInput
@@ -1361,7 +1362,7 @@ type PeerEvaluationStudentReview {
 }
 
 type PeerEvaluationStudentReviewCount {
-  PeerEvaluationReviewees: Int!
+  peerEvaluationReviewees: Int!
 }
 
 type PeerEvaluationReviewee {
@@ -1376,7 +1377,7 @@ type PeerEvaluationReviewee {
   _count: PeerEvaluationRevieweeCount
   studentReviewed: PeerEvaluationStudent!
   peerEvaluationReview: PeerEvaluationStudentReview
-  PeerEvaluationRevieweeColumn(
+  peerEvaluationRevieweeColumns(
     where: PeerEvaluationRevieweeColumnWhereInput
     orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
     cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
@@ -1387,7 +1388,7 @@ type PeerEvaluationReviewee {
 }
 
 type PeerEvaluationRevieweeCount {
-  PeerEvaluationRevieweeColumn: Int!
+  peerEvaluationRevieweeColumns: Int!
 }
 
 type PeerEvaluationRevieweeColumn {
@@ -1409,7 +1410,7 @@ type PeerEvaluationColumn {
   peerEvaluationId: String!
   _count: PeerEvaluationColumnCount
   peerEvaluation: PeerEvaluation!
-  PeerEvaluationRevieweeColumn(
+  peerEvaluationRevieweeColumns(
     where: PeerEvaluationRevieweeColumnWhereInput
     orderBy: [PeerEvaluationRevieweeColumnOrderByWithRelationInput!]
     cursor: PeerEvaluationRevieweeColumnWhereUniqueInput
@@ -1420,7 +1421,7 @@ type PeerEvaluationColumn {
 }
 
 type PeerEvaluationColumnCount {
-  PeerEvaluationRevieweeColumn: Int!
+  peerEvaluationRevieweeColumns: Int!
 }
 
 input PeerEvaluationRevieweeColumnOrderByWithRelationInput {
@@ -1444,7 +1445,7 @@ input PeerEvaluationRevieweeOrderByWithRelationInput {
   comment: SortOrder
   peerEvaluationReview: PeerEvaluationStudentReviewOrderByWithRelationInput
   peerEvaluationReviewId: SortOrder
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
   isValid: SortOrder
 }
 
@@ -1459,7 +1460,7 @@ input PeerEvaluationColumnOrderByWithRelationInput {
   description: SortOrder
   peerEvaluation: PeerEvaluationOrderByWithRelationInput
   peerEvaluationId: SortOrder
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnOrderByRelationAggregateInput
 }
 
 input PeerEvaluationRevieweeColumnWhereUniqueInput {
@@ -3487,7 +3488,7 @@ type PeerEvaluationDashboard {
     skip: Int
     distinct: [PeerEvaluationStudentScalarFieldEnum!]
   ): [PeerEvaluationStudent!]!
-  PeerEvaluationStudentTeam(
+  peerEvaluationStudentTeams(
     where: PeerEvaluationStudentTeamWhereInput
     orderBy: [PeerEvaluationStudentTeamOrderByWithRelationInput!]
     cursor: PeerEvaluationStudentTeamWhereUniqueInput
@@ -3689,9 +3690,14 @@ type PeerEvaluationTableStudentInfoResponse {
   studentTeamName: String!
 
   """
-  Peer Evaluation Student Team Dame Updated At
+  Peer Evaluation Student Team Date Updated At
   """
   updatedAt: String!
+
+  """
+  Peer Evaluation Student Team is Completed
+  """
+  isCompleted: Boolean!
 }
 
 """
@@ -3757,6 +3763,46 @@ input PeerEvaluationTableStudentLecturerWhereInput {
   User ID
   """
   studentId: String!
+}
+
+"""
+Peer Evaluations Student Response
+"""
+type PeerEvaluationsStudentResponse {
+  """
+  Peer Evaluations Student Response
+  """
+  peerEvaluationsStudent: [PeerEvaluationStudentResponse!]
+}
+
+"""
+Peer Evaluations Student Response
+"""
+type PeerEvaluationStudentResponse {
+  """
+  Peer Evaluation Code
+  """
+  code: String!
+
+  """
+  Peer Evaluation is Completed
+  """
+  isCompleted: Boolean!
+
+  """
+  Peer Evaluation Last Updated Date
+  """
+  updatedAt: String!
+
+  """
+  Peer Evaluation Submissions Lock Date
+  """
+  submissionsLockDate: String!
+
+  """
+  Peer Evaluation Submissions Lock Date
+  """
+  peerEvaluationStatus: String!
 }
 
 type Mutation {
@@ -3952,6 +3998,7 @@ type Mutation {
     create: VerificationTokenCreateInput!
     update: VerificationTokenUpdateInput!
   ): VerificationToken!
+  createPeerEvaluationStudentBulk(data: PeerEvaluationCreateStudentBulkInput!): PeerEvaluationCreateStudentBulkResponse!
   updatePeerEvaluationStudentsLecturerMark(
     where: PeerEvaluationStudentsLecturerMarkInputData!
   ): PeerEvaluationStudentsLecturerMarkResponse!
@@ -3961,9 +4008,6 @@ type Mutation {
   peerEvaluationStudentTeamCalculateResultsTableByTeam(
     where: PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput!
   ): PeerEvaluationStudentTeamCalculateResultsTableByTeamResponse!
-  upsertPeerEvaluationTableLecturer(
-    where: UpsertPeerEvaluationTableLecturerWhereInput!
-  ): UpsertPeerEvaluationTableLecturerResponse!
   updatePeerEvaluationTableStudent(
     where: UpdatePeerEvaluationTableStudentDataInputList!
   ): UpdatePeerEvaluationTableStudentDataResponse!
@@ -4002,7 +4046,7 @@ input PeerEvaluationCreateWithoutReminderEmailInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationCreateschoolsInput {
@@ -4093,7 +4137,7 @@ input PeerEvaluationStudentCreateWithoutUserInput {
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput {
@@ -4120,7 +4164,7 @@ input PeerEvaluationCreateWithoutPeerEvaluationStudentsInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
 }
 
 input EmailCreateNestedOneWithoutPeerEvaluationInput {
@@ -4154,7 +4198,7 @@ input PeerEvaluationColumnCreateWithoutPeerEvaluationInput {
   createdAt: DateTime
   updatedAt: DateTime
   description: String!
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
 }
 
 input PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput {
@@ -4169,16 +4213,16 @@ input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationColumnInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
-input PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput {
-  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput
-  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+input PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput {
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnsInput
+  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput
   connect: PeerEvaluationRevieweeWhereUniqueInput
 }
 
-input PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnsInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -4270,7 +4314,7 @@ input PeerEvaluationCreateWithoutPeerEvaluationTeachingMembersInput {
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput {
@@ -4295,7 +4339,7 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationInput {
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput {
@@ -4312,16 +4356,16 @@ input PeerEvaluationStudentTeamCreateWithoutPeerEvaluationStudentListInput {
   mark: Decimal!
   calculatedResults: JSON
   comment: String
-  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamInput!
+  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamsInput!
 }
 
-input PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamInput {
-  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput
-  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamInput
+input PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamsInput {
+  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamsInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamsInput
   connect: PeerEvaluationWhereUniqueInput
 }
 
-input PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput {
+input PeerEvaluationCreateWithoutPeerEvaluationStudentTeamsInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -4342,9 +4386,9 @@ input PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput {
   peerEvaluationStudents: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput
 }
 
-input PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamInput {
+input PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamsInput {
   where: PeerEvaluationWhereUniqueInput!
-  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput!
+  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamsInput!
 }
 
 input PeerEvaluationStudentTeamCreateOrConnectWithoutPeerEvaluationStudentListInput {
@@ -4363,7 +4407,7 @@ input PeerEvaluationStudentReviewCreateWithoutPeerEvaluationStudentInput {
   createdAt: DateTime
   updatedAt: DateTime
   isCompleted: Boolean!
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationReviewInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationReviewInput
 }
 
 input PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationReviewInput {
@@ -4381,7 +4425,7 @@ input PeerEvaluationRevieweeCreateWithoutPeerEvaluationReviewInput {
   comment: String
   isValid: Boolean!
   studentReviewed: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput {
@@ -4396,16 +4440,16 @@ input PeerEvaluationRevieweeColumnCreateWithoutPeerEvaluationRevieweeInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
-input PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput {
-  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput
-  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
+input PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput {
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnsInput
+  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput
   connect: PeerEvaluationColumnWhereUniqueInput
 }
 
-input PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnsInput {
   id: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -4437,7 +4481,7 @@ input PeerEvaluationCreateWithoutColumnsInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberCreateNestedManyWithoutPeerEvaluationInput
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput {
@@ -4480,7 +4524,7 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationStudentTeamInput {
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput {
@@ -4498,7 +4542,7 @@ input PeerEvaluationRevieweeCreateWithoutStudentReviewedInput {
   comment: String
   isValid: Boolean!
   peerEvaluationReview: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput {
@@ -4536,7 +4580,7 @@ input PeerEvaluationStudentCreateWithoutPeerEvaluationReviewedInput {
   user: UserCreateNestedOneWithoutPeerEvaluationStudentListInput!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationStudentCreateOrConnectWithoutPeerEvaluationReviewedInput {
@@ -4620,9 +4664,9 @@ input PeerEvaluationCreateOrConnectWithoutColumnsInput {
   create: PeerEvaluationCreateWithoutColumnsInput!
 }
 
-input PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput {
   where: PeerEvaluationColumnWhereUniqueInput!
-  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput!
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
 input PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationRevieweeInput {
@@ -4727,9 +4771,9 @@ input PeerEvaluationStudentCreateOrConnectWithoutPeerEvaluationRevieweesInput {
   create: PeerEvaluationStudentCreateWithoutPeerEvaluationRevieweesInput!
 }
 
-input PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput {
   where: PeerEvaluationRevieweeWhereUniqueInput!
-  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
 input PeerEvaluationRevieweeColumnCreateOrConnectWithoutPeerEvaluationColumnInput {
@@ -4889,7 +4933,7 @@ input PeerEvaluationUpdateWithoutReminderEmailInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
 }
 
 input EnumPeerEvaluationStatusesFieldUpdateOperationsInput {
@@ -5061,7 +5105,7 @@ input PeerEvaluationStudentUpdateWithoutUserInput {
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
 input NullableDecimalFieldUpdateOperationsInput {
@@ -5107,7 +5151,7 @@ input PeerEvaluationUpdateWithoutPeerEvaluationStudentsInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
 }
 
 input EmailUpdateOneWithoutPeerEvaluationInput {
@@ -5158,7 +5202,7 @@ input PeerEvaluationColumnUpdateWithoutPeerEvaluationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
 }
 
 input PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput {
@@ -5186,7 +5230,7 @@ input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationColumnInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput
 }
 
 input NullableIntFieldUpdateOperationsInput {
@@ -5197,20 +5241,20 @@ input NullableIntFieldUpdateOperationsInput {
   divide: Int
 }
 
-input PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput {
-  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput
-  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
-  upsert: PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnInput
+input PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput {
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnsInput
+  connectOrCreate: PeerEvaluationRevieweeCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput
+  upsert: PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnsInput
   connect: PeerEvaluationRevieweeWhereUniqueInput
-  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput
+  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnsInput
 }
 
-input PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnInput {
-  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput!
-  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnInput!
+input PeerEvaluationRevieweeUpsertWithoutPeerEvaluationRevieweeColumnsInput {
+  update: PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnsInput!
+  create: PeerEvaluationRevieweeCreateWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
-input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationRevieweeColumnsInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5340,7 +5384,7 @@ input PeerEvaluationUpdateWithoutPeerEvaluationTeachingMembersInput {
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationStudentUpdateManyWithoutPeerEvaluationInput {
@@ -5378,7 +5422,7 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationInput {
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput {
@@ -5404,7 +5448,7 @@ input PeerEvaluationStudentTeamUpdateWithoutPeerEvaluationStudentListInput {
   mark: DecimalFieldUpdateOperationsInput
   calculatedResults: JSON
   comment: NullableStringFieldUpdateOperationsInput
-  peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamInput
+  peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamsInput
 }
 
 input DecimalFieldUpdateOperationsInput {
@@ -5415,20 +5459,20 @@ input DecimalFieldUpdateOperationsInput {
   divide: Decimal
 }
 
-input PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamInput {
-  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput
-  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamInput
-  upsert: PeerEvaluationUpsertWithoutPeerEvaluationStudentTeamInput
+input PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamsInput {
+  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamsInput
+  connectOrCreate: PeerEvaluationCreateOrConnectWithoutPeerEvaluationStudentTeamsInput
+  upsert: PeerEvaluationUpsertWithoutPeerEvaluationStudentTeamsInput
   connect: PeerEvaluationWhereUniqueInput
-  update: PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamInput
+  update: PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamsInput
 }
 
-input PeerEvaluationUpsertWithoutPeerEvaluationStudentTeamInput {
-  update: PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamInput!
-  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamInput!
+input PeerEvaluationUpsertWithoutPeerEvaluationStudentTeamsInput {
+  update: PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamsInput!
+  create: PeerEvaluationCreateWithoutPeerEvaluationStudentTeamsInput!
 }
 
-input PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamInput {
+input PeerEvaluationUpdateWithoutPeerEvaluationStudentTeamsInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5469,7 +5513,7 @@ input PeerEvaluationStudentReviewUpdateWithoutPeerEvaluationStudentInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   isCompleted: BoolFieldUpdateOperationsInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationReviewInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationReviewInput
 }
 
 input PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationReviewInput {
@@ -5500,7 +5544,7 @@ input PeerEvaluationRevieweeUpdateWithoutPeerEvaluationReviewInput {
   comment: NullableStringFieldUpdateOperationsInput
   isValid: BoolFieldUpdateOperationsInput
   studentReviewed: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput {
@@ -5528,23 +5572,23 @@ input PeerEvaluationRevieweeColumnUpdateWithoutPeerEvaluationRevieweeInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput
 }
 
-input PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput {
-  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput
-  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnInput
-  upsert: PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnInput
+input PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput {
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnsInput
+  connectOrCreate: PeerEvaluationColumnCreateOrConnectWithoutPeerEvaluationRevieweeColumnsInput
+  upsert: PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnsInput
   connect: PeerEvaluationColumnWhereUniqueInput
-  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput
+  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnsInput
 }
 
-input PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnInput {
-  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput!
-  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnInput!
+input PeerEvaluationColumnUpsertWithoutPeerEvaluationRevieweeColumnsInput {
+  update: PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnsInput!
+  create: PeerEvaluationColumnCreateWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
-input PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnInput {
+input PeerEvaluationColumnUpdateWithoutPeerEvaluationRevieweeColumnsInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5583,7 +5627,7 @@ input PeerEvaluationUpdateWithoutColumnsInput {
   peerEvaluationTeachingMembers: PeerEvaluationTeachingMemberUpdateManyWithoutPeerEvaluationInput
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput {
@@ -5652,7 +5696,7 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationStudentTeamInput {
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput {
@@ -5683,7 +5727,7 @@ input PeerEvaluationRevieweeUpdateWithoutStudentReviewedInput {
   comment: NullableStringFieldUpdateOperationsInput
   isValid: BoolFieldUpdateOperationsInput
   peerEvaluationReview: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput {
@@ -5737,7 +5781,7 @@ input PeerEvaluationStudentUpdateWithoutPeerEvaluationReviewedInput {
   user: UserUpdateOneRequiredWithoutPeerEvaluationStudentListInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationRevieweeUpdateWithWhereUniqueWithoutStudentReviewedInput {
@@ -6014,7 +6058,7 @@ input PeerEvaluationCreateInput {
   reminderEmail: EmailCreateNestedOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnCreateNestedManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamCreateNestedManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationCreateManyInput {
@@ -6057,7 +6101,7 @@ input PeerEvaluationUpdateInput {
   reminderEmail: EmailUpdateOneWithoutPeerEvaluationInput
   columns: PeerEvaluationColumnUpdateManyWithoutPeerEvaluationInput
   peerEvaluationStudents: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationInput
-  PeerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
+  peerEvaluationStudentTeams: PeerEvaluationStudentTeamUpdateManyWithoutPeerEvaluationInput
 }
 
 input PeerEvaluationUpdateManyMutationInput {
@@ -6083,7 +6127,7 @@ input PeerEvaluationColumnCreateInput {
   updatedAt: DateTime
   description: String!
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutColumnsInput!
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationColumnInput
 }
 
 input PeerEvaluationColumnCreateManyInput {
@@ -6100,7 +6144,7 @@ input PeerEvaluationColumnUpdateInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutColumnsInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationColumnInput
 }
 
 input PeerEvaluationRevieweeCreateInput {
@@ -6112,7 +6156,7 @@ input PeerEvaluationRevieweeCreateInput {
   isValid: Boolean!
   studentReviewed: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationRevieweesInput!
   peerEvaluationReview: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationRevieweesInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnCreateNestedManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationRevieweeCreateManyInput {
@@ -6135,7 +6179,7 @@ input PeerEvaluationRevieweeUpdateInput {
   isValid: BoolFieldUpdateOperationsInput
   studentReviewed: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationRevieweesInput
   peerEvaluationReview: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationRevieweesInput
-  PeerEvaluationRevieweeColumn: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
+  peerEvaluationRevieweeColumns: PeerEvaluationRevieweeColumnUpdateManyWithoutPeerEvaluationRevieweeInput
 }
 
 input PeerEvaluationRevieweeColumnCreateInput {
@@ -6143,8 +6187,8 @@ input PeerEvaluationRevieweeColumnCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
   criteriaScore: Int
-  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
-  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnInput!
+  peerEvaluationReviewee: PeerEvaluationRevieweeCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput!
+  peerEvaluationColumn: PeerEvaluationColumnCreateNestedOneWithoutPeerEvaluationRevieweeColumnsInput!
 }
 
 input PeerEvaluationRevieweeColumnCreateManyInput {
@@ -6161,8 +6205,8 @@ input PeerEvaluationRevieweeColumnUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   criteriaScore: NullableIntFieldUpdateOperationsInput
-  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
-  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnInput
+  peerEvaluationReviewee: PeerEvaluationRevieweeUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput
+  peerEvaluationColumn: PeerEvaluationColumnUpdateOneRequiredWithoutPeerEvaluationRevieweeColumnsInput
 }
 
 input PeerEvaluationStudentCreateInput {
@@ -6181,7 +6225,7 @@ input PeerEvaluationStudentCreateInput {
   peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentsInput!
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamCreateNestedOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewCreateNestedOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationStudentCreateManyInput {
@@ -6217,7 +6261,7 @@ input PeerEvaluationStudentUpdateInput {
   peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentsInput
   peerEvaluationStudentTeam: PeerEvaluationStudentTeamUpdateOneWithoutPeerEvaluationStudentListInput
   peerEvaluationReviewed: PeerEvaluationStudentReviewUpdateOneWithoutPeerEvaluationStudentInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutStudentReviewedInput
 }
 
 input PeerEvaluationStudentReviewCreateInput {
@@ -6226,7 +6270,7 @@ input PeerEvaluationStudentReviewCreateInput {
   updatedAt: DateTime
   isCompleted: Boolean!
   peerEvaluationStudent: PeerEvaluationStudentCreateNestedOneWithoutPeerEvaluationReviewedInput!
-  PeerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationReviewInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeCreateNestedManyWithoutPeerEvaluationReviewInput
 }
 
 input PeerEvaluationStudentReviewCreateManyInput {
@@ -6243,7 +6287,7 @@ input PeerEvaluationStudentReviewUpdateInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
   isCompleted: BoolFieldUpdateOperationsInput
   peerEvaluationStudent: PeerEvaluationStudentUpdateOneRequiredWithoutPeerEvaluationReviewedInput
-  PeerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationReviewInput
+  peerEvaluationReviewees: PeerEvaluationRevieweeUpdateManyWithoutPeerEvaluationReviewInput
 }
 
 input PeerEvaluationStudentReviewUpdateManyMutationInput {
@@ -6262,7 +6306,7 @@ input PeerEvaluationStudentTeamCreateInput {
   calculatedResults: JSON
   comment: String
   peerEvaluationStudentList: PeerEvaluationStudentCreateNestedManyWithoutPeerEvaluationStudentTeamInput
-  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamInput!
+  peerEvaluation: PeerEvaluationCreateNestedOneWithoutPeerEvaluationStudentTeamsInput!
 }
 
 input PeerEvaluationStudentTeamCreateManyInput {
@@ -6285,7 +6329,7 @@ input PeerEvaluationStudentTeamUpdateInput {
   calculatedResults: JSON
   comment: NullableStringFieldUpdateOperationsInput
   peerEvaluationStudentList: PeerEvaluationStudentUpdateManyWithoutPeerEvaluationStudentTeamInput
-  peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamInput
+  peerEvaluation: PeerEvaluationUpdateOneRequiredWithoutPeerEvaluationStudentTeamsInput
 }
 
 input PeerEvaluationTeachingMemberCreateInput {
@@ -6455,6 +6499,46 @@ input VerificationTokenUpdateManyMutationInput {
 }
 
 """
+Peer Evaluation
+"""
+type PeerEvaluationCreateStudentBulkResponse {
+  """
+  Bulk Process Successfully
+  """
+  processSuccessfully: Boolean!
+}
+
+"""
+Peer Evaluation Create Student Bulk Input
+"""
+input PeerEvaluationCreateStudentBulkInput {
+  """
+  List of Peer Evaluation Create Student Bulk Object
+  """
+  createStudentBulkData: [PeerEvaluationCreateStudentBulk!]
+
+  """
+  Peer Evaluation ID
+  """
+  peerEvaluationId: String
+}
+
+"""
+Peer Evaluation Create Student Bulk Input
+"""
+input PeerEvaluationCreateStudentBulk {
+  """
+  Peer Evaluation Student Email
+  """
+  studentEmail: String!
+
+  """
+  Peer Evaluation Student Team Name
+  """
+  studentTeamName: String!
+}
+
+"""
 Peer Evaluation Table Students Response
 """
 type PeerEvaluationStudentsLecturerMarkResponse {
@@ -6562,23 +6646,6 @@ input PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput {
   Peer Evaluation Student Team Name
   """
   peerEvaluationStudentTeamName: String!
-}
-
-type UpsertPeerEvaluationTableLecturerResponse {
-  """
-  Peer Evaluations Table Updated and Inserted Successfully
-  """
-  completed: Boolean
-}
-
-"""
-Update Insert Peer Evaluation Table Where Input
-"""
-input UpsertPeerEvaluationTableLecturerWhereInput {
-  """
-  Peer Evaluation ID
-  """
-  peerEvaluationId: String!
 }
 
 """

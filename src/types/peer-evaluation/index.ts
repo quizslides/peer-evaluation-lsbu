@@ -57,15 +57,13 @@ enum Schools {
 enum PeerEvaluationStatus {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",
-  UNPUBLISHED = "UNPUBLISHED",
   SUBMISSIONS_LOCKED = "SUBMISSIONS_LOCKED",
 }
 
 enum PeerEvaluationStatusDefinition {
   DRAFT = "Not visible to students",
   PUBLISHED = "Visible to students and accepting submissions",
-  UNPUBLISHED = "Not visible to students",
-  SUBMISSIONS_LOCKED = "Visible but not accepting submissions",
+  SUBMISSIONS_LOCKED = "Visible to students but not accepting submissions",
 }
 
 enum FieldStatus {
