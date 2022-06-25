@@ -2,6 +2,44 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.0.0...v1.1.0) (2022-06-25)
+
+
+### Features
+
+* adding conditions on update peer evaluation, deleting columns or update students ([fe089e6](https://github.com/quizslides/peer-evaluation-lsbu/commit/fe089e6f3a44ecb1f021ac21f894136fb38b9a36))
+* adding delete student, team when the team is empty and calculate marks based on current data ([feb9e5b](https://github.com/quizslides/peer-evaluation-lsbu/commit/feb9e5bb83b6ceeff71d9ec0e993f8ec2c01ab92))
+* adding edit team and users by moving users from a team to another team ([400b1ec](https://github.com/quizslides/peer-evaluation-lsbu/commit/400b1ec38e0e1ed835e6533bef30b391a329e262))
+* adding on add student to sync reviewees across the same team ([eef23a7](https://github.com/quizslides/peer-evaluation-lsbu/commit/eef23a7611ec7af1ef25cc7e2122b777204f9e07))
+* adding peer evaluation student table, redirect to home instead of dashboard ([268a8f0](https://github.com/quizslides/peer-evaluation-lsbu/commit/268a8f03ae0cb4ca80e8e28d73c680c787cb565f))
+* adding redirect from peer evaluation dashboard to marks as the student page ([72f94c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/72f94c59a830892a5314fd00d3b493cf6aa55cbf))
+* adding redirect to peer evaluation table after it has been created ([7ec0b24](https://github.com/quizslides/peer-evaluation-lsbu/commit/7ec0b24f57f7108a68885983fb17699385ede194))
+* adding submissionsLockDate as date time and show time remaining ([f28dee4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f28dee43e6d005ea682d58e991db0f75d4bc0b1b))
+* fixing last updated, lecturer opening per eval new lecturer, type changes and completed field ([b51ab96](https://github.com/quizslides/peer-evaluation-lsbu/commit/b51ab9656f56105d40d79b3037b0fc75ccc05e72))
+* removing unpublished status and adding description as helper text selecting an status ([187b36a](https://github.com/quizslides/peer-evaluation-lsbu/commit/187b36a7f76c351806a1b56c7b5b4fbaccea6f31))
+* updating homepage style and navigation for homepage ([20c45cc](https://github.com/quizslides/peer-evaluation-lsbu/commit/20c45cc29df45481a65d9a342fdff52505746a6c))
+* Use NEXT_PUBLIC as prefix of environment variables to configure sentry ([18e0237](https://github.com/quizslides/peer-evaluation-lsbu/commit/18e02375efd8e85d5b3b80d86f4468cf609208ff))
+
+
+### Bug Fixes
+
+* adding a default cap to 100 ([874ee8f](https://github.com/quizslides/peer-evaluation-lsbu/commit/874ee8f56632afc9384d01fc34479ced5f56e3af))
+* fixing bug deleting team and refetching table of students ([b6ab83b](https://github.com/quizslides/peer-evaluation-lsbu/commit/b6ab83b71de2f7a746517fcdaedbd3f242ac86fb))
+* fixing bug on first saved peer evaluations student table ([0e620eb](https://github.com/quizslides/peer-evaluation-lsbu/commit/0e620eba6defeca7b9acbbef51360bfc2817f37a))
+* fixing datetime of submissionsLockDate showing an incorrect time with minutes behind ([f3e7792](https://github.com/quizslides/peer-evaluation-lsbu/commit/f3e7792de0e4baf3a0db69c8bcc56e6a9c66d136))
+* fixing test and updating background darknest gradient ([6cd3bad](https://github.com/quizslides/peer-evaluation-lsbu/commit/6cd3badb4272cc47e2208bb918adb3644cf7145f))
+* fixing updating lecturerAdjustedMark as it was causing conflict with the hooks ([1428d8b](https://github.com/quizslides/peer-evaluation-lsbu/commit/1428d8b21a32c8ec415fff28c706838132086562))
+* fixing updating peer evaluation when adding a new column ([d2433df](https://github.com/quizslides/peer-evaluation-lsbu/commit/d2433dff05781039662e18d12b26b58613388166))
+* removing console.log for debugging bug of lecturerAdjustedMark ([1efbfe1](https://github.com/quizslides/peer-evaluation-lsbu/commit/1efbfe15716e694074abc01e24e675295793d043))
+
+
+### Code Refactoring
+
+* making student view more compact by setting a width to the peer evaluation button ([051ec21](https://github.com/quizslides/peer-evaluation-lsbu/commit/051ec21750d30268937b0637b155eb520fa60ebf))
+* refactoring when a peer evaluation student table is created ([c44a098](https://github.com/quizslides/peer-evaluation-lsbu/commit/c44a098461cdad9176ddda231ca2c390b129059d))
+* renaming methods to handle creating and update of peer evaluation student table data ([d231e4e](https://github.com/quizslides/peer-evaluation-lsbu/commit/d231e4ec3d62df8b5f13a9795ad4b2c364b4ee56))
+* updating peer evaluation students table with a more compact view ([802e44a](https://github.com/quizslides/peer-evaluation-lsbu/commit/802e44a9c43c2fc8fff5ff774366a74456fb8310))
+
 ## [1.1.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.11...v1.1.0-staging.12) (2022-06-25)
 
 
