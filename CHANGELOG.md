@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.10...v1.1.0-staging.11) (2022-06-25)
+
+
+### Code Refactoring
+
+* making student view more compact by setting a width to the peer evaluation button ([051ec21](https://github.com/quizslides/peer-evaluation-lsbu/commit/051ec21750d30268937b0637b155eb520fa60ebf))
+
 ## [1.1.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.9...v1.1.0-staging.10) (2022-06-24)
 
 
