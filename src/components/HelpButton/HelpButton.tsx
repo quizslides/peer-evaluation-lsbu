@@ -11,8 +11,8 @@ const HelpButton = () => {
 
   return (
     <IconButtonWrapper
-      tooltip="help"
-      onClick={() => router.push(routing.help)}
+      tooltip="Help"
+      onClick={() => router.push(routing.home)}
       testId={"routing-help-page-icon-wrapper"}
     >
       <HelpOutlineIcon testId="routing-help-page" color="inherit" />

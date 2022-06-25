@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import {
   PeerEvaluationStudentTeamCalculateResultsTableResponse,
   PeerEvaluationStudentTeamCalculateResultsTableWhereInput,
-} from "@/pages/api/resolvers/peer-evaluation-student-team-calculate-results-table";
+} from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table";
 import { UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

@@ -30,7 +30,7 @@ const UnauthorizedContainer = () => {
             size="large"
             testId="unauthorized-button"
             variant="contained"
-            onClick={() => router.push(routing.dashboard)}
+            onClick={() => router.push(routing.home)}
           >
             {content.pages.unauthorized.button}
           </Button>

@@ -51,7 +51,7 @@ interface PeerEvaluationReviewee {
 
 interface PeerEvaluationStudentList {
   user: User;
-  PeerEvaluationReviewees: PeerEvaluationReviewee[];
+  peerEvaluationReviewees: PeerEvaluationReviewee[];
   studentName: string;
 }
 
@@ -115,7 +115,7 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
               name: true,
             },
           },
-          PeerEvaluationReviewees: {
+          peerEvaluationReviewees: {
             select: {
               studentReviewed: {
                 select: {
@@ -182,7 +182,8 @@ const getPeerEvaluationStudentTeamIdByName = async (
   )?.id;
 };
 
-const getMaxMarkIncreaseStudent = (teamMark: number, maxMarkIncrease: number) => teamMark + maxMarkIncrease;
+const getMaxMarkIncreaseStudent = (teamMark: number, maxMarkIncrease: number) =>
+  teamMark + maxMarkIncrease > 100 ? 100 : teamMark + maxMarkIncrease;
 
 const getMaxMarkDecreaseStudent = (teamMark: number, maxMarkDecrease: number) =>
   teamMark - maxMarkDecrease < 0 ? 0 : teamMark - maxMarkDecrease;
@@ -197,7 +198,7 @@ const getStudentTeamEmailList = (peerEvaluationStudentTeam: PeerEvaluationStuden
 
 const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IPeerEvaluationStudentTeam) => {
   return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) =>
-    student.PeerEvaluationReviewees.map(
+    student.peerEvaluationReviewees.map(
       ({ criteriaScoreTotal, comment, isValid, peerEvaluationReview, id, studentReviewedId }) => ({
         reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
         reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",
@@ -328,7 +329,7 @@ const updatePeerEvaluationStudentData = async (
   finalMark: number,
   comments: string
 ) => {
-  await prisma.peerEvaluationStudent.update({
+  await prisma.peerEvaluationStudent.updateMany({
     data: {
       averageCriteriaScore: averageCriteriaScore,
       averageCriteriaScoreByTeamMember: averageCriteriaScoreByTeamMember,
@@ -339,9 +340,11 @@ const updatePeerEvaluationStudentData = async (
       comments: comments,
     },
     where: {
-      userId_peerEvaluationId: {
-        peerEvaluationId: peerEvaluationId,
-        userId: userId,
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+      userId: {
+        equals: userId,
       },
     },
   });
@@ -439,7 +442,8 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
   const studentTeamEmailList = getStudentTeamEmailList(peerEvaluationStudentTeamData as PeerEvaluationStudentTeam);
 
   if (!studentTeamEmailList?.length) {
-    throw "Peer Evaluation does not contain any students.";
+    // Peer Evaluation does not contain any students;
+    return null;
   }
 
   const totalPeerEvaluationStudentCount = studentTeamEmailList.length;
@@ -550,7 +554,38 @@ const saveCalculatedResultsPeerEvaluationTeam = async (
   });
 };
 
+const calculatePeerEvaluationStudentMark = async (peerEvaluationId: string, peerEvaluationStudentTeamId: string) => {
+  const peerEvaluationStudentMarksByTeam = await getPeerEvaluationStudentMarksByTeam(
+    peerEvaluationId,
+    peerEvaluationStudentTeamId
+  );
+
+  if (peerEvaluationStudentMarksByTeam) {
+    await updatePeerEvaluationStudentTeamResultsByStudent(peerEvaluationStudentMarksByTeam, peerEvaluationId);
+    await saveCalculatedResultsPeerEvaluationTeam(peerEvaluationStudentMarksByTeam, peerEvaluationStudentTeamId);
+  }
+};
+
+const calculatePeerEvaluationStudentsMarkByPeerEvaluationId = async (peerEvaluationId: string) => {
+  const peerEvaluationStudentTeamsData = await prisma.peerEvaluationStudentTeam.findMany({
+    select: {
+      id: true,
+    },
+    where: {
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+    },
+  });
+
+  for (const { id } of peerEvaluationStudentTeamsData) {
+    await calculatePeerEvaluationStudentMark(peerEvaluationId, id);
+  }
+};
+
 export {
+  calculatePeerEvaluationStudentMark,
+  calculatePeerEvaluationStudentsMarkByPeerEvaluationId,
   getPeerEvaluationStudentMarksByTeam,
   getPeerEvaluationStudentTeamIdByName,
   saveCalculatedResultsPeerEvaluationTeam,

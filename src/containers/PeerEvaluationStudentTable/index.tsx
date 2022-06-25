@@ -19,7 +19,7 @@ import {
   WarningUnsavedForm,
 } from "@/components";
 import { FieldWrapper } from "@/forms/style";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { ObjectArray, getRangeNumberObject, objectToArrayOfObject } from "@/utils/form";
 
 const testId = "container-peer-evaluation-student-table";
@@ -286,8 +286,8 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
     ): IPeerEvaluationStudentData[] => {
       const peerEvaluationStudentId = data.peerEvaluationStudentId;
 
-      const sanitized = data.PeerEvaluationReviewees?.map((peerEvaluationReviewee) => {
-        const peerEvaluationRevieweesColumns = peerEvaluationReviewee.PeerEvaluationRevieweeColumn?.map((column) => ({
+      const sanitized = data.peerEvaluationReviewees?.map((peerEvaluationReviewee) => {
+        const peerEvaluationRevieweesColumns = peerEvaluationReviewee.peerEvaluationRevieweeColumns?.map((column) => ({
           [column.peerEvaluationColumnId]: {
             peerEvaluationRevieweeColumnId: column.id,
             columnId: column.peerEvaluationColumnId,

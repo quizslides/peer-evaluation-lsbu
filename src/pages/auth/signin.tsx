@@ -55,7 +55,7 @@ const SignIn: NextPage = () => {
       await signIn("email", {
         email: valuesForm.email,
         redirect: false,
-        redirectUrl: redirectUrl || `${window.location.origin}${routing.dashboard}`,
+        redirectUrl: redirectUrl || `${window.location.origin}${routing.home}`,
       });
 
       setLinkSent(true);
@@ -83,7 +83,7 @@ const SignIn: NextPage = () => {
       return router.query.redirectUrl;
     }
 
-    return routing.dashboard;
+    return routing.home;
   };
 
   useEffect(() => {
@@ -186,14 +186,6 @@ const SignIn: NextPage = () => {
                             type="submit"
                           >
                             {content.pages.auth.signIn.form.button.submit}
-                          </Button>
-                          <Button
-                            onClick={() => router.push(routing.playground)}
-                            size="small"
-                            testId="signin-form-playground-button"
-                            variant="text"
-                          >
-                            {content.pages.auth.signIn.form.button.playground}
                           </Button>
                         </Grid>
                       </Grid>

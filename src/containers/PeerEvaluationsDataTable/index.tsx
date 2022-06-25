@@ -23,7 +23,7 @@ import {
 import content from "@/content";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
-import { sanitizeSubmissionLockDate } from "@/transformers/peer-evaluation";
+import { getSanitizedSubmissionLockDate } from "@/transformers/peer-evaluation";
 import {
   IPeerEvaluationData,
   PeerEvaluationStatus,
@@ -79,7 +79,7 @@ const PeerEvaluationsDataTable = ({
     setRedirecting(true);
 
     router.push({
-      pathname: routing.peerEvaluation.create,
+      pathname: routing.lecturer.peerEvaluation.create,
       query: {
         redirectUrl: redirectUrl,
       },
@@ -92,7 +92,7 @@ const PeerEvaluationsDataTable = ({
     setRedirecting(true);
 
     router.push({
-      pathname: `${routing.peerEvaluation.edit}/${peerEvaluationToUpdate.id}`,
+      pathname: `${routing.lecturer.peerEvaluation.edit}/${peerEvaluationToUpdate.id}`,
       query: {
         redirectUrl: redirectUrl,
       },
@@ -154,7 +154,7 @@ const PeerEvaluationsDataTable = ({
     setRedirecting(true);
 
     router.push({
-      pathname: `${routing.peerEvaluation.view}/${peerEvaluationsData[dataIndex].id}`,
+      pathname: `${routing.lecturer.peerEvaluation.view}/${peerEvaluationsData[dataIndex].id}`,
       query: {
         redirectUrl: redirectUrl,
       },
@@ -273,7 +273,7 @@ const PeerEvaluationsDataTable = ({
         filter: true,
         sort: true,
         filterType: "textField",
-        customBodyRender: (date: Date) => sanitizeSubmissionLockDate(date),
+        customBodyRender: (date: Date) => getSanitizedSubmissionLockDate(date),
       },
     },
     {

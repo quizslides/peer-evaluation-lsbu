@@ -50,8 +50,12 @@ const getSortedObject = (o: any) =>
 const getUniqueObjectArray = (objArr: ObjectArray) =>
   [...new Set(objArr.map((o) => JSON.stringify(o)))].map((s) => JSON.parse(s));
 
+const getDifferenceTwoArrays = (firstArray: string[], secondArray: string[]) =>
+  lodash.difference(secondArray, firstArray);
+
 export {
   arrayToObject,
+  getDifferenceTwoArrays,
   getMergedKeyValuesObject,
   getNormalizedObjectArray,
   getRangeNumberObject,

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { Base } from "@/components";
 import { PeerEvaluationStudentPeerEvaluationContainer } from "@/containers";
 import { IPeerEvaluationStudentTableForm } from "@/containers/PeerEvaluationStudentTable";
-import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+import { PeerEvaluationTableStudentResponse } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import updatePeerEvaluationTableStudent from "@/requests/direct/mutation/updatePeerEvaluationTableStudent";
 import useGetPeerEvaluationTableStudent from "@/requests/hooks/query/useGetPeerEvaluationTableStudent";
 import { getSanitizedPeerEvaluationTableOnUpdate } from "@/transformers/peer-evaluation-student-table";

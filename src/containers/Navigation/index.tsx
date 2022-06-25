@@ -40,7 +40,7 @@ const Navigation = () => {
   return (
     <>
       <IconButtonWrapper onClick={toggleNavigation(true)} testId={"navigation-menu-button-wrapper"}>
-        <MenuIcon testId="navigation-menu-button" />
+        <MenuIcon testId="navigation-menu-button" sx={{ color: router.pathname === "/" ? "white" : "inherit" }} />
       </IconButtonWrapper>
       <SwipeableDrawer open={isOpenNavigation} onClose={toggleNavigation(false)} onOpen={toggleNavigation(true)}>
         <ThemeProvider

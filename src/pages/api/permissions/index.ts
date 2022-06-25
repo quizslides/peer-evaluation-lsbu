@@ -8,7 +8,7 @@ import { MicroRequest } from "apollo-server-micro/dist/types";
 import { allow, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
-import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { Role } from "@/utils/permissions";
 
 export interface Context {

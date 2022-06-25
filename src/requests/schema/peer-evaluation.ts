@@ -21,6 +21,14 @@ const UPDATE_PEER_EVALUATION_REVIEWEE = gql`
   }
 `;
 
+const DELETE_MANY_PEER_EVALUATION_STUDENTS = gql`
+  mutation DeleteManyPeerEvaluationStudent($where: PeerEvaluationStudentWhereInput) {
+    deleteManyPeerEvaluationStudent(where: $where) {
+      count
+    }
+  }
+`;
+
 const DELETE_PEER_EVALUATION_STUDENT_TEAM = gql`
   mutation DeletePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
     deletePeerEvaluationStudentTeam(where: $where) {
@@ -74,6 +82,20 @@ const UPDATE_PEER_EVALUATION_TABLE_STUDENT = gql`
     updatePeerEvaluationTableStudent(where: $where) {
       completed
       message
+    }
+  }
+`;
+
+const GET_PEER_EVALUATIONS_STUDENT = gql`
+  query PeerEvaluationsStudent {
+    peerEvaluationsStudent {
+      peerEvaluationsStudent {
+        updatedAt
+        code
+        isCompleted
+        submissionsLockDate
+        peerEvaluationStatus
+      }
     }
   }
 `;
@@ -322,7 +344,7 @@ const GET_PEER_EVALUATION = gql`
         createdAt
         updatedAt
         _count {
-          PeerEvaluationRevieweeColumn
+          peerEvaluationRevieweeColumns
         }
       }
       createdAt
@@ -413,7 +435,7 @@ const UPDATE_PEER_EVALUATION = gql`
         description
         peerEvaluationId
         _count {
-          PeerEvaluationRevieweeColumn
+          peerEvaluationRevieweeColumns
         }
       }
     }
@@ -519,14 +541,6 @@ const PEER_EVALUATION_STUDENTS = gql`
   }
 `;
 
-const UPSERT_PEER_EVALUATION_TABLE_LECTURER = gql`
-  mutation UpsertPeerEvaluationTableLecturer($where: UpsertPeerEvaluationTableLecturerWhereInput!) {
-    upsertPeerEvaluationTableLecturer(where: $where) {
-      completed
-    }
-  }
-`;
-
 const UPDATE_PEER_EVALUATION_STUDENT = gql`
   mutation UpdatePeerEvaluationStudent(
     $data: PeerEvaluationStudentUpdateInput!
@@ -573,7 +587,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
         updatedAt
         isCompleted
         _count {
-          PeerEvaluationReviewees
+          peerEvaluationReviewees
         }
         peerEvaluationStudent {
           studentName
@@ -584,7 +598,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
             id
           }
         }
-        PeerEvaluationReviewees(orderBy: $orderBy) {
+        peerEvaluationReviewees(orderBy: $orderBy) {
           id
           criteriaScoreTotal
           studentReviewedId
@@ -598,7 +612,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
             }
           }
           peerEvaluationReviewId
-          PeerEvaluationRevieweeColumn {
+          peerEvaluationRevieweeColumns {
             peerEvaluationColumnId
             criteriaScore
             updatedAt
@@ -632,13 +646,17 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
         submissionsLockDate
         studentTeamName
         updatedAt
+        isCompleted
       }
     }
   }
 `;
 
 const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
-  query PeerEvaluationTableStudentLecturer($where: PeerEvaluationTableStudentLecturerWhereInput!) {
+  query PeerEvaluationTableStudentLecturer(
+    $where: PeerEvaluationTableStudentLecturerWhereInput!
+    $orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+  ) {
     peerEvaluationTableStudentLecturer(where: $where) {
       readOnly
       visible
@@ -650,7 +668,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
         updatedAt
         isCompleted
         _count {
-          PeerEvaluationReviewees
+          peerEvaluationReviewees
         }
         peerEvaluationStudent {
           studentName
@@ -661,7 +679,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
             id
           }
         }
-        PeerEvaluationReviewees {
+        peerEvaluationReviewees(orderBy: $orderBy) {
           id
           criteriaScoreTotal
           studentReviewedId
@@ -675,7 +693,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
             }
           }
           peerEvaluationReviewId
-          PeerEvaluationRevieweeColumn {
+          peerEvaluationRevieweeColumns {
             peerEvaluationColumnId
             criteriaScore
             updatedAt
@@ -709,7 +727,16 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
         submissionsLockDate
         studentTeamName
         updatedAt
+        isCompleted
       }
+    }
+  }
+`;
+
+const CREATE_PEER_EVALUATION_STUDENT_BULK = gql`
+  mutation CreatePeerEvaluationStudentBulk($data: PeerEvaluationCreateStudentBulkInput!) {
+    createPeerEvaluationStudentBulk(data: $data) {
+      processSuccessfully
     }
   }
 `;
@@ -718,6 +745,8 @@ export {
   CREATE_MANY_PEER_EVALUATION_STUDENT_TEAMS,
   CREATE_PEER_EVALUATION,
   CREATE_PEER_EVALUATION_STUDENT,
+  CREATE_PEER_EVALUATION_STUDENT_BULK,
+  DELETE_MANY_PEER_EVALUATION_STUDENTS,
   DELETE_PEER_EVALUATION,
   DELETE_PEER_EVALUATION_STUDENT_TEAM,
   GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
@@ -733,6 +762,7 @@ export {
   GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
   GET_PEER_EVALUATIONS,
   GET_PEER_EVALUATIONS_BY_LECTURER,
+  GET_PEER_EVALUATIONS_STUDENT,
   PEER_EVALUATION_DASHBOARD,
   PEER_EVALUATION_EXIST,
   PEER_EVALUATION_STUDENT_TEAM_EXIST,
@@ -746,5 +776,4 @@ export {
   UPDATE_PEER_EVALUATION_STUDENT_TEAM_CALCULATE_RESULTS_TABLE_BY_TEAM,
   UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK,
   UPDATE_PEER_EVALUATION_TABLE_STUDENT,
-  UPSERT_PEER_EVALUATION_TABLE_LECTURER,
 };

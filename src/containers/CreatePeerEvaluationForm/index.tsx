@@ -11,7 +11,7 @@ import { errorNotification, loadingNotification, successNotification } from "@/u
 
 interface ICreateUserForm {
   session: Session;
-  onSubmit: () => void;
+  onSubmit: (peerEvaluationId?: string) => void;
   onCancel: () => void;
 }
 
@@ -25,7 +25,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserFo
 
     const peerEvaluationDataSanitizedOnCreate = sanitizePeerEvaluationDataOnCreate(valuesForm);
 
-    const { errors } = await createPeerEvaluation(apolloClient, peerEvaluationDataSanitizedOnCreate);
+    const { data, errors } = await createPeerEvaluation(apolloClient, peerEvaluationDataSanitizedOnCreate);
 
     if (!errors) {
       successNotification("Peer Evaluation created successfully", "CreatePeerEvaluationForm");
@@ -34,7 +34,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserFo
       errorNotification("Error creating peer evaluation", "CreatePeerEvaluationForm");
     }
 
-    onSubmit();
+    onSubmit(data.createPeerEvaluation.id);
   };
 
   useEffect(() => {

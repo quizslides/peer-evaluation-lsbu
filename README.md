@@ -91,15 +91,15 @@ In development environmen follow these steps:
 
 1. Generate the database client:
 
-```bash
-npx prisma generate
-```
+   ```bash
+   npx prisma generate
+   ```
 
 2. Run all the migrations and seed database run:
 
-```bash
-npx prisma migrate dev
-```
+   ```bash
+   npx prisma migrate dev
+   ```
 
 ### Restore Database from SQL Dump
 
@@ -107,6 +107,14 @@ To restore a database dump to a running container run:
 
 ```bash
 ./scripts/restore-database.sh /path/to/sql_dump/${SQL_DUMP}.sql
+```
+
+### Backup Database to SQL
+
+To create a database back from a running container run:
+
+```bash
+./scripts/backup-database.sh
 ```
 
 ### Seed Database Manually

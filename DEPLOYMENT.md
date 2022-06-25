@@ -18,22 +18,22 @@ The project is build using Docker in the live environments:
 
 TK
 
-| VARIABLES                | DESCRIPTION                                                                 | DEFAULT VALUE | ACCEPTED VALUES |
-| ------------------------ | --------------------------------------------------------------------------- | ------------- | --------------- |
-| `ENVIRONMENT`            |                                                                             |               |                 |
-| `LOGICAL_ENVIRONMENT`    |                                                                             |               |                 |
-| `NEXTAUTH_SECRET`        | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. |               |                 |
-| `NEXTAUTH_URL`           |                                                                             |               |                 |
-| `SENTRY_DSN`             |                                                                             |               |                 |
-| `NEXT_PUBLIC_SENTRY_DSN` |                                                                             |               |                 |
-| `SENTRY_AUTH_TOKEN`      |                                                                             |               |                 |
-| `SMTP_HOST`              |                                                                             |               |                 |
-| `SMTP_PORT`              |                                                                             |               |                 |
-| `SMTP_USER`              |                                                                             |               |                 |
-| `SMTP_PASSWORD`          |                                                                             |               |                 |
-| `SMTP_FROM`              |                                                                             |               |                 |
-| `SMTP_SECURE`            |                                                                             |               |                 |
-| `DATABASE_URL`           |                                                                             |               |                 |
+| VARIABLES                         | DESCRIPTION                                                                 | DEFAULT VALUE | ACCEPTED VALUES |
+| --------------------------------- | --------------------------------------------------------------------------- | ------------- | --------------- |
+| `ENVIRONMENT`                     |                                                                             |               |                 |
+| `NEXT_PUBLIC_LOGICAL_ENVIRONMENT` |                                                                             |               |                 |
+| `NEXTAUTH_SECRET`                 | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. |               |                 |
+| `NEXTAUTH_URL`                    |                                                                             |               |                 |
+| `SENTRY_DSN`                      |                                                                             |               |                 |
+| `NEXT_PUBLIC_SENTRY_DSN`          |                                                                             |               |                 |
+| `SENTRY_AUTH_TOKEN`               |                                                                             |               |                 |
+| `SMTP_HOST`                       |                                                                             |               |                 |
+| `SMTP_PORT`                       |                                                                             |               |                 |
+| `SMTP_USER`                       |                                                                             |               |                 |
+| `SMTP_PASSWORD`                   |                                                                             |               |                 |
+| `SMTP_FROM`                       |                                                                             |               |                 |
+| `SMTP_SECURE`                     |                                                                             |               |                 |
+| `DATABASE_URL`                    |                                                                             |               |                 |
 
 ### Build the production image
 

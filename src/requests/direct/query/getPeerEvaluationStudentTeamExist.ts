@@ -1,5 +1,5 @@
 import { TApolloClientType } from "@/graphql/client";
-import { PeerEvaluationStudentTeamExist } from "@/pages/api/resolvers/peer-evaluation";
+import { PeerEvaluationStudentTeamExist } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { GET_PEER_EVALUATION_STUDENT_TEAM_EXIST } from "@/requests/schema/peer-evaluation";
 
 const getPeerEvaluationStudentTeamExist = (

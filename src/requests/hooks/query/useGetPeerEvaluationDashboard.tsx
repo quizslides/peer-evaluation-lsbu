@@ -1,6 +1,9 @@
 import { useLazyQuery } from "@apollo/client";
 
-import { PeerEvaluationDashboard, PeerEvaluationDashboardWhereInput } from "@/pages/api/resolvers/peer-evaluation";
+import {
+  PeerEvaluationDashboard,
+  PeerEvaluationDashboardWhereInput,
+} from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { PEER_EVALUATION_DASHBOARD } from "@/requests/schema/peer-evaluation";
 import { errorNotification, successNotification } from "@/utils";
 

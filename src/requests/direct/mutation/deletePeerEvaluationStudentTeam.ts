@@ -1,19 +1,12 @@
 import { TApolloClientType } from "@/graphql/client";
 import { DELETE_PEER_EVALUATION_STUDENT_TEAM } from "@/requests/schema/peer-evaluation";
 
-const deletePeerEvaluationStudentTeam = (
-  apolloClient: TApolloClientType,
-  peerEvaluationId: string,
-  teamName: string
-) => {
+const deletePeerEvaluationStudentTeam = (apolloClient: TApolloClientType, peerEvaluationStudentTeamId: string) => {
   return apolloClient.mutate({
     mutation: DELETE_PEER_EVALUATION_STUDENT_TEAM,
     variables: {
       where: {
-        name_peerEvaluationId: {
-          name: teamName,
-          peerEvaluationId,
-        },
+        id: peerEvaluationStudentTeamId,
       },
     },
     errorPolicy: "all",

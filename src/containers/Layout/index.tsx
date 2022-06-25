@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { Body, Footer, FooterText, Main } from "@/components/Base/Base.styles";
 import Link from "@/components/Link/Link";
@@ -8,6 +9,10 @@ import content from "@/content";
 import { ComponentChildren } from "@/types";
 
 const Layout = ({ children }: ComponentChildren) => {
+  const router = useRouter();
+
+  const homePageBackgroundImage = "/assets/home-background-image.jpg";
+
   return (
     <>
       <Head>
@@ -15,7 +20,7 @@ const Layout = ({ children }: ComponentChildren) => {
         <meta name="description" content={content.components.base.head.description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Body data-testid="base-body">
+      <Body data-testid="base-body" backgroundImage={router.pathname === "/" ? homePageBackgroundImage : null}>
         <Main data-testid="base-main">{children}</Main>
         <Footer data-testid="base-footer">
           <Link
@@ -26,7 +31,7 @@ const Layout = ({ children }: ComponentChildren) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FooterText testId="base-footer-link-text">
+            <FooterText testId="base-footer-link-text" color={router.pathname === "/" ? "white" : "inherit"}>
               Copyright &copy; {content.components.base.footer.text} - {new Date().getFullYear()}
             </FooterText>
           </Link>

@@ -19,12 +19,12 @@ const content = {
       text: "Sorry, something went wrong...",
     },
     404: {
-      button: "Press here",
+      button: "Go Home",
       text: "Sorry, page not found",
       href: routing.home,
     },
     500: {
-      button: "Press here",
+      button: "Go Home",
       text: "Sorry, something went wrong...",
       href: routing.home,
     },
@@ -71,7 +71,6 @@ const content = {
         },
         peerEvaluationStatus: {
           label: "Status",
-          helperText: "Status of the peer evaluation peer evaluation",
         },
         maxMarkIncrease: {
           label: "Max mark increase",
@@ -231,12 +230,11 @@ const content = {
   },
   pages: {
     homePage: {
-      title: "Peer Evaluation",
+      title: "LSBU Peer Evaluation",
+      subTitleTop: "Fairer Teamwork",
+      subTitleBottom: "Assessment",
       signIn: {
         button: "Sign In",
-      },
-      playground: {
-        button: "Playground",
       },
       dashboard: {
         welcomeBack: {
@@ -255,7 +253,6 @@ const content = {
           },
           button: {
             submit: "Sign In",
-            playground: "Playground",
           },
         },
         linkSent: {
@@ -269,6 +266,11 @@ const content = {
     unauthorized: {
       text: "Looks like you do not have permission to visit this page...",
       button: "Go to my dashboard",
+    },
+    student: {
+      peerEvaluations: {
+        title: "Peer Evaluations",
+      },
     },
   },
 };

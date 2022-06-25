@@ -13,5 +13,6 @@ namespace NodeJS {
     SMTP_SECURE: string;
     SENTRY_DSN: string;
     NEXT_PUBLIC_SENTRY_DSN: string;
+    NEXT_PUBLIC_LOGICAL_ENVIRONMENT: string;
   }
 }

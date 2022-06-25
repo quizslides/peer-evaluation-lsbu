@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 
 import { Base, Dialog } from "@/components";
 import { PeerEvaluationStudentTable } from "@/containers";
-import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
+import { PeerEvaluationTableStudentLecturerResponse } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
 import useGetPeerEvaluationTableStudentLecturer from "@/requests/hooks/query/useGetPeerEvaluationTableStudentLecturer";
 
 interface IPeerEvaluationStudentTableDialog {
@@ -37,6 +37,13 @@ const PeerEvaluationStudentTableDialog = ({
           peerEvaluationId: peerEvaluationId,
           studentId: studentId,
         },
+        orderBy: [
+          {
+            studentReviewed: {
+              studentName: "asc",
+            },
+          },
+        ],
       },
     });
   }, [getPeerEvaluationTableStudentLecturer, peerEvaluationId, studentId, isDialogOpen]);

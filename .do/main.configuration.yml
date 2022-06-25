@@ -10,7 +10,7 @@ envs:
   - key: ENVIRONMENT
     scope: RUN_AND_BUILD_TIME
     value: production
-  - key: LOGICAL_ENVIRONMENT
+  - key: NEXT_PUBLIC_LOGICAL_ENVIRONMENT
     scope: RUN_AND_BUILD_TIME
     value: production
   - key: NEXTAUTH_SECRET

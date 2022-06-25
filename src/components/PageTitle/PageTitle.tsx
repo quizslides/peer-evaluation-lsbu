@@ -23,6 +23,8 @@ const Wrapper = styled.div<WrapperProps>`
 interface TitleProps {
   colorLight: string;
   colorDark: string;
+  textAlignment?: string;
+  fontWeight?: number;
 }
 
 const getLinearGradientTitle = (colorLight: string, colorDark: string) => {
@@ -34,25 +36,34 @@ const getLinearGradientTitle = (colorLight: string, colorDark: string) => {
 };
 
 const Title = styled.div<TitleProps>`
-  font-weight: 800;
+  font-weight: ${(props) => props.fontWeight || "800"};
   background: -webkit-linear-gradient(${(props) => getLinearGradientTitle(props.colorLight, props.colorDark)});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: ${(props) => props.textAlignment || "inherit"};
 `;
 
 interface IPageTitle extends TypographyProps {
   title: string;
   testId: string;
   margin?: string | undefined;
+  fontColor?: string;
+  textAlignment?: string;
+  fontWeight?: number;
 }
 
-const PageTitle = ({ title, testId, variant, margin }: IPageTitle) => {
+const PageTitle = ({ title, testId, variant, margin, fontColor, textAlignment, fontWeight }: IPageTitle) => {
   const theme = useTheme();
 
   return (
     <Wrapper margin={margin}>
       <Typography testId={testId} variant={variant}>
-        <Title colorLight={theme.palette.primary.light} colorDark={theme.palette.primary.dark}>
+        <Title
+          colorLight={fontColor || theme.palette.primary.light}
+          colorDark={fontColor || theme.palette.primary.dark}
+          fontWeight={fontWeight}
+          textAlignment={textAlignment}
+        >
           {title}
         </Title>
       </Typography>

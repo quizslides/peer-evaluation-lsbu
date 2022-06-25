@@ -6,19 +6,22 @@ import {
   PeerEvaluationExistQuery,
   PeerEvaluationStudentTeamExistQuery,
   PeerEvaluationsByLecturerQuery,
-} from "@/pages/api/resolvers/peer-evaluation";
-import { PeerEvaluationStudentsLecturerMark } from "@/pages/api/resolvers/peer-evaluation-student-lecturer-mark";
-import { PeerEvaluationStudentTeamCalculateResultsTable } from "@/pages/api/resolvers/peer-evaluation-student-team-calculate-results-table";
-import { PeerEvaluationStudentTeamCalculateResultsTableByTeam } from "@/pages/api/resolvers/peer-evaluation-student-team-calculate-results-table-by-team";
-import { PeerEvaluationStudentTeamCalculatedResultsTable } from "@/pages/api/resolvers/peer-evaluation-student-team-calculated-results-table";
-import { UpsertPeerEvaluationTableLecturer } from "@/pages/api/resolvers/peer-evaluation-table-lecturer";
-import { PeerEvaluationTableStudentLecturerQuery } from "@/pages/api/resolvers/peer-evaluation-table-student-lecturer-query";
-import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/peer-evaluation-table-student-mutation";
-import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/peer-evaluation-table-student-query";
+} from "@/pages/api/resolvers/lecturer/peer-evaluation";
+import { PeerEvaluationCreateStudentBulkMutationResolver } from "@/pages/api/resolvers/lecturer/peer-evaluation-create-student-bulk";
+import { PeerEvaluationStudentsLecturerMark } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-lecturer-mark";
+import { PeerEvaluationStudentTeamCalculateResultsTable } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table";
+import { PeerEvaluationStudentTeamCalculateResultsTableByTeam } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table-by-team";
+import { PeerEvaluationStudentTeamCalculatedResultsTable } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculated-results-table";
+import { PeerEvaluationTableStudentLecturerQuery } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
+import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/student/peer-evaluation-table-student-mutation";
+import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
+import { PeerEvaluationsStudentQueryResolver } from "@/pages/api/resolvers/student/peer-evaluations-query";
 
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
+    PeerEvaluationsStudentQueryResolver,
+    PeerEvaluationCreateStudentBulkMutationResolver,
     PeerEvaluationStudentTeamCalculateResultsTableByTeam,
     PeerEvaluationStudentTeamCalculateResultsTable,
     PeerEvaluationStudentTeamCalculatedResultsTable,
@@ -26,7 +29,6 @@ const schemaDefinitions = await buildSchema({
     PeerEvaluationStudentsLecturerMark,
     UpdatePeerEvaluationTableStudentData,
     PeerEvaluationTableStudentQuery,
-    UpsertPeerEvaluationTableLecturer,
     PeerEvaluationStudentTeamExistQuery,
     PeerEvaluationExistQuery,
     PeerEvaluationDashboardQuery,

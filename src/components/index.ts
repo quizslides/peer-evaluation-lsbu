@@ -11,7 +11,7 @@ import DataTableDeleteActionButtonIcon from "@/components/DataTableDeleteActionB
 import DataTableEditActionButtonIcon from "@/components/DataTableEditActionButtonIcon/DataTableEditActionButtonIcon";
 import DataTableRefreshActionButtonIcon from "@/components/DataTableRefreshActionButtonIcon/DataTableRefreshActionButtonIcon";
 import DatePicker from "@/components/DatePicker/DatePicker";
-import DatePickerForm from "@/components/DatePickerForm/DatePickerForm";
+import DateTimePickerForm from "@/components/DateTimePickerForm/DateTimePickerForm";
 import Dialog from "@/components/Dialog/Dialog";
 import Divider from "@/components/Divider/Divider";
 import Error from "@/components/Error/Error";
@@ -53,7 +53,7 @@ export {
   DataTableEditActionButtonIcon,
   DataTableRefreshActionButtonIcon,
   DatePicker,
-  DatePickerForm,
+  DateTimePickerForm,
   Dialog,
   Divider,
   Error,

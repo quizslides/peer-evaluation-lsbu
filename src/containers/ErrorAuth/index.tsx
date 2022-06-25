@@ -31,7 +31,7 @@ const ErrorAuth = () => {
 
   useEffect(() => {
     if (session) {
-      router.push(routing.dashboard);
+      router.push(routing.home);
     }
   }, [router, session]);
 

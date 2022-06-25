@@ -8,7 +8,7 @@ import { object } from "yup";
 import {
   Button,
   ConfirmationDialog,
-  DatePickerForm,
+  DateTimePickerForm,
   Divider,
   SelectFieldForm,
   SelectMultipleFieldForm,
@@ -20,7 +20,12 @@ import PeerEvaluationTeachingMemberFormWrapper from "@/components/PeerEvaluation
 import PeerEvaluationColumnManagement from "@/containers/PeerEvaluationColumnManagement";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
-import { IPeerEvaluationData, PeerEvaluationStatus, SchoolsDropdown } from "@/types/peer-evaluation";
+import {
+  IPeerEvaluationData,
+  PeerEvaluationStatus,
+  PeerEvaluationStatusDefinition,
+  SchoolsDropdown,
+} from "@/types/peer-evaluation";
 import {
   peerEvaluationCodeValidator,
   peerEvaluationColumnsValidator,
@@ -113,7 +118,7 @@ const PeerEvaluationForm = ({
           });
         }}
       >
-        {({ setFieldValue, dirty }) => (
+        {({ setFieldValue, dirty, values }) => (
           <Form>
             <WarningUnsavedForm areChangesUnsaved={dirty} />
             <Container maxWidth="lg">
@@ -187,7 +192,7 @@ const PeerEvaluationForm = ({
                   props={{
                     required: true,
                     label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
-                    helperText: content.containers.peerEvaluationForm.form.peerEvaluationStatus.helperText,
+                    helperText: PeerEvaluationStatusDefinition[values.status],
                     fullWidth: true,
                     disabled: isViewOnly || isNewPeerEvaluation,
                   }}
@@ -226,7 +231,7 @@ const PeerEvaluationForm = ({
               </FieldWrapper>
 
               <FieldWrapper marginBottom="3em">
-                <DatePickerForm
+                <DateTimePickerForm
                   testId="peer-evaluation-form-peer-evaluation-submissions-lock-date-field"
                   name="submissionsLockDate"
                   disablePast
