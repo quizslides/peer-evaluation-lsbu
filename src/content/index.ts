@@ -71,7 +71,6 @@ const content = {
         },
         peerEvaluationStatus: {
           label: "Status",
-          helperText: "Status of the peer evaluation peer evaluation",
         },
         maxMarkIncrease: {
           label: "Max mark increase",

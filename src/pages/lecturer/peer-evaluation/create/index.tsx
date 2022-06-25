@@ -15,7 +15,11 @@ const CreatePeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
 
   const [isRedirecting, setRedirecting] = useState(false);
 
-  const getRedirectUrlOnAction = () => {
+  const getRedirectUrlOnAction = (peerEvaluationId?: string) => {
+    if (peerEvaluationId) {
+      return `${routing.lecturer.peerEvaluation.view}/${peerEvaluationId}`;
+    }
+
     if (typeof router.query.redirectUrl === "string") {
       return router.query.redirectUrl;
     }
@@ -23,17 +27,17 @@ const CreatePeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
     return routing.home;
   };
 
-  const onSubmitCreatePeerEvaluation = () => {
-    redirectUserOnAction();
+  const onSubmitCreatePeerEvaluation = (peerEvaluationId?: string) => {
+    redirectUserOnAction(peerEvaluationId);
   };
 
   const onCancelCreatePeerEvaluation = () => {
     redirectUserOnAction();
   };
 
-  const redirectUserOnAction = () => {
+  const redirectUserOnAction = (peerEvaluationId?: string) => {
     setRedirecting(true);
-    router.push(getRedirectUrlOnAction());
+    router.push(getRedirectUrlOnAction(peerEvaluationId));
   };
 
   const isLoading = isRedirecting || !session;
