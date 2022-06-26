@@ -353,8 +353,19 @@ const updatePeerEvaluationStudentData = async (
 const getPeerEvaluationStudentLecturerAdjustedMark = (lecturerAdjustedMark: Decimal | null) =>
   lecturerAdjustedMark ? Number(lecturerAdjustedMark) : null;
 
-const getPeerEvaluationStudentFinalMark = (lecturerAdjustedMark: number | null, systemAdjustedMark: number) =>
-  lecturerAdjustedMark ? lecturerAdjustedMark : systemAdjustedMark;
+const getPeerEvaluationStudentFinalMark = (
+  lecturerAdjustedMark: number | null,
+  systemAdjustedMark: number,
+  peerEvaluationTeamMark: number
+) => {
+  let finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
+
+  if (!finalMark) {
+    return peerEvaluationTeamMark;
+  }
+
+  return finalMark;
+};
 
 const getListStudentMarkData = async (
   avgCriteriaScoreByStudent: AvgCriteriaScoreByStudent[],
@@ -400,7 +411,11 @@ const getListStudentMarkData = async (
       peerEvaluationStudentData.lecturerAdjustedMark
     );
 
-    const finalMark = getPeerEvaluationStudentFinalMark(lecturerAdjustedMark, systemAdjustedMark);
+    const finalMark = getPeerEvaluationStudentFinalMark(
+      lecturerAdjustedMark,
+      systemAdjustedMark,
+      peerEvaluationTeamMark
+    );
 
     return {
       ...data,
