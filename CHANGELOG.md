@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.12...v1.1.0-staging.13) (2022-06-26)
+
+
+### Features
+
+* adding peer evaluationt title to list of peer evaluations table of the student ([d0b038c](https://github.com/quizslides/peer-evaluation-lsbu/commit/d0b038c9c38ec07c8b6cbdb0e2b34646265bcabf))
+* adding when no peer evaluations final mark set the team mark as the final mark ([f1e41f4](https://github.com/quizslides/peer-evaluation-lsbu/commit/f1e41f4c3e6cbc0cc3def77f6889e058273e7689))
+
 ## [1.1.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.11...v1.1.0-staging.12) (2022-06-25)
 
 
