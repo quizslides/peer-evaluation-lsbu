@@ -8,6 +8,7 @@ type TPeerEvaluationStatus = "OPEN" | "CLOSED";
 interface IPeerEvaluationStudent {
   code: string;
   status: PeerEvaluation["status"];
+  title: string;
   submissionsLockDate: Date | null;
   peerEvaluationStudents: {
     peerEvaluationReviewed: {
@@ -18,6 +19,7 @@ interface IPeerEvaluationStudent {
 }
 
 interface IPeerEvaluationStudentDashboard {
+  title: string;
   updatedAt: string;
   code: string;
   isCompleted: boolean;
@@ -31,6 +33,7 @@ const getPeerEvaluationStudentsByUserId = async (userId: string) => {
       code: true,
       status: true,
       submissionsLockDate: true,
+      title: true,
       peerEvaluationStudents: {
         select: {
           peerEvaluationReviewed: {
@@ -64,6 +67,7 @@ const getPeerEvaluationsStudentList = (
   peerEvaluationData: IPeerEvaluationStudent[]
 ): IPeerEvaluationStudentDashboard[] => {
   return peerEvaluationData.map((data) => ({
+    title: data.title,
     code: data.code,
     isCompleted: data.peerEvaluationStudents[0].peerEvaluationReviewed?.isCompleted || false,
     peerEvaluationStatus: data.status === "PUBLISHED" ? "OPEN" : "CLOSED",

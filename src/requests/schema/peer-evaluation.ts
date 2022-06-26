@@ -91,6 +91,7 @@ const GET_PEER_EVALUATIONS_STUDENT = gql`
     peerEvaluationsStudent {
       peerEvaluationsStudent {
         updatedAt
+        title
         code
         isCompleted
         submissionsLockDate

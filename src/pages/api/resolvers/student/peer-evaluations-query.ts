@@ -16,6 +16,12 @@ import type { TPeerEvaluationStatus } from "@/utils/peer-evaluation/peer-evaluat
 class PeerEvaluationStudentResponse {
   @Field((_type) => String, {
     nullable: false,
+    description: "Peer Evaluation Title",
+  })
+  title!: string;
+
+  @Field((_type) => String, {
+    nullable: false,
     description: "Peer Evaluation Code",
   })
   code!: string;
