@@ -39,6 +39,10 @@ const PeerEvaluationsStudentDataTable = ({
       },
     },
     {
+      name: "title",
+      label: "Title",
+    },
+    {
       name: "isCompleted",
       label: "Peer Evaluation Completed",
       options: {
@@ -52,7 +56,6 @@ const PeerEvaluationsStudentDataTable = ({
         },
       },
     },
-
     {
       name: "updatedAt",
       label: "Last Updated",
@@ -61,7 +64,6 @@ const PeerEvaluationsStudentDataTable = ({
         filter: false,
       },
     },
-
     {
       name: "submissionsLockDate",
       label: "Submissions Lock Date",
