@@ -289,8 +289,10 @@ class PeerEvaluationStudentTeamExistQuery {
       id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id,
     }));
 
+    const listStudentsSanitized = listStudents.filter(({ id }) => id !== undefined);
+
     return {
-      studentList: listStudents as [PeerEvaluationStudentTeamExistResponse],
+      studentList: listStudentsSanitized as [PeerEvaluationStudentTeamExistResponse],
     };
   }
 }
