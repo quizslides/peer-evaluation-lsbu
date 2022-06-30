@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.13...v1.1.0-staging.14) (2022-06-30)
+
+
+### Bug Fixes
+
+* fixing when lecturerAdjustedMark is empty and the final mark must be the teams mark ([f594918](https://github.com/quizslides/peer-evaluation-lsbu/commit/f594918d23f74b864d3b0e8a80759dc44befa017))
+
 ## [1.1.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.12...v1.1.0-staging.13) (2022-06-26)
 
 
