@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.14...v1.1.0-staging.15) (2022-06-30)
+
+
+### Bug Fixes
+
+* fixing uploading a list of students that are new with current students ([635d05d](https://github.com/quizslides/peer-evaluation-lsbu/commit/635d05d48ad69d6cec91338b138e1024a21d5371))
+
 ## [1.1.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.13...v1.1.0-staging.14) (2022-06-30)
 
 
