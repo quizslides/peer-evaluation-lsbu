@@ -221,7 +221,7 @@ class PeerEvaluationStudentTeamExistResponse {
   email: string | undefined;
 
   @Field((_type) => String, {
-    nullable: false,
+    nullable: true,
     description: "Student ID",
   })
   id: string | undefined;
