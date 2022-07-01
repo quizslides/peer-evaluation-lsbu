@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.15...v1.1.0-staging.16) (2022-07-01)
+
+
+### Bug Fixes
+
+* filtering users that does not exist to avoid showing them as update students ([86487ac](https://github.com/quizslides/peer-evaluation-lsbu/commit/86487acf05c4b8acd6f8c6fa0227436310fc7cad))
+
 ## [1.1.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.14...v1.1.0-staging.15) (2022-06-30)
 
 
