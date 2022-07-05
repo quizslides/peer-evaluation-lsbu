@@ -286,13 +286,19 @@ class PeerEvaluationStudentTeamExistQuery {
 
     const listStudents = listOfUsers.map((studentEmail) => ({
       email: studentEmail,
-      id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id,
+      id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id || "",
     }));
 
-    const listStudentsSanitized = listStudents.filter(({ id }) => id !== undefined);
+    const peerEvaluationStudentsFlatList = peerEvaluationStudents.flatMap(({ userId }) => userId);
+
+    const listOfUserCreated = listStudents.filter(({ id }) => id !== undefined);
+
+    const listOfUserCreatedAsStudents = listOfUserCreated.filter(({ id }) =>
+      peerEvaluationStudentsFlatList.includes(id)
+    );
 
     return {
-      studentList: listStudentsSanitized as [PeerEvaluationStudentTeamExistResponse],
+      studentList: listOfUserCreatedAsStudents as [PeerEvaluationStudentTeamExistResponse],
     };
   }
 }
