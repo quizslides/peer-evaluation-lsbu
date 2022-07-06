@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.17...v1.1.0-staging.18) (2022-07-06)
+
+
+### Bug Fixes
+
+* updating query to pull students team by peer evaluation id ([21ff946](https://github.com/quizslides/peer-evaluation-lsbu/commit/21ff946aacd5e9638568b2b983c483777b0bc75c))
+
 ## [1.1.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.16...v1.1.0-staging.17) (2022-07-05)
 
 
