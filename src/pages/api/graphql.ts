@@ -185,6 +185,7 @@ prisma.$use(async (params, next) => {
       }
 
       if (isCriteriaScoreRangeAdjusted) {
+        // TODO: Move logic outside the hook
         await prisma.peerEvaluationRevieweeColumn.updateMany({
           data: {
             criteriaScore: null,
@@ -244,6 +245,48 @@ prisma.$use(async (params, next) => {
       if ("columns" in params.args.data) {
         if ("delete" in params.args.data.columns) {
           isValidRecalculateMarksPeerEvaluation = true;
+
+          // TODO: Move logic outside the hook
+          const peerEvaluationsStudents = await prisma.peerEvaluationStudent.findMany({
+            select: {
+              peerEvaluationReviewees: {
+                select: {
+                  id: true,
+                },
+              },
+            },
+            where: {
+              peerEvaluationId: {
+                equals: peerEvaluationId,
+              },
+            },
+          });
+
+          for (const student of peerEvaluationsStudents) {
+            for (const peerEvaluationReviewee of student.peerEvaluationReviewees) {
+              const peerEvaluationRevieweeColumns = await prisma.peerEvaluationRevieweeColumn.aggregate({
+                _sum: {
+                  criteriaScore: true,
+                },
+                where: {
+                  peerEvaluationRevieweeId: {
+                    equals: peerEvaluationReviewee.id,
+                  },
+                },
+              });
+
+              await prisma.peerEvaluationReviewee.update({
+                data: {
+                  criteriaScoreTotal: {
+                    set: peerEvaluationRevieweeColumns._sum.criteriaScore,
+                  },
+                },
+                where: {
+                  id: peerEvaluationReviewee.id,
+                },
+              });
+            }
+          }
         }
 
         if ("create" in params.args.data.columns) {
