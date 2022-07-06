@@ -16,8 +16,8 @@ import { permissions } from "@/pages/api/permissions";
 import prisma from "@/pages/api/prisma";
 import schemaDefinitions from "@/pages/api/prisma/schema";
 import { getDifferenceTwoArrays } from "@/utils/form";
+import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/columns";
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
-import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/student/columns";
 
 const config: PageConfig = {
   api: {
