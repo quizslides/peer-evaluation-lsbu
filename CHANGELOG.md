@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.16...v1.1.0-staging.17) (2022-07-05)
+
+
+### Bug Fixes
+
+* fixing uploading a user that exist as a user but does not exist as a student ([7edd864](https://github.com/quizslides/peer-evaluation-lsbu/commit/7edd86425496ec145c6d080bebe30f9db9f62767))
+
 ## [1.1.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.15...v1.1.0-staging.16) (2022-07-01)
 
 
