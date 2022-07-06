@@ -8,6 +8,7 @@ import {
   getPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationStudentListByValidPeerEvaluationTables,
   getPeerEvaluationStudentTeamId,
+  getPeerEvaluationStudentTeamIdByName,
 } from "@/utils/peer-evaluation/student";
 import { getUserIdByEmail } from "@/utils/user";
 
@@ -63,28 +64,17 @@ const onCreatePeerEvaluationStudentBulk = async (
   createStudentBulkData: TCreatePeerEvaluationStudentBulk[]
 ) => {
   for (const studentCreated of createStudentBulkData) {
-    const getPeerEvaluationStudentTeamByName = async (peerEvaluationStudentTeamName: string) => {
-      return await prisma.peerEvaluationStudentTeam.findFirst({
-        select: {
-          id: true,
-        },
-        where: {
-          name: {
-            equals: peerEvaluationStudentTeamName,
-          },
-        },
-      });
-    };
+    const peerEvaluationStudentTeamId = (
+      await getPeerEvaluationStudentTeamIdByName(peerEvaluationId, studentCreated.studentTeamName)
+    )?.id;
 
-    const peerEvaluationStudentTeamData = await getPeerEvaluationStudentTeamByName(studentCreated.studentTeamName);
-
-    if (!peerEvaluationStudentTeamData) {
+    if (!peerEvaluationStudentTeamId) {
       throw "Peer Evaluation Student Team does not exist.";
     }
 
     const peerEvaluationDataByTeam = await getPeerEvaluationDataToBuildStudentTableByStudentTeamId(
       peerEvaluationId,
-      peerEvaluationStudentTeamData.id
+      peerEvaluationStudentTeamId
     );
 
     if (!peerEvaluationDataByTeam) {
@@ -104,14 +94,14 @@ const onCreatePeerEvaluationStudentBulk = async (
 
     const peerEvaluationRevieweesToBuildStudentTable = getPeerEvaluationRevieweesToBuildStudentTable(
       peerEvaluationId,
-      peerEvaluationStudentTeamData.id,
+      peerEvaluationStudentTeamId,
       peerEvaluationStudentCreated,
       peerEvaluationDataByTeam.columns
     );
 
     const peerEvaluationStudentsCurrentStudentTeam = getPeerEvaluationStudentListByValidPeerEvaluationTables(
       peerEvaluationDataByTeam.peerEvaluationStudents,
-      peerEvaluationStudentTeamData.id
+      peerEvaluationStudentTeamId
     );
 
     for (const peerEvaluationStudentCurrentStudentTeam of peerEvaluationStudentsCurrentStudentTeam) {
