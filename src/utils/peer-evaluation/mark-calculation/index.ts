@@ -305,7 +305,7 @@ const getSystemAdjustedMark = (
   return systemAdjustedMark;
 };
 
-const getLecturerAdjustedMarkByStudent = async (userId: string) => {
+const getLecturerAdjustedMarkByStudentIdAndPeerEvaluationId = async (userId: string, peerEvaluationId: string) => {
   return await prisma.peerEvaluationStudent.findFirst({
     select: {
       lecturerAdjustedMark: true,
@@ -313,6 +313,9 @@ const getLecturerAdjustedMarkByStudent = async (userId: string) => {
     where: {
       userId: {
         equals: userId,
+      },
+      peerEvaluationId: {
+        equals: peerEvaluationId,
       },
     },
   });
@@ -368,6 +371,7 @@ const getPeerEvaluationStudentFinalMark = (
 };
 
 const getListStudentMarkData = async (
+  peerEvaluationId: string,
   avgCriteriaScoreByStudent: AvgCriteriaScoreByStudent[],
   sumAvgCriteriaScoreByStudent: number,
   totalPeerEvaluationStudentCount: number,
@@ -401,7 +405,10 @@ const getListStudentMarkData = async (
       throw "User does not exist.";
     }
 
-    const peerEvaluationStudentData = await getLecturerAdjustedMarkByStudent(userId);
+    const peerEvaluationStudentData = await getLecturerAdjustedMarkByStudentIdAndPeerEvaluationId(
+      userId,
+      peerEvaluationId
+    );
 
     if (!peerEvaluationStudentData) {
       throw "Peer Evaluation Student Data does not exist.";
@@ -473,6 +480,7 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
   );
 
   const peerEvaluationStudentMarksByTeam = await getListStudentMarkData(
+    peerEvaluationId,
     avgCriteriaScoreByStudent,
     sumAvgCriteriaScoreByStudent,
     totalPeerEvaluationStudentCount,
