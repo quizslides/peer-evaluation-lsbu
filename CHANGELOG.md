@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.20...v1.1.0-staging.21) (2022-07-08)
+
+
+### Bug Fixes
+
+* fixing querying lecturerAdjustedMark by student using userId and peerEvaluationId ([9456a87](https://github.com/quizslides/peer-evaluation-lsbu/commit/9456a87e290fb9f5ac65472bd694391e9870ee0b))
+
 ## [1.1.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.19...v1.1.0-staging.20) (2022-07-06)
 
 
