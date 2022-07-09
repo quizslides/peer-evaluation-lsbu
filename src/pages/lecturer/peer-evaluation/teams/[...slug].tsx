@@ -15,7 +15,6 @@ import {
   DataTableDeleteActionButtonIcon,
   IconButtonWrapper,
   PageTitle,
-  SelectFieldFormDataTable,
   TextFieldFormDataTable,
   WarningUnsavedForm,
 } from "@/components";
@@ -43,7 +42,6 @@ import {
   ObjectNormalizedType,
   getMergedKeyValuesObject,
   getNormalizedObjectArray,
-  getRangeNumberObject,
   objectToArrayOfObject,
 } from "@/utils/form";
 
@@ -103,8 +101,6 @@ const Teams: NextPage = () => {
     useState(false);
 
   const [updatePeerEvaluationStudentTeam] = useUpdatePeerEvaluationStudentTeam("UseUpdatePeerEvaluationStudentTeam");
-
-  const rangeSelectField = getRangeNumberObject(100, 0);
 
   const onViewResultsPeerEvaluationTeam = async (teamName: string) => {
     try {
@@ -169,9 +165,14 @@ const Teams: NextPage = () => {
   };
 
   const validationSchema = object({
+    // marks: array().of(
+    //   object().shape({
+    //     mark: number().required("Mark is required"),
+    //   })
+    // ),
     marks: array().of(
       object().shape({
-        mark: number().required("Mark is required"),
+        mark: number().min(0, "Value needs to be higher than 0").max(100, "Value cannot be higher than 100").nullable(),
       })
     ),
     names: array().of(
@@ -274,19 +275,20 @@ const Teams: NextPage = () => {
       options: {
         customBodyRender: (_, tableMeta, updateValue) => (
           <FieldWrapper marginBottom="1em">
-            <SelectFieldFormDataTable
-              name={`marks[${tableMeta.rowIndex}].mark`}
-              options={rangeSelectField}
-              props={{
-                name: `marks[${tableMeta.rowIndex}].mark`,
-                required: true,
-                label: "Mark",
-                fullWidth: true,
-              }}
-              testId=""
+            <TextFieldFormDataTable
               updateDataTableFormValue={updateValue}
               validationSchema={validationSchema}
-              validationFieldPath={`marks[${tableMeta.rowIndex}].mark`}
+              validationFieldPath={"marks.mark"}
+              testId=""
+              name={`marks[${tableMeta.rowIndex}].mark`}
+              props={{
+                name: `marks[${tableMeta.rowIndex}].mark`,
+                fullWidth: true,
+                label: "Mark",
+                type: "number",
+                variant: "outlined",
+                inputProps: { min: 0, max: 100, step: "0.01" },
+              }}
             />
           </FieldWrapper>
         ),
