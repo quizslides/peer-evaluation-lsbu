@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.23](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.22...v1.1.0-staging.23) (2022-07-09)
+
+
+### Features
+
+* adding text field numeric for teams mark with two decimal places with validation ([6810d1c](https://github.com/quizslides/peer-evaluation-lsbu/commit/6810d1c758e943bbc8adedaf3c1d11a2fba36175))
+
 ## [1.1.0-staging.22](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.21...v1.1.0-staging.22) (2022-07-09)
 
 
