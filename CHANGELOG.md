@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.22](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.21...v1.1.0-staging.22) (2022-07-09)
+
+
+### Bug Fixes
+
+* fixing calculating marks after adding a new student and peer evaluation is not completed ([3091960](https://github.com/quizslides/peer-evaluation-lsbu/commit/3091960358642d3c20b5cc05d14077055f09c06e))
+
 ## [1.1.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.20...v1.1.0-staging.21) (2022-07-08)
 
 
