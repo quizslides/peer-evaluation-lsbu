@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.24](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.23...v1.1.0-staging.24) (2022-07-10)
+
+
+### Features
+
+* adding student name to peer evaluation students create/update bulk ([6e62697](https://github.com/quizslides/peer-evaluation-lsbu/commit/6e626974e32cbec3a7efb9d2a8c405d378bf95dd))
+
 ## [1.1.0-staging.23](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.22...v1.1.0-staging.23) (2022-07-09)
 
 
