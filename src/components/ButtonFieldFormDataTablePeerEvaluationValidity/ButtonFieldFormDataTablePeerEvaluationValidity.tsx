@@ -48,8 +48,9 @@ const ButtonFieldFormDataTablePeerEvaluationValidity = ({
       isValid: checked,
     };
 
-    // Solution to handle a form value as an object with the DataTable
+    // HACK: Solution to handle a form value as an object with the DataTable
     updateDataTableFormValue(dataUpdated as unknown as string);
+
     setFieldValue(name, dataUpdated, false);
 
     updateDialogState();
