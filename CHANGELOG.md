@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.28](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.27...v1.1.0-staging.28) (2022-12-10)
+
+
+### Bug Fixes
+
+* enable download of team results showing table results instead rendered data ([6a713f2](https://github.com/quizslides/peer-evaluation-lsbu/commit/6a713f23f6590c41333fe0318855b3ed0839861a))
+
 ## [1.1.0-staging.27](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.26...v1.1.0-staging.27) (2022-12-10)
 
 
