@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PageConfig } from "next";
 
 import ErrorHandler from "@/pages/api/error";
-import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
+import { sanitizeUserEmail, welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import {
   onDeletePeerEvaluationStudentsHookAfter,
   onUpdatePeerEvaluationStudentHookAfterData,
@@ -25,9 +25,19 @@ const config: PageConfig = {
   },
 };
 
+const welcomeEmailHookActions = ["create", "createMany"];
+
+const sanitizeUserEmailHookActions = ["create", "createMany", "update", "updateMany"];
+
 prisma.$use(async (params, next) => {
-  if (params.model === "User" && (params.action === "createMany" || params.action === "create")) {
-    await welcomeUserEmailHook(params);
+  if (params.model === "User") {
+    if (welcomeEmailHookActions.includes(params.action)) {
+      await welcomeUserEmailHook(params);
+    }
+
+    if (sanitizeUserEmailHookActions.includes(params.action)) {
+      params = sanitizeUserEmail(params);
+    }
   }
 
   const result = await next(params);
