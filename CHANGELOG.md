@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.26](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.25...v1.1.0-staging.26) (2022-12-10)
+
+
+### Features
+
+* adding transformer for email on create or update ([634424a](https://github.com/quizslides/peer-evaluation-lsbu/commit/634424ac455b84a6b4d9c2b35d13396a0c888b02))
+
 ## [1.1.0-staging.25](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.24...v1.1.0-staging.25) (2022-12-10)
 
 
