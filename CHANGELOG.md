@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.25](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.24...v1.1.0-staging.25) (2022-12-10)
+
+
+### Bug Fixes
+
+* updating peer evaluation calculation to show valid calculations and remove invalid/incomplete ([7d3b9c7](https://github.com/quizslides/peer-evaluation-lsbu/commit/7d3b9c7ab319c79f9add5582216500a17bf14ab8))
+
+
+### Documentation
+
+* updating type on the README ([4f53ac9](https://github.com/quizslides/peer-evaluation-lsbu/commit/4f53ac9f9c320e53b70e6e3c16f57de1f1ec9f92))
+
 ## [1.1.0-staging.24](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.23...v1.1.0-staging.24) (2022-07-10)
 
 
