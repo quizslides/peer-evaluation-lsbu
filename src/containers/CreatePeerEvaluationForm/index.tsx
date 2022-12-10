@@ -34,7 +34,7 @@ const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserFo
       errorNotification("Error creating peer evaluation", "CreatePeerEvaluationForm");
     }
 
-    onSubmit(data.createPeerEvaluation.id);
+    onSubmit(data.createOnePeerEvaluation.id);
   };
 
   useEffect(() => {
