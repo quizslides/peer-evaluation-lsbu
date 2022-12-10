@@ -11,7 +11,7 @@ import { errorNotification } from "@/utils";
 const useUpdatePeerEvaluationReviewee = (notificationsId: string) => {
   return useMutation<
     {
-      updatePeerEvaluationReviewee: PeerEvaluationReviewee;
+      updateOnePeerEvaluationReviewee: PeerEvaluationReviewee;
     },
     { data: PeerEvaluationRevieweeUpdateInput; where: PeerEvaluationRevieweeWhereUniqueInput }
   >(UPDATE_PEER_EVALUATION_REVIEWEE, {
