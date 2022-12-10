@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.27](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.26...v1.1.0-staging.27) (2022-12-10)
+
+
+### Bug Fixes
+
+* fixing creation of peer evaluation ([1ec5e23](https://github.com/quizslides/peer-evaluation-lsbu/commit/1ec5e234da626b2d00588ebba2d832d1ed078e89))
+
 ## [1.1.0-staging.26](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.25...v1.1.0-staging.26) (2022-12-10)
 
 
