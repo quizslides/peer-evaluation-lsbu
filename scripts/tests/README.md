@@ -16,19 +16,43 @@ The script creates all student peer evaluations tables, marking them as complete
 
 #### Instructions
 
-1. Open the terminal and run `python -v` and make sure it exists and it is v3
+1. Go to the script directory `cd scripts/tests/complete_all_peer_evaluations`
 
-2. Create a peer evaluation and add all the students you would like to test
+2. Create a virtual environment
 
-3. Copy the Peer Evaluation ID `http://localhost:3000/peer-evaluation/students/cl2wfutv200508q5eyeoqvyas` the `peerEvaluationId` would be `cl2wfutv200508q5eyeoqvyas`
+   ```bash
+   python -m venv venv
+   ```
 
-4. Copy the URL of the environment `https://staging.lsbupeerevaluation.software`
+   The above script will create a virtual environment named `venv`
 
-5. Run the following command:
+   If you are using `python3` as an alias for python v3, run the above command with `python3` instead
 
-```python
-python3 path/to/complete_all_peer_evaluations.py --peer-evaluation-id="PASTE_HERE_PEER_EVALUATION_ID" --url="PASTE_HERE_URL"
-```
+3. Active the virtual environment for a terminal session
+
+   ```bash
+   source venv/bin/activate
+   ```
+
+4. Install the dependencies of the script
+
+   It is recommended to use a virtual environment to avoid any potential conflict with other python dependencies installed globally, for example [venv](https://docs.python.org/3/library/venv.html)
+
+   ```python
+   pip install -r requirements.txt
+   ```
+
+5. Create a peer evaluation and add all the students you would like to test
+
+6. After setting up a peer evaluation, copy the Peer Evaluation ID from the url. For example, `http://localhost:3000/peer-evaluation/students/cl2wfutv200508q5eyeoqvyas` the `peerEvaluationId` would be `cl2wfutv200508q5eyeoqvyas`
+
+7. Copy the URL of the environment. For example, `https://staging.lsbupeerevaluation.software`
+
+8. Run the following command:
+
+   ```python
+   python path/to/complete_all_peer_evaluations.py --peer-evaluation-id="PASTE_HERE_PEER_EVALUATION_ID" --url="PASTE_HERE_URL"
+   ```
 
 If the script has been executed successfully it will appear as a message on the terminal `The script has been executed successfully ‎😃`
 
