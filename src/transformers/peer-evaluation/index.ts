@@ -1,6 +1,6 @@
 import {
   EmailCreateNestedOneWithoutPeerEvaluationInput,
-  EmailUpdateOneWithoutPeerEvaluationInput,
+  EmailUpdateOneWithoutPeerEvaluationNestedInput,
   PeerEvaluation,
   PeerEvaluationColumn,
   PeerEvaluationColumnCreateWithoutPeerEvaluationInput,
@@ -67,7 +67,10 @@ const sanitizeEmailReminderDataOnCreate = (
   };
 };
 
-const sanitizeEmailReminderDataOnUpdate = (subject: string, body: string): EmailUpdateOneWithoutPeerEvaluationInput => {
+const sanitizeEmailReminderDataOnUpdate = (
+  subject: string,
+  body: string
+): EmailUpdateOneWithoutPeerEvaluationNestedInput => {
   return {
     update: {
       subject: {

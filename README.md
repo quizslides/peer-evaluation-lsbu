@@ -55,7 +55,7 @@ Now you can access your local environment through `http://localhost:3000/`
 
 ## Sentry
 
-Request the key for sentry for local development to be added to the `.env` as `SENTRYand never commit to the repository
+Request the key for sentry for local development to be added to the `.env` as `SENTRY_DSN` never commit to the repository
 
 ## Database
 

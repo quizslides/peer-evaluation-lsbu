@@ -216,7 +216,7 @@ const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IP
         isValid,
         peerEvaluationReviewId: id,
         revieweeStudentId: studentReviewedId,
-        isPeerEvaluationCompleted: student.peerEvaluationReviewed ? student.peerEvaluationReviewed.isCompleted : false,
+        isPeerEvaluationCompleted: true,
       })
     );
   });
@@ -450,6 +450,26 @@ const getListStudentMarkData = async (
   return studentMarkData;
 };
 
+const setIncompletePeerEvaluationReviews = (peerEvaluationReviews: IPeerEvaluationTeamReviewerResult[]) => {
+  const listOfIncompleteReviews = peerEvaluationReviews.filter(({ criteriaScoreTotal }) => criteriaScoreTotal === null);
+
+  if (listOfIncompleteReviews.length) {
+    const listOfReviewsIncompleteByEmail = [
+      ...new Set(listOfIncompleteReviews.map(({ reviewerEmail }) => reviewerEmail)),
+    ];
+
+    peerEvaluationReviews = peerEvaluationReviews.map((peerEvaluationReview) => {
+      if (listOfReviewsIncompleteByEmail.includes(peerEvaluationReview.reviewerEmail)) {
+        peerEvaluationReview.isPeerEvaluationCompleted = false;
+      }
+
+      return peerEvaluationReview;
+    });
+  }
+
+  return peerEvaluationReviews;
+};
+
 const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, peerEvaluationStudentTeamId: string) => {
   const peerEvaluationData = await getPeerEvaluationDataById(peerEvaluationId);
 
@@ -482,8 +502,12 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
     peerEvaluationStudentTeamData as IPeerEvaluationStudentTeam
   );
 
+  const peerEvaluationTeamReviewerResultsSanitized = setIncompletePeerEvaluationReviews(
+    peerEvaluationTeamReviewerResults
+  );
+
   const { avgCriteriaScoreByStudent, sumAvgCriteriaScoreByStudent } = getAvgCriteriaScoreData(
-    peerEvaluationTeamReviewerResults,
+    peerEvaluationTeamReviewerResultsSanitized,
     studentTeamEmailList
   );
 

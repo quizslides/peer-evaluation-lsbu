@@ -7,7 +7,7 @@ import { errorNotification, successNotification } from "@/utils";
 const useUpdateUser = (notificationsId: string) => {
   return useMutation<
     {
-      updateUser: User;
+      updateOneUser: User;
     },
     { data: UserUpdateInput; where: UserWhereUniqueInput }
   >(UPDATE_USER, {

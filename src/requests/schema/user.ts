@@ -10,7 +10,7 @@ const CREATE_MULTIPLE_USERS = gql`
 
 const CREATE_ONE_USER = gql`
   mutation CreateOneUser($data: UserCreateInput!) {
-    createUser(data: $data) {
+    createOneUser(data: $data) {
       name
       email
       role
@@ -30,8 +30,8 @@ const GET_USERS = gql`
 `;
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
-    updateUser(data: $data, where: $where) {
+  mutation UpdateOneUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
+    updateOneUser(data: $data, where: $where) {
       name
       email
       role

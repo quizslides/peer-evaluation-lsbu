@@ -11,11 +11,11 @@ const UPDATE_PEER_EVALUATION_STUDENTS_LECTURER_MARK = gql`
 `;
 
 const UPDATE_PEER_EVALUATION_REVIEWEE = gql`
-  mutation UpdatePeerEvaluationReviewee(
+  mutation UpdateOnePeerEvaluationReviewee(
     $data: PeerEvaluationRevieweeUpdateInput!
     $where: PeerEvaluationRevieweeWhereUniqueInput!
   ) {
-    updatePeerEvaluationReviewee(data: $data, where: $where) {
+    updateOnePeerEvaluationReviewee(data: $data, where: $where) {
       id
     }
   }
@@ -30,19 +30,19 @@ const DELETE_MANY_PEER_EVALUATION_STUDENTS = gql`
 `;
 
 const DELETE_PEER_EVALUATION_STUDENT_TEAM = gql`
-  mutation DeletePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
-    deletePeerEvaluationStudentTeam(where: $where) {
+  mutation DeleteOnePeerEvaluationStudentTeam($where: PeerEvaluationStudentTeamWhereUniqueInput!) {
+    deleteOnePeerEvaluationStudentTeam(where: $where) {
       id
     }
   }
 `;
 
 const UPDATE_PEER_EVALUATION_STUDENT_TEAM = gql`
-  mutation UpdatePeerEvaluationStudentTeam(
+  mutation UpdateOnePeerEvaluationStudentTeam(
     $data: PeerEvaluationStudentTeamUpdateInput!
     $where: PeerEvaluationStudentTeamWhereUniqueInput!
   ) {
-    updatePeerEvaluationStudentTeam(data: $data, where: $where) {
+    updateOnePeerEvaluationStudentTeam(data: $data, where: $where) {
       id
       createdAt
       name
@@ -378,16 +378,16 @@ const GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE = gql`
 `;
 
 const CREATE_PEER_EVALUATION = gql`
-  mutation CreatePeerEvaluation($data: PeerEvaluationCreateInput!) {
-    createPeerEvaluation(data: $data) {
+  mutation CreateOnePeerEvaluation($data: PeerEvaluationCreateInput!) {
+    createOnePeerEvaluation(data: $data) {
       id
     }
   }
 `;
 
 const UPDATE_PEER_EVALUATION = gql`
-  mutation UpdatePeerEvaluation($data: PeerEvaluationUpdateInput!, $where: PeerEvaluationWhereUniqueInput!) {
-    updatePeerEvaluation(data: $data, where: $where) {
+  mutation UpdateOnePeerEvaluation($data: PeerEvaluationUpdateInput!, $where: PeerEvaluationWhereUniqueInput!) {
+    updateOnePeerEvaluation(data: $data, where: $where) {
       title
       id
       createdAt
@@ -444,8 +444,8 @@ const UPDATE_PEER_EVALUATION = gql`
 `;
 
 const UPDATE_PEER_EVALUATION_EMAIL = gql`
-  mutation UpdateEmail($data: EmailUpdateInput!, $where: EmailWhereUniqueInput!) {
-    updateEmail(data: $data, where: $where) {
+  mutation UpdateOneEmail($data: EmailUpdateInput!, $where: EmailWhereUniqueInput!) {
+    updateOneEmail(data: $data, where: $where) {
       subject
       body
     }
@@ -453,8 +453,8 @@ const UPDATE_PEER_EVALUATION_EMAIL = gql`
 `;
 
 const DELETE_PEER_EVALUATION = gql`
-  mutation DeletePeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
-    deletePeerEvaluation(where: $where) {
+  mutation DeleteOnePeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
+    deleteOnePeerEvaluation(where: $where) {
       id
     }
   }
@@ -543,19 +543,19 @@ const PEER_EVALUATION_STUDENTS = gql`
 `;
 
 const UPDATE_PEER_EVALUATION_STUDENT = gql`
-  mutation UpdatePeerEvaluationStudent(
+  mutation UpdateOnePeerEvaluationStudent(
     $data: PeerEvaluationStudentUpdateInput!
     $where: PeerEvaluationStudentWhereUniqueInput!
   ) {
-    updatePeerEvaluationStudent(data: $data, where: $where) {
+    updateOnePeerEvaluationStudent(data: $data, where: $where) {
       id
     }
   }
 `;
 
 const CREATE_PEER_EVALUATION_STUDENT = gql`
-  mutation CreatePeerEvaluationStudent($data: PeerEvaluationStudentCreateInput!) {
-    createPeerEvaluationStudent(data: $data) {
+  mutation CreateOnePeerEvaluationStudent($data: PeerEvaluationStudentCreateInput!) {
+    createOnePeerEvaluationStudent(data: $data) {
       id
     }
   }
