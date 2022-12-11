@@ -104,7 +104,12 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
   const onUploadCSVStudentsTeam = async (csvData: ObjectCSV) => {
     loadingNotification("Processing csv...", "onUploadCSVStudentsTeam");
 
-    const studentsTeamsData = csvData as unknown as [IStudentsTeamData];
+    const studentsTeamsDataRaw = csvData as unknown as [IStudentsTeamData];
+
+    const studentsTeamsData = studentsTeamsDataRaw.map((data) => ({
+      ...data,
+      studentEmail: data.studentEmail.toLowerCase(),
+    }));
 
     const studentsTeamsDataError: { [key: string]: string | number | null }[] = [];
 
