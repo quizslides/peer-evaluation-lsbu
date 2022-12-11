@@ -20,7 +20,9 @@ const sanitizeUserEmail = (params: Prisma.MiddlewareParams) => {
       params.args.data.email = params.args.data.email.toLowerCase();
       break;
     case "update":
-      params.args.data.email.set = params.args.data.email.set.toLowerCase();
+      if ("email" in params.args.data) {
+        params.args.data.email.set = params.args.data.email.set.toLowerCase();
+      }
       break;
     case "createMany":
       params.args.data = params.args.data.map((user: User) => ({
