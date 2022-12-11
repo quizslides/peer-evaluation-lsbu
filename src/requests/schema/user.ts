@@ -21,10 +21,15 @@ const CREATE_ONE_USER = gql`
 const GET_USERS = gql`
   query Users($orderBy: [UserOrderByWithRelationInput!]) {
     users(orderBy: $orderBy) {
-      name
+      _count {
+        peerEvaluationStudentList
+        peerEvaluationTeachingMembers
+      }
+      createdAt
       email
-      role
       emailVerified
+      name
+      role
     }
   }
 `;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import { User } from "@generated/type-graphql";
-import MUIDataTable, { DisplayData, MUIDataTableOptions } from "mui-datatables";
+import MUIDataTable, { DisplayData, MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import type { NextPage, NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
@@ -36,6 +36,7 @@ import {
   userNameValidator,
   userRoleValidator,
 } from "@/utils";
+import { getDateLocaleString } from "@/utils/date";
 import exampleFile from "@/utils/example-file";
 import { RoleScope } from "@/utils/permissions";
 
@@ -297,7 +298,7 @@ const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
     setUserDataBulk(null);
   };
 
-  const userDataTable = [
+  const userDataTable: MUIDataTableColumn[] = [
     {
       name: "name",
       label: "Name",
@@ -334,6 +335,27 @@ const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
           return <CloseIcon testId={"user-not-verified-icon"} />;
         },
       },
+    },
+    {
+      name: "createdAt",
+      label: "Created",
+      options: {
+        display: true,
+        filter: true,
+        sort: true,
+        filterType: "textField",
+        customBodyRender: (date: Date) => {
+          return getDateLocaleString(date);
+        },
+      },
+    },
+    {
+      name: "_count.peerEvaluationStudentList",
+      label: "Peer Evaluations as Student",
+    },
+    {
+      name: "_count.peerEvaluationTeachingMembers",
+      label: "Total Peer Evaluations as Teaching Member",
     },
   ];
 
@@ -425,6 +447,7 @@ const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
     draggableColumns: {
       enabled: true,
     },
+    enableNestedDataAccess: ".",
     print: false,
     rowsPerPage: 100,
     onTableChange: (action, tableState) => {
