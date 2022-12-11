@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.29...v1.1.0-staging.30) (2022-12-11)
+
+
+### Bug Fixes
+
+* fixing update user email when user is updated by a transaction process ([7a021f6](https://github.com/quizslides/peer-evaluation-lsbu/commit/7a021f69471199cb85f6a2b1a143580977398d7c))
+
 ## [1.1.0-staging.29](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.28...v1.1.0-staging.29) (2022-12-11)
 
 
