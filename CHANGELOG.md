@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.29](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.28...v1.1.0-staging.29) (2022-12-11)
+
+
+### Features
+
+* adding peer evaluation total and creation to user table ([4360c52](https://github.com/quizslides/peer-evaluation-lsbu/commit/4360c52d6cd4e3a29fffe779bed9475ed961d58c))
+
 ## [1.1.0-staging.28](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.27...v1.1.0-staging.28) (2022-12-10)
 
 
