@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.32](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.31...v1.1.0-staging.32) (2022-12-11)
+
+
+### Features
+
+* adding granular permissions for the students ([8c3bf34](https://github.com/quizslides/peer-evaluation-lsbu/commit/8c3bf340f620a6b7b5267a0ea93a6dbe833632e3))
+
+
+### Code Refactoring
+
+* reordering ARG and ENV alphabetically ([d45cf37](https://github.com/quizslides/peer-evaluation-lsbu/commit/d45cf370c57e8feb2a557fe53a1c67bf5c86a721))
+
 ## [1.1.0-staging.31](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.30...v1.1.0-staging.31) (2022-12-11)
 
 
