@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, rule, shield } from "graphql-shield";
+import { allow, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
@@ -214,42 +214,32 @@ const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: 
   }
 );
 
-// TODO: Add granular permissions for the student view
+const getStudentPermissionConfiguration = () => or(isAdmin, isLecturer, isStudent);
+
 const permissions = shield(
   {
     Query: {
-      "*": allow,
-      // users: or(isAdmin, isLecturer),
-      // groupByUser: or(isAdmin, isLecturer),
-      // peerEvaluationExist: or(isAdmin, isLecturer),
-      // peerEvaluations: isAdmin,
-      // peerEvaluationsByLecturer: or(isAdmin, isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation),
-      // peerEvaluation: or(isAdmin, isPeerEvaluationTeachingMember),
+      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
+      "*": or(isAdmin, isLecturer),
+      peerEvaluationTableStudent: getStudentPermissionConfiguration(),
+      peerEvaluationsStudent: getStudentPermissionConfiguration(),
     },
     Mutation: {
-      "*": allow,
-      // createManyUser: isAdmin,
-      // updateUser: isAdmin,
-      // deleteManyUser: isAdmin,
-      // createUser: isAdmin,
-      // createPeerEvaluation: or(isAdmin, isLecturer),
-      // updatePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner, isPeerEvaluationTeachingMemberEditor),
-      // deletePeerEvaluation: or(isAdmin, isPeerEvaluationTeachingMemberOwner),
-      // TBC - createManyStudents -> or(isAdmin, isLecturer)
-      // TBC - createStudent -> or(isAdmin, isLecturer)
+      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
+      "*": or(isAdmin, isLecturer),
+      updatePeerEvaluationTableStudent: getStudentPermissionConfiguration(),
     },
   },
   {
     allowExternalErrors: true,
-    fallbackError: (thrownThing) => {
-      if (thrownThing instanceof ApolloError) {
-        return thrownThing;
-      } else if (thrownThing instanceof Error) {
-        Sentry.captureException(thrownThing);
-        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
-      } else {
-        return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+    fallbackError: (errorThrown) => {
+      if (errorThrown instanceof ApolloError) {
+        return errorThrown;
+      } else if (errorThrown instanceof Error) {
+        Sentry.captureException(errorThrown);
       }
+
+      return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
     },
   }
 );
