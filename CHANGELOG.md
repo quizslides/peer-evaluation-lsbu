@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.31](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.30...v1.1.0-staging.31) (2022-12-11)
+
+
+### Bug Fixes
+
+* fixing uploading students as uppercase by sanitizing the students to be all lowercase ([179438d](https://github.com/quizslides/peer-evaluation-lsbu/commit/179438de460cbe446f3e69409229c24a51a326e7))
+
 ## [1.1.0-staging.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.29...v1.1.0-staging.30) (2022-12-11)
 
 
