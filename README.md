@@ -33,6 +33,16 @@ Install the node dependencies by running:
 yarn install
 ```
 
+## Next Auth Credentials
+
+NextAuth requires a secret key that is part of the `.env` and `.env.development.local` as `NEXTAUTH_SECRET`.
+
+To create a new key run
+
+```bash
+openssl rand -base64 32
+```
+
 ## Running Locally
 
 1. Copy the env variables to run locally
