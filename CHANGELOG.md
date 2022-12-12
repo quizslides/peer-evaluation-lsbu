@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.1.0-staging.33](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.32...v1.1.0-staging.33) (2022-12-12)
+
+
+### Features
+
+* adding to admin to access peer evaluations even if it is not a teaching member ([f196115](https://github.com/quizslides/peer-evaluation-lsbu/commit/f196115e0d0a953ca584f2aa239a06a0fc9c0531))
+
 ## [1.1.0-staging.32](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0-staging.31...v1.1.0-staging.32) (2022-12-11)
 
 
