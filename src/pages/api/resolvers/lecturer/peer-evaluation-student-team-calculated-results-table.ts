@@ -176,7 +176,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTable {
       },
     });
 
-    if (!peerEvaluationTeachingMember) {
+    if (!peerEvaluationTeachingMember && session?.user.role !== "ADMIN") {
       return getReturnOfNotAvailablePeerEvaluation(peerEvaluationStudentTeamName);
     }
 

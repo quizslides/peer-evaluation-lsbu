@@ -520,9 +520,13 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
   useEffect(() => {
     if (dataStudentsData && dataTeachingMember) {
       setPeerEvaluationStudentsData(sanitizePeerEvaluationStudentsDataOnFetch(dataStudentsData.peerEvaluationStudents));
-      setTeachingMemberRole(dataTeachingMember.peerEvaluationTeachingMember.role);
+
+      const teachingMemberRole =
+        session?.user.role === "ADMIN" ? "OWNER" : dataTeachingMember.peerEvaluationTeachingMember.role;
+
+      setTeachingMemberRole(teachingMemberRole);
     }
-  }, [dataStudentsData, dataTeachingMember]);
+  }, [dataStudentsData, dataTeachingMember, session?.user.role]);
 
   const isError = !!errorStudentsData || !!errorTeachingMember;
 
