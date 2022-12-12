@@ -56,13 +56,17 @@ The script creates all student peer evaluations tables, marking them as complete
 
 9. Extract from the `Cookie` used by the signed in account to communicate to the backend. The cookie is available as a header named `Cookie` when making any requests to the backend
 
-10. Run the following command:
+10. Optional - The `criteria-range-min` and `criteria-range-max` is to create random values by each student. Enter the same properties used by the peer evaluation. By default, the application takes 1 and 5 as min and max respectively
+
+11. Run the following command:
 
     ```python
     python path/to/complete_all_peer_evaluations.py \
       --peer-evaluation-id="PASTE_HERE_PEER_EVALUATION_ID" \
       --url="PASTE_HERE_URL" \
       --cookie-auth="PASTE_HERE_COOKIE_AUTH"
+      --criteria-range-min="1" \
+      --criteria-range-max="5"
     ```
 
 If the script has been executed successfully it will appear as a message on the terminal `The script has been executed successfully ‎😃`
