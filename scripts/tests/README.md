@@ -64,7 +64,7 @@ The script creates all student peer evaluations tables, marking them as complete
     python path/to/complete_all_peer_evaluations.py \
       --peer-evaluation-id="PASTE_HERE_PEER_EVALUATION_ID" \
       --url="PASTE_HERE_URL" \
-      --cookie-auth="PASTE_HERE_COOKIE_AUTH"
+      --cookie-auth="PASTE_HERE_COOKIE_AUTH" \
       --criteria-range-min="1" \
       --criteria-range-max="5"
     ```
