@@ -1,4 +1,4 @@
-import { PeerEvaluationStudentTeam } from "@generated/type-graphql";
+import { PeerEvaluationStudentReview, PeerEvaluationStudentTeam } from "@generated/type-graphql";
 import { Decimal } from "@prisma/client/runtime";
 
 import prisma, { Prisma } from "@/pages/api/prisma";
@@ -53,6 +53,7 @@ interface PeerEvaluationStudentList {
   user: User;
   peerEvaluationReviewees: PeerEvaluationReviewee[];
   studentName: string;
+  peerEvaluationReviewed: PeerEvaluationStudentReview;
 }
 
 interface IPeerEvaluationStudentTeam {
@@ -85,6 +86,7 @@ interface IPeerEvaluationTeamReviewerResult {
   comment: string | null;
   isValid: boolean;
   peerEvaluationReviewId: string;
+  isPeerEvaluationCompleted: boolean;
 }
 
 const getPeerEvaluationDataById = async (peerEvaluationId: string) => {
@@ -149,6 +151,11 @@ const getPeerEvaluationStudentTeamData = async (peerEvaluationStudentTeamId: str
               id: true,
             },
           },
+          peerEvaluationReviewed: {
+            select: {
+              isCompleted: true,
+            },
+          },
           studentName: true,
         },
       },
@@ -197,8 +204,8 @@ const getStudentTeamEmailList = (peerEvaluationStudentTeam: PeerEvaluationStuden
 };
 
 const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IPeerEvaluationStudentTeam) => {
-  return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) =>
-    student.peerEvaluationReviewees.map(
+  return peerEvaluationStudentTeamData.peerEvaluationStudentList.flatMap((student) => {
+    return student.peerEvaluationReviewees.map(
       ({ criteriaScoreTotal, comment, isValid, peerEvaluationReview, id, studentReviewedId }) => ({
         reviewerName: peerEvaluationReview?.peerEvaluationStudent.user.name || "",
         reviewerEmail: peerEvaluationReview?.peerEvaluationStudent.user.email || "",
@@ -209,9 +216,10 @@ const getPeerEvaluationTeamReviewersResults = (peerEvaluationStudentTeamData: IP
         isValid,
         peerEvaluationReviewId: id,
         revieweeStudentId: studentReviewedId,
+        isPeerEvaluationCompleted: true,
       })
-    )
-  );
+    );
+  });
 };
 
 const getCriteriaTotalSum = (data: IPeerEvaluationTeamReviewerResult[]) =>
@@ -222,8 +230,8 @@ const getReviewees = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: s
 
 const getRevieweesValid = (data: IPeerEvaluationTeamReviewerResult[], studentEmail: string) =>
   data.filter(
-    ({ revieweeEmail, isValid, criteriaScoreTotal }) =>
-      revieweeEmail === studentEmail && isValid === true && criteriaScoreTotal !== null
+    ({ revieweeEmail, isValid, criteriaScoreTotal, isPeerEvaluationCompleted }) =>
+      revieweeEmail === studentEmail && isValid === true && criteriaScoreTotal !== null && isPeerEvaluationCompleted
   );
 
 const getCommentsByReviewer = (dataReviewees: IPeerEvaluationTeamReviewerResult[]) => {
@@ -305,7 +313,7 @@ const getSystemAdjustedMark = (
   return systemAdjustedMark;
 };
 
-const getLecturerAdjustedMarkByStudent = async (userId: string) => {
+const getLecturerAdjustedMarkByStudentIdAndPeerEvaluationId = async (userId: string, peerEvaluationId: string) => {
   return await prisma.peerEvaluationStudent.findFirst({
     select: {
       lecturerAdjustedMark: true,
@@ -313,6 +321,9 @@ const getLecturerAdjustedMarkByStudent = async (userId: string) => {
     where: {
       userId: {
         equals: userId,
+      },
+      peerEvaluationId: {
+        equals: peerEvaluationId,
       },
     },
   });
@@ -353,10 +364,22 @@ const updatePeerEvaluationStudentData = async (
 const getPeerEvaluationStudentLecturerAdjustedMark = (lecturerAdjustedMark: Decimal | null) =>
   lecturerAdjustedMark ? Number(lecturerAdjustedMark) : null;
 
-const getPeerEvaluationStudentFinalMark = (lecturerAdjustedMark: number | null, systemAdjustedMark: number) =>
-  lecturerAdjustedMark ? lecturerAdjustedMark : systemAdjustedMark;
+const getPeerEvaluationStudentFinalMark = (
+  lecturerAdjustedMark: number | null,
+  systemAdjustedMark: number,
+  peerEvaluationTeamMark: number
+) => {
+  let finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
+
+  if (!finalMark) {
+    return peerEvaluationTeamMark;
+  }
+
+  return finalMark;
+};
 
 const getListStudentMarkData = async (
+  peerEvaluationId: string,
   avgCriteriaScoreByStudent: AvgCriteriaScoreByStudent[],
   sumAvgCriteriaScoreByStudent: number,
   totalPeerEvaluationStudentCount: number,
@@ -364,6 +387,8 @@ const getListStudentMarkData = async (
   maxMarkDecreaseStudent: number,
   maxMarkIncreaseStudent: number
 ): Promise<IPeerEvaluationStudentMarksByTeam[]> => {
+  const reviews: IPeerEvaluationTeamReviewerResult[] = [];
+
   const studentMarkDataPromise = avgCriteriaScoreByStudent.map(async (data) => {
     const averageCriteriaScoreByTeamMember = getAvgCriteriaScoreByTeamMember(
       data.averageCriteriaScore,
@@ -382,15 +407,16 @@ const getListStudentMarkData = async (
       maxMarkIncreaseStudent
     );
 
-    const reviews: IPeerEvaluationTeamReviewerResult[] = [];
-
     const userId = await getUserIdByEmail(data.email);
 
     if (!userId) {
       throw "User does not exist.";
     }
 
-    const peerEvaluationStudentData = await getLecturerAdjustedMarkByStudent(userId);
+    const peerEvaluationStudentData = await getLecturerAdjustedMarkByStudentIdAndPeerEvaluationId(
+      userId,
+      peerEvaluationId
+    );
 
     if (!peerEvaluationStudentData) {
       throw "Peer Evaluation Student Data does not exist.";
@@ -400,7 +426,11 @@ const getListStudentMarkData = async (
       peerEvaluationStudentData.lecturerAdjustedMark
     );
 
-    const finalMark = getPeerEvaluationStudentFinalMark(lecturerAdjustedMark, systemAdjustedMark);
+    const finalMark = getPeerEvaluationStudentFinalMark(
+      lecturerAdjustedMark,
+      systemAdjustedMark,
+      peerEvaluationTeamMark
+    );
 
     return {
       ...data,
@@ -418,6 +448,26 @@ const getListStudentMarkData = async (
   const studentMarkData = Promise.all(studentMarkDataPromise);
 
   return studentMarkData;
+};
+
+const setIncompletePeerEvaluationReviews = (peerEvaluationReviews: IPeerEvaluationTeamReviewerResult[]) => {
+  const listOfIncompleteReviews = peerEvaluationReviews.filter(({ criteriaScoreTotal }) => criteriaScoreTotal === null);
+
+  if (listOfIncompleteReviews.length) {
+    const listOfReviewsIncompleteByEmail = [
+      ...new Set(listOfIncompleteReviews.map(({ reviewerEmail }) => reviewerEmail)),
+    ];
+
+    peerEvaluationReviews = peerEvaluationReviews.map((peerEvaluationReview) => {
+      if (listOfReviewsIncompleteByEmail.includes(peerEvaluationReview.reviewerEmail)) {
+        peerEvaluationReview.isPeerEvaluationCompleted = false;
+      }
+
+      return peerEvaluationReview;
+    });
+  }
+
+  return peerEvaluationReviews;
 };
 
 const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, peerEvaluationStudentTeamId: string) => {
@@ -452,12 +502,17 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
     peerEvaluationStudentTeamData as IPeerEvaluationStudentTeam
   );
 
+  const peerEvaluationTeamReviewerResultsSanitized = setIncompletePeerEvaluationReviews(
+    peerEvaluationTeamReviewerResults
+  );
+
   const { avgCriteriaScoreByStudent, sumAvgCriteriaScoreByStudent } = getAvgCriteriaScoreData(
-    peerEvaluationTeamReviewerResults,
+    peerEvaluationTeamReviewerResultsSanitized,
     studentTeamEmailList
   );
 
   const peerEvaluationStudentMarksByTeam = await getListStudentMarkData(
+    peerEvaluationId,
     avgCriteriaScoreByStudent,
     sumAvgCriteriaScoreByStudent,
     totalPeerEvaluationStudentCount,

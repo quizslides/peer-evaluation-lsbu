@@ -20,20 +20,20 @@ TK
 
 | VARIABLES                         | DESCRIPTION                                                                 | DEFAULT VALUE | ACCEPTED VALUES |
 | --------------------------------- | --------------------------------------------------------------------------- | ------------- | --------------- |
+| `DATABASE_URL`                    |                                                                             |               |                 |
 | `ENVIRONMENT`                     |                                                                             |               |                 |
-| `NEXT_PUBLIC_LOGICAL_ENVIRONMENT` |                                                                             |               |                 |
 | `NEXTAUTH_SECRET`                 | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. |               |                 |
 | `NEXTAUTH_URL`                    |                                                                             |               |                 |
-| `SENTRY_DSN`                      |                                                                             |               |                 |
+| `NEXT_PUBLIC_LOGICAL_ENVIRONMENT` |                                                                             |               |                 |
 | `NEXT_PUBLIC_SENTRY_DSN`          |                                                                             |               |                 |
 | `SENTRY_AUTH_TOKEN`               |                                                                             |               |                 |
-| `SMTP_HOST`                       |                                                                             |               |                 |
-| `SMTP_PORT`                       |                                                                             |               |                 |
-| `SMTP_USER`                       |                                                                             |               |                 |
-| `SMTP_PASSWORD`                   |                                                                             |               |                 |
+| `SENTRY_DSN`                      |                                                                             |               |                 |
 | `SMTP_FROM`                       |                                                                             |               |                 |
+| `SMTP_HOST`                       |                                                                             |               |                 |
+| `SMTP_PASSWORD`                   |                                                                             |               |                 |
+| `SMTP_PORT`                       |                                                                             |               |                 |
 | `SMTP_SECURE`                     |                                                                             |               |                 |
-| `DATABASE_URL`                    |                                                                             |               |                 |
+| `SMTP_USER`                       |                                                                             |               |                 |
 
 ### Build the production image
 

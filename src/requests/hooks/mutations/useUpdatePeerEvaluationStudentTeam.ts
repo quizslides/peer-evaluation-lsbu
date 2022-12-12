@@ -11,7 +11,7 @@ import { errorNotification, successNotification } from "@/utils";
 const useUpdatePeerEvaluationStudentTeam = (notificationsId: string) => {
   return useMutation<
     {
-      updatePeerEvaluationStudentTeam: PeerEvaluationStudentTeam;
+      updateOnePeerEvaluationStudentTeam: PeerEvaluationStudentTeam;
     },
     { data: PeerEvaluationStudentTeamUpdateInput; where: PeerEvaluationStudentTeamWhereUniqueInput }
   >(UPDATE_PEER_EVALUATION_STUDENT_TEAM, {

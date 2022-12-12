@@ -2,26 +2,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator typegraphql {
-  provider = "typegraphql-prisma"
-}
-
 model User {
   id                            String                         @id @default(cuid())
+  email                         String                         @unique
+  name                          String
+  emailVerified                 DateTime?
   createdAt                     DateTime                       @default(now())
   updatedAt                     DateTime                       @default(now()) @updatedAt
-  name                          String
-  email                         String                         @unique
-  sessions                      Session[]
   role                          UserRoles                      @default(STUDENT)
-  emailVerified                 DateTime?
-  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
   peerEvaluationStudentList     PeerEvaluationStudent[]
+  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
+  sessions                      Session[]
 }
 
 model VerificationToken {
@@ -35,97 +35,90 @@ model VerificationToken {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
 }
 
-// The Peer Evaluation Object
 model PeerEvaluation {
   id                            String                         @id @default(cuid())
   createdAt                     DateTime                       @default(now())
   updatedAt                     DateTime                       @default(now()) @updatedAt
-  title                         String
-  schools                       Schools[]
   code                          String                         @unique
-  status                        PeerEvaluationStatuses         @default(DRAFT)
-  maxMarkIncrease               Int                            @default(10)
-  maxMarkDecrease               Int                            @default(100)
-  submissionsLockDate           DateTime?
-  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
-  reminderEmail                 Email?
-  columns                       PeerEvaluationColumn[]
-  criteriaScoreRangeMin         Int                            @default(1)
   criteriaScoreRangeMax         Int                            @default(5)
-  peerEvaluationStudents        PeerEvaluationStudent[]
-  peerEvaluationStudentTeams    PeerEvaluationStudentTeam[]
+  criteriaScoreRangeMin         Int                            @default(1)
+  schools                       Schools[]
+  status                        PeerEvaluationStatuses         @default(DRAFT)
+  submissionsLockDate           DateTime?
+  title                         String
+  maxMarkDecrease               Int                            @default(100)
+  maxMarkIncrease               Int                            @default(10)
   instructions                  String                         @default("")
   scaleExplanation              String                         @default("")
+  reminderEmail                 Email?
+  columns                       PeerEvaluationColumn[]
+  peerEvaluationStudents        PeerEvaluationStudent[]
+  peerEvaluationStudentTeams    PeerEvaluationStudentTeam[]
+  peerEvaluationTeachingMembers PeerEvaluationTeachingMember[]
 }
 
-// The Peer Evaluation Data of each student
 model PeerEvaluationStudent {
   id                               String                       @id @default(cuid())
   createdAt                        DateTime                     @default(now())
   updatedAt                        DateTime                     @default(now()) @updatedAt
-  user                             User                         @relation(fields: [userId], references: [id])
   userId                           String
-  peerEvaluation                   PeerEvaluation               @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId                 String
-  studentName                      String
-  peerEvaluationStudentTeam        PeerEvaluationStudentTeam?   @relation(fields: [peerEvaluationStudentTeamId], references: [id])
   peerEvaluationStudentTeamId      String?
   averageCriteriaScore             Decimal?
   averageCriteriaScoreByTeamMember Decimal?
   systemCalculatedMark             Decimal?
   systemAdjustedMark               Decimal?
   lecturerAdjustedMark             Decimal?
-  finalMark                        Decimal?
   comments                         String?
-  // Peer Evaluation that the student id reviewing
-  peerEvaluationReviewed           PeerEvaluationStudentReview?
-  // Peer evaluation reviews submitted to the student
+  finalMark                        Decimal?
+  studentName                      String
   peerEvaluationReviewees          PeerEvaluationReviewee[]
+  peerEvaluation                   PeerEvaluation               @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
+  peerEvaluationStudentTeam        PeerEvaluationStudentTeam?   @relation(fields: [peerEvaluationStudentTeamId], references: [id])
+  user                             User                         @relation(fields: [userId], references: [id])
+  peerEvaluationReviewed           PeerEvaluationStudentReview?
 
   @@unique([userId, peerEvaluationId])
 }
 
-// Peer Evaluation Review Table Data
 model PeerEvaluationStudentReview {
   id                      String                   @id @default(cuid())
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @default(now()) @updatedAt
-  peerEvaluationStudent   PeerEvaluationStudent    @relation(fields: [peerEvaluationStudentId], references: [id], onDelete: Cascade)
   peerEvaluationStudentId String                   @unique
-  peerEvaluationReviewees PeerEvaluationReviewee[]
   isCompleted             Boolean
+  peerEvaluationReviewees PeerEvaluationReviewee[]
+  peerEvaluationStudent   PeerEvaluationStudent    @relation(fields: [peerEvaluationStudentId], references: [id], onDelete: Cascade)
 }
 
-// Peer Evaluation Reviewee Row by Reviewee
 model PeerEvaluationReviewee {
   id                            String                         @id @default(cuid())
   createdAt                     DateTime                       @default(now())
   updatedAt                     DateTime                       @default(now()) @updatedAt
-  studentReviewed               PeerEvaluationStudent          @relation(fields: [studentReviewedId], references: [id], onDelete: Cascade)
+  peerEvaluationReviewId        String?
   studentReviewedId             String
   criteriaScoreTotal            Int?
   comment                       String?
-  peerEvaluationReview          PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id], onDelete: Cascade)
-  peerEvaluationReviewId        String?
-  peerEvaluationRevieweeColumns PeerEvaluationRevieweeColumn[]
   isValid                       Boolean
+  peerEvaluationReview          PeerEvaluationStudentReview?   @relation(fields: [peerEvaluationReviewId], references: [id], onDelete: Cascade)
+  studentReviewed               PeerEvaluationStudent          @relation(fields: [studentReviewedId], references: [id], onDelete: Cascade)
+  peerEvaluationRevieweeColumns PeerEvaluationRevieweeColumn[]
 }
 
-// Peer Evaluation Reviewee Column
 model PeerEvaluationRevieweeColumn {
   id                       String                 @id @default(cuid())
   createdAt                DateTime               @default(now())
   updatedAt                DateTime               @default(now()) @updatedAt
   criteriaScore            Int?
-  peerEvaluationReviewee   PeerEvaluationReviewee @relation(fields: [peerEvaluationRevieweeId], references: [id], onDelete: Cascade)
   peerEvaluationRevieweeId String
-  peerEvaluationColumn     PeerEvaluationColumn   @relation(fields: [peerEvaluationColumnId], references: [id], onDelete: Cascade)
   peerEvaluationColumnId   String
+  peerEvaluationColumn     PeerEvaluationColumn   @relation(fields: [peerEvaluationColumnId], references: [id], onDelete: Cascade)
+  peerEvaluationReviewee   PeerEvaluationReviewee @relation(fields: [peerEvaluationRevieweeId], references: [id], onDelete: Cascade)
 }
 
 model PeerEvaluationStudentTeam {
@@ -133,12 +126,12 @@ model PeerEvaluationStudentTeam {
   createdAt                 DateTime                @default(now())
   updatedAt                 DateTime                @default(now()) @updatedAt
   name                      String
-  peerEvaluationStudentList PeerEvaluationStudent[]
   mark                      Decimal
-  peerEvaluation            PeerEvaluation          @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId          String
   calculatedResults         Json?
   comment                   String?
+  peerEvaluationStudentList PeerEvaluationStudent[]
+  peerEvaluation            PeerEvaluation          @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
 
   @@unique([name, peerEvaluationId])
 }
@@ -148,10 +141,10 @@ model PeerEvaluationTeachingMember {
   createdAt        DateTime                          @default(now())
   updatedAt        DateTime                          @default(now()) @updatedAt
   role             PeerEvaluationTeachingMemberRoles @default(VIEWER)
-  peerEvaluation   PeerEvaluation                    @relation(references: [id], fields: [peerEvaluationId], onDelete: Cascade)
   peerEvaluationId String
-  user             User                              @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId           String
+  peerEvaluation   PeerEvaluation                    @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
+  user             User                              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, peerEvaluationId])
 }
@@ -161,8 +154,8 @@ model PeerEvaluationColumn {
   createdAt                     DateTime                       @default(now())
   updatedAt                     DateTime                       @default(now()) @updatedAt
   description                   String
-  peerEvaluation                PeerEvaluation                 @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId              String
+  peerEvaluation                PeerEvaluation                 @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationRevieweeColumns PeerEvaluationRevieweeColumn[]
 
   @@unique([id, peerEvaluationId])
@@ -172,10 +165,10 @@ model Email {
   id               String          @id @default(cuid())
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @default(now()) @updatedAt
-  subject          String
   body             String
-  peerEvaluation   PeerEvaluation? @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
   peerEvaluationId String?         @unique
+  subject          String
+  peerEvaluation   PeerEvaluation? @relation(fields: [peerEvaluationId], references: [id], onDelete: Cascade)
 }
 
 enum UserRoles {

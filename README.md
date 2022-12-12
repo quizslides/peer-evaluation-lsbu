@@ -17,7 +17,7 @@ and a Unix based computer, such Mac or Ubuntu.
 
 ## Installation
 
-We need to clone the frontend repository in our local environment:
+We need to clone the repository in our local environment:
 
 - `git clone git@github.com:quizslides/peer-evaluation-lsbu.git`
 
@@ -31,6 +31,16 @@ Install the node dependencies by running:
 
 ```bash
 yarn install
+```
+
+## Next Auth Credentials
+
+NextAuth requires a secret key that is part of the `.env` and `.env.development.local` as `NEXTAUTH_SECRET`.
+
+To create a new key run
+
+```bash
+openssl rand -base64 32
 ```
 
 ## Running Locally
@@ -55,7 +65,7 @@ Now you can access your local environment through `http://localhost:3000/`
 
 ## Sentry
 
-Request the key for sentry for local development to be added to the `.env` as `SENTRYand never commit to the repository
+Request the key for sentry for local development to be added to the `.env` as `SENTRY_DSN` never commit to the repository
 
 ## Database
 

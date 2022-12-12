@@ -8,7 +8,7 @@ import { errorNotification, successNotification } from "@/utils";
 const useCreateOneUser = (notificationsId: string) => {
   return useMutation<
     {
-      createUser: UserCreateInput;
+      createOneUser: UserCreateInput;
     },
     { data: IUserData }
   >(CREATE_ONE_USER, {

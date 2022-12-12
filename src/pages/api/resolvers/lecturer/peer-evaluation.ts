@@ -221,7 +221,7 @@ class PeerEvaluationStudentTeamExistResponse {
   email: string | undefined;
 
   @Field((_type) => String, {
-    nullable: false,
+    nullable: true,
     description: "Student ID",
   })
   id: string | undefined;
@@ -286,11 +286,19 @@ class PeerEvaluationStudentTeamExistQuery {
 
     const listStudents = listOfUsers.map((studentEmail) => ({
       email: studentEmail,
-      id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id,
+      id: usersByEmailAndUserID.find(({ email }) => email === studentEmail)?.id || "",
     }));
 
+    const peerEvaluationStudentsFlatList = peerEvaluationStudents.flatMap(({ userId }) => userId);
+
+    const listOfUserCreated = listStudents.filter(({ id }) => id !== undefined);
+
+    const listOfUserCreatedAsStudents = listOfUserCreated.filter(({ id }) =>
+      peerEvaluationStudentsFlatList.includes(id)
+    );
+
     return {
-      studentList: listStudents as [PeerEvaluationStudentTeamExistResponse],
+      studentList: listOfUserCreatedAsStudents as [PeerEvaluationStudentTeamExistResponse],
     };
   }
 }

@@ -75,6 +75,11 @@ class PeerEvaluationStudentsLecturerMark {
       const peerEvaluationStudentData = await ctx.prisma.peerEvaluationStudent.findFirst({
         select: {
           systemAdjustedMark: true,
+          peerEvaluationStudentTeam: {
+            select: {
+              mark: true,
+            },
+          },
         },
         where: {
           id,
@@ -83,11 +88,13 @@ class PeerEvaluationStudentsLecturerMark {
 
       const systemAdjustedMark = peerEvaluationStudentData?.systemAdjustedMark;
 
+      const peerEvaluationStudentTeamMark = peerEvaluationStudentData?.peerEvaluationStudentTeam?.mark;
+
       await ctx.prisma.peerEvaluationStudent.updateMany({
         data: {
           systemAdjustedMark,
           lecturerAdjustedMark: null,
-          finalMark: systemAdjustedMark,
+          finalMark: systemAdjustedMark !== null ? systemAdjustedMark : peerEvaluationStudentTeamMark,
         },
         where: {
           id,

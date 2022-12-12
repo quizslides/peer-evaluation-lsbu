@@ -143,6 +143,43 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
         </IconButtonWrapper>
       </>
     ),
+    // TODO: Move away from here
+    onDownload: (buildHead, buildBody, columns, tableData) => {
+      const projectDetails = `"Team Name","${data?.peerEvaluationStudentTeamCalculatedResultsTable.teamName}"
+"Mark","${data?.peerEvaluationStudentTeamCalculatedResultsTable.mark}"
+"Updated At","${data?.peerEvaluationStudentTeamCalculatedResultsTable.updatedAt}"`;
+
+      const tableDataObjects = tableData.slice(0, -5);
+
+      for (const tableDataObject of tableDataObjects) {
+        const tableDataArray = [];
+        for (const column in tableDataObject.data) {
+          const columnNumber = Number(column);
+
+          let value = null;
+
+          if (columnNumber === 0) {
+            value = tableDataObject.data[column].studentName;
+          } else {
+            value = tableDataObject.data[column].criteriaScoreTotal;
+          }
+
+          tableDataArray.push(value);
+        }
+
+        tableDataObject.data = tableDataArray;
+
+        const resultIndex = tableData.findIndex(({ index }: { index: number }) => index === tableDataObject.index);
+
+        tableData[resultIndex] = tableDataObject;
+      }
+
+      const header = buildHead(columns);
+
+      const body = buildBody(tableData);
+
+      return projectDetails + "\n\n" + header + body;
+    },
   };
 
   const onRefreshTable = async () => {

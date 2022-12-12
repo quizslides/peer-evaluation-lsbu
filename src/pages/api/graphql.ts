@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PageConfig } from "next";
 
 import ErrorHandler from "@/pages/api/error";
-import { welcomeUserEmailHook } from "@/pages/api/hooks/auth";
+import { sanitizeUserEmail, welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import {
   onDeletePeerEvaluationStudentsHookAfter,
   onUpdatePeerEvaluationStudentHookAfterData,
@@ -16,8 +16,8 @@ import { permissions } from "@/pages/api/permissions";
 import prisma from "@/pages/api/prisma";
 import schemaDefinitions from "@/pages/api/prisma/schema";
 import { getDifferenceTwoArrays } from "@/utils/form";
+import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/columns";
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
-import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/student/columns";
 
 const config: PageConfig = {
   api: {
@@ -25,9 +25,19 @@ const config: PageConfig = {
   },
 };
 
+const welcomeEmailHookActions = ["create", "createMany"];
+
+const sanitizeUserEmailHookActions = ["create", "createMany", "update", "updateMany"];
+
 prisma.$use(async (params, next) => {
-  if (params.model === "User" && (params.action === "createMany" || params.action === "create")) {
-    await welcomeUserEmailHook(params);
+  if (params.model === "User") {
+    if (welcomeEmailHookActions.includes(params.action)) {
+      await welcomeUserEmailHook(params);
+    }
+
+    if (sanitizeUserEmailHookActions.includes(params.action)) {
+      params = sanitizeUserEmail(params);
+    }
   }
 
   const result = await next(params);
@@ -185,6 +195,7 @@ prisma.$use(async (params, next) => {
       }
 
       if (isCriteriaScoreRangeAdjusted) {
+        // TODO: Move logic outside the hook
         await prisma.peerEvaluationRevieweeColumn.updateMany({
           data: {
             criteriaScore: null,
@@ -244,6 +255,48 @@ prisma.$use(async (params, next) => {
       if ("columns" in params.args.data) {
         if ("delete" in params.args.data.columns) {
           isValidRecalculateMarksPeerEvaluation = true;
+
+          // TODO: Move logic outside the hook
+          const peerEvaluationsStudents = await prisma.peerEvaluationStudent.findMany({
+            select: {
+              peerEvaluationReviewees: {
+                select: {
+                  id: true,
+                },
+              },
+            },
+            where: {
+              peerEvaluationId: {
+                equals: peerEvaluationId,
+              },
+            },
+          });
+
+          for (const student of peerEvaluationsStudents) {
+            for (const peerEvaluationReviewee of student.peerEvaluationReviewees) {
+              const peerEvaluationRevieweeColumns = await prisma.peerEvaluationRevieweeColumn.aggregate({
+                _sum: {
+                  criteriaScore: true,
+                },
+                where: {
+                  peerEvaluationRevieweeId: {
+                    equals: peerEvaluationReviewee.id,
+                  },
+                },
+              });
+
+              await prisma.peerEvaluationReviewee.update({
+                data: {
+                  criteriaScoreTotal: {
+                    set: peerEvaluationRevieweeColumns._sum.criteriaScore,
+                  },
+                },
+                where: {
+                  id: peerEvaluationReviewee.id,
+                },
+              });
+            }
+          }
         }
 
         if ("create" in params.args.data.columns) {

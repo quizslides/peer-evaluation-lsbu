@@ -10,7 +10,7 @@ const CREATE_MULTIPLE_USERS = gql`
 
 const CREATE_ONE_USER = gql`
   mutation CreateOneUser($data: UserCreateInput!) {
-    createUser(data: $data) {
+    createOneUser(data: $data) {
       name
       email
       role
@@ -21,17 +21,22 @@ const CREATE_ONE_USER = gql`
 const GET_USERS = gql`
   query Users($orderBy: [UserOrderByWithRelationInput!]) {
     users(orderBy: $orderBy) {
-      name
+      _count {
+        peerEvaluationStudentList
+        peerEvaluationTeachingMembers
+      }
+      createdAt
       email
-      role
       emailVerified
+      name
+      role
     }
   }
 `;
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
-    updateUser(data: $data, where: $where) {
+  mutation UpdateOneUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
+    updateOneUser(data: $data, where: $where) {
       name
       email
       role

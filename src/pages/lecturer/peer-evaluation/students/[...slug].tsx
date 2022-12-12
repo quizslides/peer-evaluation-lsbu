@@ -104,7 +104,12 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
   const onUploadCSVStudentsTeam = async (csvData: ObjectCSV) => {
     loadingNotification("Processing csv...", "onUploadCSVStudentsTeam");
 
-    const studentsTeamsData = csvData as unknown as [IStudentsTeamData];
+    const studentsTeamsDataRaw = csvData as unknown as [IStudentsTeamData];
+
+    const studentsTeamsData = studentsTeamsDataRaw.map((data) => ({
+      ...data,
+      studentEmail: data.studentEmail.toLowerCase(),
+    }));
 
     const studentsTeamsDataError: { [key: string]: string | number | null }[] = [];
 
@@ -515,9 +520,13 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
   useEffect(() => {
     if (dataStudentsData && dataTeachingMember) {
       setPeerEvaluationStudentsData(sanitizePeerEvaluationStudentsDataOnFetch(dataStudentsData.peerEvaluationStudents));
-      setTeachingMemberRole(dataTeachingMember.peerEvaluationTeachingMember.role);
+
+      const teachingMemberRole =
+        session?.user.role === "ADMIN" ? "OWNER" : dataTeachingMember.peerEvaluationTeachingMember.role;
+
+      setTeachingMemberRole(teachingMemberRole);
     }
-  }, [dataStudentsData, dataTeachingMember]);
+  }, [dataStudentsData, dataTeachingMember, session?.user.role]);
 
   const isError = !!errorStudentsData || !!errorTeachingMember;
 

@@ -31,6 +31,7 @@ interface ITeamToCreateBulk {
 }
 
 interface IStudentTeamToEditBulk {
+  studentName: string;
   action: EditBulkAction;
   studentEmail: string;
   teamName: string;
@@ -106,6 +107,10 @@ const DataTableStudentsBulkCreateUpdate = ({
     {
       name: "studentEmail",
       label: "Email",
+    },
+    {
+      name: "studentName",
+      label: "Name",
     },
     {
       name: "teamName",

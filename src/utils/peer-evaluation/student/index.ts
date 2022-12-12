@@ -70,6 +70,25 @@ const getPeerEvaluationDataToBuildStudentTable = async (
   });
 };
 
+const getPeerEvaluationStudentTeamIdByName = async (
+  peerEvaluationId: string,
+  peerEvaluationStudentTeamName: string
+) => {
+  return await prisma.peerEvaluationStudentTeam.findFirst({
+    select: {
+      id: true,
+    },
+    where: {
+      peerEvaluationId: {
+        equals: peerEvaluationId,
+      },
+      name: {
+        equals: peerEvaluationStudentTeamName,
+      },
+    },
+  });
+};
+
 const getPeerEvaluationDataToBuildStudentTableByStudentTeamId = async (
   peerEvaluationId: string,
   peerEvaluationStudentTeamId: string
@@ -234,6 +253,7 @@ export {
   getPeerEvaluationStudentId,
   getPeerEvaluationStudentListByValidPeerEvaluationTables,
   getPeerEvaluationStudentTeamId,
+  getPeerEvaluationStudentTeamIdByName,
   isPeerEvaluationStudentTableExists,
   setPeerEvaluationStudentTableAsIncomplete,
 };
