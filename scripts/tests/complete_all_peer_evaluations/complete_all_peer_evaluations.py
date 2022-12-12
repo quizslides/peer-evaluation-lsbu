@@ -4,7 +4,8 @@ import json
 
 
 default_headers_request = {
-    "content-type": "application/json"
+    "content-type": "application/json",
+    "Cookie": ""
 }
 
 
@@ -150,11 +151,17 @@ if __name__ == "__main__":
 
     parser.add_argument("--peer-evaluation-id", help="Peer Evaluation ID")
     parser.add_argument(
+        "--cookie-auth", help="Cookie of the user authenticated", default="")
+    parser.add_argument(
         "--url", help="URL of the application", default="http://localhost:3000")
 
     args = parser.parse_args()
 
     peer_evaluation_id = args.peer_evaluation_id
+
+    cookie_auth = args.cookie_auth
+
+    default_headers_request["Cookie"] = cookie_auth
 
     url = f"{args.url}/api/graphql"
 

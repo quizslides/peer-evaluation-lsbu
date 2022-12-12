@@ -17,7 +17,7 @@ and a Unix based computer, such Mac or Ubuntu.
 
 ## Installation
 
-We need to clone the frontend repository in our local environment:
+We need to clone the repository in our local environment:
 
 - `git clone git@github.com:quizslides/peer-evaluation-lsbu.git`
 
