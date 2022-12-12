@@ -78,7 +78,7 @@
     "@sentry/nextjs": "6.17.3",
     "@types/date-fns": "^2.6.0",
     "apollo-server-micro": "3.6.2",
-    "class-validator": "0.13.2",
+    "class-validator": "0.14.0",
     "formik": "^2.2.9",
     "graphql": "15.3.0",
     "graphql-fields": "2.0.3",
