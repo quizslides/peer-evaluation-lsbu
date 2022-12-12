@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.2.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0-staging.1...v1.2.0-staging.2) (2022-12-12)
+
+
+### Documentation
+
+* adding to README the openssl configuration for the NextAuth ([a119133](https://github.com/quizslides/peer-evaluation-lsbu/commit/a119133f431c0c3ec6e064bec94a464b7ec67c9a))
+
 ## [1.2.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0...v1.2.0-staging.1) (2022-12-12)
 
 
