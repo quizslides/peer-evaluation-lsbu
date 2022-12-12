@@ -40,5 +40,4 @@ jobs:
         env:
           DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets.DIGITALOCEAN_APP_PLATFORM_ID }}
         run: |
-          doctl apps update ${DIGITALOCEAN_APP_PLATFORM_ID} --spec ./.do/${{ inputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
-          doctl apps create-deployment ${DIGITALOCEAN_APP_PLATFORM_ID} --wait
+          doctl apps update ${DIGITALOCEAN_APP_PLATFORM_ID} --spec ./.do/${{ inputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }} --wait
