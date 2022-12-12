@@ -151,7 +151,7 @@
     "local-cypress": "^1.2.3",
     "prettier": "2.5.1",
     "prisma": "^4.7.1",
-    "semantic-release": "19.0.2",
+    "semantic-release": "19.0.3",
     "ts-node": "10.4.0",
     "typescript": "4.5.5",
     "webpack": "^5.69.1",
