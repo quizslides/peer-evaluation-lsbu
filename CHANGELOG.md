@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.2.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0...v1.2.1-staging.1) (2022-12-14)
+
+
+### Code Refactoring
+
+* updating file encoding for example files for users ([fe62b8b](https://github.com/quizslides/peer-evaluation-lsbu/commit/fe62b8b1d5406469548fc58707933cf48c02a793))
+
 ## [1.2.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0...v1.2.0) (2022-12-12)
 
 
