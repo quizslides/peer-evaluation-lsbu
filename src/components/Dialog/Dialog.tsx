@@ -8,35 +8,44 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button, { ButtonVariant } from "@/components/Button/Button";
 
 interface IDialog extends DialogProps {
+  content: React.ReactNode;
+  extraRightButton?: React.ReactNode | null;
+  isDisableLeftButton?: boolean;
+  leftButton?: string;
+  leftButtonVariant?: ButtonVariant;
+  onClickLeftButton?: () => void;
+  onClickRightButton: () => void;
+  rightButton: string;
+  rightButtonVariant?: ButtonVariant;
   testId: string;
   title?: string;
-  content: React.ReactNode;
-  rightButton: string;
-  leftButton?: string;
-  rightButtonVariant?: ButtonVariant;
-  leftButtonVariant?: ButtonVariant;
-  isDisableLeftButton?: boolean;
-  onClickRightButton: () => void;
-  onClickLeftButton?: () => void;
-  extraRightButton?: React.ReactNode | null;
 }
 
 const Dialog = ({
-  testId,
-  title,
   content,
-  rightButton,
-  leftButton,
-  onClickRightButton,
-  onClickLeftButton,
-  rightButtonVariant = "text",
-  leftButtonVariant = "text",
   extraRightButton,
   isDisableLeftButton = false,
+  leftButton,
+  leftButtonVariant = "text",
+  onClickLeftButton,
+  onClickRightButton,
+  rightButton,
+  rightButtonVariant = "text",
+  testId,
+  title,
   ...props
 }: IDialog) => {
   return (
-    <DialogMUI data-testid={testId} {...props} scroll={"body"}>
+    <DialogMUI
+      data-testid={testId}
+      {...props}
+      scroll={"paper"}
+      PaperProps={{
+        style: {
+          overflow: "inherit",
+        },
+      }}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>{content}</DialogContent>
       <DialogActions>
@@ -54,6 +63,10 @@ const Dialog = ({
   );
 };
 
-Dialog.defaultProps = { rightButtonVariant: "text", leftButtonVariant: "text", extraRightButton: null };
+Dialog.defaultProps = {
+  extraRightButton: null,
+  leftButtonVariant: "text",
+  rightButtonVariant: "text",
+};
 
 export default memo(Dialog);
