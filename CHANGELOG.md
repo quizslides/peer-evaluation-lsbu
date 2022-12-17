@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.2.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.1...v1.2.1-staging.2) (2022-12-17)
+
+
+### Bug Fixes
+
+* fixing height for full screen dialog ([133e866](https://github.com/quizslides/peer-evaluation-lsbu/commit/133e866db447e09cb45c976d3f265984f1d88fa0))
+
 ### [1.2.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0...v1.2.1-staging.1) (2022-12-14)
 
 
