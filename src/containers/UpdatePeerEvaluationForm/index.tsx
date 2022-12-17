@@ -10,6 +10,7 @@ import useGetPeerEvaluation from "@/requests/hooks/query/useGetPeerEvaluation";
 import { sanitizePeerEvaluationDataOnFetch, sanitizePeerEvaluationDataOnUpdate } from "@/transformers/peer-evaluation";
 import {
   IPeerEvaluationData,
+  PeerEvaluationColumnAction,
   PeerEvaluationTeachingMember,
   PeerEvaluationTeachingMemberRoles,
 } from "@/types/peer-evaluation";
@@ -37,7 +38,18 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
 
     const peerEvaluationDataSanitizedOnUpdate = sanitizePeerEvaluationDataOnUpdate(valuesForm);
 
-    const { errors } = await updatePeerEvaluation(apolloClient, peerEvaluationDataSanitizedOnUpdate, peerEvaluationId);
+    const columnListToClear = valuesForm.columns.filter(
+      ({ action }) => action === PeerEvaluationColumnAction.CLEAR_RESULTS
+    );
+
+    const columnListToClearId = columnListToClear.length ? columnListToClear.flatMap(({ id }) => id) : [];
+
+    const { errors } = await updatePeerEvaluation(
+      apolloClient,
+      peerEvaluationDataSanitizedOnUpdate,
+      peerEvaluationId,
+      columnListToClearId
+    );
 
     if (!errors) {
       successNotification("Peer Evaluation updated successfully", "UpdatePeerEvaluationForm");
@@ -105,7 +117,7 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
 
   useEffect(() => {
     if (isPeerEvaluationViewOnly) {
-      blankNotification("You have permission view only permission view only of this peer evaluation");
+      blankNotification("You have view only permission of this peer evaluation");
     }
   }, [isPeerEvaluationViewOnly]);
 

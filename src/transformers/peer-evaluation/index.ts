@@ -19,6 +19,7 @@ import {
   FieldStatus,
   IPeerEvaluationColumn,
   IPeerEvaluationData,
+  PeerEvaluationColumnAction,
   PeerEvaluationStatus,
   PeerEvaluationTeachingMember,
   PeerEvaluationTeachingMemberRoles,
@@ -96,6 +97,7 @@ const sanitizeColumnsDataOnFetch = (columnsFetch: PeerEvaluationColumn[]): IPeer
       createdAt,
       updatedAt,
       status: FieldStatus.SAVED,
+      action: PeerEvaluationColumnAction.NONE,
     };
   };
 

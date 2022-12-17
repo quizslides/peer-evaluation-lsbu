@@ -166,7 +166,7 @@ const content = {
       },
     },
     peerEvaluationColumnManagement: {
-      resetButton: "Reset columns",
+      resetButton: "Reset",
       confirmationDeleteColumn: {
         title: "Delete column",
         bodyText: "Are you sure you want to delete the column?",
@@ -175,7 +175,7 @@ const content = {
       },
     },
     peerEvaluationTeachingMember: {
-      resetButton: "Reset teaching peer evaluation teaching members",
+      resetButton: "Reset",
       confirmationDeleteColumn: {
         title: "Delete peer evaluation teaching member",
         bodyText: "Are you sure you want to delete the peer evaluation teaching member?",

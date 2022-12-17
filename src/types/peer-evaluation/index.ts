@@ -1,9 +1,15 @@
+enum PeerEvaluationColumnAction {
+  CLEAR_RESULTS = "CLEAR_RESULTS",
+  NONE = "NONE",
+}
+
 interface IPeerEvaluationColumn {
   id: string;
   description: string;
   status: FieldStatus;
   createdAt: Date;
   updatedAt: Date;
+  action: PeerEvaluationColumnAction;
 }
 
 interface IPeerEvaluationData {
@@ -112,6 +118,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
     description: "Attends group meetings regularly and on time",
     createdAt: new Date(),
     updatedAt: new Date(),
+    action: PeerEvaluationColumnAction.NONE,
   },
   {
     id: "column2",
@@ -119,6 +126,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
     description: "Contributes significantly towards the success of the project",
     createdAt: new Date(),
     updatedAt: new Date(),
+    action: PeerEvaluationColumnAction.NONE,
   },
   {
     id: "column3",
@@ -126,6 +134,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
     description: "Completes assigned tasks on time and to good quality",
     createdAt: new Date(),
     updatedAt: new Date(),
+    action: PeerEvaluationColumnAction.NONE,
   },
   {
     id: "column4",
@@ -133,6 +142,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
     description: "Cooperative and supportive attitude towards team",
     createdAt: new Date(),
     updatedAt: new Date(),
+    action: PeerEvaluationColumnAction.NONE,
   },
   {
     id: "column5",
@@ -140,6 +150,7 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
     description: "Listens and contributes meaningfully in team discussions",
     createdAt: new Date(),
     updatedAt: new Date(),
+    action: PeerEvaluationColumnAction.NONE,
   },
 ];
 
@@ -211,6 +222,7 @@ export {
   initialColumnState,
   initialPeerEvaluationState,
   initialPeerEvaluationTeachingMember,
+  PeerEvaluationColumnAction,
   peerEvaluationColumnOrder,
   peerEvaluationDataTableColumnOrder,
   PeerEvaluationStatus,

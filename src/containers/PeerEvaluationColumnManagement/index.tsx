@@ -10,11 +10,16 @@ import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 import { ConfirmationDialog, DataTable, DataTableAddActionButtonIcon } from "@/components";
 import Button from "@/components/Button/Button";
 import CreateColumnForm from "@/containers/CreateColumnForm";
-import UpdateColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
+import UpdateColumnForm, { TColumnFormValueUpdate } from "@/containers/UpdatePeerEvaluationColumnForm";
 import content from "@/content";
 import { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
 import { ArrayObject } from "@/types/object";
-import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/peer-evaluation";
+import {
+  FieldStatus,
+  IPeerEvaluationColumn,
+  PeerEvaluationColumnAction,
+  peerEvaluationColumnOrder,
+} from "@/types/peer-evaluation";
 import { getDateLocaleString } from "@/utils/date";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
@@ -73,6 +78,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       description: description,
       createdAt: new Date(),
       updatedAt: new Date(),
+      action: PeerEvaluationColumnAction.NONE,
     };
 
     setColumns([...columns, newColumn]);
@@ -84,7 +90,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     setUpdatePeerEvaluationColumnOpen(true);
   };
 
-  const onSubmitUpdateColumn = ({ description }: IColumnFormValue) => {
+  const onSubmitUpdateColumn = ({ description, action }: TColumnFormValueUpdate) => {
     const columnsUnchanged = columns.filter(({ id }) => id !== updateColumn?.id);
 
     const columnToUpdate = columns.filter(({ id }) => id === updateColumn?.id);
@@ -94,6 +100,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     }
 
     columnToUpdate[0].description = description;
+    columnToUpdate[0].action = action;
 
     setColumns([...columnsUnchanged, ...columnToUpdate]);
 

@@ -386,8 +386,15 @@ const CREATE_PEER_EVALUATION = gql`
 `;
 
 const UPDATE_PEER_EVALUATION = gql`
-  mutation UpdateOnePeerEvaluation($data: PeerEvaluationUpdateInput!, $where: PeerEvaluationWhereUniqueInput!) {
-    updateOnePeerEvaluation(data: $data, where: $where) {
+  mutation UpdatePeerEvaluation(
+    $dataPeerEvaluation: PeerEvaluationUpdateInput!
+    $wherePeerEvaluation: PeerEvaluationWhereUniqueInput!
+    $dataPeerEvaluationStudentReview: PeerEvaluationStudentReviewUpdateManyMutationInput!
+    $wherePeerEvaluationStudentReview: PeerEvaluationStudentReviewWhereInput
+    $dataPeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
+    $wherePeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnWhereInput
+  ) {
+    updateOnePeerEvaluation(data: $dataPeerEvaluation, where: $wherePeerEvaluation) {
       title
       id
       createdAt
@@ -439,6 +446,20 @@ const UPDATE_PEER_EVALUATION = gql`
           peerEvaluationRevieweeColumns
         }
       }
+    }
+
+    updateManyPeerEvaluationStudentReview(
+      data: $dataPeerEvaluationStudentReview
+      where: $wherePeerEvaluationStudentReview
+    ) {
+      count
+    }
+
+    updateManyPeerEvaluationRevieweeColumn(
+      data: $dataPeerEvaluationRevieweeColumnData
+      where: $wherePeerEvaluationRevieweeColumnData
+    ) {
+      count
     }
   }
 `;
