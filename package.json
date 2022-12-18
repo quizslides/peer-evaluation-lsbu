@@ -149,6 +149,7 @@
     "jest": "27.4.7",
     "lint-staged": "12.3.2",
     "local-cypress": "^1.2.6",
+    "nyc": "^15.1.0",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "2.5.1",
     "prisma": "^4.7.1",
