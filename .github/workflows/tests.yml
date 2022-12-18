@@ -52,9 +52,9 @@ jobs:
         env:
           ENVIRONMENT: ci
 
-      - name: Sleep for 30 seconds
-        run: sleep 30s
-        shell: bash
+      # - name: Sleep for 30 seconds
+      #   run: sleep 30s
+      #   shell: bash
 
       - name: Run linter check
         run: yarn lint:check
@@ -97,15 +97,10 @@ jobs:
         with:
           install: false
           browser: chrome
+          wait-on: http://localhost:3000
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Run Cypress component tests
-      #   run: yarn test:cypress:component:ci
-
-      # - name: Run Cypress E2E tests
-      #   run: yarn test:cypress:e2e:ci
 
       - name: Video Cypress
         uses: actions/upload-artifact@v2
