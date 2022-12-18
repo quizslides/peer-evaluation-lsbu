@@ -75,9 +75,7 @@ jobs:
           retention-days: 7
 
       - name: Install Cypress
-        uses: cypress-io/github-action@v5
-        with:
-          runTests: false
+        run: npx cypress install
 
       - name: Setup Cypress
         run: cp cypress.env.test.json cypress.env.json
