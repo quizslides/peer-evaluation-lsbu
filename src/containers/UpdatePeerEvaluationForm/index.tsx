@@ -90,6 +90,11 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
         where: {
           id: peerEvaluationId,
         },
+        orderBy: [
+          {
+            createdAt: "asc",
+          },
+        ],
       },
     });
   }, [getPeerEvaluation, peerEvaluationId]);

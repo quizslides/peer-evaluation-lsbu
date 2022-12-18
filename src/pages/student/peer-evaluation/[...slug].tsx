@@ -83,6 +83,11 @@ const StudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
               },
             },
           ],
+          columnsOrderBy: [
+            {
+              createdAt: "asc",
+            },
+          ],
         },
       });
     }
