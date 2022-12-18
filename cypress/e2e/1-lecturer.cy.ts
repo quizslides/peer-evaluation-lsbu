@@ -54,7 +54,9 @@ describe("Edit column description configuration", () => {
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
-    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]', { timeout: 10000 }).trigger(
+      "mouseover"
+    );
 
     cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
 
@@ -292,7 +294,9 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
-    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]', { timeout: 10000 }).trigger(
+      "mouseover"
+    );
 
     cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
 
@@ -312,7 +316,9 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.contains(Cypress.env("users").student.email);
 
-    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]', { timeout: 10000 }).trigger(
+      "mouseover"
+    );
 
     cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
 
@@ -400,7 +406,9 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
-    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]', { timeout: 10000 }).trigger(
+      "mouseover"
+    );
 
     cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
 
