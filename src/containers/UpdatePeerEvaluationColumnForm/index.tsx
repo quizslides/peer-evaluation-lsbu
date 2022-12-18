@@ -79,11 +79,11 @@ const UpdateColumnForm = ({ state, updateFormState, onSubmit, description }: IUp
 
   return (
     <PeerEvaluationColumnForm
-      state={state}
-      formTitle="New column"
-      updateFormState={updateFormState}
-      onSubmitForm={submitForm}
       description={description}
+      formTitle="Update column"
+      onSubmitForm={submitForm}
+      state={state}
+      updateFormState={updateFormState}
     />
   );
 };
