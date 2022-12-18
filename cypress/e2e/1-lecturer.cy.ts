@@ -503,7 +503,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 0);
   });
 
-  it("Complete updated peer evaluation as a student with new column", () => {
+  it("Complete the updated peer evaluation as a student with a new column", () => {
     cy.signInAs(Cypress.env("users").student.email);
 
     cy.visit("/");
