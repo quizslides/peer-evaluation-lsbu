@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.2...v1.3.0-staging.3) (2022-12-18)
+
+
+### Features
+
+* adding info alert when a new column is added to a peer evaluation ([f099604](https://github.com/quizslides/peer-evaluation-lsbu/commit/f099604268f120c1ad543b1a7e33bef9800e4329))
+
 ## [1.3.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.1...v1.3.0-staging.2) (2022-12-18)
 
 
