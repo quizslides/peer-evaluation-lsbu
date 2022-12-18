@@ -19,7 +19,7 @@ describe("Edit column description configuration", () => {
     Cypress.session.clearCurrentSessionData();
   });
 
-  it("Create a Peer Evaluation with default configuration", () => {
+  it("Create a peer evaluation with default configuration", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -43,7 +43,7 @@ describe("Edit column description configuration", () => {
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
   });
 
-  it("Add Student to Peer Evaluation", () => {
+  it("Add one student to the peer evaluation", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -73,7 +73,7 @@ describe("Edit column description configuration", () => {
     cy.contains(Cypress.env("users").student.email);
   });
 
-  it("Set as publish peer evaluation", () => {
+  it("Set peer evaluation with published status", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -95,7 +95,7 @@ describe("Edit column description configuration", () => {
     cy.contains("Peer Evaluation updated successfully", { timeout: 20000 }).should("be.visible");
   });
 
-  it("Complete New Peer Evaluation as a student", () => {
+  it("Complete a new peer evaluation as a student", () => {
     cy.signInAs(Cypress.env("users").student.email);
 
     cy.visit("/");
@@ -127,7 +127,7 @@ describe("Edit column description configuration", () => {
     cy.contains("Peer evaluation updated successfully", { timeout: 20000 }).should("be.visible");
   });
 
-  it("Edit first column description without clearing results or marking as incomplete a peer evaluations", () => {
+  it("Edit the first column description without clearing results or marking as incomplete a peer evaluations", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -155,7 +155,7 @@ describe("Edit column description configuration", () => {
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 1);
   });
 
-  it("Edit first column description clearing results and marking as incomplete a peer evaluations", () => {
+  it("Edit the first column description clearing results and marking as incomplete peer evaluations", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -223,7 +223,7 @@ describe("Edit column description configuration", () => {
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 1);
   });
 
-  it("Delete Peer Evaluation as Lecturer", () => {
+  it("Delete Peer Evaluation", () => {
     cy.signInAs(Cypress.env("users").lecturer.email);
 
     cy.visit(Cypress.env("url").frontend);

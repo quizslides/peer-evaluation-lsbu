@@ -75,16 +75,37 @@ jobs:
           retention-days: 7
 
       - name: Install Cypress
-        run: npx cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
 
       - name: Setup Cypress
         run: cp cypress.env.test.json cypress.env.json
 
       - name: Run Cypress component tests
-        run: yarn test:cypress:component:ci
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          component: true
+          browser: chrome
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Cypress E2E tests
-        run: yarn test:cypress:e2e:ci
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          browser: chrome
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Run Cypress component tests
+      #   run: yarn test:cypress:component:ci
+
+      # - name: Run Cypress E2E tests
+      #   run: yarn test:cypress:e2e:ci
 
       - name: Video Cypress
         uses: actions/upload-artifact@v2
