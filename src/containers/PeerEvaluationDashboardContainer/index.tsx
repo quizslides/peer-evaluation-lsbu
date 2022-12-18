@@ -24,6 +24,8 @@ interface IPeerEvaluationDashboardContainer {
   data: PeerEvaluationDashboard;
 }
 
+const testId = "container-peer-evaluation-dashboard";
+
 const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardContainer) => {
   const { push } = useRouter();
 
@@ -129,7 +131,7 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
           return (
             <Button
               variant={"outlined"}
-              testId={"peer-evaluation-dashboard-email-reminder"}
+              testId={"peer-evaluation-dashboard-total-students"}
               onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.students)}
               size="medium"
             >
@@ -148,7 +150,7 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
           return (
             <Button
               variant={"outlined"}
-              testId={"peer-evaluation-dashboard-email-reminder"}
+              testId={"peer-evaluation-dashboard-total-teaching-members"}
               onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.edit)}
               size="medium"
             >
@@ -167,7 +169,7 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
           return (
             <Button
               variant={"outlined"}
-              testId={"peer-evaluation-dashboard-email-reminder"}
+              testId={"peer-evaluation-dashboard-total-peer-evaluations-teams"}
               onClick={() => onRedirectToPage(routing.lecturer.peerEvaluation.teams)}
               size="medium"
             >
@@ -223,6 +225,11 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
     {
       name: "totalCompletedPeerEvaluations",
       label: "Completed Peer Evaluations",
+      options: {
+        customBodyRender: (totalCompletedPeerEvaluations: string) => {
+          return <div data-testid={`${testId}-total-completed-peer-evaluations`}>{totalCompletedPeerEvaluations}</div>;
+        },
+      },
     },
     {
       name: "submissionsLockDate",

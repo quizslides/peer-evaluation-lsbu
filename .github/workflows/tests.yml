@@ -77,11 +77,14 @@ jobs:
       - name: Install Cypress
         run: npx cypress install
 
+      - name: Setup Cypress
+        run: cp cypress.env.test.json cypress.env.json
+
       - name: Run Cypress component tests
-        run: yarn test:cypress:ct:ci
+        run: yarn test:cypress:component:ci
 
       - name: Run Cypress E2E tests
-        run: yarn test:cypress:ci
+        run: yarn test:cypress:e2e:ci
 
       - name: Video Cypress
         uses: actions/upload-artifact@v2

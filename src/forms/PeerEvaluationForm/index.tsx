@@ -332,16 +332,12 @@ const PeerEvaluationForm = ({
                   </Button>
                 ) : (
                   <>
-                    <Button
-                      onClick={onCancelConfirmation}
-                      testId="peer-evaluation-form-cancel-button"
-                      variant="outlined"
-                    >
+                    <Button onClick={onCancelConfirmation} testId="peer-evaluation-form-cancel" variant="outlined">
                       {content.containers.peerEvaluationForm.form.button.cancel}
                     </Button>
                     <Button
                       disabled={isSubmitting}
-                      testId="peer-evaluation-form-submit-button"
+                      testId="peer-evaluation-form-submit"
                       variant="contained"
                       type="submit"
                     >

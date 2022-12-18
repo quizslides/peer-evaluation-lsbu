@@ -1,3 +1,5 @@
+import { expect } from "@jest/globals";
+
 import { roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
 
 describe("Round Number to two decimal places", () => {

@@ -50,19 +50,20 @@ const menuExpandableItems: IMenuItemList = {
         pathname: routing.student.peerEvaluations,
       },
     ],
+    testId: "menu-expandable-item-administrator-access",
   },
 };
 
 const menuTopItems = [
   {
     title: "Peer Evaluations",
-    icon: <GridViewIcon testId={"menu-item-dashboard"} />,
+    icon: <GridViewIcon testId={"menu-item-dashboard-lecturer"} />,
     pathname: routing.lecturer.peerEvaluations,
     scope: [RoleScope.LECTURER],
   },
   {
     title: "Peer Evaluations",
-    icon: <GridViewIcon testId={"menu-item-dashboard"} />,
+    icon: <GridViewIcon testId={"menu-item-dashboard-student"} />,
     pathname: routing.student.peerEvaluations,
     scope: [RoleScope.STUDENT],
   },
@@ -142,6 +143,7 @@ const MenuItems = ({ router }: IMenuItems) => {
                 menuDescription={menuExpandableItems[menuItemList].menuDescription}
                 menuItemList={menuExpandableItems[menuItemList].menuItemList}
                 router={router}
+                testId={menuExpandableItems[menuItemList].testId}
               />
             );
           })}

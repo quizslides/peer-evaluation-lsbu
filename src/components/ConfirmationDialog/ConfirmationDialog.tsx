@@ -36,10 +36,10 @@ const ConfirmationDialog = ({
         <Typography testId={`${testId}-content`}>{textContent}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} variant={"text"} testId={`${testId}-close-button`}>
+        <Button onClick={onClose} variant={"text"} testId={`${testId}-close`}>
           {closeText}
         </Button>
-        <Button onClick={onAccept} variant="contained" testId={`${testId}-accept-button`}>
+        <Button onClick={onAccept} variant="contained" testId={`${testId}-accept`}>
           {acceptText}
         </Button>
       </DialogActions>

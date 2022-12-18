@@ -526,12 +526,12 @@ const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
         />
       )}
 
-      <Fab icon={<WidgetsIcon testId={""} />}>
+      <Fab icon={<WidgetsIcon testId={"page-admin-users-floating-actions"} />}>
         <Action text="Add user" onClick={createNewUser}>
           <PersonAddAltIcon testId={""} />
         </Action>
         <Action text="Bulk add/edit users" onClick={() => setShowBulkEditDialog(true)}>
-          <GroupsIcon testId={""} />
+          <GroupsIcon testId={"bulk-add-edit-users-icon"} />
         </Action>
       </Fab>
 

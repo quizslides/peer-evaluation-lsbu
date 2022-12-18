@@ -91,9 +91,11 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
   };
 
   const onSubmitUpdateColumn = ({ description, action }: TColumnFormValueUpdate) => {
-    const columnsUnchanged = columns.filter(({ id }) => id !== updateColumn?.id);
+    const columnsUpdated = columns;
 
     const columnToUpdate = columns.filter(({ id }) => id === updateColumn?.id);
+
+    const columnUpdatedIndex = columns.findIndex(({ id }) => id === updateColumn?.id);
 
     if (columnToUpdate[0].status != FieldStatus.NEW) {
       columnToUpdate[0].status = FieldStatus.UPDATED;
@@ -102,7 +104,9 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     columnToUpdate[0].description = description;
     columnToUpdate[0].action = action;
 
-    setColumns([...columnsUnchanged, ...columnToUpdate]);
+    columnsUpdated[columnUpdatedIndex] = columnToUpdate[0];
+
+    setColumns(columnsUpdated);
 
     setSelectedRows([]);
   };

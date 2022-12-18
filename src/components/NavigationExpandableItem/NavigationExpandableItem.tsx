@@ -19,6 +19,7 @@ export interface IMenuItem {
     label: string;
     pathname: string;
   }[];
+  testId: string;
 }
 
 interface IExpandableMenuItem extends IMenuItem {
@@ -37,6 +38,7 @@ const NavigationExpandableItem = ({
   menuItemList,
   router,
   scope,
+  testId,
 }: IExpandableMenuItem) => {
   return (
     <AuthScopeContainer scope={scope}>
@@ -45,6 +47,7 @@ const NavigationExpandableItem = ({
           bgcolor: open ? "rgba(77, 77, 77, 0.8)" : null,
           pb: open ? 2 : 0,
         }}
+        data-testid={testId}
       >
         <ListItemButton
           alignItems="flex-start"

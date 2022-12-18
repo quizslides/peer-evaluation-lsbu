@@ -10,7 +10,7 @@ interface IButton extends ButtonProps {
 }
 
 const Button: FC<IButton> = ({ variant, testId, ...props }) => {
-  return <ButtonMUI data-testid={testId} {...props} variant={variant} />;
+  return <ButtonMUI data-testid={`${testId}-button`} {...props} variant={variant} />;
 };
 
 export type { IButton };

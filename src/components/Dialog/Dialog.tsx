@@ -58,13 +58,13 @@ const Dialog = ({
         {extraLeftButton}
         {!isDisableLeftButton && (
           <Tooltip title={tooltipLeftButton}>
-            <Button autoFocus onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left-button`}>
+            <Button autoFocus onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left`}>
               {leftButton}
             </Button>
           </Tooltip>
         )}
         <Tooltip title={tooltipRightButton}>
-          <Button onClick={onClickRightButton} variant={rightButtonVariant} testId={`${testId}-right-button`}>
+          <Button onClick={onClickRightButton} variant={rightButtonVariant} testId={`${testId}-right`}>
             {rightButton}
           </Button>
         </Tooltip>
