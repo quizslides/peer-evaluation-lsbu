@@ -16,7 +16,7 @@ services:
     container_name: email-peer-evaluation
     ports:
       - 8025:8025
-      - 1025:1025
+      - 8026:1025
     networks:
       - peer_evaluation
     depends_on:
