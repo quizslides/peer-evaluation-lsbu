@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.1...v1.3.0-staging.2) (2022-12-18)
+
+
+### Features
+
+* adding alert as a warning when updating students/teams ([1bc62ab](https://github.com/quizslides/peer-evaluation-lsbu/commit/1bc62ab0d7ee4dd2342150adfa3f115414c6aa07))
+
 ## [1.3.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.2...v1.3.0-staging.1) (2022-12-18)
 
 
