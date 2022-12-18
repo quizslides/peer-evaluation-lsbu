@@ -19,7 +19,7 @@ describe("Edit column description configuration", () => {
     Cypress.session.clearCurrentSessionData();
   });
 
-  it("Create a peer evaluation with default configuration", () => {
+  it("Create a peer evaluation with the default configuration", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -257,7 +257,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
     Cypress.session.clearCurrentSessionData();
   });
 
-  it("Create a peer evaluation with default configuration", () => {
+  it("Create a peer evaluation with the default configuration", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -365,7 +365,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
     Cypress.session.clearCurrentSessionData();
   });
 
-  it("Create a peer evaluation with default configuration", () => {
+  it("Create a peer evaluation with the default configuration", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -473,7 +473,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
     cy.contains("Peer evaluation updated successfully", { timeout: 20000 }).should("be.visible");
   });
 
-  it("Add new column to peer evaluation and set all peer evaluations as incomplete", () => {
+  it("Add a new column to peer evaluation and set all peer evaluations as incomplete", () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -503,7 +503,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 0);
   });
 
-  it("Complete updated peer evaluation as a student", () => {
+  it("Complete updated peer evaluation as a student with new column", () => {
     cy.signInAs(Cypress.env("users").student.email);
 
     cy.visit("/");
