@@ -12,6 +12,9 @@ const content = {
         href: "#",
       },
     },
+    alert: {
+      testId: "component-alert",
+    },
   },
   containers: {
     errorContainer: {

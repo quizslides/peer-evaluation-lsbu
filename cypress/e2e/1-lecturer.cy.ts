@@ -241,3 +241,111 @@ describe("Edit column description configuration", () => {
     cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
   });
 });
+
+describe("Updating Students/Teams and showing warning alert", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Create a peer evaluation with default configuration", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]").click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]').click();
+
+    cy.url().should("include", routing.lecturer.peerEvaluation.create);
+
+    cy.get('[data-testid="peer-evaluation-form-title-field"]').type(Cypress.env("peerEvaluation").title);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-code-field"]').type(Cypress.env("peerEvaluation").code);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
+
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+
+    cy.get(".MuiBackdrop-root").click();
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+  });
+
+  it("Show alert when updating students", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]").click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+
+    cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
+
+    const peerEvaluationSingleStudentCSV = getFixturesPath("lecturer-peer-evaluation-single-student.csv");
+
+    cy.get('[data-testid="upload-button-wrapper"]').click();
+
+    cy.get("input[type=file]").selectFile(peerEvaluationSingleStudentCSV, { force: true });
+
+    cy.contains(Cypress.env("users").student.email);
+
+    cy.get(`[data-testid="peer-evaluation-student-team-action-dialog-component-alert"]`).should("not.exist");
+
+    cy.get('[data-testid="peer-evaluation-student-team-action-dialog-right-button"]').click();
+
+    cy.contains("Bulk process ran successfully", { timeout: 20000 }).should("be.visible");
+
+    cy.contains(Cypress.env("users").student.email);
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+
+    cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
+
+    cy.get('[data-testid="upload-button-wrapper"]').click();
+
+    cy.get("input[type=file]").selectFile(peerEvaluationSingleStudentCSV, { force: true });
+
+    cy.contains(Cypress.env("users").student.email);
+
+    cy.get('[data-testid="peer-evaluation-student-team-action-dialog-right-button"]').click();
+
+    cy.get(`[data-testid="peer-evaluation-student-team-action-dialog-component-alert"]`).should("be.visible");
+
+    cy.contains("Bulk process ran successfully", { timeout: 20000 }).should("be.visible");
+
+    cy.contains(Cypress.env("users").student.email);
+  });
+
+  it("Delete Peer Evaluation", () => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]").click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+
+    cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-title-datatable-on-delete-accept-button"]').click();
+
+    cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
+  });
+});

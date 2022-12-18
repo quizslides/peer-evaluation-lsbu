@@ -10,7 +10,7 @@ declare global {
        *
        * @param {string} email
        *
-       * @example cy.signInAs("email@lsbupeerevaluation.software")
+       * @example cy.signInAs("email@lsbupeerevaluation.software");
        */
       signInAs(email: string): Chainable<string>;
     }

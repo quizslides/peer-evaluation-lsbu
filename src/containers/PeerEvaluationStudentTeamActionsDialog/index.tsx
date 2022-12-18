@@ -6,7 +6,7 @@ import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 
 import PeerEvaluationCardInfo from "../PeerEvaluationCardInfo";
 
-import { DataTable, Dialog } from "@/components";
+import { Alert, DataTable, Dialog } from "@/components";
 
 enum EditBulkAction {
   UPDATE = "UPDATE",
@@ -170,6 +170,18 @@ const PeerEvaluationStudentTeamActionsDialog = ({
       title={"Please review the changes before you continue"}
       content={
         <>
+          <Alert
+            testId={"peer-evaluation-student-team-action-dialog"}
+            severity="warning"
+            isVisible={!!studentToUpdate.length}
+            style={{
+              marginBottom: "1rem",
+            }}
+          >
+            Making changes to current teams and students created will update the status of affected peer evaluations to{" "}
+            <b>incomplete</b>. Please notify the affected students to update their peer evaluations.
+          </Alert>
+
           <PeerEvaluationCardInfo
             peerEvaluationStatus={peerEvaluationStatus}
             peerEvaluationTitle={peerEvaluationTitle}

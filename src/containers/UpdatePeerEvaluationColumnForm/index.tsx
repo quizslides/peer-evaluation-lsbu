@@ -1,8 +1,6 @@
 import React, { memo, useState } from "react";
 
-import MuiAlert from "@mui/material/Alert";
-
-import { Button, Dialog } from "@/components";
+import { Alert, Button, Dialog } from "@/components";
 import PeerEvaluationColumnForm, { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
 import { IPeerEvaluationColumn, PeerEvaluationColumnAction } from "@/types/peer-evaluation";
 
@@ -52,14 +50,14 @@ const UpdateColumnForm = ({ state, updateFormState, onSubmit, description }: IUp
         testId={"bulk-add-edit-dialog"}
         title={"Are you sure?"}
         content={
-          <MuiAlert severity="warning">
+          <Alert testId={"bulk-add-edit-dialog"} severity="warning">
             You are about to make a change to the column description for your published peer evaluation, which may
             affect existing student submissions.
             <br />
             <br />
             Click on accept and clear to clear all marks already submitted by students for this column and mark their
             peer evaluation as incomplete. Please notify the affected students to update their peer evaluations.
-          </MuiAlert>
+          </Alert>
         }
         tooltipRightButton="Update description, clear all marks and set as incomplete the peer evaluations"
         tooltipLeftButton="The description of the column was not changed"
