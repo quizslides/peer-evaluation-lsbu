@@ -40,7 +40,9 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Setup test environmental variables
-        run: cp .env.sample .env
+        run: |
+          cp .env.sample .env
+          cp .env.sample .env.development.local
 
       - name: Start docker container
         run: yarn docker:ci
