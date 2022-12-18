@@ -42,7 +42,6 @@ jobs:
       - name: Setup test environmental variables
         run: |
           cp .env.sample .env
-          cp .env.sample .env.local
 
       - name: Start docker container
         run: yarn docker:ci
