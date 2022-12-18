@@ -2,6 +2,15 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.2...v1.3.0-staging.1) (2022-12-18)
+
+
+### Features
+
+* adding column sort artificial by creation date ([5400e69](https://github.com/quizslides/peer-evaluation-lsbu/commit/5400e6941ad2833cb0c28a569249d56378d5a635))
+* adding feature with tests to edit column and clear or not results ([4e17ab8](https://github.com/quizslides/peer-evaluation-lsbu/commit/4e17ab8a8e33118fad7cbf5a59a7e594915b41af))
+* adding warning when editing column description ([3206202](https://github.com/quizslides/peer-evaluation-lsbu/commit/320620219f0ec8c6898a61f829bbf20b6f9602bf))
+
 ### [1.2.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.1...v1.2.1-staging.2) (2022-12-17)
 
 
