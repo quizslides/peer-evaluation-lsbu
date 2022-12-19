@@ -173,6 +173,8 @@ const content = {
       confirmationDeleteColumn: {
         title: "Delete column",
         bodyText: "Are you sure you want to delete the column?",
+        alertText: "Deleting a column will remove the columns for all peer evaluations and update mark calculations.",
+        alertVariant: "info",
         acceptText: "OK",
         closeText: "Cancel",
       },

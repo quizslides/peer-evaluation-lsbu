@@ -74,6 +74,8 @@ interface IPeerEvaluationStudentTeam {
   mark: string;
 }
 
+const baseTestId = "page-lecturer-peer-evaluation";
+
 const Teams: NextPage = () => {
   const peerEvaluationStudentTeamsColumnOrder = ["_", "id", "name", "mark", "__"];
 
@@ -228,7 +230,7 @@ const Teams: NextPage = () => {
                   const dataTable = tableMeta.currentTableData[tableMeta.rowIndex] as unknown as { data: string };
                   onViewResultsPeerEvaluationTeam(dataTable.data[2] as string);
                 }}
-                testId={""}
+                testId={`${baseTestId}-results`}
                 variant="contained"
               >
                 Results

@@ -38,7 +38,7 @@ import { RoleScope } from "@/utils";
 import { ObjectArray, objectToArrayOfObject } from "@/utils/form";
 import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
-const testId = "page-report-team";
+const testId = "page-lecturer-result-team";
 
 const Message = styled(Typography)`
   text-align: center;
@@ -440,8 +440,15 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
         <CenteredContent>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <GradingIcon testId={`${testId}-grading-icon`} fontSize="large" />
-            <Message testId={""}>{"Peer Evaluation marks have not been calculated"}</Message>
-            <Button size="large" testId="" variant="contained" onClick={onCalculateMarksTrigger}>
+            <Message testId={`${testId}-calculate-marks-message`}>
+              {"Peer Evaluation marks have not been calculated"}
+            </Message>
+            <Button
+              size="large"
+              testId={`${testId}-calculate-marks`}
+              variant="contained"
+              onClick={onCalculateMarksTrigger}
+            >
               Calculate Marks
             </Button>
           </Stack>

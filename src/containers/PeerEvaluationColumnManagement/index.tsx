@@ -303,14 +303,17 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       )}
 
       <ConfirmationDialog
-        testId={"peer-evaluation-column-management-confirmation-delete-column"}
+        acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
+        alertText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.alertText}
+        alertVariant={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.alertVariant}
+        closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
+        isAlertVisible
         isOpen={isDeletePeerEvaluationColumnConfirmationOpen}
-        title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
-        textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
         onAccept={onDeletePeerEvaluationColumnAccept}
         onClose={onDeletePeerEvaluationColumnCancel}
-        closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
-        acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
+        testId={"peer-evaluation-column-management-confirmation-delete-column"}
+        textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
+        title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
       />
     </FormControl>
   );
