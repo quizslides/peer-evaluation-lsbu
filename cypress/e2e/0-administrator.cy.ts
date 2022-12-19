@@ -26,7 +26,7 @@ describe("Create users as administrator", () => {
 
     cy.get('[data-testid="menu-expandable-admin-users"]').click();
 
-    cy.get('[data-testid="page-admin-users-floating-actions"]', { timeout: 10000 }).trigger("mouseover");
+    cy.get('[data-testid="page-admin-users-floating-actions"]', { timeout: 20000 }).trigger("mouseover");
 
     cy.get('[data-testid="bulk-add-edit-users-icon"]').click();
 
