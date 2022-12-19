@@ -1,4 +1,4 @@
-import { Cypress, after, before, beforeEach, cy, expect, it } from "local-cypress";
+import { Cypress, after, before, beforeEach, cy, describe, expect, it } from "local-cypress";
 
 import routing from "@/routing";
 import { PeerEvaluationStatus, SchoolsDropdown } from "@/types/peer-evaluation";
@@ -50,7 +50,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 5000 }).click();
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
@@ -82,7 +82,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
@@ -136,7 +136,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
@@ -164,7 +164,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
@@ -220,7 +220,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 1);
   });
@@ -234,7 +234,7 @@ describe("Edit column description configuration", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
 
@@ -290,7 +290,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
@@ -346,7 +346,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
 
@@ -402,7 +402,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
@@ -434,7 +434,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
@@ -488,7 +488,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 1);
 
@@ -550,7 +550,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
 
@@ -606,7 +606,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 5000 }).click();
 
@@ -638,7 +638,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
@@ -690,7 +690,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.wait(1000);
 
@@ -712,7 +712,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 1);
 
@@ -742,7 +742,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.wait(1000);
 
@@ -764,7 +764,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.get('[data-testid="page-peer-evaluations-view-action-button"]').click();
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
 

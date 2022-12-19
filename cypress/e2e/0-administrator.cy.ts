@@ -1,4 +1,4 @@
-import { Cypress, after, before, beforeEach, cy, it } from "local-cypress";
+import { Cypress, after, before, beforeEach, cy, describe, it } from "local-cypress";
 
 import { getFixturesPath } from "cypress/utils/tests";
 
