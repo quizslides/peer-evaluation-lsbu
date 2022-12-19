@@ -43,7 +43,7 @@ describe("Edit column description configuration", () => {
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
   });
 
-  it("Add one student to the peer evaluation", () => {
+  it("Add one student to the peer evaluation", { retries: 1 }, () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -283,7 +283,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
   });
 
-  it("Show alert when updating students", () => {
+  it("Show alert when updating students", { retries: 1 }, () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -395,7 +395,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
   });
 
-  it("Add one student to the peer evaluation", () => {
+  it("Add one student to the peer evaluation", { retries: 1 }, () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -599,7 +599,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
   });
 
-  it("Add one student to the peer evaluation", () => {
+  it("Add one student to the peer evaluation", { retries: 1 }, () => {
     cy.visit(Cypress.env("url").frontend);
 
     cy.get("[data-testid=navigation-menu-button]").click();
@@ -692,13 +692,9 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
-    cy.wait(1000);
-
     cy.get('[data-testid="peer-evaluation-dashboard-total-peer-evaluations-teams-button"]').click();
 
     cy.get('[data-testid="page-lecturer-peer-evaluation-results-button"]').click();
-
-    cy.wait(1000);
 
     cy.get('[data-testid="page-lecturer-result-team-calculate-marks-button"]').click();
 
