@@ -38,9 +38,9 @@ describe("Edit column description configuration", () => {
 
     cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
   });
@@ -90,9 +90,9 @@ describe("Edit column description configuration", () => {
 
     cy.contains(PeerEvaluationStatus.PUBLISHED).click({ force: true });
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
   });
@@ -151,7 +151,7 @@ describe("Edit column description configuration", () => {
 
     cy.get('[data-testid="bulk-add-edit-dialog-left-button"]').click();
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
 
@@ -179,7 +179,7 @@ describe("Edit column description configuration", () => {
 
     cy.get('[data-testid="bulk-add-edit-dialog-right-button"]').click();
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 20000 }).should("be.visible");
 
@@ -282,9 +282,9 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
   });
@@ -396,9 +396,9 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
   });
@@ -448,9 +448,9 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.contains(PeerEvaluationStatus.PUBLISHED).click({ force: true });
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
   });
@@ -511,7 +511,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="column-form-submit-button-button"]').click();
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
 
@@ -602,9 +602,9 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
   });
@@ -654,9 +654,9 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.contains(PeerEvaluationStatus.PUBLISHED).click({ force: true });
 
-    cy.get(".MuiBackdrop-root").click();
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').click({ force: true });
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
   });
@@ -734,7 +734,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-column-management-confirmation-delete-column-accept-button"]').click();
 
-    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
 
     cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
 
