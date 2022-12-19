@@ -51,10 +51,6 @@ jobs:
         env:
           ENVIRONMENT: ci
 
-      # - name: Sleep for 30 seconds
-      #   run: sleep 30s
-      #   shell: bash
-
       - name: Run linter check
         run: yarn lint:check
 
