@@ -360,7 +360,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
   });
 });
 
-describe.skip("Show info alert on new column added to peer evaluation", () => {
+describe("Show info alert on new column added to peer evaluation", () => {
   before(() => {
     cy.mhDeleteAll();
 
@@ -378,13 +378,11 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
   it("Create a peer evaluation with the default configuration", () => {
     cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
-    cy.wait(5000);
-
-    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]').click();
+    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]', { timeout: 10000 }).click();
 
     cy.url().should("include", routing.lecturer.peerEvaluation.create);
 
@@ -399,22 +397,22 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
     cy.get(".MuiBackdrop-root").click();
 
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
+
+    cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
   });
 
-  it.skip("Add one student to the peer evaluation", () => {
+  it("Add one student to the peer evaluation", () => {
     cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
     cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 10000 }).click();
 
-    cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 10000 }).click();
+    cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]').click();
 
-    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]', { timeout: 10000 }).trigger(
-      "mouseover"
-    );
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
 
     cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
 
@@ -428,15 +426,15 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-student-team-action-dialog-right-button"]').click();
 
-    cy.contains("Bulk process ran successfully", { timeout: 20000 }).should("be.visible");
+    cy.contains("Bulk process ran successfully", { timeout: 30000 }).should("be.visible");
 
     cy.contains(Cypress.env("users").student.email);
   });
 
-  it.skip("Set peer evaluation with published status", () => {
+  it("Set peer evaluation with published status", () => {
     cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
@@ -452,23 +450,24 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
 
-    cy.contains("Peer Evaluation updated successfully", { timeout: 20000 }).should("be.visible");
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
   });
 
-  it.skip("Complete a new peer evaluation as a student", () => {
+  it("Complete a new peer evaluation as a student", () => {
     cy.signInAs(Cypress.env("users").student.email);
 
-    cy.visit("/");
+    cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-student]").click();
 
-    cy.get('[data-testid="page-student-peer-evaluations-button"]').click();
+    cy.get('[data-testid="page-student-peer-evaluations-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="container-peer-evaluation-student-table-criteria-score"]').each((element) => {
       cy.wrap(element).click();
 
+      // TODO: Fix
       const randomCriteriaScore = Math.floor(Math.random() * 5) + 1;
 
       expect(element).to.have.value("");
@@ -487,10 +486,10 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
     cy.contains("Peer evaluation updated successfully", { timeout: 20000 }).should("be.visible");
   });
 
-  it.skip("Add a new column to peer evaluation and set all peer evaluations as incomplete", () => {
+  it("Add a new column to peer evaluation and set all peer evaluations as incomplete", () => {
     cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
@@ -500,9 +499,7 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-view-update"]').click();
 
-    cy.get('[data-testid="peer-evaluation-column-management-add-column"]').click();
-
-    cy.get('[data-testid="column-form-description-field"]');
+    cy.get('[data-testid="peer-evaluation-column-management-add-column"]', { timeout: 10000 }).click();
 
     cy.get(`[data-testid="peer-evaluation-column-form-info-component-alert"]`).should("be.visible");
 
@@ -512,23 +509,24 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-form-submit-button"]').click();
 
-    cy.contains("Peer Evaluation updated successfully", { timeout: 20000 }).should("be.visible");
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
 
     cy.get('[data-testid="container-peer-evaluation-dashboard-total-completed-peer-evaluations"]').should("contain", 0);
   });
 
-  it.skip("Complete the updated peer evaluation as a student with a new column", () => {
+  it("Complete the updated peer evaluation as a student with a new column", () => {
     cy.signInAs(Cypress.env("users").student.email);
 
-    cy.visit("/");
+    cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-student]").click();
 
-    cy.get('[data-testid="page-student-peer-evaluations-button"]').click();
+    cy.get('[data-testid="page-student-peer-evaluations-button"]', { timeout: 10000 }).click();
 
     cy.get('[data-testid="container-peer-evaluation-student-table-criteria-score"]').each((element, index) => {
+      // TODO
       const randomCriteriaScore = Math.floor(Math.random() * 5) + 1;
 
       if (index === 5) {
@@ -544,15 +542,15 @@ describe.skip("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="container-peer-evaluation-student-table-submit-button"]').click();
 
-    cy.contains("Peer evaluation updated successfully", { timeout: 20000 }).should("be.visible");
+    cy.contains("Peer evaluation updated successfully", { timeout: 30000 }).should("be.visible");
   });
 
-  it.skip("Delete Peer Evaluation", () => {
+  it("Delete Peer Evaluation", () => {
     cy.signInAs(Cypress.env("users").lecturer.email);
 
     cy.visit(Cypress.env("url").frontend);
 
-    cy.get("[data-testid=navigation-menu-button]").click();
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 10000 }).click();
 
     cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
 
