@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.3...v1.3.0-staging.4) (2022-12-19)
+
+
+### Features
+
+* adding info alter when column is deleted from a peer evaluation and tests ([f505d4d](https://github.com/quizslides/peer-evaluation-lsbu/commit/f505d4d6919dad2b913e927729625d309d41f00f))
+
 ## [1.3.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.2...v1.3.0-staging.3) (2022-12-18)
 
 
