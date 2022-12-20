@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.4...v1.3.0-staging.5) (2022-12-20)
+
+
+### Features
+
+* adding alert on updating criteria score and e2e tests ([87d27ce](https://github.com/quizslides/peer-evaluation-lsbu/commit/87d27ce8b07c190fc28ea171741c58728f030f87))
+
 ## [1.3.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.3...v1.3.0-staging.4) (2022-12-19)
 
 
