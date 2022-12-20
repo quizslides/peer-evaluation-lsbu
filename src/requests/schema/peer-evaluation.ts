@@ -514,6 +514,9 @@ const PEER_EVALUATION_DASHBOARD = gql`
       totalPeerEvaluationTeams
       peerEvaluationTeachingMembers {
         role
+        user {
+          email
+        }
       }
     }
   }

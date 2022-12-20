@@ -1,37 +1,42 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
+import { Session } from "next-auth";
 import { useRouter } from "next/router";
 
-import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
-import LoadingContainer from "../LoadingContainer";
-import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";
-
 import { Button, ConfirmationDialog, DataTable } from "@/components";
+import DataTableEditDeleteToolbar from "@/containers/DataTableEditDeleteToolbar";
+import LoadingContainer from "@/containers/LoadingContainer";
+import PeerEvaluationStatusContainer from "@/containers/PeerEvaluationStatusContainer";
 import content from "@/content";
 import { CopyIcon } from "@/icons";
 import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import deletePeerEvaluation from "@/requests/direct/mutation/deletePeerEvaluation";
 import routing from "@/routing";
-import { PeerEvaluationStatus } from "@/types/peer-evaluation";
+import { PeerEvaluationStatus, PeerEvaluationTeachingMemberRoles } from "@/types/peer-evaluation";
 import { errorNotification, loadingNotification, successNotification } from "@/utils";
 import { getDateLocaleString, getDateTimeDiff } from "@/utils/date";
 
 interface IPeerEvaluationDashboardContainer {
   data: PeerEvaluationDashboard;
+  session: Session | null;
 }
 
 const testId = "container-peer-evaluation-dashboard";
 
-const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardContainer) => {
+const PeerEvaluationDashboardContainer = ({ data, session }: IPeerEvaluationDashboardContainer) => {
   const { push } = useRouter();
 
   const apolloClient = useApolloClient();
 
   const [isRedirecting, setRedirecting] = useState(false);
+
+  const [teachingMemberRole, setTeachingMemberRole] = useState<PeerEvaluationTeachingMemberRoles>(
+    PeerEvaluationTeachingMemberRoles["VIEWER"]
+  );
 
   const peerEvaluationId = data.id;
 
@@ -41,9 +46,18 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
 
   const [isDeletePeerEvaluationOpen, setDeletePeerEvaluationConfirmationOpen] = useState(false);
 
-  const isOwnerRole = data.peerEvaluationTeachingMembers
-    ? data.peerEvaluationTeachingMembers[0].role === "OWNER"
-    : false;
+  useEffect(() => {
+    if (session) {
+      const teachingMemberRole =
+        session?.user.role === "ADMIN"
+          ? "OWNER"
+          : data.peerEvaluationTeachingMembers?.filter(({ user }) => user?.email === session.user.email)[0].role;
+
+      if (teachingMemberRole) {
+        setTeachingMemberRole(teachingMemberRole as PeerEvaluationTeachingMemberRoles);
+      }
+    }
+  }, [data.peerEvaluationTeachingMembers, session]);
 
   const onRedirectToPage = (pagePath: string) => {
     setRedirecting(true);
@@ -284,7 +298,7 @@ const PeerEvaluationDashboardContainer = ({ data }: IPeerEvaluationDashboardCont
           toolTipLabel: "Update",
           onClick: () => onRedirectToPage(routing.lecturer.peerEvaluation.edit),
         }}
-        visibleDeleteButton={isOwnerRole}
+        visibleDeleteButton={teachingMemberRole === "OWNER"}
         deleteButton={{
           testId: "peer-evaluation-view-delete",
           toolTipLabel: "Delete",

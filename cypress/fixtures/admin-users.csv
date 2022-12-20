@@ -1,5 +1,6 @@
 ﻿Name,Email,Role
 Administrator,administrator@lsbupeerevaluation.software,ADMIN
 Lecturer,lecturer@lsbu.ac.uk,LECTURER
+Lecturer Editor,lecturer.editor@lsbu.ac.uk,LECTURER
 Lecturer Viewer,lecturer.viewer@lsbu.ac.uk,LECTURER
 Student,student@lsbu.ac.uk,STUDENT

@@ -42,6 +42,8 @@ describe("Create users as administrator", () => {
 
     cy.contains(Cypress.env("users").lecturerViewer.email);
 
+    cy.contains(Cypress.env("users").lecturerEditor.email);
+
     cy.contains(Cypress.env("users").student.email);
 
     cy.get('[data-testid="user-bulk-dialog-right-button"]').click({ force: true });
@@ -53,6 +55,8 @@ describe("Create users as administrator", () => {
     cy.contains(Cypress.env("users").lecturer.email);
 
     cy.contains(Cypress.env("users").lecturerViewer.email);
+
+    cy.contains(Cypress.env("users").lecturerEditor.email);
 
     cy.contains(Cypress.env("users").student.email);
   });

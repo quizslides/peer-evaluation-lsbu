@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";
@@ -12,9 +13,10 @@ import { PeerEvaluationDashboard } from "@/pages/api/resolvers/lecturer/peer-eva
 import useGetPeerEvaluationDashboard from "@/requests/hooks/query/useGetPeerEvaluationDashboard";
 import { theme } from "@/styles/index";
 import { sanitizePeerEvaluationViewDataOnFetch } from "@/transformers/peer-evaluation";
+import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
 
-const ViewPeerEvaluation: NextPage = () => {
+const ViewPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
   const { query, isFallback } = useRouter();
 
   const [isRedirecting, setRedirecting] = useState(false);
@@ -75,7 +77,7 @@ const ViewPeerEvaluation: NextPage = () => {
             },
           })}
         >
-          {peerEvaluationData && <PeerEvaluationDashboardContainer data={peerEvaluationData} />}
+          {peerEvaluationData && <PeerEvaluationDashboardContainer data={peerEvaluationData} session={session} />}
         </ThemeProvider>
       </Container>
       <PeerEvaluationNavigationFab setRedirecting={() => setRedirecting(true)} />
@@ -83,13 +85,10 @@ const ViewPeerEvaluation: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export const getServerSideProps = async (context: NextPageContext) => {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },
