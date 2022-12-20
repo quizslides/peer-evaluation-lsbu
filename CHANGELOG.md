@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.7...v1.3.0-staging.8) (2022-12-20)
+
+
+### Bug Fixes
+
+* updating base component of peer evaluation view to show menu instead of arrow ([e9bd693](https://github.com/quizslides/peer-evaluation-lsbu/commit/e9bd693cc8767e35d54ec3ac6cd870d62036fd9d))
+
 ## [1.3.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.6...v1.3.0-staging.7) (2022-12-20)
 
 
