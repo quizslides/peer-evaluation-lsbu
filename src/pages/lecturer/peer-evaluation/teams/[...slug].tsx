@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { useApolloClient } from "@apollo/client";
+import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { array, number, object, string } from "yup";
 
@@ -28,8 +30,10 @@ import peerEvaluationStudentTeamExist from "@/requests/direct/query/peerEvaluati
 import useUpdatePeerEvaluationStudentTeam from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeam";
 import useUpdatePeerEvaluationStudentTeamCalculateResultsTable from "@/requests/hooks/mutations/useUpdatePeerEvaluationStudentTeamCalculateResultsTable";
 import useGetPeerEvaluationStudentTeams from "@/requests/hooks/query/useGetPeerEvaluationStudentTeams";
+import useGetUserPeerEvaluationTeachingMember from "@/requests/hooks/query/useGetUserPeerEvaluationTeachingMember";
 import routing from "@/routing";
 import { ArrayObject } from "@/types/object";
+import { NextPagePros } from "@/types/pages";
 import {
   RoleScope,
   errorNotification,
@@ -76,7 +80,7 @@ interface IPeerEvaluationStudentTeam {
 
 const baseTestId = "page-lecturer-peer-evaluation";
 
-const Teams: NextPage = () => {
+const Teams: NextPage<NextPagePros> = ({ session }) => {
   const peerEvaluationStudentTeamsColumnOrder = ["_", "id", "name", "mark", "__"];
 
   const apolloClient = useApolloClient();
@@ -87,12 +91,19 @@ const Teams: NextPage = () => {
 
   const [peerEvaluationId, setPeerEvaluationId] = useState<string | null>(null);
 
+  const [teachingMemberRole, setTeachingMemberRole] = useState<PeerEvaluationTeachingMember["role"]>("VIEWER");
+
   const [peerEvaluationTableFormInitialState, setPeerEvaluationTableFormInitialState] =
     useState<IPeerEvaluationStudentTableForm | null>(null);
 
   const [getPeerEvaluationStudentTeams, { loading: loadingFetch, data, refetch }] = useGetPeerEvaluationStudentTeams(
     "useGetPeerEvaluationStudentTeams"
   );
+
+  const [
+    getPeerEvaluationTeachingMember,
+    { loading: loadingTeachingMember, error: errorTeachingMember, data: dataTeachingMember },
+  ] = useGetUserPeerEvaluationTeachingMember("GetUserPeerEvaluationTeachingMember");
 
   const [updatePeerEvaluationStudentTeamCalculateResultsTable] =
     useUpdatePeerEvaluationStudentTeamCalculateResultsTable("UpdatePeerEvaluationStudentTeamCalculateResultsTable");
@@ -166,12 +177,9 @@ const Teams: NextPage = () => {
     setDeletePeerEvaluationStudentTeamConfirmationOpen(true);
   };
 
+  const isReadOnlyPeerEvaluation = teachingMemberRole === "VIEWER";
+
   const validationSchema = object({
-    // marks: array().of(
-    //   object().shape({
-    //     mark: number().required("Mark is required"),
-    //   })
-    // ),
     marks: array().of(
       object().shape({
         mark: number().min(0, "Value needs to be higher than 0").max(100, "Value cannot be higher than 100").nullable(),
@@ -257,12 +265,13 @@ const Teams: NextPage = () => {
               updateDataTableFormValue={updateValue}
               validationSchema={validationSchema}
               validationFieldPath={"names.name"}
-              testId=""
+              testId="page-lecturer-peer-evaluation-teams-team-name"
               name={`names[${tableMeta.rowIndex}].name`}
               props={{
-                name: `names[${tableMeta.rowIndex}].name`,
+                disabled: isReadOnlyPeerEvaluation,
                 fullWidth: true,
                 label: "Team Name",
+                name: `names[${tableMeta.rowIndex}].name`,
                 type: "text",
                 variant: "outlined",
               }}
@@ -281,15 +290,16 @@ const Teams: NextPage = () => {
               updateDataTableFormValue={updateValue}
               validationSchema={validationSchema}
               validationFieldPath={"marks.mark"}
-              testId=""
+              testId="page-lecturer-peer-evaluation-teams-team-mark"
               name={`marks[${tableMeta.rowIndex}].mark`}
               props={{
-                name: `marks[${tableMeta.rowIndex}].mark`,
+                disabled: isReadOnlyPeerEvaluation,
                 fullWidth: true,
+                inputProps: { min: 0, max: 100, step: "0.01" },
                 label: "Mark",
+                name: `marks[${tableMeta.rowIndex}].mark`,
                 type: "number",
                 variant: "outlined",
-                inputProps: { min: 0, max: 100, step: "0.01" },
               }}
             />
           </FieldWrapper>
@@ -306,7 +316,7 @@ const Teams: NextPage = () => {
               updateDataTableFormValue={updateValue}
               validationSchema={validationSchema}
               validationFieldPath={"comments.comment"}
-              testId=""
+              testId="page-lecturer-peer-evaluation-teams-team-comment"
               name={`comments[${tableMeta.rowIndex}].comment`}
               props={{
                 name: `comments[${tableMeta.rowIndex}].comment`,
@@ -380,12 +390,14 @@ const Teams: NextPage = () => {
     ),
   };
 
-  const isLoading = isRedirecting || loadingFetch || !!!data;
+  const isLoading = isRedirecting || loadingTeachingMember || loadingFetch || !!!data;
+
+  const isError = !!errorTeachingMember;
 
   useEffect(() => {
     const slug = query.slug;
 
-    if (Array.isArray(slug)) {
+    if (Array.isArray(slug) && session) {
       const peerEvaluationIdSlug = slug[0];
 
       setPeerEvaluationId(peerEvaluationIdSlug);
@@ -404,8 +416,28 @@ const Teams: NextPage = () => {
           ],
         },
       });
+
+      getPeerEvaluationTeachingMember({
+        variables: {
+          where: {
+            userId_peerEvaluationId: {
+              peerEvaluationId: peerEvaluationIdSlug,
+              userId: session.user.id,
+            },
+          },
+        },
+      });
     }
-  }, [getPeerEvaluationStudentTeams, query.slug]);
+  }, [getPeerEvaluationStudentTeams, getPeerEvaluationTeachingMember, query.slug, session]);
+
+  useEffect(() => {
+    if (dataTeachingMember) {
+      const teachingMemberRole =
+        session?.user.role === "ADMIN" ? "OWNER" : dataTeachingMember.peerEvaluationTeachingMember.role;
+
+      setTeachingMemberRole(teachingMemberRole);
+    }
+  }, [dataTeachingMember, session?.user.role]);
 
   useEffect(() => {
     if (data) {
@@ -471,7 +503,7 @@ const Teams: NextPage = () => {
   };
 
   return (
-    <Base topLeftComponent="menu" loading={isLoading}>
+    <Base topLeftComponent="menu" loading={isLoading} error={isError}>
       <PageTitle title={"Teams"} testId="page-update-peer-evaluation-title" variant="h4" margin="2em" />
 
       {data && validationSchema && peerEvaluationTableFormInitialState && (
@@ -516,13 +548,10 @@ const Teams: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return { paths: [], fallback: true };
-};
-
-export const getStaticProps = () => {
+export const getServerSideProps = async (context: NextPageContext) => {
   return {
     props: {
+      session: await getSession(context),
       protected: true,
       roles: [RoleScope.ADMIN, RoleScope.LECTURER],
     },

@@ -3,6 +3,7 @@ import { Cypress, after, before, beforeEach, cy, describe, expect, it } from "lo
 import content from "@/content";
 import routing from "@/routing";
 import { PeerEvaluationStatus, PeerEvaluationStatusDefinition, SchoolsDropdown } from "@/types/peer-evaluation";
+import { Role } from "@/utils";
 import { getFixturesPath, getRandomScore } from "cypress/utils/tests";
 
 describe("Edit column description configuration", () => {
@@ -1078,6 +1079,146 @@ describe("Show definition for each peer evaluation status in-line", () => {
 
       cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').should("contain", status[1]);
     }
+  });
+
+  it("Delete Peer Evaluation", () => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-title-datatable-on-delete-accept-button"]').click();
+
+    cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
+  });
+});
+
+describe("Lecturer as a viewer cannot edit the teams page", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Create a peer evaluation with the default configuration", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]', { timeout: 20000 }).click();
+
+    cy.url().should("include", routing.lecturer.peerEvaluation.create);
+
+    cy.get('[data-testid="peer-evaluation-form-title-field"]').type(Cypress.env("peerEvaluation").title);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-code-field"]').type(Cypress.env("peerEvaluation").code);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
+
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
+  });
+
+  it("Add one student to the peer evaluation", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-total-students-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-students-floating-actions"]').trigger("mouseover");
+
+    cy.get('[data-testid="bulk-add-edit-students-icon"]').click();
+
+    const peerEvaluationSingleStudentCSV = getFixturesPath("lecturer-peer-evaluation-single-student.csv");
+
+    cy.get('[data-testid="upload-button-wrapper"]').click();
+
+    cy.get("input[type=file]").selectFile(peerEvaluationSingleStudentCSV, { force: true });
+
+    cy.contains(Cypress.env("users").student.email);
+
+    cy.get('[data-testid="peer-evaluation-student-team-action-dialog-right-button"]').click();
+
+    cy.contains("Bulk process ran successfully", { timeout: 30000 }).should("be.visible");
+
+    cy.contains(Cypress.env("users").student.email);
+  });
+
+  it("Add a lecturer with a viewer role to the peer evaluation", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-add-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-name-field"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-email-field-text-field"]')
+      .type(Cypress.env("users").lecturerViewer.email)
+      .type("{enter}");
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
+  });
+
+  it("Validate lecturer permission is read-only", () => {
+    cy.signInAs(Cypress.env("users").lecturerViewer.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-total-peer-evaluations-teams-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-teams-team-name"]', { timeout: 20000 })
+      .get(":button")
+      .should("be.disabled");
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-teams-team-mark"]', { timeout: 20000 })
+      .get(":button")
+      .should("be.disabled");
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-teams-team-comment"]', { timeout: 20000 }).should(
+      "not.be.disabled"
+    );
   });
 
   it("Delete Peer Evaluation", () => {
