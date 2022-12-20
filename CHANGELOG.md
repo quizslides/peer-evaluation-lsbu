@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.8...v1.3.0-staging.9) (2022-12-20)
+
+
+### Bug Fixes
+
+* adding validation to avoid lecturer besides an owner to delete a peer evaluation with E2E tests ([ef701c3](https://github.com/quizslides/peer-evaluation-lsbu/commit/ef701c3493168002e4c9ce3ae6566b0115ad261c))
+
 ## [1.3.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.7...v1.3.0-staging.8) (2022-12-20)
 
 
