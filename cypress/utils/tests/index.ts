@@ -6,4 +6,6 @@ const getFixturesPath = (file: string) => {
   return path.join(fixturesRelativePath, file);
 };
 
-export { getFixturesPath };
+const getRandomScore = (min: number, max: number) => Math.floor(Math.random() * max) + min;
+
+export { getFixturesPath, getRandomScore };

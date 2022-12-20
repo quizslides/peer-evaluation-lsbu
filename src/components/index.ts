@@ -1,4 +1,5 @@
 import Alert from "@/components/Alert/Alert";
+import AlertField from "@/components/AlertField/AlertField";
 import AutocompleteFieldForm from "@/components/AutocompleteFieldForm/AutocompleteFieldForm";
 import BackArrowButton from "@/components/BackArrowButton/BackArrowButton";
 import Base from "@/components/Base/Base";
@@ -42,6 +43,7 @@ import WYSIWYGForm from "@/components/WYSIWYGForm/WYSIWYGForm";
 
 export {
   Alert,
+  AlertField,
   AutocompleteFieldForm,
   BackArrowButton,
   Base,

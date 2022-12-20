@@ -88,12 +88,18 @@ const content = {
           helperText: "The date when the peer evaluations submissions will be locked automatically",
         },
         criteriaScoreRangeMin: {
-          label: "Criteria Score Range Min",
+          alertOnChange:
+            "You have selected a new criteria score range min that will clear the results submitted to the peer evaluations",
+          alertOnReset: "You have reset the value of the criteria score range min and the result will not be cleared",
           helperText: "Criteria Score Range Min",
+          label: "Criteria Score Range Min",
         },
         criteriaScoreRangeMax: {
-          label: "Criteria Score Range Max",
+          alertOnChange:
+            "You have selected a new criteria score range max that will clear the results submitted to the peer evaluations",
+          alertOnReset: "You have reset the value of the criteria score range max and the result will not be cleared",
           helperText: "Criteria Score Range Max",
+          label: "Criteria Score Range Max",
         },
         emailSubjectReminder: {
           label: "Email title",

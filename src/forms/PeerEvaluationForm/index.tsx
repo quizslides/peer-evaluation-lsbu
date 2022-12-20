@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import { object } from "yup";
 
 import {
+  AlertField,
   Button,
   ConfirmationDialog,
   DateTimePickerForm,
@@ -111,14 +112,11 @@ const PeerEvaluationForm = ({
           ...peerEvaluationData,
         }}
         validationSchema={validationSchema}
-        onSubmit={(data, { resetForm }) => {
+        onSubmit={(data) => {
           submitForm(data);
-          resetForm({
-            values: data,
-          });
         }}
       >
-        {({ setFieldValue, dirty, values }) => (
+        {({ setFieldValue, dirty, values, initialValues }) => (
           <Form>
             <WarningUnsavedForm areChangesUnsaved={dirty} />
             <Container maxWidth="lg">
@@ -278,6 +276,22 @@ const PeerEvaluationForm = ({
               </FieldWrapper>
 
               <Divider>Criteria Score</Divider>
+
+              <AlertField
+                initialValue={initialValues.criteriaScoreRangeMin}
+                isVisible={!isNewPeerEvaluation}
+                messageOnChange={content.containers.peerEvaluationForm.form.criteriaScoreRangeMin.alertOnChange}
+                messageOnReset={content.containers.peerEvaluationForm.form.criteriaScoreRangeMin.alertOnReset}
+                value={values.criteriaScoreRangeMin}
+              />
+
+              <AlertField
+                initialValue={initialValues.criteriaScoreRangeMax}
+                isVisible={!isNewPeerEvaluation}
+                messageOnChange={content.containers.peerEvaluationForm.form.criteriaScoreRangeMax.alertOnChange}
+                messageOnReset={content.containers.peerEvaluationForm.form.criteriaScoreRangeMax.alertOnReset}
+                value={values.criteriaScoreRangeMax}
+              />
 
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
