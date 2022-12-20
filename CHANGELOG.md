@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.6...v1.3.0-staging.7) (2022-12-20)
+
+
+### Features
+
+* adding check to user for peer evaluation teams page fields when is read only ([6ccfe3a](https://github.com/quizslides/peer-evaluation-lsbu/commit/6ccfe3aeebe8f745096b18ce60ea73eaeb74eee6))
+
 ## [1.3.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.5...v1.3.0-staging.6) (2022-12-20)
 
 
