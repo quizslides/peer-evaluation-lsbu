@@ -2,7 +2,7 @@ import { Cypress, after, before, beforeEach, cy, describe, expect, it } from "lo
 
 import content from "@/content";
 import routing from "@/routing";
-import { PeerEvaluationStatus, SchoolsDropdown } from "@/types/peer-evaluation";
+import { PeerEvaluationStatus, PeerEvaluationStatusDefinition, SchoolsDropdown } from "@/types/peer-evaluation";
 import { getFixturesPath, getRandomScore } from "cypress/utils/tests";
 
 describe("Edit column description configuration", () => {
@@ -989,6 +989,95 @@ describe("Update criteria score range and reset peer evaluations submitted", () 
     cy.get('[data-testid="container-peer-evaluation-student-table-submit-button"]').click();
 
     cy.contains("Peer evaluation updated successfully", { timeout: 30000 }).should("be.visible");
+  });
+
+  it("Delete Peer Evaluation", () => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-title-datatable-on-delete-accept-button"]').click();
+
+    cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
+  });
+});
+
+describe("Show definition for each peer evaluation status in-line", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Create a peer evaluation with the default configuration", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]', { timeout: 20000 }).click();
+
+    cy.url().should("include", routing.lecturer.peerEvaluation.create);
+
+    cy.get('[data-testid="peer-evaluation-form-title-field"]').type(Cypress.env("peerEvaluation").title);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-code-field"]').type(Cypress.env("peerEvaluation").code);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
+
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
+  });
+
+  it("Check definition for each peer evaluation status", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    const listStatus = [
+      [PeerEvaluationStatus.PUBLISHED, PeerEvaluationStatusDefinition.PUBLISHED],
+
+      [PeerEvaluationStatus.DRAFT, PeerEvaluationStatusDefinition.DRAFT],
+      [PeerEvaluationStatus.SUBMISSIONS_LOCKED, PeerEvaluationStatusDefinition.SUBMISSIONS_LOCKED],
+    ];
+
+    for (const status of listStatus) {
+      cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').click();
+
+      cy.contains(status[0]).click({ force: true });
+
+      cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').click({ force: true });
+
+      cy.get('[data-testid="peer-evaluation-form-peer-evaluation-status-field"]').should("contain", status[1]);
+    }
   });
 
   it("Delete Peer Evaluation", () => {

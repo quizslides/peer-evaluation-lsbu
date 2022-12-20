@@ -185,14 +185,15 @@ const PeerEvaluationForm = ({
 
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
+                  appendHelperText
                   name="status"
                   options={PeerEvaluationStatus}
                   props={{
-                    required: true,
-                    label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
-                    helperText: PeerEvaluationStatusDefinition[values.status],
-                    fullWidth: true,
                     disabled: isViewOnly || isNewPeerEvaluation,
+                    fullWidth: true,
+                    helperText: PeerEvaluationStatusDefinition[values.status],
+                    label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
+                    required: true,
                   }}
                   testId="peer-evaluation-form-peer-evaluation-status-field"
                 />

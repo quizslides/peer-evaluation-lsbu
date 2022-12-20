@@ -7,13 +7,14 @@ import { useField } from "formik";
 import { JSONStringNumber } from "@/types/object";
 
 interface ISelectFieldForm {
-  testId: string;
+  appendHelperText: boolean;
   name: string;
-  props: TextFieldProps;
   options: JSONStringNumber;
+  props: TextFieldProps;
+  testId: string;
 }
 
-const SelectFieldForm = ({ testId, name, options, props }: ISelectFieldForm) => {
+const SelectFieldForm = ({ appendHelperText, name, options, props, testId }: ISelectFieldForm) => {
   const [field, meta] = useField(name);
 
   const config = {
@@ -32,11 +33,13 @@ const SelectFieldForm = ({ testId, name, options, props }: ISelectFieldForm) => 
     <TextField data-testid={testId} {...config}>
       {Object.keys(options).map((item) => (
         <MenuItem key={item} value={item}>
-          {options[item]}
+          {appendHelperText ? `${options[item]} (${props.helperText})` : options[item]}
         </MenuItem>
       ))}
     </TextField>
   );
 };
+
+SelectFieldForm.defaultProps = { appendHelperText: false };
 
 export default memo(SelectFieldForm);
