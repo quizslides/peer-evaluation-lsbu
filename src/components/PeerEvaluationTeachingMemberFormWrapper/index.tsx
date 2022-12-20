@@ -319,6 +319,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
       const data = meta.value as PeerEvaluationTeachingMember[];
 
       const dataFilteredByNotDelete = data.filter((item) => item.status !== FieldStatus.DELETED);
+
       setDataTablePeerEvaluationTeachingMembers(dataFilteredByNotDelete);
     };
 
@@ -349,6 +350,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
         updateFormState={setCreatePeerEvaluationTeachingMemberOpen}
         onSubmit={onSubmitAddPeerEvaluationTeachingMember}
         users={peerEvaluationTeachingMembersAvailable}
+        isPeerEvaluationTeachingMemberOwner={isCurrentUserPeerEvaluationOwner}
       />
 
       {updatePeerEvaluationTeachingMember && (

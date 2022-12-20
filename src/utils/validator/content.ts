@@ -85,7 +85,7 @@ const validatorContent = {
     minLength: "One Column is required in the peer evaluation",
   },
   peerEvaluationTeachingMembers: {
-    minLength: "One owner of the peerEvaluation is required",
+    minLength: "One owner is required in a peer evaluation",
   },
   peerEvaluationTeachingMemberRole: {
     required: "Select a role for the peerEvaluation teaching member",

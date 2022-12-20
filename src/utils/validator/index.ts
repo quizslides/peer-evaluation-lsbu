@@ -177,10 +177,12 @@ const peerEvaluationTeachingMembersValidator = {
       name: "one-owner-teaching-peer-evaluation-member",
       message: content.peerEvaluationTeachingMembers.minLength,
       test: (values) => {
-        const isOwnerRole = (currentValue: string) => currentValue === "OWNER";
+        const isOwnerRole = (role: string) => role === "OWNER";
 
         if (values && values.length) {
-          return values.some(({ role }) => isOwnerRole(role || ""));
+          const teachingMemberList = values.filter(({ status }) => status !== "DELETED");
+
+          return teachingMemberList.some(({ role }) => isOwnerRole(role || ""));
         }
 
         return false;

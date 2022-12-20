@@ -8,6 +8,7 @@ import {
   PeerEvaluationTeachingMemberRoles,
   SchoolsDropdown,
 } from "@/types/peer-evaluation";
+import validatorContent from "@/utils/validator/content";
 import { getFixturesPath, getRandomScore } from "cypress/utils/tests";
 
 describe("Edit column description configuration", () => {
@@ -1357,6 +1358,272 @@ describe("A lecturer as an editor/viewer cannot delete a peer evaluation", () =>
     cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
 
     cy.get('[data-testid="peer-evaluation-view-delete-icon"]').should("not.exist");
+  });
+
+  it("Delete Peer Evaluation", () => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-delete-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-dashboard-title-datatable-on-delete-accept-button"]').click();
+
+    cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
+  });
+});
+
+describe("A lecturer as editor doing operations to teaching members of a peer evaluation", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Create a peer evaluation with the default configuration", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-peer-evaluation-add"]', { timeout: 20000 }).click();
+
+    cy.url().should("include", routing.lecturer.peerEvaluation.create);
+
+    cy.get('[data-testid="peer-evaluation-form-title-field"]').type(Cypress.env("peerEvaluation").title);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-code-field"]').type(Cypress.env("peerEvaluation").code);
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
+
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+
+    cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation created successfully", { timeout: 20000 }).should("be.visible");
+  });
+
+  it("Add a lecturer with owner role to the peer evaluation - peer evaluation can have multiple owners", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-add-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-role-field"]').click();
+
+    cy.get(`[data-value="${PeerEvaluationTeachingMemberRoles["OWNER"]}"]`).click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-email-field-text-field"]')
+      .type(Cypress.env("users").lecturerOwner.email)
+      .type("{enter}");
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
+  });
+
+  it("Add a lecturer with editor role to the peer evaluation", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-add-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-role-field"]').click();
+
+    cy.get(`[data-value="${PeerEvaluationTeachingMemberRoles["EDITOR"]}"]`).click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-email-field-text-field"]')
+      .type(Cypress.env("users").lecturerEditor.email)
+      .type("{enter}");
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
+  });
+
+  it("Add a lecturer with viewer role to the peer evaluation", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-add-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-email-field-text-field"]')
+      .type(Cypress.env("users").lecturerViewer.email)
+      .type("{enter}");
+
+    cy.get('[data-testid="peer-evaluation-form-submit-button"]').click({ force: true });
+
+    cy.contains("Peer Evaluation updated successfully", { timeout: 30000 }).should("be.visible");
+  });
+
+  it("A peer evaluation must always have at least one owner", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    for (let index = 0; index < 2; index++) {
+      cy.get(
+        `[data-testid="peer-evaluation-form-peer-evaluation-member-field-datatable"] > .MuiPaper-elevation4 > .tss-1cdcmys-MUIDataTable-responsiveBase > .MuiTable-root > .MuiTableBody-root > [data-testid="MUIDataTableBodyRow-0"] > .MuiTableCell-paddingCheckbox`
+      ).click();
+
+      cy.get('[data-testid="peer-evaluation-member-delete"]').click();
+
+      cy.get('[data-testid="peer-evaluation-member-confirmation-delete-accept-button"]').click();
+    }
+
+    cy.contains(validatorContent.peerEvaluationTeachingMembers.minLength).should("exist");
+  });
+
+  it("Lecturer editor cannot add a lecturer owner", () => {
+    cy.signInAs(Cypress.env("users").lecturerEditor.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-add-icon"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-role-field"]').click();
+
+    cy.get(`[data-value="${PeerEvaluationTeachingMemberRoles["OWNER"]}"]`).should("not.exist");
+  });
+
+  it("Lecturer editor cannot edit a lecturer owner", () => {
+    cy.signInAs(Cypress.env("users").lecturerEditor.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get(
+      `[data-testid="peer-evaluation-form-peer-evaluation-member-field-datatable"] > .MuiPaper-elevation4 > .tss-1cdcmys-MUIDataTable-responsiveBase > .MuiTable-root > .MuiTableBody-root > [data-testid="MUIDataTableBodyRow-0"] > .MuiTableCell-paddingCheckbox`
+    ).click();
+
+    cy.get('[data-testid="peer-evaluation-member-update"]').click();
+
+    cy.contains("Whoops... You cannot edit an owner of a peer evaluation", { timeout: 20000 }).should("be.visible");
+  });
+
+  it("Only an owner can edit another owner user", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get(
+      `[data-testid="peer-evaluation-form-peer-evaluation-member-field-datatable"] > .MuiPaper-elevation4 > .tss-1cdcmys-MUIDataTable-responsiveBase > .MuiTable-root > .MuiTableBody-root > [data-testid="MUIDataTableBodyRow-2"] > .MuiTableCell-paddingCheckbox`
+    ).click();
+
+    cy.get('[data-testid="peer-evaluation-member-update"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-role-field"]').click();
+
+    cy.get(`[data-value="${PeerEvaluationTeachingMemberRoles["VIEWER"]}"]`).click();
+
+    cy.get('[data-testid="peer-evaluation-member-form-submit-button-button"]').click();
+  });
+
+  it("Lecturer editor cannot delete a lecturer owner ", () => {
+    cy.signInAs(Cypress.env("users").lecturerEditor.email);
+
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get(
+      `[data-testid="peer-evaluation-form-peer-evaluation-member-field-datatable"] > .MuiPaper-elevation4 > .tss-1cdcmys-MUIDataTable-responsiveBase > .MuiTable-root > .MuiTableBody-root > [data-testid="MUIDataTableBodyRow-0"] > .MuiTableCell-paddingCheckbox`
+    ).click();
+
+    cy.get('[data-testid="peer-evaluation-member-delete"]').click();
+
+    cy.contains("Whoops... You cannot delete an owner of a peer evaluation", { timeout: 20000 }).should("be.visible");
+  });
+
+  it("Only an owner can delete another owner user", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).click();
+
+    cy.get("[data-testid=menu-item-dashboard-lecturer]").click();
+
+    cy.get('[data-testid="page-peer-evaluations-view-action-button"]', { timeout: 20000 }).click();
+
+    cy.get('[data-testid="peer-evaluation-view-update"]').click();
+
+    cy.get(
+      `[data-testid="peer-evaluation-form-peer-evaluation-member-field-datatable"] > .MuiPaper-elevation4 > .tss-1cdcmys-MUIDataTable-responsiveBase > .MuiTable-root > .MuiTableBody-root > [data-testid="MUIDataTableBodyRow-0"] > .MuiTableCell-paddingCheckbox`
+    ).click();
+
+    cy.get('[data-testid="peer-evaluation-member-delete"]').click();
+
+    cy.get('[data-testid="peer-evaluation-member-confirmation-delete-accept-button"]').click();
   });
 
   it("Delete Peer Evaluation", () => {

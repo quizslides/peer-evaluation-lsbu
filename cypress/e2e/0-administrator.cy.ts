@@ -40,6 +40,8 @@ describe("Create users as administrator", () => {
 
     cy.contains(Cypress.env("users").lecturer.email);
 
+    cy.contains(Cypress.env("users").lecturerOwner.email);
+
     cy.contains(Cypress.env("users").lecturerViewer.email);
 
     cy.contains(Cypress.env("users").lecturerEditor.email);
@@ -48,11 +50,13 @@ describe("Create users as administrator", () => {
 
     cy.get('[data-testid="user-bulk-dialog-right-button"]').click({ force: true });
 
-    cy.contains("Bulk actions finished successfully", { timeout: 20000 }).should("be.visible");
+    cy.contains("Bulk actions finished successfully", { timeout: 50000 }).should("be.visible");
 
     cy.contains(Cypress.env("users").administrator.email);
 
     cy.contains(Cypress.env("users").lecturer.email);
+
+    cy.contains(Cypress.env("users").lecturerOwner.email);
 
     cy.contains(Cypress.env("users").lecturerViewer.email);
 
