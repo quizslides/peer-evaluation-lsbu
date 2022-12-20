@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.5...v1.3.0-staging.6) (2022-12-20)
+
+
+### Features
+
+* adding peer evaluation status definition in-line with E2E test ([edc42da](https://github.com/quizslides/peer-evaluation-lsbu/commit/edc42da8abfd40ddd6a6d26f5f2bd345d8b6a56a))
+
 ## [1.3.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.4...v1.3.0-staging.5) (2022-12-20)
 
 
