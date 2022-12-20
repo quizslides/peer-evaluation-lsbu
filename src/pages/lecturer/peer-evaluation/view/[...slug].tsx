@@ -53,7 +53,7 @@ const ViewPeerEvaluation: NextPage = () => {
   const isLoading = isRedirecting || isFallback || !peerEvaluationId || !data || loadingFetch;
 
   return (
-    <Base topLeftComponent="backArrow" loading={isLoading} error={!!error}>
+    <Base topLeftComponent="menu" loading={isLoading} error={!!error}>
       <PageTitle
         title={`Peer Evaluation - ${data?.peerEvaluationDashboard.code}`}
         testId="page-view-peer-evaluation-title"
