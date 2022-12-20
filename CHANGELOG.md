@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.9...v1.3.0-staging.10) (2022-12-20)
+
+
+### Features
+
+* editor lecturer should not add/editdelete an owner lecturer ([7e98c0e](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e98c0efea2a23f2769e087e5e7df889455ac94b))
+
 ## [1.3.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.8...v1.3.0-staging.9) (2022-12-20)
 
 
