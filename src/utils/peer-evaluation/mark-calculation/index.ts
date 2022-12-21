@@ -2,7 +2,7 @@ import { PeerEvaluationStudentReview, PeerEvaluationStudentTeam } from "@generat
 import { Decimal } from "@prisma/client/runtime";
 
 import prisma, { Prisma } from "@/pages/api/prisma";
-import { roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
+import { getMarkSanitized, roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
 import { getUserIdByEmail } from "@/utils/user";
 
 interface AvgCriteriaScoreByStudent {
@@ -343,11 +343,11 @@ const updatePeerEvaluationStudentData = async (
   await prisma.peerEvaluationStudent.updateMany({
     data: {
       averageCriteriaScore: averageCriteriaScore,
-      averageCriteriaScoreByTeamMember: averageCriteriaScoreByTeamMember,
-      systemCalculatedMark: systemCalculatedMark,
-      systemAdjustedMark: systemAdjustedMark,
-      lecturerAdjustedMark: lecturerAdjustedMark,
-      finalMark: finalMark,
+      averageCriteriaScoreByTeamMember,
+      systemCalculatedMark: getMarkSanitized(systemCalculatedMark),
+      systemAdjustedMark: getMarkSanitized(systemAdjustedMark),
+      lecturerAdjustedMark: getMarkSanitized(lecturerAdjustedMark),
+      finalMark: getMarkSanitized(finalMark),
       comments: comments,
     },
     where: {
