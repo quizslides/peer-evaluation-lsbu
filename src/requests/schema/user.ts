@@ -65,9 +65,9 @@ const GROUP_BY_USER = gql`
   }
 `;
 
-const GET_LECTURER_USERS = gql`
-  query Users($where: UserWhereInput, $orderBy: [UserOrderByWithRelationInput!]) {
-    users(where: $where, orderBy: $orderBy) {
+const GET_USERS_LECTURER = gql`
+  query UsersLecturer {
+    usersLecturer {
       id
       name
       email
@@ -80,8 +80,8 @@ export {
   CREATE_MULTIPLE_USERS,
   CREATE_ONE_USER,
   DELETE_USERS,
-  GET_LECTURER_USERS,
   GET_USERS,
+  GET_USERS_LECTURER,
   GROUP_BY_USER,
   UPDATE_USER,
 };
