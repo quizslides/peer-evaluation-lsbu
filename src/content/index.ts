@@ -17,6 +17,35 @@ const content = {
     },
   },
   containers: {
+    peerEvaluationInfo: {
+      testId: "container-peer-evaluation-info",
+      fields: {
+        studentEmail: {
+          label: "Student Email: ",
+          testId: "student-email",
+        },
+        studentName: {
+          label: "Student Name: ",
+          testId: "student-name",
+        },
+        teamName: {
+          label: "Team Name: ",
+          testId: "team-name",
+        },
+        lastUpdated: {
+          label: "Last Updated: ",
+          testId: "last-updated",
+        },
+        submissionDeadline: {
+          label: "Submission Deadline: ",
+          testId: "submission-deadline",
+        },
+        completed: {
+          label: "Completed: ",
+          testId: "completed",
+        },
+      },
+    },
     errorContainer: {
       button: "Click here to refresh",
       text: "Sorry, something went wrong...",

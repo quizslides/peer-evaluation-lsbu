@@ -125,6 +125,9 @@ class UpdatePeerEvaluationTableStudentData {
           isCompleted: {
             set: isCompleted,
           },
+          updatedByStudentAt: {
+            set: new Date(),
+          },
         },
         where: {
           peerEvaluationStudentId: peerEvaluationStudentId,
