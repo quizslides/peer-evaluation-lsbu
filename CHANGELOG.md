@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.13...v1.3.0-staging.14) (2022-12-21)
+
+
+### Features
+
+* handling gracefully when a peer evaluation is not found by its id ([1e09df6](https://github.com/quizslides/peer-evaluation-lsbu/commit/1e09df69668a7083233ced408ba60bede2ee4156))
+
 ## [1.3.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.12...v1.3.0-staging.13) (2022-12-21)
 
 
