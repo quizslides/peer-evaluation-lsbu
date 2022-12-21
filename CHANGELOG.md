@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.11...v1.3.0-staging.12) (2022-12-21)
+
+
+### Bug Fixes
+
+* adding sanitization to marks to have them in format to match prisma schema ([785bae2](https://github.com/quizslides/peer-evaluation-lsbu/commit/785bae264c6f587f88290f06d8a713e60fd42598))
+
 ## [1.3.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.10...v1.3.0-staging.11) (2022-12-21)
 
 
