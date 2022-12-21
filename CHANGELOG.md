@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.12...v1.3.0-staging.13) (2022-12-21)
+
+
+### Features
+
+* adding updatedByStudentAt field to manage last update of a peer evaluation ([ad64409](https://github.com/quizslides/peer-evaluation-lsbu/commit/ad64409bf78942945d19268d4451971c44a248ed))
+
 ## [1.3.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.11...v1.3.0-staging.12) (2022-12-21)
 
 
