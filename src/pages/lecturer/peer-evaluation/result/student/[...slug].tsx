@@ -11,7 +11,7 @@ import useGetPeerEvaluationTableStudentLecturer from "@/requests/hooks/query/use
 import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
 
-const testId = "page-student-peer";
+const testId = "page-student-peer-evaluation-result";
 
 const LecturerStudentPeerEvaluation: NextPage<NextPagePros> = ({ session }) => {
   const { query } = useRouter();

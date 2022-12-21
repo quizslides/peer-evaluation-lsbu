@@ -191,13 +191,25 @@ class PeerEvaluationTableStudentQuery {
 
     const peerEvaluationStudentTableInfo = await ctx.prisma.peerEvaluationStudentReview.findFirst({
       select: {
-        updatedAt: true,
+        createdAt: true,
         isCompleted: true,
+        updatedByStudentAt: true,
       },
       where: {
         peerEvaluationStudentId: peerEvaluationStudentId,
       },
     });
+
+    const getPeerEvaluationStudentReviewUpdateDate = (
+      createdAt: Date | undefined | null,
+      updatedByStudentAt: Date | undefined | null
+    ) => {
+      if (!createdAt || !updatedByStudentAt || updatedByStudentAt.toISOString() === createdAt.toISOString()) {
+        return "N/A";
+      }
+
+      return getDateLocaleString(updatedByStudentAt);
+    };
 
     const peerEvaluationStudentInfo = {
       studentName: peerEvaluationStudentList.studentName,
@@ -206,9 +218,10 @@ class PeerEvaluationTableStudentQuery {
         ? getDateLocaleString(peerEvaluationStudentList.peerEvaluation.submissionsLockDate)
         : "N/A",
       studentTeamName: peerEvaluationStudentList.peerEvaluationStudentTeam?.name || "",
-      updatedAt: peerEvaluationStudentTableInfo?.updatedAt
-        ? getDateLocaleString(peerEvaluationStudentTableInfo.updatedAt)
-        : "N/A",
+      updatedAt: getPeerEvaluationStudentReviewUpdateDate(
+        peerEvaluationStudentTableInfo?.createdAt,
+        peerEvaluationStudentTableInfo?.updatedByStudentAt
+      ),
       isCompleted: !!peerEvaluationStudentTableInfo?.isCompleted,
     };
 
