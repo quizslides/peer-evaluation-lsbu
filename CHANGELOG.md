@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.10...v1.3.0-staging.11) (2022-12-21)
+
+
+### Code Refactoring
+
+* refactoring admin and lecturers to granular permissions ([bad823c](https://github.com/quizslides/peer-evaluation-lsbu/commit/bad823c398248525d96a30116f9ba08f9ab87ca0))
+
 ## [1.3.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.9...v1.3.0-staging.10) (2022-12-20)
 
 
