@@ -1,24 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { User } from "@generated/type-graphql";
 
-import { GET_LECTURER_USERS } from "@/requests/schema/user";
+import { GET_USERS_LECTURER } from "@/requests/schema/user";
 import { errorNotification } from "@/utils";
 
 const useGetLecturerUsers = () => {
-  return useQuery<{ users: User[] }>(GET_LECTURER_USERS, {
+  return useQuery<{ usersLecturer: User[] }>(GET_USERS_LECTURER, {
     fetchPolicy: "no-cache",
-    variables: {
-      where: {
-        role: {
-          in: ["LECTURER"],
-        },
-      },
-      orderBy: [
-        {
-          createdAt: "asc",
-        },
-      ],
-    },
     onError: (error) => {
       errorNotification(error.message);
     },

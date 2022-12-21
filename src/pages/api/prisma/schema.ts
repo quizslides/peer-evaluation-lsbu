@@ -13,6 +13,7 @@ import { PeerEvaluationStudentTeamCalculateResultsTable } from "@/pages/api/reso
 import { PeerEvaluationStudentTeamCalculateResultsTableByTeam } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculate-results-table-by-team";
 import { PeerEvaluationStudentTeamCalculatedResultsTable } from "@/pages/api/resolvers/lecturer/peer-evaluation-student-team-calculated-results-table";
 import { PeerEvaluationTableStudentLecturerQuery } from "@/pages/api/resolvers/lecturer/peer-evaluation-table-student-lecturer-query";
+import { UsersLecturer } from "@/pages/api/resolvers/lecturer/users-lecturer";
 import { UpdatePeerEvaluationTableStudentData } from "@/pages/api/resolvers/student/peer-evaluation-table-student-mutation";
 import { PeerEvaluationTableStudentQuery } from "@/pages/api/resolvers/student/peer-evaluation-table-student-query";
 import { PeerEvaluationsStudentQueryResolver } from "@/pages/api/resolvers/student/peer-evaluations-query";
@@ -20,19 +21,20 @@ import { PeerEvaluationsStudentQueryResolver } from "@/pages/api/resolvers/stude
 const schemaDefinitions = await buildSchema({
   resolvers: [
     ...resolvers,
-    PeerEvaluationsStudentQueryResolver,
     PeerEvaluationCreateStudentBulkMutationResolver,
-    PeerEvaluationStudentTeamCalculateResultsTableByTeam,
-    PeerEvaluationStudentTeamCalculateResultsTable,
-    PeerEvaluationStudentTeamCalculatedResultsTable,
-    PeerEvaluationTableStudentLecturerQuery,
-    PeerEvaluationStudentsLecturerMark,
-    UpdatePeerEvaluationTableStudentData,
-    PeerEvaluationTableStudentQuery,
-    PeerEvaluationStudentTeamExistQuery,
-    PeerEvaluationExistQuery,
     PeerEvaluationDashboardQuery,
+    PeerEvaluationExistQuery,
+    PeerEvaluationStudentTeamCalculateResultsTable,
+    PeerEvaluationStudentTeamCalculateResultsTableByTeam,
+    PeerEvaluationStudentTeamCalculatedResultsTable,
+    PeerEvaluationStudentTeamExistQuery,
+    PeerEvaluationStudentsLecturerMark,
+    PeerEvaluationTableStudentLecturerQuery,
+    PeerEvaluationTableStudentQuery,
     PeerEvaluationsByLecturerQuery,
+    PeerEvaluationsStudentQueryResolver,
+    UpdatePeerEvaluationTableStudentData,
+    UsersLecturer,
   ],
 });
 

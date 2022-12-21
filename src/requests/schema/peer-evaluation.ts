@@ -160,7 +160,7 @@ const GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS = gql`
   }
 `;
 
-const GET_PEER_EVALUATIONS = gql`
+const GET_PEER_EVALUATIONS_ADMIN = gql`
   query PeerEvaluations($orderBy: [PeerEvaluationOrderByWithRelationInput!]) {
     peerEvaluations(orderBy: $orderBy) {
       id
@@ -440,14 +440,12 @@ const UPDATE_PEER_EVALUATION = gql`
         }
       }
     }
-
     updateManyPeerEvaluationStudentReview(
       data: $dataPeerEvaluationStudentReview
       where: $wherePeerEvaluationStudentReview
     ) {
       count
     }
-
     updateManyPeerEvaluationRevieweeColumn(
       data: $dataPeerEvaluationRevieweeColumnData
       where: $wherePeerEvaluationRevieweeColumnData
@@ -779,7 +777,7 @@ export {
   GET_PEER_EVALUATION_TABLE_STUDENT,
   GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER,
   GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
-  GET_PEER_EVALUATIONS,
+  GET_PEER_EVALUATIONS_ADMIN,
   GET_PEER_EVALUATIONS_BY_LECTURER,
   GET_PEER_EVALUATIONS_STUDENT,
   PEER_EVALUATION_DASHBOARD,

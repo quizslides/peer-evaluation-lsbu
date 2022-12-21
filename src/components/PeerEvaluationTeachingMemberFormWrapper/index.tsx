@@ -303,7 +303,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
     };
 
     if (data && !loading) {
-      const listOfUsers = data.users;
+      const listOfUsers = data.usersLecturer;
 
       filterPeerEvaluationTeachingMembersAvailable(listOfUsers);
       setCurrentUserPeerEvaluationOwner(isUserPeerEvaluationOwner());

@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, or, rule, shield } from "graphql-shield";
+import { or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
@@ -219,14 +219,48 @@ const getStudentPermissionConfiguration = () => or(isAdmin, isLecturer, isStuden
 const permissions = shield(
   {
     Query: {
-      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
-      "*": or(isAdmin, isLecturer),
+      email: or(isAdmin, isLecturer),
+      findFirstPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
+      groupByPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
+      groupByUser: or(isAdmin, isLecturer),
+      peerEvaluation: or(isAdmin, isLecturer),
+      peerEvaluationDashboard: or(isAdmin, isLecturer),
+      peerEvaluationExist: or(isAdmin, isLecturer),
+      peerEvaluationStudentTeamCalculatedResultsTable: or(isAdmin, isLecturer),
+      peerEvaluationStudentTeamExist: or(isAdmin, isLecturer),
+      peerEvaluationStudentTeams: or(isAdmin, isLecturer),
+      peerEvaluationStudents: or(isAdmin, isLecturer),
       peerEvaluationTableStudent: getStudentPermissionConfiguration(),
+      peerEvaluationTableStudentLecturer: or(isAdmin, isLecturer),
+      peerEvaluationTeachingMember: or(isAdmin, isLecturer),
+      peerEvaluations: isAdmin,
+      peerEvaluationsByLecturer: or(isAdmin, isLecturer),
       peerEvaluationsStudent: getStudentPermissionConfiguration(),
+      users: isAdmin,
+      usersLecturer: or(isAdmin, isLecturer),
     },
     Mutation: {
-      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
-      "*": or(isAdmin, isLecturer),
+      createManyPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
+      createManyUser: or(isAdmin, isLecturer),
+      createOnePeerEvaluation: or(isAdmin, isLecturer),
+      createOnePeerEvaluationStudent: or(isAdmin, isLecturer),
+      createOneUser: or(isAdmin, isLecturer),
+      createPeerEvaluationStudentBulk: or(isAdmin, isLecturer),
+      deleteManyPeerEvaluationStudent: or(isAdmin, isLecturer),
+      deleteManyUser: isAdmin,
+      deleteOnePeerEvaluation: or(isAdmin, isLecturer),
+      deleteOnePeerEvaluationStudentTeam: or(isAdmin, isLecturer),
+      peerEvaluationStudentTeamCalculateResultsTable: or(isAdmin, isLecturer),
+      peerEvaluationStudentTeamCalculateResultsTableByTeam: or(isAdmin, isLecturer),
+      updateManyPeerEvaluationRevieweeColumn: or(isAdmin, isLecturer),
+      updateManyPeerEvaluationStudentReview: or(isAdmin, isLecturer),
+      updateOneEmail: or(isAdmin, isLecturer),
+      updateOnePeerEvaluation: or(isAdmin, isLecturer),
+      updateOnePeerEvaluationReviewee: or(isAdmin, isLecturer),
+      updateOnePeerEvaluationStudent: or(isAdmin, isLecturer),
+      updateOnePeerEvaluationStudentTeam: or(isAdmin, isLecturer),
+      updateOneUser: isAdmin,
+      updatePeerEvaluationStudentsLecturerMark: or(isAdmin, isLecturer),
       updatePeerEvaluationTableStudent: getStudentPermissionConfiguration(),
     },
   },
