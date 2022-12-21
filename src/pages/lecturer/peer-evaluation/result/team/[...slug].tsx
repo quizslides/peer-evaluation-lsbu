@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import styled from "@emotion/styled";
 import { Grid, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
@@ -17,11 +16,11 @@ import {
   DataTable,
   DataTableRefreshActionButtonIcon,
   IconButtonWrapper,
+  Message,
   PageTitle,
   WarningUnsavedForm,
 } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
-import Typography from "@/components/Typography/Typography";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import PeerEvaluationStudentTableDialog from "@/containers/PeerEvaluationStudentTableDialog";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
@@ -39,13 +38,6 @@ import { ObjectArray, objectToArrayOfObject } from "@/utils/form";
 import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
 const testId = "page-lecturer-result-team";
-
-const Message = styled(Typography)`
-  text-align: center;
-  font-weight: 700;
-  font-size: 1rem;
-  max-width: 200px;
-`;
 
 type TTableData = Array<object | number[] | string[]>;
 

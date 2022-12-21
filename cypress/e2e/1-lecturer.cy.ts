@@ -1819,3 +1819,27 @@ describe("The peer evaluation student table updatedAt value is only updated afte
     cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
   });
 });
+
+describe("Handling gracefully when a peer evaluation is not found by its id", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturer.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Open a peer evaluation that does not exist showing a handled message", () => {
+    cy.visit(`${Cypress.env("url").frontend}/${routing.lecturer.peerEvaluation.view}/${Date.now()}`);
+
+    cy.get('[data-testid="page-lecturer-peer-evaluation-not-found-peer-evaluation"]', { timeout: 20000 }).should(
+      "be.visible"
+    );
+  });
+});

@@ -24,6 +24,7 @@ import IconButtonWrapper from "@/components/IconButtonWrapper/IconButtonWrapper"
 import Link from "@/components/Link/Link";
 import LoaderSpinner from "@/components/LoaderSpinner/LoaderSpinner";
 import MenuTopItemsWrapper from "@/components/MenuTopItemsWrapper/MenuTopItemsWrapper";
+import Message from "@/components/Message/Message";
 import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem from "@/components/NavigationExpandableItem/NavigationExpandableItem";
 import PageTitle from "@/components/PageTitle/PageTitle";
@@ -68,6 +69,7 @@ export {
   Link,
   LoaderSpinner,
   MenuTopItemsWrapper,
+  Message,
   NavigationDrawer,
   NavigationExpandableItem,
   PageTitle,

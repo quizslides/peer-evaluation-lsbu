@@ -269,6 +269,11 @@ const content = {
     },
   },
   pages: {
+    lecturer: {
+      peerEvaluation: {
+        testId: "page-lecturer-peer-evaluation",
+      },
+    },
     homePage: {
       title: "LSBU Peer Evaluation",
       subTitleTop: "Fairer Teamwork",
