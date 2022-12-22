@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { or, rule, shield } from "graphql-shield";
+import { deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
@@ -219,6 +219,7 @@ const getStudentPermissionConfiguration = () => or(isAdmin, isLecturer, isStuden
 const permissions = shield(
   {
     Query: {
+      "*": deny,
       email: or(isAdmin, isLecturer),
       findFirstPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
       groupByPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
@@ -240,6 +241,7 @@ const permissions = shield(
       usersLecturer: or(isAdmin, isLecturer),
     },
     Mutation: {
+      "*": deny,
       createManyPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
       createManyUser: or(isAdmin, isLecturer),
       createOnePeerEvaluation: or(isAdmin, isLecturer),
