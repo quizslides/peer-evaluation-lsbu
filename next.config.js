@@ -1,18 +1,6 @@
+/* eslint-disable @typescript-eslint/padding-line-between-statements */
 const { withSentryConfig } = require("@sentry/nextjs");
-
-const moduleExports = {
-  poweredByHeader: false,
-  reactStrictMode: true,
-  webpack: (config) => {
-    config.experiments = config.experiments || {};
-    config.experiments.topLevelAwait = true;
-    return config;
-  },
-};
-
-const sentryWebpackPluginOptions = {
-  silent: true,
-};
+const nextSafe = require("next-safe");
 
 const isProductionEnvironment = () => {
   switch (process.env.ENVIRONMENT) {
@@ -24,6 +12,36 @@ const isProductionEnvironment = () => {
   }
 };
 
-module.exports = isProductionEnvironment()
+let permissionsHeaders = [];
+
+const isProductionEnvironmentBuild = isProductionEnvironment();
+
+if (isProductionEnvironmentBuild) {
+  permissionsHeaders = [
+    {
+      source: "/:path*",
+      headers: nextSafe(),
+    },
+  ];
+}
+
+const moduleExports = {
+  poweredByHeader: false,
+  reactStrictMode: true,
+  webpack: (config) => {
+    config.experiments = config.experiments || {};
+    config.experiments.topLevelAwait = true;
+    return config;
+  },
+  async headers() {
+    return permissionsHeaders;
+  },
+};
+
+const sentryWebpackPluginOptions = {
+  silent: true,
+};
+
+module.exports = isProductionEnvironmentBuild
   ? withSentryConfig(moduleExports, sentryWebpackPluginOptions)
   : moduleExports;
