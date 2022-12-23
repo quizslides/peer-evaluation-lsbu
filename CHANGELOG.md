@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.15...v1.3.0-staging.16) (2022-12-23)
+
+
+### Bug Fixes
+
+* adding CSP with directives for security, x-content-type-options and x-frame-options ([28f09f2](https://github.com/quizslides/peer-evaluation-lsbu/commit/28f09f2e386a28e011f79c165d9636e04283aa23))
+
 ## [1.3.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.14...v1.3.0-staging.15) (2022-12-23)
 
 
