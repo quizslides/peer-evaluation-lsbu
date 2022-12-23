@@ -28,6 +28,7 @@ TK
 | `NEXT_PUBLIC_SENTRY_DSN`          |                                                                             |               |                 |
 | `SENTRY_AUTH_TOKEN`               |                                                                             |               |                 |
 | `SENTRY_DSN`                      |                                                                             |               |                 |
+| `SENTRY_SECURITY_HEADER_ENDPOINT` |                                                                             |               |                 |
 | `SMTP_FROM`                       |                                                                             |               |                 |
 | `SMTP_HOST`                       |                                                                             |               |                 |
 | `SMTP_PASSWORD`                   |                                                                             |               |                 |

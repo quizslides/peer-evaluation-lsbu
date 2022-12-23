@@ -55,6 +55,10 @@ envs:
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:tR988vldmCG4tDMzIsiaZakeUDwMuae0:qObUmQ3nLH+l8GacfIOLfJuxeWrY2qzFZSjTb0pNNGslzzTb99ZQ/jcR+a26RQuOsfm4Uo53IKkZytVwBsM5gn0oq+gSzADABPGMFkKBOuM=]
+  - key: SENTRY_SECURITY_HEADER_ENDPOINT
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:7LPcUn0wbfzZcmwSshMGHsHlrWH7iZ6i:X2FhvIAqprGpDKUjPlKBO8/sr+M+wRPvTm5QdLSgbukJ1deJpXhUNzfNj13JpxM98aKgcO9M5UBHSOfMK4/MOTIBa7Nr+Z1qln0oRuCDkhqnTa4bk2oAP5jhp2Ui+ViPjiW0YocQTZ4vrmRGQ1NhPkeOJ3SXjWi0bPO5bm5tdqorDCbA]
 name: peer-evaluation-web-app-staging
 region: lon
 services:

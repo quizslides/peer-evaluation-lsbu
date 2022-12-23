@@ -50,6 +50,7 @@ jobs:
         run: yarn build:start:background
         env:
           ENVIRONMENT: ci
+          NODE_ENV: ci
 
       - name: Run linter check
         run: yarn lint:check
