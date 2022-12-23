@@ -9667,6 +9667,11 @@ next-auth@^4.3.4:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
+next-safe@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/next-safe/-/next-safe-3.3.0.tgz#7bd4f2ba8b1950027a1929c24009506bbd3c6c06"
+  integrity sha512-IM+ohDK3GMoLk38/anwkvdPF7k6xxUSB/XmyfowssUpnYGbmRHNVJG5OsYv9HGjMg4Ug0h+xh4Cat7hRH/CPhg==
+
 next@12.0.9:
   version "12.0.9"
   resolved "https://registry.yarnpkg.com/next/-/next-12.0.9.tgz#4eb3006b63bb866f5c2918ca0003e98f4259e063"
