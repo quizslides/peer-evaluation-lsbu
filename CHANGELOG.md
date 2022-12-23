@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.14...v1.3.0-staging.15) (2022-12-23)
+
+
+### Bug Fixes
+
+* adding a denial to any query/mutation not publicly to the user ([93b38c7](https://github.com/quizslides/peer-evaluation-lsbu/commit/93b38c7850613a17450f6465f8ca41250a69c1e7))
+* removing X-Powered-By from response to hide the technologies ([f13cb0c](https://github.com/quizslides/peer-evaluation-lsbu/commit/f13cb0c31ce89981dfcdf3005d9fbd3945257c4e))
+
 ## [1.3.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.13...v1.3.0-staging.14) (2022-12-21)
 
 
