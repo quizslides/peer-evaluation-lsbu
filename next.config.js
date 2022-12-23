@@ -1,6 +1,7 @@
 const { withSentryConfig } = require("@sentry/nextjs");
 
 const moduleExports = {
+  poweredByHeader: false,
   reactStrictMode: true,
   webpack: (config) => {
     config.experiments = config.experiments || {};
