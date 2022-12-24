@@ -5,9 +5,10 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { deny, or, rule, shield } from "graphql-shield";
+import { and, deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
+import { DEFAULT_ERROR_CODE, getErrorMessageByCode } from "@/pages/api/error/list";
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { Role } from "@/utils/permissions";
 
@@ -17,13 +18,18 @@ export interface Context {
   req: MicroRequest;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
-  return Boolean(session);
+
+  if (session) {
+    return true;
+  }
+
+  const { code, message } = getErrorMessageByCode("AUTHENTICATION_TOKEN_MISSING");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -31,10 +37,11 @@ const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Co
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -42,10 +49,11 @@ const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }:
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -53,7 +61,9 @@ const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: 
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -214,55 +224,59 @@ const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: 
   }
 );
 
-const getStudentPermissionConfiguration = () => or(isAdmin, isLecturer, isStudent);
+const getAdminPermissionConfiguration = () => and(isAuthenticated, isAdmin);
+
+const getLecturerPermissionConfiguration = () => and(isAuthenticated, or(isAdmin, isLecturer));
+
+const getStudentPermissionConfiguration = () => and(isAuthenticated, or(isAdmin, isLecturer, isStudent));
 
 const permissions = shield(
   {
     Query: {
       "*": deny,
-      email: or(isAdmin, isLecturer),
-      findFirstPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
-      groupByPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
-      groupByUser: or(isAdmin, isLecturer),
-      peerEvaluation: or(isAdmin, isLecturer),
-      peerEvaluationDashboard: or(isAdmin, isLecturer),
-      peerEvaluationExist: or(isAdmin, isLecturer),
-      peerEvaluationStudentTeamCalculatedResultsTable: or(isAdmin, isLecturer),
-      peerEvaluationStudentTeamExist: or(isAdmin, isLecturer),
-      peerEvaluationStudentTeams: or(isAdmin, isLecturer),
-      peerEvaluationStudents: or(isAdmin, isLecturer),
+      email: getLecturerPermissionConfiguration(),
+      findFirstPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      groupByPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      groupByUser: getLecturerPermissionConfiguration(),
+      peerEvaluation: getLecturerPermissionConfiguration(),
+      peerEvaluationDashboard: getLecturerPermissionConfiguration(),
+      peerEvaluationExist: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculatedResultsTable: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamExist: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeams: getLecturerPermissionConfiguration(),
+      peerEvaluationStudents: getLecturerPermissionConfiguration(),
       peerEvaluationTableStudent: getStudentPermissionConfiguration(),
-      peerEvaluationTableStudentLecturer: or(isAdmin, isLecturer),
-      peerEvaluationTeachingMember: or(isAdmin, isLecturer),
-      peerEvaluations: isAdmin,
-      peerEvaluationsByLecturer: or(isAdmin, isLecturer),
+      peerEvaluationTableStudentLecturer: getLecturerPermissionConfiguration(),
+      peerEvaluationTeachingMember: getLecturerPermissionConfiguration(),
+      peerEvaluations: getAdminPermissionConfiguration(),
+      peerEvaluationsByLecturer: getLecturerPermissionConfiguration(),
       peerEvaluationsStudent: getStudentPermissionConfiguration(),
-      users: isAdmin,
-      usersLecturer: or(isAdmin, isLecturer),
+      users: getAdminPermissionConfiguration(),
+      usersLecturer: getLecturerPermissionConfiguration(),
     },
     Mutation: {
       "*": deny,
-      createManyPeerEvaluationStudentTeam: or(isAdmin, isLecturer),
-      createManyUser: or(isAdmin, isLecturer),
-      createOnePeerEvaluation: or(isAdmin, isLecturer),
-      createOnePeerEvaluationStudent: or(isAdmin, isLecturer),
-      createOneUser: or(isAdmin, isLecturer),
-      createPeerEvaluationStudentBulk: or(isAdmin, isLecturer),
-      deleteManyPeerEvaluationStudent: or(isAdmin, isLecturer),
-      deleteManyUser: isAdmin,
-      deleteOnePeerEvaluation: or(isAdmin, isLecturer),
-      deleteOnePeerEvaluationStudentTeam: or(isAdmin, isLecturer),
-      peerEvaluationStudentTeamCalculateResultsTable: or(isAdmin, isLecturer),
-      peerEvaluationStudentTeamCalculateResultsTableByTeam: or(isAdmin, isLecturer),
-      updateManyPeerEvaluationRevieweeColumn: or(isAdmin, isLecturer),
-      updateManyPeerEvaluationStudentReview: or(isAdmin, isLecturer),
-      updateOneEmail: or(isAdmin, isLecturer),
-      updateOnePeerEvaluation: or(isAdmin, isLecturer),
-      updateOnePeerEvaluationReviewee: or(isAdmin, isLecturer),
-      updateOnePeerEvaluationStudent: or(isAdmin, isLecturer),
-      updateOnePeerEvaluationStudentTeam: or(isAdmin, isLecturer),
-      updateOneUser: isAdmin,
-      updatePeerEvaluationStudentsLecturerMark: or(isAdmin, isLecturer),
+      createManyPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      createManyUser: getLecturerPermissionConfiguration(),
+      createOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      createOnePeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      createOneUser: getLecturerPermissionConfiguration(),
+      createPeerEvaluationStudentBulk: getLecturerPermissionConfiguration(),
+      deleteManyPeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      deleteManyUser: getAdminPermissionConfiguration(),
+      deleteOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      deleteOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculateResultsTable: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculateResultsTableByTeam: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationRevieweeColumn: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationStudentReview: getLecturerPermissionConfiguration(),
+      updateOneEmail: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationReviewee: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      updateOneUser: getAdminPermissionConfiguration(),
+      updatePeerEvaluationStudentsLecturerMark: getLecturerPermissionConfiguration(),
       updatePeerEvaluationTableStudent: getStudentPermissionConfiguration(),
     },
   },
@@ -275,7 +289,9 @@ const permissions = shield(
         Sentry.captureException(errorThrown);
       }
 
-      return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+      const { code, message } = getErrorMessageByCode(DEFAULT_ERROR_CODE);
+
+      return new ApolloError(message, code);
     },
   }
 );

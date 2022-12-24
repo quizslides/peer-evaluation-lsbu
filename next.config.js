@@ -22,12 +22,12 @@ if (!isProductionEnvironment) {
    */
   contentSecurityPolicyForTesting = {
     "script-src-elem":
-      "'unsafe-inline' https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/js/main.js",
+      "'self' 'unsafe-inline' https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/js/main.js",
     "img-src":
-      "https://apollo-server-landing-page.cdn.apollographql.com/_latest/assets/favicon.png https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/media/info-icon.svg https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/media/background-texture.png",
-    "style-src-elem": "'unsafe-inline' https://fonts.googleapis.com",
-    "font-src": "https://fonts.gstatic.com",
-    "manifest-src": "https://apollo-server-landing-page.cdn.apollographql.com/_latest/manifest.json",
+      "'self' https://apollo-server-landing-page.cdn.apollographql.com/_latest/assets/favicon.png https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/media/info-icon.svg https://apollo-server-landing-page.cdn.apollographql.com/_latest/static/media/background-texture.png",
+    "style-src-elem": "'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src": "'self' https://fonts.gstatic.com",
+    "manifest-src": "'self' https://apollo-server-landing-page.cdn.apollographql.com/_latest/manifest.json",
   };
 }
 
