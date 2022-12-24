@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.17...v1.3.0-staging.18) (2022-12-24)
+
+
+### Features
+
+* adding Strict-Transport-Security header ([80ed097](https://github.com/quizslides/peer-evaluation-lsbu/commit/80ed09730b094874e373099e05f2bd4bfc88c56b))
+
 ## [1.3.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.16...v1.3.0-staging.17) (2022-12-24)
 
 
