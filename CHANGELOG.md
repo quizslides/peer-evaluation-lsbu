@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.16...v1.3.0-staging.17) (2022-12-24)
+
+
+### Bug Fixes
+
+* fixing security headers blocking js and style for page rendering ([f35358f](https://github.com/quizslides/peer-evaluation-lsbu/commit/f35358f816727ef4b599e81972ee5bfe22e2eccb))
+
 ## [1.3.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.15...v1.3.0-staging.16) (2022-12-23)
 
 
