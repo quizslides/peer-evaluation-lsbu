@@ -182,7 +182,7 @@ if __name__ == "__main__":
 
     request_headers["Cookie"] = cookie_auth
 
-    url = f"{args.url}/api/graphql"
+    url = f"{args.url}/api"
 
     peer_evaluation_students = get_peer_evaluation_students(
         url, request_headers, peer_evaluation_id)

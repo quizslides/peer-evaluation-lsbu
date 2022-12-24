@@ -77,7 +77,7 @@ services:
       repo: quizslides/peer-evaluation-lsbu
     health_check:
       failure_threshold: 3
-      http_path: /api/graphql?query=%7B__typename%7D
+      http_path: /api?query=%7B__typename%7D
       initial_delay_seconds: 30
       period_seconds: 60
       timeout_seconds: 100
