@@ -152,8 +152,10 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
           if (columnNumber === 0) {
             value = tableDataObject.data[column].studentName;
-          } else {
+          } else if (tableDataObject.data[column]) {
             value = tableDataObject.data[column].criteriaScoreTotal;
+          } else {
+            value = null;
           }
 
           tableDataArray.push(value);
