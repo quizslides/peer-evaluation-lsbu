@@ -2,6 +2,20 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.19](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.18...v1.3.0-staging.19) (2022-12-25)
+
+
+### Bug Fixes
+
+* download CSV report of team marks of a peer evaluation not all completed ([20d3cfc](https://github.com/quizslides/peer-evaluation-lsbu/commit/20d3cfc6ffd80ef05f2de40650441972ba0c2c29))
+
+
+### Code Refactoring
+
+* filter queries and mutation by frontend usage ([8efd7f7](https://github.com/quizslides/peer-evaluation-lsbu/commit/8efd7f7bf58f742010e9c561dbaeee96bce90503))
+* refactoring error message handler ([00622fc](https://github.com/quizslides/peer-evaluation-lsbu/commit/00622fca1b9847dbcd3534625b823652238d7c1a))
+* updating path for the graphql api to /api for discoverability ([215018a](https://github.com/quizslides/peer-evaluation-lsbu/commit/215018a6f6a827f8a24d82c10631964be85deacc))
+
 ## [1.3.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.17...v1.3.0-staging.18) (2022-12-24)
 
 
