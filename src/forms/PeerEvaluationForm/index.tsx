@@ -188,10 +188,10 @@ const PeerEvaluationForm = ({
                   appendHelperText
                   name="status"
                   options={PeerEvaluationStatus}
+                  helperTextObject={PeerEvaluationStatusDefinition as { [key: string]: string }}
                   props={{
                     disabled: isViewOnly || isNewPeerEvaluation,
                     fullWidth: true,
-                    helperText: PeerEvaluationStatusDefinition[values.status],
                     label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
                     required: true,
                   }}

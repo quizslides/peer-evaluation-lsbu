@@ -8,13 +8,14 @@ import { JSONStringNumber } from "@/types/object";
 
 interface ISelectFieldForm {
   appendHelperText: boolean;
+  helperTextObject?: { [key: string]: string };
   name: string;
   options: JSONStringNumber;
   props: TextFieldProps;
   testId: string;
 }
 
-const SelectFieldForm = ({ appendHelperText, name, options, props, testId }: ISelectFieldForm) => {
+const SelectFieldForm = ({ appendHelperText, helperTextObject, name, options, props, testId }: ISelectFieldForm) => {
   const [field, meta] = useField(name);
 
   const config = {
@@ -33,7 +34,7 @@ const SelectFieldForm = ({ appendHelperText, name, options, props, testId }: ISe
     <TextField data-testid={testId} {...config}>
       {Object.keys(options).map((item) => (
         <MenuItem key={item} value={item}>
-          {appendHelperText ? `${options[item]} (${props.helperText})` : options[item]}
+          {appendHelperText && helperTextObject ? `${options[item]} (${helperTextObject[item]})` : options[item]}
         </MenuItem>
       ))}
     </TextField>
