@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.19...v1.3.0-staging.20) (2023-01-30)
+
+
+### Bug Fixes
+
+* fixing peer evaluation statuses to show in the correct own on the dropdown ([1bd4cbf](https://github.com/quizslides/peer-evaluation-lsbu/commit/1bd4cbf85d3cdaebf95454e221999f124531e0e6))
+
+
+### Performance Improvements
+
+* updating DB URL encrypted with pool limit ([ccc1693](https://github.com/quizslides/peer-evaluation-lsbu/commit/ccc16930b7f76034accd188c3aa627b9d77e4525))
+
 ## [1.3.0-staging.19](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.18...v1.3.0-staging.19) (2022-12-25)
 
 
