@@ -8864,10 +8864,10 @@ lint-staged@12.3.2:
     supports-color "^9.2.1"
     yaml "^1.10.2"
 
-liquidjs@^9.34.0:
-  version "9.34.0"
-  resolved "https://registry.yarnpkg.com/liquidjs/-/liquidjs-9.34.0.tgz#b1a9cca1267aacce7ece13f8036751ca8f1664ee"
-  integrity sha512-LIOqPT3hvnmJQKwhJwBLcEwaEthdWJH2uvNjC9Q6K/n25+tuXQuvd/bwH1WwWBtBpzvESjcDWdM2SHpRlTLvqg==
+liquidjs@^10.0.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/liquidjs/-/liquidjs-10.4.0.tgz#4993135c87a582389bccd3a4be2cabf044c01474"
+  integrity sha512-4fpR8KFJ96bXkzynK9Yo1jwn7sjOkJfKawSbEXINc39DZfy7r5SYtcAM5T/Ccg5n0xoZf6ap5Gap4VwFCJiQ1g==
 
 listr2@^3.8.3:
   version "3.14.0"
