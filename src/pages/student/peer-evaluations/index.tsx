@@ -12,7 +12,7 @@ import routing from "@/routing";
 import { NextPagePros } from "@/types/pages";
 import { RoleScope } from "@/utils";
 
-const testId = "";
+const testId = "page-student-peer-evaluations";
 
 const StudentPeerEvaluations: NextPage<NextPagePros> = () => {
   const router = useRouter();

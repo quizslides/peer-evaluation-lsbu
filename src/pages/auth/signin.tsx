@@ -180,7 +180,7 @@ const SignIn: NextPage = () => {
                         <Grid container direction="column" justifyContent="center" alignItems="center">
                           <Button
                             disabled={isSubmitting}
-                            testId="signin-form-submit-button"
+                            testId="signin-form-submit"
                             fullWidth
                             variant="contained"
                             type="submit"

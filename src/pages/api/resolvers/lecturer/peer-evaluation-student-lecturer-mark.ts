@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
 
+import { getMarkSanitized } from "@/utils/peer-evaluation/mark-calculation/utils";
+
 @InputType({ description: "Peer Evaluation Students Lecturer Mark Input" })
 class PeerEvaluationStudentsLecturerMarkInput {
   @Field((_type) => String, {
@@ -60,10 +62,12 @@ class PeerEvaluationStudentsLecturerMark {
     @Arg("where") where: PeerEvaluationStudentsLecturerMarkInputData
   ): Promise<PeerEvaluationStudentsLecturerMarkResponse> {
     const updateFinalMark = async (id: string, lecturerAdjustedMark: number) => {
+      const lecturerAdjustedMarkSanitized = getMarkSanitized(lecturerAdjustedMark);
+
       await ctx.prisma.peerEvaluationStudent.updateMany({
         data: {
-          lecturerAdjustedMark,
-          finalMark: lecturerAdjustedMark,
+          lecturerAdjustedMark: lecturerAdjustedMarkSanitized,
+          finalMark: lecturerAdjustedMarkSanitized,
         },
         where: {
           id,

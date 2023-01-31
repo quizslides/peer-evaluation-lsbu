@@ -6,14 +6,45 @@ import { UPDATE_PEER_EVALUATION } from "@/requests/schema/peer-evaluation";
 const updatePeerEvaluation = (
   apolloClient: TApolloClientType,
   peerEvaluationData: PeerEvaluationUpdateInput,
-  peerEvaluationId: string
+  peerEvaluationId: string,
+  columnListToClearId: string[]
 ) => {
+  let dataPeerEvaluationStudentReview = {};
+
+  if (columnListToClearId.length) {
+    dataPeerEvaluationStudentReview = {
+      isCompleted: {
+        set: false,
+      },
+    };
+  }
+
   return apolloClient.mutate({
     mutation: UPDATE_PEER_EVALUATION,
     variables: {
-      data: peerEvaluationData,
-      where: {
+      dataPeerEvaluation: peerEvaluationData,
+      wherePeerEvaluation: {
         id: peerEvaluationId,
+      },
+      dataPeerEvaluationStudentReview,
+      wherePeerEvaluationStudentReview: {
+        peerEvaluationStudent: {
+          is: {
+            peerEvaluationId: {
+              equals: peerEvaluationId,
+            },
+          },
+        },
+      },
+      dataPeerEvaluationRevieweeColumnData: {
+        criteriaScore: {
+          set: null,
+        },
+      },
+      wherePeerEvaluationRevieweeColumnData: {
+        peerEvaluationColumnId: {
+          in: columnListToClearId,
+        },
       },
     },
     errorPolicy: "all",

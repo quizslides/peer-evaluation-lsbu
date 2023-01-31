@@ -10,11 +10,16 @@ import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 import { ConfirmationDialog, DataTable, DataTableAddActionButtonIcon } from "@/components";
 import Button from "@/components/Button/Button";
 import CreateColumnForm from "@/containers/CreateColumnForm";
-import UpdateColumnForm from "@/containers/UpdatePeerEvaluationColumnForm";
+import UpdateColumnForm, { TColumnFormValueUpdate } from "@/containers/UpdatePeerEvaluationColumnForm";
 import content from "@/content";
 import { IColumnFormValue } from "@/forms/PeerEvaluationColumnForm";
 import { ArrayObject } from "@/types/object";
-import { FieldStatus, IPeerEvaluationColumn, peerEvaluationColumnOrder } from "@/types/peer-evaluation";
+import {
+  FieldStatus,
+  IPeerEvaluationColumn,
+  PeerEvaluationColumnAction,
+  peerEvaluationColumnOrder,
+} from "@/types/peer-evaluation";
 import { getDateLocaleString } from "@/utils/date";
 import { getMergedKeyValuesObject } from "@/utils/form";
 
@@ -73,6 +78,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       description: description,
       createdAt: new Date(),
       updatedAt: new Date(),
+      action: PeerEvaluationColumnAction.NONE,
     };
 
     setColumns([...columns, newColumn]);
@@ -84,18 +90,23 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
     setUpdatePeerEvaluationColumnOpen(true);
   };
 
-  const onSubmitUpdateColumn = ({ description }: IColumnFormValue) => {
-    const columnsUnchanged = columns.filter(({ id }) => id !== updateColumn?.id);
+  const onSubmitUpdateColumn = ({ description, action }: TColumnFormValueUpdate) => {
+    const columnsUpdated = columns;
 
     const columnToUpdate = columns.filter(({ id }) => id === updateColumn?.id);
+
+    const columnUpdatedIndex = columns.findIndex(({ id }) => id === updateColumn?.id);
 
     if (columnToUpdate[0].status != FieldStatus.NEW) {
       columnToUpdate[0].status = FieldStatus.UPDATED;
     }
 
     columnToUpdate[0].description = description;
+    columnToUpdate[0].action = action;
 
-    setColumns([...columnsUnchanged, ...columnToUpdate]);
+    columnsUpdated[columnUpdatedIndex] = columnToUpdate[0];
+
+    setColumns(columnsUpdated);
 
     setSelectedRows([]);
   };
@@ -292,14 +303,17 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       )}
 
       <ConfirmationDialog
-        testId={"peer-evaluation-column-management-confirmation-delete-column"}
+        acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
+        alertText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.alertText}
+        alertVariant={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.alertVariant}
+        closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
+        isAlertVisible
         isOpen={isDeletePeerEvaluationColumnConfirmationOpen}
-        title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
-        textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
         onAccept={onDeletePeerEvaluationColumnAccept}
         onClose={onDeletePeerEvaluationColumnCancel}
-        closeText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.closeText}
-        acceptText={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.acceptText}
+        testId={"peer-evaluation-column-management-confirmation-delete-column"}
+        textContent={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.bodyText}
+        title={content.containers.peerEvaluationColumnManagement.confirmationDeleteColumn.title}
       />
     </FormControl>
   );

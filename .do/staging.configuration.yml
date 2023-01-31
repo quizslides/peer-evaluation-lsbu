@@ -42,7 +42,7 @@ envs:
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
-    value: EV[1:fIukmoOcM7Bsl6hfw1LzzT8G3CnOeI6N:rDgIFMFBRiHYnMEVlpSUsxdAQ415QM78aWIkfJDg3+a2iidVefpEeRxBX6V4PFkdtJ73FSBwS0v2yHh5nFPvtZyG5gNU6J1ha6RUcyHFrygNGXkYwOCId771gIkNn4OzstvIyK28wT1XKU3G1yKJVzwPUYxCmZxqWMp8ON1w0bLuAfRPYu6kMFq9Bj+7OVJwceU5r7Rk13mnuwWZgChVvGBZWR2zu43hQNMv4TI1cEEbFv222BIliXodE35Bh3K/EQpqKfu4AiWrJiJeYAqxHzw/ChE=]
+    value: EV[1:Wfwn9fZbkYAdepaiK36eoxFZtSYLIFWJ:dEGhr6+bmbUiCjK0yskWfmW5x/0P9+rr6iU25J68PtYdXriDb/E/BBf08SnKrP/kSJ9M3a3xgK2qrnn3id5sdnZSOyl5DwoL279WF8M10YZlC7E85zK3kuYNbOj1DaoXSCqln0tFLqOjRiKbPDMbo72TiiDquCrwCUWWQq6xRIGIXlO2PeSL++5shGseD5tTjE2CcJLSh6PIVa9zIRX/I7O4mqFodlH2+DLJgdfv4CTPwgbSEo3w1at9Dzjt//7wC81XVgrWOPU/NUjIdiBvePBUB/kCw4Vu56X8Y9cZM2jixCo=]
   - key: SENTRY_DSN
     scope: RUN_AND_BUILD_TIME
     type: SECRET
@@ -55,6 +55,10 @@ envs:
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:tR988vldmCG4tDMzIsiaZakeUDwMuae0:qObUmQ3nLH+l8GacfIOLfJuxeWrY2qzFZSjTb0pNNGslzzTb99ZQ/jcR+a26RQuOsfm4Uo53IKkZytVwBsM5gn0oq+gSzADABPGMFkKBOuM=]
+  - key: SENTRY_SECURITY_HEADER_ENDPOINT
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:7LPcUn0wbfzZcmwSshMGHsHlrWH7iZ6i:X2FhvIAqprGpDKUjPlKBO8/sr+M+wRPvTm5QdLSgbukJ1deJpXhUNzfNj13JpxM98aKgcO9M5UBHSOfMK4/MOTIBa7Nr+Z1qln0oRuCDkhqnTa4bk2oAP5jhp2Ui+ViPjiW0YocQTZ4vrmRGQ1NhPkeOJ3SXjWi0bPO5bm5tdqorDCbA]
 name: peer-evaluation-web-app-staging
 region: lon
 services:
@@ -73,7 +77,7 @@ services:
       repo: quizslides/peer-evaluation-lsbu
     health_check:
       failure_threshold: 3
-      http_path: /api/graphql?query=%7B__typename%7D
+      http_path: /api?query=%7B__typename%7D
       initial_delay_seconds: 30
       period_seconds: 60
       timeout_seconds: 100

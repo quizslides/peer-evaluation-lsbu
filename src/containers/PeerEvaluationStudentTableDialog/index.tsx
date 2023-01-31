@@ -44,6 +44,11 @@ const PeerEvaluationStudentTableDialog = ({
             },
           },
         ],
+        columnsOrderBy: [
+          {
+            createdAt: "asc",
+          },
+        ],
       },
     });
   }, [getPeerEvaluationTableStudentLecturer, peerEvaluationId, studentId, isDialogOpen]);

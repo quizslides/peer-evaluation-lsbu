@@ -2,6 +2,182 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.20...v1.3.0-staging.21) (2023-01-31)
+
+
+### Bug Fixes
+
+* fixing individual mark calculation when studend is 0 as avg criteria score ([4a4cd3f](https://github.com/quizslides/peer-evaluation-lsbu/commit/4a4cd3f2a9a9288b93c70cb706858b390ef1568f))
+
+## [1.3.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.19...v1.3.0-staging.20) (2023-01-30)
+
+
+### Bug Fixes
+
+* fixing peer evaluation statuses to show in the correct own on the dropdown ([1bd4cbf](https://github.com/quizslides/peer-evaluation-lsbu/commit/1bd4cbf85d3cdaebf95454e221999f124531e0e6))
+
+
+### Performance Improvements
+
+* updating DB URL encrypted with pool limit ([ccc1693](https://github.com/quizslides/peer-evaluation-lsbu/commit/ccc16930b7f76034accd188c3aa627b9d77e4525))
+
+## [1.3.0-staging.19](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.18...v1.3.0-staging.19) (2022-12-25)
+
+
+### Bug Fixes
+
+* download CSV report of team marks of a peer evaluation not all completed ([20d3cfc](https://github.com/quizslides/peer-evaluation-lsbu/commit/20d3cfc6ffd80ef05f2de40650441972ba0c2c29))
+
+
+### Code Refactoring
+
+* filter queries and mutation by frontend usage ([8efd7f7](https://github.com/quizslides/peer-evaluation-lsbu/commit/8efd7f7bf58f742010e9c561dbaeee96bce90503))
+* refactoring error message handler ([00622fc](https://github.com/quizslides/peer-evaluation-lsbu/commit/00622fca1b9847dbcd3534625b823652238d7c1a))
+* updating path for the graphql api to /api for discoverability ([215018a](https://github.com/quizslides/peer-evaluation-lsbu/commit/215018a6f6a827f8a24d82c10631964be85deacc))
+
+## [1.3.0-staging.18](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.17...v1.3.0-staging.18) (2022-12-24)
+
+
+### Features
+
+* adding Strict-Transport-Security header ([80ed097](https://github.com/quizslides/peer-evaluation-lsbu/commit/80ed09730b094874e373099e05f2bd4bfc88c56b))
+
+## [1.3.0-staging.17](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.16...v1.3.0-staging.17) (2022-12-24)
+
+
+### Bug Fixes
+
+* fixing security headers blocking js and style for page rendering ([f35358f](https://github.com/quizslides/peer-evaluation-lsbu/commit/f35358f816727ef4b599e81972ee5bfe22e2eccb))
+
+## [1.3.0-staging.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.15...v1.3.0-staging.16) (2022-12-23)
+
+
+### Bug Fixes
+
+* adding CSP with directives for security, x-content-type-options and x-frame-options ([28f09f2](https://github.com/quizslides/peer-evaluation-lsbu/commit/28f09f2e386a28e011f79c165d9636e04283aa23))
+
+## [1.3.0-staging.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.14...v1.3.0-staging.15) (2022-12-23)
+
+
+### Bug Fixes
+
+* adding a denial to any query/mutation not publicly to the user ([93b38c7](https://github.com/quizslides/peer-evaluation-lsbu/commit/93b38c7850613a17450f6465f8ca41250a69c1e7))
+* removing X-Powered-By from response to hide the technologies ([f13cb0c](https://github.com/quizslides/peer-evaluation-lsbu/commit/f13cb0c31ce89981dfcdf3005d9fbd3945257c4e))
+
+## [1.3.0-staging.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.13...v1.3.0-staging.14) (2022-12-21)
+
+
+### Features
+
+* handling gracefully when a peer evaluation is not found by its id ([1e09df6](https://github.com/quizslides/peer-evaluation-lsbu/commit/1e09df69668a7083233ced408ba60bede2ee4156))
+
+## [1.3.0-staging.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.12...v1.3.0-staging.13) (2022-12-21)
+
+
+### Features
+
+* adding updatedByStudentAt field to manage last update of a peer evaluation ([ad64409](https://github.com/quizslides/peer-evaluation-lsbu/commit/ad64409bf78942945d19268d4451971c44a248ed))
+
+## [1.3.0-staging.12](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.11...v1.3.0-staging.12) (2022-12-21)
+
+
+### Bug Fixes
+
+* adding sanitization to marks to have them in format to match prisma schema ([785bae2](https://github.com/quizslides/peer-evaluation-lsbu/commit/785bae264c6f587f88290f06d8a713e60fd42598))
+
+## [1.3.0-staging.11](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.10...v1.3.0-staging.11) (2022-12-21)
+
+
+### Code Refactoring
+
+* refactoring admin and lecturers to granular permissions ([bad823c](https://github.com/quizslides/peer-evaluation-lsbu/commit/bad823c398248525d96a30116f9ba08f9ab87ca0))
+
+## [1.3.0-staging.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.9...v1.3.0-staging.10) (2022-12-20)
+
+
+### Features
+
+* editor lecturer should not add/editdelete an owner lecturer ([7e98c0e](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e98c0efea2a23f2769e087e5e7df889455ac94b))
+
+## [1.3.0-staging.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.8...v1.3.0-staging.9) (2022-12-20)
+
+
+### Bug Fixes
+
+* adding validation to avoid lecturer besides an owner to delete a peer evaluation with E2E tests ([ef701c3](https://github.com/quizslides/peer-evaluation-lsbu/commit/ef701c3493168002e4c9ce3ae6566b0115ad261c))
+
+## [1.3.0-staging.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.7...v1.3.0-staging.8) (2022-12-20)
+
+
+### Bug Fixes
+
+* updating base component of peer evaluation view to show menu instead of arrow ([e9bd693](https://github.com/quizslides/peer-evaluation-lsbu/commit/e9bd693cc8767e35d54ec3ac6cd870d62036fd9d))
+
+## [1.3.0-staging.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.6...v1.3.0-staging.7) (2022-12-20)
+
+
+### Features
+
+* adding check to user for peer evaluation teams page fields when is read only ([6ccfe3a](https://github.com/quizslides/peer-evaluation-lsbu/commit/6ccfe3aeebe8f745096b18ce60ea73eaeb74eee6))
+
+## [1.3.0-staging.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.5...v1.3.0-staging.6) (2022-12-20)
+
+
+### Features
+
+* adding peer evaluation status definition in-line with E2E test ([edc42da](https://github.com/quizslides/peer-evaluation-lsbu/commit/edc42da8abfd40ddd6a6d26f5f2bd345d8b6a56a))
+
+## [1.3.0-staging.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.4...v1.3.0-staging.5) (2022-12-20)
+
+
+### Features
+
+* adding alert on updating criteria score and e2e tests ([87d27ce](https://github.com/quizslides/peer-evaluation-lsbu/commit/87d27ce8b07c190fc28ea171741c58728f030f87))
+
+## [1.3.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.3...v1.3.0-staging.4) (2022-12-19)
+
+
+### Features
+
+* adding info alter when column is deleted from a peer evaluation and tests ([f505d4d](https://github.com/quizslides/peer-evaluation-lsbu/commit/f505d4d6919dad2b913e927729625d309d41f00f))
+
+## [1.3.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.2...v1.3.0-staging.3) (2022-12-18)
+
+
+### Features
+
+* adding info alert when a new column is added to a peer evaluation ([f099604](https://github.com/quizslides/peer-evaluation-lsbu/commit/f099604268f120c1ad543b1a7e33bef9800e4329))
+
+## [1.3.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.1...v1.3.0-staging.2) (2022-12-18)
+
+
+### Features
+
+* adding alert as a warning when updating students/teams ([1bc62ab](https://github.com/quizslides/peer-evaluation-lsbu/commit/1bc62ab0d7ee4dd2342150adfa3f115414c6aa07))
+
+## [1.3.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.2...v1.3.0-staging.1) (2022-12-18)
+
+
+### Features
+
+* adding column sort artificial by creation date ([5400e69](https://github.com/quizslides/peer-evaluation-lsbu/commit/5400e6941ad2833cb0c28a569249d56378d5a635))
+* adding feature with tests to edit column and clear or not results ([4e17ab8](https://github.com/quizslides/peer-evaluation-lsbu/commit/4e17ab8a8e33118fad7cbf5a59a7e594915b41af))
+* adding warning when editing column description ([3206202](https://github.com/quizslides/peer-evaluation-lsbu/commit/320620219f0ec8c6898a61f829bbf20b6f9602bf))
+
+### [1.2.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.1-staging.1...v1.2.1-staging.2) (2022-12-17)
+
+
+### Bug Fixes
+
+* fixing height for full screen dialog ([133e866](https://github.com/quizslides/peer-evaluation-lsbu/commit/133e866db447e09cb45c976d3f265984f1d88fa0))
+
+### [1.2.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0...v1.2.1-staging.1) (2022-12-14)
+
+
+### Code Refactoring
+
+* updating file encoding for example files for users ([fe62b8b](https://github.com/quizslides/peer-evaluation-lsbu/commit/fe62b8b1d5406469548fc58707933cf48c02a793))
+
 ## [1.2.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.1.0...v1.2.0) (2022-12-12)
 
 

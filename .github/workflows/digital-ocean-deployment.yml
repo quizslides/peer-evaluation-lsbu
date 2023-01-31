@@ -19,7 +19,7 @@ jobs:
   digital-ocean-deployment:
     name: Digital Ocean Workflow
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 60
     strategy:
       matrix:
         node-version: [16.13.2]
@@ -41,4 +41,4 @@ jobs:
           DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets.DIGITALOCEAN_APP_PLATFORM_ID }}
         run: |
           doctl apps update ${DIGITALOCEAN_APP_PLATFORM_ID} --spec ./.do/${{ inputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
-          doctl apps create-deployment ${DIGITALOCEAN_APP_PLATFORM_ID} --force-rebuild
+          doctl apps create-deployment ${DIGITALOCEAN_APP_PLATFORM_ID} --wait

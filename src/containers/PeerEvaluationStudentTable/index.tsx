@@ -72,7 +72,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
       }
 
       return (
-        <Button testId="" variant="contained" type="submit">
+        <Button testId={`${testId}-submit`} variant="contained" type="submit">
           SAVE
         </Button>
       );
@@ -207,7 +207,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
                 updateDataTableFormValue={updateValue}
                 validationSchema={validationSchema}
                 validationFieldPath={"comments.comment"}
-                testId=""
+                testId={`${testId}-comment`}
                 name={`comments[${tableMeta.rowIndex}].comment`}
                 props={{
                   size: "small",
@@ -249,7 +249,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
                     disabled: isReadOnly,
                     type: "number",
                   }}
-                  testId=""
+                  testId={`${testId}-criteria-score`}
                   updateDataTableFormValue={updateValue}
                   validationSchema={validationSchema}
                   validationFieldPath={`${column.id}s.${column.id}.criteriaScore`}

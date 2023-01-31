@@ -342,7 +342,7 @@ const getApolloServer = (prisma: PrismaClient) => {
 
 const createApolloServerHandler = (apolloServer: ApolloServer) => {
   return apolloServer.createHandler({
-    path: "/api/graphql",
+    path: "/api",
   });
 };
 

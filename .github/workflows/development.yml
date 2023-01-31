@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "PEL-**"
-  pull_request:
-    types: [opened, reopened, edited]
 
 jobs:
   install-dependencies:

@@ -1,7 +1,11 @@
 import "reflect-metadata";
 import { PeerEvaluation } from "@generated/type-graphql";
 import { PrismaClient } from "@prisma/client";
+import { NextApiRequest } from "next";
+import { getSession } from "next-auth/react";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
+
+import { Role } from "@/utils/permissions";
 
 @InputType({
   isAbstract: true,
@@ -134,14 +138,33 @@ class PeerEvaluationDashboardQuery {
     nullable: true,
   })
   async peerEvaluationDashboard(
-    @Ctx() ctx: { prisma: PrismaClient },
+    @Ctx() ctx: { prisma: PrismaClient; req: NextApiRequest },
     @Arg("where") where: PeerEvaluationDashboardWhereInput
   ): Promise<PeerEvaluationDashboard | null> {
     const { peerEvaluationId } = where;
 
+    const session = await getSession({ req: ctx.req });
+
+    let searchConditionByTeachingMember = {};
+
+    if (session && session.user.role !== Role.ADMIN) {
+      searchConditionByTeachingMember = {
+        peerEvaluationTeachingMembers: {
+          some: {
+            user: {
+              id: {
+                equals: session?.user.id,
+              },
+            },
+          },
+        },
+      };
+    }
+
     const peerEvaluationData = await ctx.prisma.peerEvaluation.findFirst({
       where: {
         id: peerEvaluationId,
+        ...searchConditionByTeachingMember,
       },
       include: {
         _count: {
@@ -149,6 +172,10 @@ class PeerEvaluationDashboardQuery {
         },
       },
     });
+
+    if (!peerEvaluationData) {
+      return null;
+    }
 
     const aggregatePeerEvaluationStudentReview = await ctx.prisma.peerEvaluationStudentReview.aggregate({
       _count: {

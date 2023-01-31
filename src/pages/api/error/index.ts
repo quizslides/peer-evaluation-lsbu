@@ -1,24 +1,23 @@
 import { ApolloError } from "apollo-server-errors";
 import { GraphQLError } from "graphql";
 
-import { createUserError } from "@/pages/api/error/user";
+import { getErrorByErrorMessage, getErrorMessageByCode } from "@/pages/api/error/list";
 
 const ErrorHandler = (error: GraphQLError) => {
-  const defaultErrorMessage = "Internal server error";
-
-  let errorMessage = defaultErrorMessage;
-
-  if (error.path?.includes("createUser")) {
-    errorMessage = createUserError(error.message);
-  }
-
   if (process.env.NODE_ENV === "development") {
-    const returnErrorMessage = errorMessage !== defaultErrorMessage ? errorMessage : error.message;
-
-    return new ApolloError(returnErrorMessage, "ERR_INTERNAL_SERVER");
+    return error;
   }
 
-  return new ApolloError(errorMessage, "ERR_INTERNAL_SERVER");
+  const errorByErrorMessage = getErrorByErrorMessage(error.message);
+
+  if (errorByErrorMessage) {
+    const { code, message } = errorByErrorMessage;
+    return new ApolloError(message, code);
+  }
+
+  const { code, message } = getErrorMessageByCode(error.extensions?.code);
+
+  return new ApolloError(message, code);
 };
 
 export default ErrorHandler;

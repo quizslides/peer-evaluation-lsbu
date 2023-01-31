@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import { object } from "yup";
 
 import {
+  AlertField,
   Button,
   ConfirmationDialog,
   DateTimePickerForm,
@@ -111,14 +112,11 @@ const PeerEvaluationForm = ({
           ...peerEvaluationData,
         }}
         validationSchema={validationSchema}
-        onSubmit={(data, { resetForm }) => {
+        onSubmit={(data) => {
           submitForm(data);
-          resetForm({
-            values: data,
-          });
         }}
       >
-        {({ setFieldValue, dirty, values }) => (
+        {({ setFieldValue, dirty, values, initialValues }) => (
           <Form>
             <WarningUnsavedForm areChangesUnsaved={dirty} />
             <Container maxWidth="lg">
@@ -187,14 +185,15 @@ const PeerEvaluationForm = ({
 
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
+                  appendHelperText
                   name="status"
                   options={PeerEvaluationStatus}
+                  helperTextObject={PeerEvaluationStatusDefinition as { [key: string]: string }}
                   props={{
-                    required: true,
-                    label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
-                    helperText: PeerEvaluationStatusDefinition[values.status],
-                    fullWidth: true,
                     disabled: isViewOnly || isNewPeerEvaluation,
+                    fullWidth: true,
+                    label: content.containers.peerEvaluationForm.form.peerEvaluationStatus.label,
+                    required: true,
                   }}
                   testId="peer-evaluation-form-peer-evaluation-status-field"
                 />
@@ -279,6 +278,22 @@ const PeerEvaluationForm = ({
 
               <Divider>Criteria Score</Divider>
 
+              <AlertField
+                initialValue={initialValues.criteriaScoreRangeMin}
+                isVisible={!isNewPeerEvaluation}
+                messageOnChange={content.containers.peerEvaluationForm.form.criteriaScoreRangeMin.alertOnChange}
+                messageOnReset={content.containers.peerEvaluationForm.form.criteriaScoreRangeMin.alertOnReset}
+                value={values.criteriaScoreRangeMin}
+              />
+
+              <AlertField
+                initialValue={initialValues.criteriaScoreRangeMax}
+                isVisible={!isNewPeerEvaluation}
+                messageOnChange={content.containers.peerEvaluationForm.form.criteriaScoreRangeMax.alertOnChange}
+                messageOnReset={content.containers.peerEvaluationForm.form.criteriaScoreRangeMax.alertOnReset}
+                value={values.criteriaScoreRangeMax}
+              />
+
               <FieldWrapper marginBottom="3em">
                 <SelectFieldForm
                   name="criteriaScoreRangeMin"
@@ -332,16 +347,12 @@ const PeerEvaluationForm = ({
                   </Button>
                 ) : (
                   <>
-                    <Button
-                      onClick={onCancelConfirmation}
-                      testId="peer-evaluation-form-cancel-button"
-                      variant="outlined"
-                    >
+                    <Button onClick={onCancelConfirmation} testId="peer-evaluation-form-cancel" variant="outlined">
                       {content.containers.peerEvaluationForm.form.button.cancel}
                     </Button>
                     <Button
                       disabled={isSubmitting}
-                      testId="peer-evaluation-form-submit-button"
+                      testId="peer-evaluation-form-submit"
                       variant="contained"
                       type="submit"
                     >

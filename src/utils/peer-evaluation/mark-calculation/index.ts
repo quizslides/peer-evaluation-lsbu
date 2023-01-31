@@ -2,7 +2,7 @@ import { PeerEvaluationStudentReview, PeerEvaluationStudentTeam } from "@generat
 import { Decimal } from "@prisma/client/runtime";
 
 import prisma, { Prisma } from "@/pages/api/prisma";
-import { roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
+import { getMarkSanitized, roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
 import { getUserIdByEmail } from "@/utils/user";
 
 interface AvgCriteriaScoreByStudent {
@@ -286,8 +286,13 @@ const getAvgCriteriaScoreData = (
   };
 };
 
-const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) =>
-  averageCriteriaScore / sumAvgCriteriaScoreByStudent;
+const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) => {
+  if (!sumAvgCriteriaScoreByStudent) {
+    return 0;
+  }
+
+  return averageCriteriaScore / sumAvgCriteriaScoreByStudent;
+};
 
 const getSystemCalculatedMark = (
   averageCriteriaScoreByTeamMember: number,
@@ -343,11 +348,11 @@ const updatePeerEvaluationStudentData = async (
   await prisma.peerEvaluationStudent.updateMany({
     data: {
       averageCriteriaScore: averageCriteriaScore,
-      averageCriteriaScoreByTeamMember: averageCriteriaScoreByTeamMember,
-      systemCalculatedMark: systemCalculatedMark,
-      systemAdjustedMark: systemAdjustedMark,
-      lecturerAdjustedMark: lecturerAdjustedMark,
-      finalMark: finalMark,
+      averageCriteriaScoreByTeamMember,
+      systemCalculatedMark: getMarkSanitized(systemCalculatedMark),
+      systemAdjustedMark: getMarkSanitized(systemAdjustedMark),
+      lecturerAdjustedMark: getMarkSanitized(lecturerAdjustedMark),
+      finalMark: getMarkSanitized(finalMark),
       comments: comments,
     },
     where: {
@@ -369,9 +374,9 @@ const getPeerEvaluationStudentFinalMark = (
   systemAdjustedMark: number,
   peerEvaluationTeamMark: number
 ) => {
-  let finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
+  const finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
 
-  if (!finalMark) {
+  if (finalMark === null) {
     return peerEvaluationTeamMark;
   }
 

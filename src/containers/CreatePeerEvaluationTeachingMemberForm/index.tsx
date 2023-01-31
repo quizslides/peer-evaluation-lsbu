@@ -10,6 +10,7 @@ interface ICreatePeerEvaluationTeachingMemberForm {
   updateFormState: (state: boolean) => void;
   onSubmit: (data: PeerEvaluationTeachingMember) => void;
   users: User[];
+  isPeerEvaluationTeachingMemberOwner: boolean;
 }
 
 const CreatePeerEvaluationTeachingMemberForm = ({
@@ -17,6 +18,7 @@ const CreatePeerEvaluationTeachingMemberForm = ({
   users,
   updateFormState,
   onSubmit,
+  isPeerEvaluationTeachingMemberOwner,
 }: ICreatePeerEvaluationTeachingMemberForm) => {
   const submitForm = (dataForm: PeerEvaluationTeachingMember) => {
     onSubmit(dataForm);
@@ -35,7 +37,7 @@ const CreatePeerEvaluationTeachingMemberForm = ({
       onSubmitForm={submitForm}
       data={initialPeerEvaluationTeachingMember}
       users={users}
-      isPeerEvaluationTeachingMemberOwner={true}
+      isPeerEvaluationTeachingMemberOwner={isPeerEvaluationTeachingMemberOwner}
     />
   );
 };

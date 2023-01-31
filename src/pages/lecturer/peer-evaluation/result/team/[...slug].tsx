@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import styled from "@emotion/styled";
 import { Grid, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
@@ -17,11 +16,11 @@ import {
   DataTable,
   DataTableRefreshActionButtonIcon,
   IconButtonWrapper,
+  Message,
   PageTitle,
   WarningUnsavedForm,
 } from "@/components";
 import DataTableMarkActionButtonIcon from "@/components/DataTableMarkActionButtonIcon/DataTableMarkActionButtonIcon";
-import Typography from "@/components/Typography/Typography";
 import { PeerEvaluationNavigationFab } from "@/containers";
 import PeerEvaluationStudentTableDialog from "@/containers/PeerEvaluationStudentTableDialog";
 import PeerEvaluationStudentTeamResultCard from "@/containers/PeerEvaluationStudentTeamResultCard";
@@ -38,14 +37,7 @@ import { RoleScope } from "@/utils";
 import { ObjectArray, objectToArrayOfObject } from "@/utils/form";
 import { dataStudentToBeExtractedList } from "@/utils/peer-evaluation/result/team";
 
-const testId = "page-report-team";
-
-const Message = styled(Typography)`
-  text-align: center;
-  font-weight: 700;
-  font-size: 1rem;
-  max-width: 200px;
-`;
+const testId = "page-lecturer-result-team";
 
 type TTableData = Array<object | number[] | string[]>;
 
@@ -160,8 +152,10 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
           if (columnNumber === 0) {
             value = tableDataObject.data[column].studentName;
-          } else {
+          } else if (tableDataObject.data[column]) {
             value = tableDataObject.data[column].criteriaScoreTotal;
+          } else {
+            value = null;
           }
 
           tableDataArray.push(value);
@@ -318,7 +312,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                   onClick={() => openStudentPeerEvaluationDialog(columnData.studentId)}
                   size="small"
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "1rem",
                   }}
                 >
                   {columnData.studentName}
@@ -342,7 +336,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                 setCellHeaderProps: () => ({ align: "center" }),
                 customBodyRender: (columnData, tableMeta, updateValue) => {
                   if (typeof columnData === "object" && columnData !== null) {
-                    if (!columnData.criteriaScoreTotal) {
+                    if (columnData.criteriaScoreTotal === null) {
                       return null;
                     }
 
@@ -362,7 +356,17 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
                   // TODO: Button Final Mark
                   return (
-                    <Button variant="text" fullWidth testId={""} size="small" disabled>
+                    <Button
+                      variant="text"
+                      fullWidth
+                      testId={""}
+                      size="small"
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                      disabled
+                    >
                       {columnData}
                     </Button>
                   );
@@ -440,8 +444,15 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
         <CenteredContent>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
             <GradingIcon testId={`${testId}-grading-icon`} fontSize="large" />
-            <Message testId={""}>{"Peer Evaluation marks have not been calculated"}</Message>
-            <Button size="large" testId="" variant="contained" onClick={onCalculateMarksTrigger}>
+            <Message testId={`${testId}-calculate-marks-message`}>
+              {"Peer Evaluation marks have not been calculated"}
+            </Message>
+            <Button
+              size="large"
+              testId={`${testId}-calculate-marks`}
+              variant="contained"
+              onClick={onCalculateMarksTrigger}
+            >
               Calculate Marks
             </Button>
           </Stack>

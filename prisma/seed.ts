@@ -2,18 +2,26 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const createAdministratorUser = async () => {
-  await prisma.user.create({
-    data: {
-      name: "Administrator",
-      email: "local@gmail.com",
-      role: "ADMIN",
-    },
+const createAdministratorUsers = async () => {
+  await prisma.user.createMany({
+    data: [
+      {
+        name: "Administrator",
+        email: "local@lsbupeerevaluation.software",
+        role: "ADMIN",
+      },
+      {
+        name: "Test",
+        email: "test@lsbupeerevaluation.software",
+        role: "ADMIN",
+      },
+    ],
+    skipDuplicates: true,
   });
 };
 
 const main = async () => {
-  await createAdministratorUser();
+  await createAdministratorUsers();
 };
 
 main()

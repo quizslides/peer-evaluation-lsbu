@@ -40,7 +40,8 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Setup test environmental variables
-        run: cp .env.sample .env
+        run: |
+          cp .env.sample .env
 
       - name: Start docker container
         run: yarn docker:ci
@@ -49,10 +50,7 @@ jobs:
         run: yarn build:start:background
         env:
           ENVIRONMENT: ci
-
-      - name: Sleep for 30 seconds
-        run: sleep 30s
-        shell: bash
+          NODE_ENV: ci
 
       - name: Run linter check
         run: yarn lint:check
@@ -77,11 +75,29 @@ jobs:
       - name: Install Cypress
         run: npx cypress install
 
+      - name: Setup Cypress
+        run: cp cypress.env.test.json cypress.env.json
+
       - name: Run Cypress component tests
-        run: yarn test:cypress:ct:ci
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          component: true
+          browser: chrome
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Cypress E2E tests
-        run: yarn test:cypress:ci
+        uses: cypress-io/github-action@v5
+        with:
+          install: false
+          browser: chrome
+          headed: true
+          wait-on: http://localhost:3000
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Video Cypress
         uses: actions/upload-artifact@v2

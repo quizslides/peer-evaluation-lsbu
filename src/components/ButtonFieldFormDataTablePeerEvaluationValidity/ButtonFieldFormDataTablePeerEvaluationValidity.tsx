@@ -113,6 +113,8 @@ const ButtonFieldFormDataTablePeerEvaluationValidity = ({
         style={{
           textDecoration: formValue.isValid ? "none" : "line-through",
           border: 0,
+          fontSize: "1rem",
+          color: "black",
         }}
       >
         {criteriaScoreTotal}

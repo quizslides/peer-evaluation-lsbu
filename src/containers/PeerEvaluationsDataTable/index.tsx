@@ -375,7 +375,7 @@ const PeerEvaluationsDataTable = ({
         />
         <DataTableAddActionButtonIcon
           onClick={onAddPeerEvaluation}
-          testId={`${testId}-peer-evaluation-member-add`}
+          testId={`${testId}-peer-evaluation-add`}
           toolTipLabel={"Add peer evaluation"}
         />
       </>

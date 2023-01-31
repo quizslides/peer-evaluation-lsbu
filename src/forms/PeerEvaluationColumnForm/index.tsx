@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Form, Formik } from "formik";
 import { object } from "yup";
 
-import { Button, TextFieldForm, WarningUnsavedForm } from "@/components";
+import { Alert, Button, TextFieldForm, WarningUnsavedForm } from "@/components";
 import content from "@/content";
 import { FieldWrapper } from "@/forms/style";
 import { IPeerEvaluationColumn } from "@/types/peer-evaluation";
@@ -17,17 +17,19 @@ import { peerEvaluationColumnIdValidator, peerEvaluationColumnValidator } from "
 type IColumnFormValue = Pick<IPeerEvaluationColumn, "description">;
 
 interface IUserForm extends IColumnFormValue {
-  state: boolean;
   formTitle: string;
-  updateFormState: (state: boolean) => void;
+  isNewColumn?: boolean;
   onSubmitForm: (data: IColumnFormValue) => void;
+  state: boolean;
+  updateFormState: (state: boolean) => void;
 }
 
 const PeerEvaluationColumnForm = ({
   formTitle,
+  isNewColumn,
+  onSubmitForm,
   state,
   updateFormState,
-  onSubmitForm,
   ...columnFormData
 }: IUserForm) => {
   const handleCloseDialog = (reason?: string) => {
@@ -71,6 +73,10 @@ const PeerEvaluationColumnForm = ({
             <DialogContent>
               <Container maxWidth="sm">
                 <Grid container direction="column" justifyContent="center" alignItems="stretch" spacing={3}>
+                  <Alert testId={"peer-evaluation-column-form-info"} severity="info" isVisible={isNewColumn}>
+                    Adding columns will affect all completed peer evaluations and change their status to{" "}
+                    <b>incomplete</b>. Please notify all students to update their peer evaluations.
+                  </Alert>
                   <Grid item xs={6}>
                     <FieldWrapper>
                       <TextFieldForm
@@ -105,6 +111,8 @@ const PeerEvaluationColumnForm = ({
     </Dialog>
   );
 };
+
+PeerEvaluationColumnForm.defaultProps = { isNewColumn: false };
 
 export type { IColumnFormValue };
 

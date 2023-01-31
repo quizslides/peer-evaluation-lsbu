@@ -12,8 +12,40 @@ const content = {
         href: "#",
       },
     },
+    alert: {
+      testId: "component-alert",
+    },
   },
   containers: {
+    peerEvaluationInfo: {
+      testId: "container-peer-evaluation-info",
+      fields: {
+        studentEmail: {
+          label: "Student Email: ",
+          testId: "student-email",
+        },
+        studentName: {
+          label: "Student Name: ",
+          testId: "student-name",
+        },
+        teamName: {
+          label: "Team Name: ",
+          testId: "team-name",
+        },
+        lastUpdated: {
+          label: "Last Updated: ",
+          testId: "last-updated",
+        },
+        submissionDeadline: {
+          label: "Submission Deadline: ",
+          testId: "submission-deadline",
+        },
+        completed: {
+          label: "Completed: ",
+          testId: "completed",
+        },
+      },
+    },
     errorContainer: {
       button: "Click here to refresh",
       text: "Sorry, something went wrong...",
@@ -85,12 +117,18 @@ const content = {
           helperText: "The date when the peer evaluations submissions will be locked automatically",
         },
         criteriaScoreRangeMin: {
-          label: "Criteria Score Range Min",
+          alertOnChange:
+            "You have selected a new criteria score range min that will clear the results submitted to the peer evaluations",
+          alertOnReset: "You have reset the value of the criteria score range min and the result will not be cleared",
           helperText: "Criteria Score Range Min",
+          label: "Criteria Score Range Min",
         },
         criteriaScoreRangeMax: {
-          label: "Criteria Score Range Max",
+          alertOnChange:
+            "You have selected a new criteria score range max that will clear the results submitted to the peer evaluations",
+          alertOnReset: "You have reset the value of the criteria score range max and the result will not be cleared",
           helperText: "Criteria Score Range Max",
+          label: "Criteria Score Range Max",
         },
         emailSubjectReminder: {
           label: "Email title",
@@ -166,16 +204,18 @@ const content = {
       },
     },
     peerEvaluationColumnManagement: {
-      resetButton: "Reset columns",
+      resetButton: "Reset",
       confirmationDeleteColumn: {
         title: "Delete column",
         bodyText: "Are you sure you want to delete the column?",
+        alertText: "Deleting a column will remove the columns for all peer evaluations and update mark calculations.",
+        alertVariant: "info",
         acceptText: "OK",
         closeText: "Cancel",
       },
     },
     peerEvaluationTeachingMember: {
-      resetButton: "Reset teaching peer evaluation teaching members",
+      resetButton: "Reset",
       confirmationDeleteColumn: {
         title: "Delete peer evaluation teaching member",
         bodyText: "Are you sure you want to delete the peer evaluation teaching member?",
@@ -229,6 +269,11 @@ const content = {
     },
   },
   pages: {
+    lecturer: {
+      peerEvaluation: {
+        testId: "page-lecturer-peer-evaluation",
+      },
+    },
     homePage: {
       title: "LSBU Peer Evaluation",
       subTitleTop: "Fairer Teamwork",

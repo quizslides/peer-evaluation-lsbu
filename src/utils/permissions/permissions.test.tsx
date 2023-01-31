@@ -1,3 +1,5 @@
+import { expect } from "@jest/globals";
+
 import { RoleScope, isScopeAuthorized } from "@/utils";
 
 describe("Permissions test by different scopes", () => {

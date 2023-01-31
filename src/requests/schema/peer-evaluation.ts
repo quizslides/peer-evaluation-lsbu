@@ -160,17 +160,7 @@ const GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS = gql`
   }
 `;
 
-const GET_PEER_EVALUATION_COLUMNS = gql`
-  query PeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
-    peerEvaluation(where: $where) {
-      columns {
-        id
-      }
-    }
-  }
-`;
-
-const GET_PEER_EVALUATIONS = gql`
+const GET_PEER_EVALUATIONS_ADMIN = gql`
   query PeerEvaluations($orderBy: [PeerEvaluationOrderByWithRelationInput!]) {
     peerEvaluations(orderBy: $orderBy) {
       id
@@ -299,7 +289,10 @@ const GET_PEER_EVALUATIONS_BY_LECTURER = gql`
 `;
 
 const GET_PEER_EVALUATION = gql`
-  query PeerEvaluation($where: PeerEvaluationWhereUniqueInput!) {
+  query PeerEvaluation(
+    $where: PeerEvaluationWhereUniqueInput!
+    $orderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
+  ) {
     peerEvaluation(where: $where) {
       title
       id
@@ -338,7 +331,7 @@ const GET_PEER_EVALUATION = gql`
         peerEvaluationId
         id
       }
-      columns {
+      columns(orderBy: $orderBy) {
         peerEvaluationId
         description
         id
@@ -386,8 +379,15 @@ const CREATE_PEER_EVALUATION = gql`
 `;
 
 const UPDATE_PEER_EVALUATION = gql`
-  mutation UpdateOnePeerEvaluation($data: PeerEvaluationUpdateInput!, $where: PeerEvaluationWhereUniqueInput!) {
-    updateOnePeerEvaluation(data: $data, where: $where) {
+  mutation UpdatePeerEvaluation(
+    $dataPeerEvaluation: PeerEvaluationUpdateInput!
+    $wherePeerEvaluation: PeerEvaluationWhereUniqueInput!
+    $dataPeerEvaluationStudentReview: PeerEvaluationStudentReviewUpdateManyMutationInput!
+    $wherePeerEvaluationStudentReview: PeerEvaluationStudentReviewWhereInput
+    $dataPeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
+    $wherePeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnWhereInput
+  ) {
+    updateOnePeerEvaluation(data: $dataPeerEvaluation, where: $wherePeerEvaluation) {
       title
       id
       createdAt
@@ -439,6 +439,18 @@ const UPDATE_PEER_EVALUATION = gql`
           peerEvaluationRevieweeColumns
         }
       }
+    }
+    updateManyPeerEvaluationStudentReview(
+      data: $dataPeerEvaluationStudentReview
+      where: $wherePeerEvaluationStudentReview
+    ) {
+      count
+    }
+    updateManyPeerEvaluationRevieweeColumn(
+      data: $dataPeerEvaluationRevieweeColumnData
+      where: $wherePeerEvaluationRevieweeColumnData
+    ) {
+      count
     }
   }
 `;
@@ -500,6 +512,9 @@ const PEER_EVALUATION_DASHBOARD = gql`
       totalPeerEvaluationTeams
       peerEvaluationTeachingMembers {
         role
+        user {
+          email
+        }
       }
     }
   }
@@ -576,6 +591,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
   query PeerEvaluationTableStudent(
     $where: PeerEvaluationTableStudentWhereInput!
     $orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    $columnsOrderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
   ) {
     peerEvaluationTableStudent(where: $where) {
       readOnly
@@ -629,7 +645,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT = gql`
       peerEvaluation {
         id
         status
-        columns {
+        columns(orderBy: $columnsOrderBy) {
           description
           id
         }
@@ -657,6 +673,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
   query PeerEvaluationTableStudentLecturer(
     $where: PeerEvaluationTableStudentLecturerWhereInput!
     $orderBy: [PeerEvaluationRevieweeOrderByWithRelationInput!]
+    $columnsOrderBy: [PeerEvaluationColumnOrderByWithRelationInput!]
   ) {
     peerEvaluationTableStudentLecturer(where: $where) {
       readOnly
@@ -710,7 +727,7 @@ const GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER = gql`
       peerEvaluation {
         id
         status
-        columns {
+        columns(orderBy: $columnsOrderBy) {
           description
           id
         }
@@ -752,7 +769,6 @@ export {
   DELETE_PEER_EVALUATION_STUDENT_TEAM,
   GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
   GET_PEER_EVALUATION,
-  GET_PEER_EVALUATION_COLUMNS,
   GET_PEER_EVALUATION_EMAIL_REMINDER,
   GET_PEER_EVALUATION_INFO,
   GET_PEER_EVALUATION_STUDENT_TEAM_CALCULATES_RESULTS_TABLE,
@@ -761,7 +777,7 @@ export {
   GET_PEER_EVALUATION_TABLE_STUDENT,
   GET_PEER_EVALUATION_TABLE_STUDENT_LECTURER,
   GET_PEER_EVALUATION_TEACHING_MEMBER_USER_ROLE,
-  GET_PEER_EVALUATIONS,
+  GET_PEER_EVALUATIONS_ADMIN,
   GET_PEER_EVALUATIONS_BY_LECTURER,
   GET_PEER_EVALUATIONS_STUDENT,
   PEER_EVALUATION_DASHBOARD,

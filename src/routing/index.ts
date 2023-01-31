@@ -29,7 +29,7 @@ const routing = {
       },
     },
   },
-  backendEndpoint: "/api/graphql",
+  backendEndpoint: "/api",
 };
 
 export default routing;

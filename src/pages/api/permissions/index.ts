@@ -5,9 +5,10 @@ import { PrismaClient } from "@prisma/client";
 import * as Sentry from "@sentry/nextjs";
 import { ApolloError } from "apollo-server-errors";
 import { MicroRequest } from "apollo-server-micro/dist/types";
-import { allow, or, rule, shield } from "graphql-shield";
+import { and, deny, or, rule, shield } from "graphql-shield";
 import { getSession } from "next-auth/react";
 
+import { DEFAULT_ERROR_CODE, getErrorMessageByCode } from "@/pages/api/error/list";
 import { PeerEvaluationsByLecturerWhereInput } from "@/pages/api/resolvers/lecturer/peer-evaluation";
 import { Role } from "@/utils/permissions";
 
@@ -17,13 +18,18 @@ export interface Context {
   req: MicroRequest;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAuthenticated = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
-  return Boolean(session);
+
+  if (session) {
+    return true;
+  }
+
+  const { code, message } = getErrorMessageByCode("AUTHENTICATION_TOKEN_MISSING");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -31,10 +37,11 @@ const isAdmin = rule({ cache: "contextual" })(async (_parent, _args, { req }: Co
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -42,10 +49,11 @@ const isLecturer = rule({ cache: "contextual" })(async (_parent, _args, { req }:
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: Context) => {
   const session = await getSession({ req });
 
@@ -53,7 +61,9 @@ const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: 
     return true;
   }
 
-  return false;
+  const { code, message } = getErrorMessageByCode("PERMISSION_DENIED");
+
+  return new ApolloError(message, code);
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -214,19 +224,59 @@ const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: 
   }
 );
 
-const getStudentPermissionConfiguration = () => or(isAdmin, isLecturer, isStudent);
+const getAdminPermissionConfiguration = () => and(isAuthenticated, isAdmin);
+
+const getLecturerPermissionConfiguration = () => and(isAuthenticated, or(isAdmin, isLecturer));
+
+const getStudentPermissionConfiguration = () => and(isAuthenticated, or(isAdmin, isLecturer, isStudent));
 
 const permissions = shield(
   {
     Query: {
-      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
-      "*": or(isAdmin, isLecturer),
+      "*": deny,
+      email: getLecturerPermissionConfiguration(),
+      findFirstPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      groupByPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      groupByUser: getLecturerPermissionConfiguration(),
+      peerEvaluation: getLecturerPermissionConfiguration(),
+      peerEvaluationDashboard: getLecturerPermissionConfiguration(),
+      peerEvaluationExist: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculatedResultsTable: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamExist: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeams: getLecturerPermissionConfiguration(),
+      peerEvaluationStudents: getLecturerPermissionConfiguration(),
       peerEvaluationTableStudent: getStudentPermissionConfiguration(),
+      peerEvaluationTableStudentLecturer: getLecturerPermissionConfiguration(),
+      peerEvaluationTeachingMember: getLecturerPermissionConfiguration(),
+      peerEvaluations: getAdminPermissionConfiguration(),
+      peerEvaluationsByLecturer: getLecturerPermissionConfiguration(),
       peerEvaluationsStudent: getStudentPermissionConfiguration(),
+      users: getAdminPermissionConfiguration(),
+      usersLecturer: getLecturerPermissionConfiguration(),
     },
     Mutation: {
-      // TODO - https://quizslides.atlassian.net/browse/PEL-323 - Add granular permissions by Admin and Lecturer
-      "*": or(isAdmin, isLecturer),
+      "*": deny,
+      createManyPeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      createManyUser: getLecturerPermissionConfiguration(),
+      createOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      createOnePeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      createOneUser: getLecturerPermissionConfiguration(),
+      createPeerEvaluationStudentBulk: getLecturerPermissionConfiguration(),
+      deleteManyPeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      deleteManyUser: getAdminPermissionConfiguration(),
+      deleteOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      deleteOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculateResultsTable: getLecturerPermissionConfiguration(),
+      peerEvaluationStudentTeamCalculateResultsTableByTeam: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationRevieweeColumn: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationStudentReview: getLecturerPermissionConfiguration(),
+      updateOneEmail: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluation: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationReviewee: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationStudent: getLecturerPermissionConfiguration(),
+      updateOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
+      updateOneUser: getAdminPermissionConfiguration(),
+      updatePeerEvaluationStudentsLecturerMark: getLecturerPermissionConfiguration(),
       updatePeerEvaluationTableStudent: getStudentPermissionConfiguration(),
     },
   },
@@ -239,7 +289,9 @@ const permissions = shield(
         Sentry.captureException(errorThrown);
       }
 
-      return new ApolloError("Internal server error", "ERR_INTERNAL_SERVER");
+      const { code, message } = getErrorMessageByCode(DEFAULT_ERROR_CODE);
+
+      return new ApolloError(message, code);
     },
   }
 );

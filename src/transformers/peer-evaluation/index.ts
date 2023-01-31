@@ -19,6 +19,7 @@ import {
   FieldStatus,
   IPeerEvaluationColumn,
   IPeerEvaluationData,
+  PeerEvaluationColumnAction,
   PeerEvaluationStatus,
   PeerEvaluationTeachingMember,
   PeerEvaluationTeachingMemberRoles,
@@ -96,6 +97,7 @@ const sanitizeColumnsDataOnFetch = (columnsFetch: PeerEvaluationColumn[]): IPeer
       createdAt,
       updatedAt,
       status: FieldStatus.SAVED,
+      action: PeerEvaluationColumnAction.NONE,
     };
   };
 
@@ -105,15 +107,21 @@ const sanitizeColumnsDataOnFetch = (columnsFetch: PeerEvaluationColumn[]): IPeer
 const sanitizeColumnsDataOnCreate = (columns: IPeerEvaluationColumn[]): ColumnCreateMany => {
   const createManyColumns: ColumnCreateMany = [];
 
-  const getCreateManyColumnsObject = (description: string): PeerEvaluationColumnCreateWithoutPeerEvaluationInput => {
+  const getCreateManyColumnsObject = (
+    createdAt: Date,
+    description: string,
+    updatedAt: Date
+  ): PeerEvaluationColumnCreateWithoutPeerEvaluationInput => {
     return {
+      createdAt,
       description,
+      updatedAt,
     };
   };
 
   columns.forEach((column) => {
     if (column.status === "NEW") {
-      createManyColumns.push(getCreateManyColumnsObject(column.description));
+      createManyColumns.push(getCreateManyColumnsObject(column.createdAt, column.description, column.updatedAt));
     }
   });
 

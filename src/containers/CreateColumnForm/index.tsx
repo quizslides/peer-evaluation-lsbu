@@ -21,11 +21,12 @@ const CreateColumnForm = ({ state, updateFormState, onSubmit }: ICreateColumnFor
 
   return (
     <PeerEvaluationColumnForm
-      state={state}
-      formTitle="New column"
-      updateFormState={updateFormState}
-      onSubmitForm={submitForm}
       description={initialColumnState.description}
+      formTitle="New column"
+      isNewColumn
+      onSubmitForm={submitForm}
+      state={state}
+      updateFormState={updateFormState}
     />
   );
 };
