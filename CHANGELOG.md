@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.3.0-staging.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.20...v1.3.0-staging.21) (2023-01-31)
+
+
+### Bug Fixes
+
+* fixing individual mark calculation when studend is 0 as avg criteria score ([4a4cd3f](https://github.com/quizslides/peer-evaluation-lsbu/commit/4a4cd3f2a9a9288b93c70cb706858b390ef1568f))
+
 ## [1.3.0-staging.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0-staging.19...v1.3.0-staging.20) (2023-01-30)
 
 
