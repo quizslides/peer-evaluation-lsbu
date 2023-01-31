@@ -336,7 +336,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                 setCellHeaderProps: () => ({ align: "center" }),
                 customBodyRender: (columnData, tableMeta, updateValue) => {
                   if (typeof columnData === "object" && columnData !== null) {
-                    if (!columnData.criteriaScoreTotal) {
+                    if (columnData.criteriaScoreTotal === null) {
                       return null;
                     }
 

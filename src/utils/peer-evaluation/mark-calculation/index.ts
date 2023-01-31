@@ -286,8 +286,13 @@ const getAvgCriteriaScoreData = (
   };
 };
 
-const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) =>
-  averageCriteriaScore / sumAvgCriteriaScoreByStudent;
+const getAvgCriteriaScoreByTeamMember = (averageCriteriaScore: number, sumAvgCriteriaScoreByStudent: number) => {
+  if (!sumAvgCriteriaScoreByStudent) {
+    return 0;
+  }
+
+  return averageCriteriaScore / sumAvgCriteriaScoreByStudent;
+};
 
 const getSystemCalculatedMark = (
   averageCriteriaScoreByTeamMember: number,
@@ -369,9 +374,9 @@ const getPeerEvaluationStudentFinalMark = (
   systemAdjustedMark: number,
   peerEvaluationTeamMark: number
 ) => {
-  let finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
+  const finalMark = lecturerAdjustedMark ? lecturerAdjustedMark : isNaN(systemAdjustedMark) ? null : systemAdjustedMark;
 
-  if (!finalMark) {
+  if (finalMark === null) {
     return peerEvaluationTeamMark;
   }
 
