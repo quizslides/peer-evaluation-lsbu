@@ -312,7 +312,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                   onClick={() => openStudentPeerEvaluationDialog(columnData.studentId)}
                   size="small"
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "1rem",
                   }}
                 >
                   {columnData.studentName}
@@ -356,7 +356,17 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
                   // TODO: Button Final Mark
                   return (
-                    <Button variant="text" fullWidth testId={""} size="small" disabled>
+                    <Button
+                      variant="text"
+                      fullWidth
+                      testId={""}
+                      size="small"
+                      style={{
+                        fontSize: "1rem",
+                        color: "black",
+                      }}
+                      disabled
+                    >
                       {columnData}
                     </Button>
                   );
