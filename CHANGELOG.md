@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.3.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0...v1.3.1-staging.1) (2023-02-02)
+
+
+### Code Refactoring
+
+* updating alert description when updating one or many columns descriptions ([f9bbdd8](https://github.com/quizslides/peer-evaluation-lsbu/commit/f9bbdd8a7442fd959acb8c710556baeaae936bd5))
+
 ## [1.3.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0...v1.3.0) (2023-02-01)
 
 
