@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.3.1-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.2...v1.3.1-staging.3) (2023-02-18)
+
+
+### Bug Fixes
+
+* updating SMTP_USER with admin as the alias it is not acceptable as SMPT_USER ([cb044d2](https://github.com/quizslides/peer-evaluation-lsbu/commit/cb044d244666b45bbdd2b0811d3057783ac2ecd9))
+
 ### [1.3.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.1...v1.3.1-staging.2) (2023-02-18)
 
 
