@@ -28,7 +28,7 @@ envs:
     value: "465"
   - key: SMTP_USER
     scope: RUN_AND_BUILD_TIME
-    value: no-reply@lsbupeerevaluation.software
+    value: admin@lsbupeerevaluation.software
   - key: SMTP_PASSWORD
     scope: RUN_AND_BUILD_TIME
     type: SECRET
