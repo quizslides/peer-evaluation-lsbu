@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.3.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.1...v1.3.1-staging.2) (2023-02-18)
+
+
+### Code Refactoring
+
+* updating email of SMTP to be no-reply instead of admin ([e6d40fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/e6d40fe49209f520c28ecb825b79f8fb24b52211))
+
 ### [1.3.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0...v1.3.1-staging.1) (2023-02-02)
 
 
