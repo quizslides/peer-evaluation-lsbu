@@ -7,7 +7,8 @@ const updatePeerEvaluation = (
   apolloClient: TApolloClientType,
   peerEvaluationData: PeerEvaluationUpdateInput,
   peerEvaluationId: string,
-  columnListToClearId: string[]
+  columnListToClearId: string[],
+  areNewColumns: boolean
 ) => {
   let dataPeerEvaluationStudentReview = {};
   let dataUpdateManyPeerEvaluationReviewee = {};
@@ -18,6 +19,9 @@ const updatePeerEvaluation = (
         set: false,
       },
     };
+  }
+
+  if (columnListToClearId.length || areNewColumns) {
     dataUpdateManyPeerEvaluationReviewee = {
       criteriaScoreTotal: {
         set: null,

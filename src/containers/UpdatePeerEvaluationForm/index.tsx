@@ -44,11 +44,14 @@ const UpdatePeerEvaluationForm = ({ onSubmit, onCancel, setError, peerEvaluation
 
     const columnListToClearId = columnListToClear.length ? columnListToClear.flatMap(({ id }) => id) : [];
 
+    const columnListToCreate = valuesForm.columns.filter(({ status }) => status === "NEW");
+
     const { errors } = await updatePeerEvaluation(
       apolloClient,
       peerEvaluationDataSanitizedOnUpdate,
       peerEvaluationId,
-      columnListToClearId
+      columnListToClearId,
+      !!columnListToCreate.length
     );
 
     if (!errors) {
