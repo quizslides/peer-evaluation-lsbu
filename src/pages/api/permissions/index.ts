@@ -268,6 +268,7 @@ const permissions = shield(
       deleteOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
       peerEvaluationStudentTeamCalculateResultsTable: getLecturerPermissionConfiguration(),
       peerEvaluationStudentTeamCalculateResultsTableByTeam: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationReviewee: getLecturerPermissionConfiguration(),
       updateManyPeerEvaluationRevieweeColumn: getLecturerPermissionConfiguration(),
       updateManyPeerEvaluationStudentReview: getLecturerPermissionConfiguration(),
       updateOneEmail: getLecturerPermissionConfiguration(),

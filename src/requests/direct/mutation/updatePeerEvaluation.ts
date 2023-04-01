@@ -10,11 +10,17 @@ const updatePeerEvaluation = (
   columnListToClearId: string[]
 ) => {
   let dataPeerEvaluationStudentReview = {};
+  let dataUpdateManyPeerEvaluationReviewee = {};
 
   if (columnListToClearId.length) {
     dataPeerEvaluationStudentReview = {
       isCompleted: {
         set: false,
+      },
+    };
+    dataUpdateManyPeerEvaluationReviewee = {
+      criteriaScoreTotal: {
+        set: null,
       },
     };
   }
@@ -44,6 +50,20 @@ const updatePeerEvaluation = (
       wherePeerEvaluationRevieweeColumnData: {
         peerEvaluationColumnId: {
           in: columnListToClearId,
+        },
+      },
+      dataUpdateManyPeerEvaluationReviewee,
+      whereUpdateManyPeerEvaluationReviewee: {
+        peerEvaluationReview: {
+          is: {
+            peerEvaluationStudent: {
+              is: {
+                peerEvaluationId: {
+                  equals: peerEvaluationId,
+                },
+              },
+            },
+          },
         },
       },
     },
