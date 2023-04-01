@@ -2,6 +2,14 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.3.1-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.3...v1.3.1-staging.4) (2023-04-01)
+
+
+### Bug Fixes
+
+* fixing student data update when peer evaluation column data is cleared ([99b31df](https://github.com/quizslides/peer-evaluation-lsbu/commit/99b31df2832b0168525430c0652f247dff427b3b))
+* fixing wrong average calculation by setting criterial score total correct value ([600b9fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/600b9fe6e6662ccec3ae3df19e9b52fcbc4cfc2e))
+
 ### [1.3.1-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.2...v1.3.1-staging.3) (2023-02-18)
 
 
