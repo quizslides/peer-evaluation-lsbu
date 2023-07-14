@@ -186,7 +186,8 @@ class UpdatePeerEvaluationTableStudentData {
 
         await Promise.all(columnsRevieweePromises);
       }
-    } catch {
+    } catch (error) {
+      console.log(error);
       return {
         code: 500,
         completed: false,
