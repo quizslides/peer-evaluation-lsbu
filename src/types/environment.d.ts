@@ -3,6 +3,7 @@ namespace NodeJS {
   interface ProcessEnv extends NodeJS.ProcessEnv {
     ENVIRONMENT: string;
     DATABASE_URL: string;
+    DATABASE_URL_PRISMA: string;
     NEXTAUTH_SECRET: string;
     NEXTAUTH_URL: string;
     SMTP_HOST: string;
