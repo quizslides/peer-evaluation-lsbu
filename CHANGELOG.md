@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.4...v1.4.0-staging.1) (2023-08-20)
+
+
+### Features
+
+* adding a disable to submit student button to avoid abusing submit action ([c58f54f](https://github.com/quizslides/peer-evaluation-lsbu/commit/c58f54f50b8c0a999ba21f9baa1d3151e34095f6))
+
 ### [1.3.1-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.3...v1.3.1-staging.4) (2023-04-01)
 
 
