@@ -74,11 +74,13 @@ const sanitizeEmailReminderDataOnUpdate = (
 ): EmailUpdateOneWithoutPeerEvaluationNestedInput => {
   return {
     update: {
-      subject: {
-        set: subject,
-      },
-      body: {
-        set: body,
+      data: {
+        subject: {
+          set: subject,
+        },
+        body: {
+          set: body,
+        },
       },
     },
   };

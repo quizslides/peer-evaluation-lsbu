@@ -1,12 +1,13 @@
 import { PeerEvaluationStudent } from "@generated/type-graphql";
-import { Decimal } from "@prisma/client/runtime";
+
+import { Prisma } from "@/pages/api/prisma";
 
 interface IPeerEvaluationStudent extends PeerEvaluationStudent {
   userName: string | undefined;
   userEmail: string | undefined;
   userEmailVerified: Date | null | undefined;
   peerEvaluationStudentTeamName: string | undefined;
-  peerEvaluationStudentTeamMark: Decimal | undefined;
+  peerEvaluationStudentTeamMark: Prisma.Decimal | undefined;
   peerEvaluationReviewedIsCompleted: boolean | undefined;
 }
 

@@ -69,7 +69,7 @@ class PeerEvaluationsByLecturerQuery {
     @Ctx() ctx: { prisma: PrismaClient },
     @Arg("where") where: PeerEvaluationsByLecturerWhereInput
   ): Promise<PeerEvaluation[]> {
-    const result = await ctx.prisma.peerEvaluation.findMany({
+    const result = (await ctx.prisma.peerEvaluation.findMany({
       where: {
         peerEvaluationTeachingMembers: {
           some: {
@@ -96,7 +96,7 @@ class PeerEvaluationsByLecturerQuery {
           },
         },
       },
-    });
+    })) as PeerEvaluation[];
 
     return result;
   }
