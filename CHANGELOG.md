@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.1...v1.4.0-staging.2) (2023-08-20)
+
+
+### Features
+
+* updating peer evalution column on creation with date during execution ([a1efb2e](https://github.com/quizslides/peer-evaluation-lsbu/commit/a1efb2e3a033ff39cf153e4e2f0f2b7d03963134))
+
 ## [1.4.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.4...v1.4.0-staging.1) (2023-08-20)
 
 
