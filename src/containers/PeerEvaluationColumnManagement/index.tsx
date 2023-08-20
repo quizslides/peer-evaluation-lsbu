@@ -167,6 +167,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       options: {
         filter: true,
         sort: true,
+        display: false,
         filterType: "textField",
         customBodyRender: (date: Date) => {
           return getDateLocaleString(date);
@@ -179,6 +180,7 @@ const PeerEvaluationColumnManagement = ({ helperText, testId, name, isDisabled }
       options: {
         filter: true,
         sort: true,
+        display: false,
         filterType: "textField",
         customBodyRender: (date: Date) => {
           return getDateLocaleString(date);

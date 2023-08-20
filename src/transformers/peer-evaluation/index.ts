@@ -119,9 +119,11 @@ const sanitizeColumnsDataOnCreate = (columns: IPeerEvaluationColumn[]): ColumnCr
     };
   };
 
-  columns.forEach((column) => {
+  columns.forEach((column, index) => {
     if (column.status === "NEW") {
-      createManyColumns.push(getCreateManyColumnsObject(column.createdAt, column.description, column.updatedAt));
+      const date = new Date(new Date().setMilliseconds(new Date().getMilliseconds() + index));
+
+      createManyColumns.push(getCreateManyColumnsObject(date, column.description, date));
     }
   });
 

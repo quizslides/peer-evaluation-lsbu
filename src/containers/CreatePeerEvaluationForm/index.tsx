@@ -18,7 +18,7 @@ interface ICreateUserForm {
 const CreatePeerEvaluationForm = ({ onSubmit, onCancel, session }: ICreateUserForm) => {
   const apolloClient = useApolloClient();
 
-  const [peerEvaluationValues, setPeerEvaluationValues] = useState(initialPeerEvaluationState);
+  const [peerEvaluationValues, setPeerEvaluationValues] = useState(initialPeerEvaluationState());
 
   const submitForm = async (valuesForm: IPeerEvaluationData) => {
     loadingNotification("Creating peer evaluation", "CreatePeerEvaluationForm");
