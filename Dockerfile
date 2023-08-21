@@ -1,5 +1,4 @@
-# node:16.13.2-alpine
-FROM node:alpine@sha256:f21f35732964a96306a84a8c4b5a829f6d3a0c5163237ff4b6b8b34f8d70064b
+FROM node:18.17.1-alpine3.18@sha256:982b5b6f07cd9241c9ebb163829067deac8eaefc57cfa8f31927f4b18943d971
 
 LABEL maintainer="juancarlosjr97@gmail.com" \
     description="This is a build container image to deploy Next.js web app using SSR"

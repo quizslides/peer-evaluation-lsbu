@@ -167,7 +167,8 @@
     "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
   },
   "engines": {
-    "node": "16.13.2"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "publishConfig": {
     "access": "restricted"

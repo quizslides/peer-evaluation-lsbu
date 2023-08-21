@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: [16.13.2]
+        node-version: [18.17.1]
 
     steps:
       - name: Checkout
