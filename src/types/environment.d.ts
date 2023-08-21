@@ -1,19 +1,19 @@
 namespace NodeJS {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ProcessEnv extends NodeJS.ProcessEnv {
-    ENVIRONMENT: string;
-    DATABASE_URL: string;
     DATABASE_URL_PRISMA: string;
+    DATABASE_URL: string;
+    ENVIRONMENT: string;
+    NEXT_PUBLIC_LOGICAL_ENVIRONMENT: string;
+    NEXT_PUBLIC_SENTRY_DSN: string;
     NEXTAUTH_SECRET: string;
     NEXTAUTH_URL: string;
-    SMTP_HOST: string;
-    SMTP_PORT: string;
-    SMTP_USER: string;
-    SMTP_PASSWORD: string;
-    SMTP_FROM: string;
-    SMTP_SECURE: string;
     SENTRY_DSN: string;
-    NEXT_PUBLIC_SENTRY_DSN: string;
-    NEXT_PUBLIC_LOGICAL_ENVIRONMENT: string;
+    SMTP_FROM: string;
+    SMTP_HOST: string;
+    SMTP_PASSWORD: string;
+    SMTP_PORT: string;
+    SMTP_SECURE: string;
+    SMTP_USER: string;
   }
 }
