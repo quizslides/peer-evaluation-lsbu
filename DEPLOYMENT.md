@@ -20,6 +20,7 @@ TK
 
 | VARIABLES                         | DESCRIPTION                                                                 | DEFAULT VALUE | ACCEPTED VALUES |
 | --------------------------------- | --------------------------------------------------------------------------- | ------------- | --------------- |
+| `DATABASE_URL_PRISMA`             |                                                                             |               |                 |
 | `DATABASE_URL`                    |                                                                             |               |                 |
 | `ENVIRONMENT`                     |                                                                             |               |                 |
 | `NEXTAUTH_SECRET`                 | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. |               |                 |
