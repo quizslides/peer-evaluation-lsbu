@@ -2,6 +2,36 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0...v1.4.0) (2023-09-12)
+
+
+### Features
+
+* adding a disable to submit student button to avoid abusing submit action ([c58f54f](https://github.com/quizslides/peer-evaluation-lsbu/commit/c58f54f50b8c0a999ba21f9baa1d3151e34095f6))
+* adding pgbouncer and allowing the connection to the database using prisma for migration withou ([7e904cf](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e904cf5f2b012c532b734b8e3a68d5e4d2bffc7))
+* updating iac for the db url for prisma ([bc55569](https://github.com/quizslides/peer-evaluation-lsbu/commit/bc5556946faccaee39ddcce8e761d74b373a96bf))
+* updating peer evalution column on creation with date during execution ([a1efb2e](https://github.com/quizslides/peer-evaluation-lsbu/commit/a1efb2e3a033ff39cf153e4e2f0f2b7d03963134))
+* updating production configuration for SENTRY_SECURITY_HEADER_ENDPOINT, DATABASE_URL with pool ([657a8a1](https://github.com/quizslides/peer-evaluation-lsbu/commit/657a8a1f09617713afd8e8baca641e6537039dc1))
+
+
+### Bug Fixes
+
+* fixing student data update when peer evaluation column data is cleared ([99b31df](https://github.com/quizslides/peer-evaluation-lsbu/commit/99b31df2832b0168525430c0652f247dff427b3b))
+* fixing wrong average calculation by setting criterial score total correct value ([600b9fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/600b9fe6e6662ccec3ae3df19e9b52fcbc4cfc2e))
+* updating SMTP_USER with admin as the alias it is not acceptable as SMPT_USER ([cb044d2](https://github.com/quizslides/peer-evaluation-lsbu/commit/cb044d244666b45bbdd2b0811d3057783ac2ecd9))
+
+
+### Performance Improvements
+
+* updating db to pool, upgrading prisma and next-auth for performance improvement ([cd8c0c3](https://github.com/quizslides/peer-evaluation-lsbu/commit/cd8c0c3c32fc81ea9303ebdc1edbfbbe0c821f21))
+
+
+### Code Refactoring
+
+* updating alert description when updating one or many columns descriptions ([f9bbdd8](https://github.com/quizslides/peer-evaluation-lsbu/commit/f9bbdd8a7442fd959acb8c710556baeaae936bd5))
+* updating email of SMTP to be no-reply instead of admin ([e6d40fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/e6d40fe49209f520c28ecb825b79f8fb24b52211))
+* updating next auth provider to supported version ([983414d](https://github.com/quizslides/peer-evaluation-lsbu/commit/983414de3a294982d22e50c330a99217f8c388a5))
+
 ## [1.4.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.3...v1.4.0-staging.4) (2023-09-12)
 
 
