@@ -2,6 +2,49 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.1...v1.4.0-staging.2) (2023-08-20)
+
+
+### Features
+
+* updating peer evalution column on creation with date during execution ([a1efb2e](https://github.com/quizslides/peer-evaluation-lsbu/commit/a1efb2e3a033ff39cf153e4e2f0f2b7d03963134))
+
+## [1.4.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.4...v1.4.0-staging.1) (2023-08-20)
+
+
+### Features
+
+* adding a disable to submit student button to avoid abusing submit action ([c58f54f](https://github.com/quizslides/peer-evaluation-lsbu/commit/c58f54f50b8c0a999ba21f9baa1d3151e34095f6))
+
+### [1.3.1-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.3...v1.3.1-staging.4) (2023-04-01)
+
+
+### Bug Fixes
+
+* fixing student data update when peer evaluation column data is cleared ([99b31df](https://github.com/quizslides/peer-evaluation-lsbu/commit/99b31df2832b0168525430c0652f247dff427b3b))
+* fixing wrong average calculation by setting criterial score total correct value ([600b9fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/600b9fe6e6662ccec3ae3df19e9b52fcbc4cfc2e))
+
+### [1.3.1-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.2...v1.3.1-staging.3) (2023-02-18)
+
+
+### Bug Fixes
+
+* updating SMTP_USER with admin as the alias it is not acceptable as SMPT_USER ([cb044d2](https://github.com/quizslides/peer-evaluation-lsbu/commit/cb044d244666b45bbdd2b0811d3057783ac2ecd9))
+
+### [1.3.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.1-staging.1...v1.3.1-staging.2) (2023-02-18)
+
+
+### Code Refactoring
+
+* updating email of SMTP to be no-reply instead of admin ([e6d40fe](https://github.com/quizslides/peer-evaluation-lsbu/commit/e6d40fe49209f520c28ecb825b79f8fb24b52211))
+
+### [1.3.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.3.0...v1.3.1-staging.1) (2023-02-02)
+
+
+### Code Refactoring
+
+* updating alert description when updating one or many columns descriptions ([f9bbdd8](https://github.com/quizslides/peer-evaluation-lsbu/commit/f9bbdd8a7442fd959acb8c710556baeaae936bd5))
+
 ## [1.3.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.2.0...v1.3.0) (2023-02-01)
 
 

@@ -41,6 +41,8 @@ interface IPeerEvaluationStudentTableForm {
 }
 
 const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluationStudentTable) => {
+  const [isSubmitting, setSubmitting] = useState(false);
+
   const [dataTableColumns, setDataTableColumns] = useState<MUIDataTableColumn[]>([]);
 
   const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
@@ -72,7 +74,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
       }
 
       return (
-        <Button testId={`${testId}-submit`} variant="contained" type="submit">
+        <Button testId={`${testId}-submit`} variant="contained" type="submit" disabled={isSubmitting}>
           SAVE
         </Button>
       );
@@ -348,7 +350,14 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
       initialValues={peerEvaluationTableFormInitialState}
       validationSchema={validationSchemaState}
       onSubmit={async (data, { resetForm }) => {
-        onSubmit ? await onSubmit(data) : null;
+        if (onSubmit) {
+          setSubmitting(true);
+
+          await onSubmit(data);
+
+          setSubmitting(false);
+        }
+
         resetForm({
           values: data,
         });

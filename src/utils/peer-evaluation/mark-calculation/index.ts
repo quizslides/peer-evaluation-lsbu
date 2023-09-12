@@ -497,7 +497,9 @@ const getPeerEvaluationStudentMarksByTeam = async (peerEvaluationId: string, pee
   const studentTeamEmailList = getStudentTeamEmailList(peerEvaluationStudentTeamData as PeerEvaluationStudentTeam);
 
   if (!studentTeamEmailList?.length) {
-    // Peer Evaluation does not contain any students;
+    /**
+     * When the peer evaluation does not contain any students, return null as the result
+     */
     return null;
   }
 

@@ -52,15 +52,20 @@ const UpdateColumnForm = ({ state, updateFormState, onSubmit, description }: IUp
         content={
           <Alert testId={"bulk-add-edit-dialog"} severity="warning">
             You are about to make a change to the column description for your published peer evaluation, which may
-            affect existing student submissions.
+            affect existing student submissions. Please select your option carefully:
             <br />
             <br />
-            Click on accept and clear to clear all marks already submitted by students for this column and mark their
-            peer evaluation as incomplete. Please notify the affected students to update their peer evaluations.
+            <b>CANCEL</b>: Abort any changes.
+            <br />
+            <br />
+            <b>UPDATE</b>: Save the new description if did not change the column description meaning.
+            <br />
+            <br />
+            <b>UPDATE AND CLEAR</b>: If the meaning of the description has changed, select this option to clear all
+            marks already submitted by students for this column and mark their peer evaluation as incomplete. Please
+            note you must notify the affected students to update their peer evaluations.
           </Alert>
         }
-        tooltipRightButton="Update description, clear all marks and set as incomplete the peer evaluations"
-        tooltipLeftButton="The description of the column was not changed"
         rightButton="Update and clear"
         leftButton="Update"
         rightButtonVariant="outlined"

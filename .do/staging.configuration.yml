@@ -35,7 +35,7 @@ envs:
     value: EV[1:YXg7ZyBqOHAMt/sqLrYj8tWcN7MvQBEC:bVPPuFjgvFprf6X9SLI8WP6UteOEgQyLmq9gdAQ7fDk=]
   - key: SMTP_FROM
     scope: RUN_AND_BUILD_TIME
-    value: admin@lsbupeerevaluation.software
+    value: no-reply@lsbupeerevaluation.software
   - key: SMTP_SECURE
     scope: RUN_AND_BUILD_TIME
     value: "true"

@@ -111,7 +111,7 @@ const SchoolsDataTable: ISchoolsDataTable = {
 
 const peerEvaluationColumnOrder = ["id", "description", "createdAt", "updatedAt", "status"];
 
-const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
+const defaultPeerEvaluationColumns = (): IPeerEvaluationColumn[] => [
   {
     id: "column1",
     status: FieldStatus.NEW,
@@ -154,33 +154,35 @@ const defaultPeerEvaluationColumns: IPeerEvaluationColumn[] = [
   },
 ];
 
-const initialPeerEvaluationState: IPeerEvaluationData = {
-  id: "",
-  title: "",
-  code: "",
-  schools: [],
-  status: PeerEvaluationStatus.DRAFT,
-  maxMarkIncrease: 10,
-  maxMarkDecrease: 100,
-  submissionsLockDate: null,
-  emailSubjectReminder: "Peer Evaluation Reminder - {{code}}",
-  emailBodyReminder: "Email body {{peerEvaluationUrl}}",
-  criteriaScoreRangeMin: 1,
-  criteriaScoreRangeMax: 5,
-  columns: defaultPeerEvaluationColumns,
-  peerEvaluationTeachingMembers: [
-    {
-      id: "",
-      name: "",
-      email: "",
-      role: PeerEvaluationTeachingMemberRoles.OWNER,
-      status: FieldStatus.NEW,
-    },
-  ],
-  instructions:
-    "<ol><li>Select a mark for each criteria and each student (including yourself)</li><li>Justify your marks by including a comment for each student (including yourself)</li><li>Save the form and close the browser tab</li></ol>",
-  scaleExplanation:
-    "<p>Use this scale to rate each criteria:</p><ul><li>5 –&gt; Outstanding</li><li>4 –&gt; Very Good</li><li>3 –&gt; Good</li><li>2 –&gt; Weak</li><li>1 –&gt; Poor / No contribution</li></ul>",
+const initialPeerEvaluationState = (): IPeerEvaluationData => {
+  return {
+    id: "",
+    title: "",
+    code: "",
+    schools: [],
+    status: PeerEvaluationStatus.DRAFT,
+    maxMarkIncrease: 10,
+    maxMarkDecrease: 100,
+    submissionsLockDate: null,
+    emailSubjectReminder: "Peer Evaluation Reminder - {{code}}",
+    emailBodyReminder: "Email body {{peerEvaluationUrl}}",
+    criteriaScoreRangeMin: 1,
+    criteriaScoreRangeMax: 5,
+    columns: defaultPeerEvaluationColumns(),
+    peerEvaluationTeachingMembers: [
+      {
+        id: "",
+        name: "",
+        email: "",
+        role: PeerEvaluationTeachingMemberRoles.OWNER,
+        status: FieldStatus.NEW,
+      },
+    ],
+    instructions:
+      "<ol><li>Select a mark for each criteria and each student (including yourself)</li><li>Justify your marks by including a comment for each student (including yourself)</li><li>Save the form and close the browser tab</li></ol>",
+    scaleExplanation:
+      "<p>Use this scale to rate each criteria:</p><ul><li>5 –&gt; Outstanding</li><li>4 –&gt; Very Good</li><li>3 –&gt; Good</li><li>2 –&gt; Weak</li><li>1 –&gt; Poor / No contribution</li></ul>",
+  };
 };
 
 const initialPeerEvaluationTeachingMember: PeerEvaluationTeachingMember = {

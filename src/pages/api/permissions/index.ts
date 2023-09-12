@@ -67,162 +67,172 @@ const isStudent = rule({ cache: "contextual" })(async (_parent, _args, { req }: 
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isPeerEvaluationTeachingMember = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: PeerEvaluationWhereInput }, { req, prisma }: Context) => {
-    const session = await getSession({ req });
+const isPeerEvaluationTeachingMember = rule({ cache: "contextual" })(async (
+  _parent,
+  _args: { where: PeerEvaluationWhereInput },
+  { req, prisma }: Context
+) => {
+  const session = await getSession({ req });
 
-    const peerEvaluationId = _args.where.id as unknown as string;
+  const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (peerEvaluationId && session?.user.email) {
-      const result = await prisma.peerEvaluation.findFirst({
-        where: {
-          peerEvaluationTeachingMembers: {
-            some: {
-              user: {
-                is: {
-                  email: {
-                    equals: session?.user.email,
-                  },
+  if (peerEvaluationId && session?.user.email) {
+    const result = await prisma.peerEvaluation.findFirst({
+      where: {
+        peerEvaluationTeachingMembers: {
+          some: {
+            user: {
+              is: {
+                email: {
+                  equals: session?.user.email,
                 },
               },
             },
           },
-          id: {
-            equals: peerEvaluationId,
-          },
         },
-      });
+        id: {
+          equals: peerEvaluationId,
+        },
+      },
+    });
 
-      return !!result;
-    }
-
-    return false;
+    return !!result;
   }
-);
+
+  return false;
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isPeerEvaluationTeachingMemberOwner = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
-    const session = await getSession({ req });
+const isPeerEvaluationTeachingMemberOwner = rule({ cache: "contextual" })(async (
+  _parent,
+  _args: { where: PeerEvaluationWhereUniqueInput },
+  { req, prisma }: Context
+) => {
+  const session = await getSession({ req });
 
-    const peerEvaluationId = _args.where.id as unknown as string;
+  const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (peerEvaluationId && session?.user.email) {
-      const result = await prisma.peerEvaluation.findFirst({
-        where: {
-          peerEvaluationTeachingMembers: {
-            some: {
-              user: {
-                is: {
-                  email: {
-                    equals: session?.user.email,
-                  },
+  if (peerEvaluationId && session?.user.email) {
+    const result = await prisma.peerEvaluation.findFirst({
+      where: {
+        peerEvaluationTeachingMembers: {
+          some: {
+            user: {
+              is: {
+                email: {
+                  equals: session?.user.email,
                 },
               },
-              role: {
-                equals: "OWNER",
-              },
+            },
+            role: {
+              equals: "OWNER",
             },
           },
-          id: {
-            equals: peerEvaluationId,
-          },
         },
-      });
+        id: {
+          equals: peerEvaluationId,
+        },
+      },
+    });
 
-      return !!result;
-    }
-
-    return false;
+    return !!result;
   }
-);
+
+  return false;
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isPeerEvaluationTeachingMemberEditor = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
-    const session = await getSession({ req });
+const isPeerEvaluationTeachingMemberEditor = rule({ cache: "contextual" })(async (
+  _parent,
+  _args: { where: PeerEvaluationWhereUniqueInput },
+  { req, prisma }: Context
+) => {
+  const session = await getSession({ req });
 
-    const peerEvaluationId = _args.where.id as unknown as string;
+  const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (peerEvaluationId && session?.user.email) {
-      const result = await prisma.peerEvaluation.findFirst({
-        where: {
-          peerEvaluationTeachingMembers: {
-            some: {
-              user: {
-                is: {
-                  email: {
-                    equals: session?.user.email,
-                  },
+  if (peerEvaluationId && session?.user.email) {
+    const result = await prisma.peerEvaluation.findFirst({
+      where: {
+        peerEvaluationTeachingMembers: {
+          some: {
+            user: {
+              is: {
+                email: {
+                  equals: session?.user.email,
                 },
               },
-              role: {
-                equals: "EDITOR",
-              },
+            },
+            role: {
+              equals: "EDITOR",
             },
           },
-          id: {
-            equals: peerEvaluationId,
-          },
         },
-      });
+        id: {
+          equals: peerEvaluationId,
+        },
+      },
+    });
 
-      return !!result;
-    }
-
-    return false;
+    return !!result;
   }
-);
+
+  return false;
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isPeerEvaluationTeachingMemberViewer = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: PeerEvaluationWhereUniqueInput }, { req, prisma }: Context) => {
-    const session = await getSession({ req });
+const isPeerEvaluationTeachingMemberViewer = rule({ cache: "contextual" })(async (
+  _parent,
+  _args: { where: PeerEvaluationWhereUniqueInput },
+  { req, prisma }: Context
+) => {
+  const session = await getSession({ req });
 
-    const peerEvaluationId = _args.where.id as unknown as string;
+  const peerEvaluationId = _args.where.id as unknown as string;
 
-    if (peerEvaluationId && session?.user.email) {
-      const result = await prisma.peerEvaluation.findFirst({
-        where: {
-          peerEvaluationTeachingMembers: {
-            some: {
-              user: {
-                is: {
-                  email: {
-                    equals: session?.user.email,
-                  },
+  if (peerEvaluationId && session?.user.email) {
+    const result = await prisma.peerEvaluation.findFirst({
+      where: {
+        peerEvaluationTeachingMembers: {
+          some: {
+            user: {
+              is: {
+                email: {
+                  equals: session?.user.email,
                 },
               },
-              role: {
-                equals: "VIEWER",
-              },
+            },
+            role: {
+              equals: "VIEWER",
             },
           },
-          id: {
-            equals: peerEvaluationId,
-          },
         },
-      });
+        id: {
+          equals: peerEvaluationId,
+        },
+      },
+    });
 
-      return !!result;
-    }
-
-    return false;
+    return !!result;
   }
-);
+
+  return false;
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: "contextual" })(
-  async (_parent, _args: { where: PeerEvaluationsByLecturerWhereInput }, { req }: Context) => {
-    const session = await getSession({ req });
+const isUserRequestedPeerEvaluationTeachingMemberPeerEvaluation = rule({ cache: "contextual" })(async (
+  _parent,
+  _args: { where: PeerEvaluationsByLecturerWhereInput },
+  { req }: Context
+) => {
+  const session = await getSession({ req });
 
-    if (session?.user.email === _args.where.lecturerEmail) {
-      return true;
-    }
-
-    return false;
+  if (session?.user.email === _args.where.lecturerEmail) {
+    return true;
   }
-);
+
+  return false;
+});
 
 const getAdminPermissionConfiguration = () => and(isAuthenticated, isAdmin);
 
@@ -268,6 +278,7 @@ const permissions = shield(
       deleteOnePeerEvaluationStudentTeam: getLecturerPermissionConfiguration(),
       peerEvaluationStudentTeamCalculateResultsTable: getLecturerPermissionConfiguration(),
       peerEvaluationStudentTeamCalculateResultsTableByTeam: getLecturerPermissionConfiguration(),
+      updateManyPeerEvaluationReviewee: getLecturerPermissionConfiguration(),
       updateManyPeerEvaluationRevieweeColumn: getLecturerPermissionConfiguration(),
       updateManyPeerEvaluationStudentReview: getLecturerPermissionConfiguration(),
       updateOneEmail: getLecturerPermissionConfiguration(),

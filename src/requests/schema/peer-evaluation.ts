@@ -386,6 +386,8 @@ const UPDATE_PEER_EVALUATION = gql`
     $wherePeerEvaluationStudentReview: PeerEvaluationStudentReviewWhereInput
     $dataPeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnUpdateManyMutationInput!
     $wherePeerEvaluationRevieweeColumnData: PeerEvaluationRevieweeColumnWhereInput
+    $dataUpdateManyPeerEvaluationReviewee: PeerEvaluationRevieweeUpdateManyMutationInput!
+    $whereUpdateManyPeerEvaluationReviewee: PeerEvaluationRevieweeWhereInput
   ) {
     updateOnePeerEvaluation(data: $dataPeerEvaluation, where: $wherePeerEvaluation) {
       title
@@ -449,6 +451,12 @@ const UPDATE_PEER_EVALUATION = gql`
     updateManyPeerEvaluationRevieweeColumn(
       data: $dataPeerEvaluationRevieweeColumnData
       where: $wherePeerEvaluationRevieweeColumnData
+    ) {
+      count
+    }
+    updateManyPeerEvaluationReviewee(
+      data: $dataUpdateManyPeerEvaluationReviewee
+      where: $whereUpdateManyPeerEvaluationReviewee
     ) {
       count
     }
