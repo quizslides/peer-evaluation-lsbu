@@ -2,6 +2,24 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.2...v1.4.0-staging.3) (2023-09-12)
+
+
+### Features
+
+* adding pgbouncer and allowing the connection to the database using prisma for migration withou ([7e904cf](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e904cf5f2b012c532b734b8e3a68d5e4d2bffc7))
+* updating iac for the db url for prisma ([bc55569](https://github.com/quizslides/peer-evaluation-lsbu/commit/bc5556946faccaee39ddcce8e761d74b373a96bf))
+
+
+### Performance Improvements
+
+* updating db to pool, upgrading prisma and next-auth for performance improvement ([cd8c0c3](https://github.com/quizslides/peer-evaluation-lsbu/commit/cd8c0c3c32fc81ea9303ebdc1edbfbbe0c821f21))
+
+
+### Code Refactoring
+
+* updating next auth provider to supported version ([983414d](https://github.com/quizslides/peer-evaluation-lsbu/commit/983414de3a294982d22e50c330a99217f8c388a5))
+
 ## [1.4.0-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.1...v1.4.0-staging.2) (2023-08-20)
 
 
