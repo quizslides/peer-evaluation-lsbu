@@ -1,5 +1,4 @@
 import { PeerEvaluationStudentReview, PeerEvaluationStudentTeam } from "@generated/type-graphql";
-import { Decimal } from "@prisma/client/runtime";
 
 import prisma, { Prisma } from "@/pages/api/prisma";
 import { getMarkSanitized, roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
@@ -57,7 +56,7 @@ interface PeerEvaluationStudentList {
 }
 
 interface IPeerEvaluationStudentTeam {
-  mark: Decimal;
+  mark: Prisma.Decimal;
   id: string;
   peerEvaluationStudentList: PeerEvaluationStudentList[];
 }
@@ -366,7 +365,7 @@ const updatePeerEvaluationStudentData = async (
   });
 };
 
-const getPeerEvaluationStudentLecturerAdjustedMark = (lecturerAdjustedMark: Decimal | null) =>
+const getPeerEvaluationStudentLecturerAdjustedMark = (lecturerAdjustedMark: Prisma.Decimal | null) =>
   lecturerAdjustedMark ? Number(lecturerAdjustedMark) : null;
 
 const getPeerEvaluationStudentFinalMark = (

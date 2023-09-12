@@ -1,6 +1,7 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextApiHandler } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
+import { Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";
 
 import { getUserSessionWithAdditionalDetails, isAccountCreated } from "@/pages/api/auth/utils";
@@ -33,7 +34,7 @@ const options: NextAuthOptions = {
       sendVerificationRequest: async ({ identifier: email, url }) => await sendSignInEmail(email, url),
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     signIn: async ({ user }) => await isAccountCreated(user.email),
