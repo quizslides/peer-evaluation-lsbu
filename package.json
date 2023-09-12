@@ -108,7 +108,7 @@
     "sort-nested-json": "^0.3.2",
     "swr": "^1.2.2",
     "type-graphql": "1.1.1",
-    "typegraphql-prisma": "^0.23.1",
+    "typegraphql-prisma": "^0.24.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {
