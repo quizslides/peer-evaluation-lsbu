@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.4.0-staging.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.3...v1.4.0-staging.4) (2023-09-12)
+
+
+### Features
+
+* updating production configuration for SENTRY_SECURITY_HEADER_ENDPOINT, DATABASE_URL with pool ([657a8a1](https://github.com/quizslides/peer-evaluation-lsbu/commit/657a8a1f09617713afd8e8baca641e6537039dc1))
+
 ## [1.4.0-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0-staging.2...v1.4.0-staging.3) (2023-09-12)
 
 
