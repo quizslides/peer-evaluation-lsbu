@@ -167,7 +167,7 @@
     "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
   },
   "engines": {
-    "node": "16.13.2"
+    "node": "20"
   },
   "publishConfig": {
     "access": "restricted"
