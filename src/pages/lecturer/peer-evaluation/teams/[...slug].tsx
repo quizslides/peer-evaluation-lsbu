@@ -53,22 +53,22 @@ interface IPeerEvaluationStudentTableForm {
   marks: [
     {
       mark: number | string;
-    }
+    },
   ];
   names: [
     {
       name: string;
-    }
+    },
   ];
   ids: [
     {
       id: string;
-    }
+    },
   ];
   comments: [
     {
       comment: string;
-    }
+    },
   ];
 }
 

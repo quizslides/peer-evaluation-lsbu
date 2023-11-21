@@ -372,7 +372,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                   );
                 },
               },
-            } as MUIDataTableColumn)
+            }) as MUIDataTableColumn
         );
 
         setTableColumns([...initialTableColumns, ...studentsColumnList]);
