@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.5.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0...v1.5.0) (2023-11-21)
+
+
+### Features
+
+* upgrading to node 20 ([eebca9c](https://github.com/quizslides/peer-evaluation-lsbu/commit/eebca9ce7855ad2e24d07f3d8086fd93a88a24eb))
+
 ## [1.5.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.4.0...v1.5.0-staging.1) (2023-11-03)
 
 
