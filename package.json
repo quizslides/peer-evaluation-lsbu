@@ -103,6 +103,7 @@
     "react-spinners": "^0.11.0",
     "react-tiny-fab": "^4.0.4",
     "react-use": "^17.4.0",
+    "react-verification-input": "^4.0.0",
     "react-window": "^1.8.6",
     "reflect-metadata": "0.1.13",
     "sort-nested-json": "^0.3.2",

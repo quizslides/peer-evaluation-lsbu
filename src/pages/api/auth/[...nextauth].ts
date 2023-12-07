@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextApiHandler } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
@@ -10,35 +12,44 @@ import prisma from "@/pages/api/prisma";
 import routing from "@/routing";
 
 const options: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
+  callbacks: {
+    session: async ({ user, session }) => await getUserSessionWithAdditionalDetails(user, session),
+    signIn: async ({ user }) => await isAccountCreated(user.email),
+  },
   pages: {
+    error: routing.auth.error,
     signIn: routing.auth.signIn,
     signOut: routing.home,
-    error: routing.auth.error,
-  },
-  session: {
-    maxAge: 24 * 60 * 60,
-    updateAge: 12 * 60 * 60,
   },
   providers: [
     EmailProvider({
+      from: process.env.SMTP_FROM,
+      generateVerificationToken: async () => Promise.resolve(crypto.randomInt(0, 1000000).toString().padStart(6, "0")),
+      maxAge: 24 * 60 * 60,
+      sendVerificationRequest: async ({ identifier: email, token, url }) => {
+        let redirectUrl = null;
+
+        if (url.includes("redirectUrl")) {
+          redirectUrl = `redirectUrl${decodeURIComponent(url.split("redirectUrl")[1].split("&")[0])}`;
+        }
+
+        await sendSignInEmail(email, token, redirectUrl);
+      },
       server: {
+        auth: {
+          pass: process.env.SMTP_PASSWORD,
+          user: process.env.SMTP_USER,
+        },
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT),
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASSWORD,
-        },
       },
-      from: process.env.SMTP_FROM,
-      maxAge: 24 * 60 * 60,
-      sendVerificationRequest: async ({ identifier: email, url }) => await sendSignInEmail(email, url),
     }),
   ],
-  adapter: PrismaAdapter(prisma) as Adapter,
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    signIn: async ({ user }) => await isAccountCreated(user.email),
-    session: async ({ user, session }) => await getUserSessionWithAdditionalDetails(user, session),
+  session: {
+    maxAge: 24 * 60 * 60,
+    updateAge: 12 * 60 * 60,
   },
 };
 

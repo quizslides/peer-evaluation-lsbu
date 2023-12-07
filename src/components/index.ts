@@ -6,6 +6,7 @@ import Base from "@/components/Base/Base";
 import Button from "@/components/Button/Button";
 import ButtonFieldFormDataTablePeerEvaluationValidity from "@/components/ButtonFieldFormDataTablePeerEvaluationValidity/ButtonFieldFormDataTablePeerEvaluationValidity";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
+import Counter from "@/components/Counter/Counter";
 import CriteriaScoreTotalFormDataTable from "@/components/CriteriaScoreTotalFormDataTable/CriteriaScoreTotalFormDataTable";
 import DataTable from "@/components/DataTable/DataTable";
 import DataTableAddActionButtonIcon from "@/components/DataTableAddActionButtonIcon/DataTableAddActionButtonIcon";
@@ -51,6 +52,7 @@ export {
   Button,
   ButtonFieldFormDataTablePeerEvaluationValidity,
   ConfirmationDialog,
+  Counter,
   CriteriaScoreTotalFormDataTable,
   DataTable,
   DataTableAddActionButtonIcon,

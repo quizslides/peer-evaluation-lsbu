@@ -300,10 +300,10 @@ const content = {
             submit: "Sign In",
           },
         },
-        linkSent: {
+        codeSent: {
           description1: "Email sent to",
-          description2: "if it exists in the system. Check your inbox and click the link in the email to sign in.",
-          resendLink: "Send me another link",
+          description2: "if it exists in the system. Check your inbox and copy the code in the email to sign in.",
+          resendCode: "Send me another code",
           hideLinkSetComponent: "Change email",
         },
       },

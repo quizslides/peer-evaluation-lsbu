@@ -47,10 +47,16 @@ Cypress.Commands.add("signInAs", (email: string) => {
 
           const htmlDocument = domParser.parseFromString(data, "text/html");
 
-          const signInRedirectUrl = htmlDocument.getElementById("sign-in-url-fallback")?.innerText;
+          const signInCode = htmlDocument.getElementById("sign-in-code")?.innerText;
 
-          if (signInRedirectUrl) {
+          const signInRedirectUrl = htmlDocument.getElementById("sign-in-url")?.getAttribute("href");
+
+          if (signInRedirectUrl && signInCode) {
             cy.visit(signInRedirectUrl);
+
+            cy.get('[data-testid="signin-code-input"]').type(signInCode);
+
+            cy.wait(2000);
           }
         });
     },
