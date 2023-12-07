@@ -6,6 +6,7 @@ namespace NodeJS {
     ENVIRONMENT: string;
     NEXT_PUBLIC_LOGICAL_ENVIRONMENT: string;
     NEXT_PUBLIC_SENTRY_DSN: string;
+    NEXT_PUBLIC_URL: string;
     NEXTAUTH_SECRET: string;
     NEXTAUTH_URL: string;
     SENTRY_DSN: string;

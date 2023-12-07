@@ -55,6 +55,9 @@ envs:
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:UTt+6UcC3qIhjrmXEPxXSJ7uHfJp+kXu:Duyo09u66+hyRTGI8SPHCnKNjFuM+dKzv/6R98kn4IIlIlcw8x13KPhspO8Xqc8SPUoUXYUk4DFKuE4+4gTgwtBRxZEIC4rxisKnkWK+JAHRuntzG6Q40YBk]
+  - key: NEXT_PUBLIC_URL
+    scope: RUN_AND_BUILD_TIME
+    value: https://lsbupeerevaluation.software
   - key: SENTRY_AUTH_TOKEN
     scope: RUN_AND_BUILD_TIME
     type: SECRET

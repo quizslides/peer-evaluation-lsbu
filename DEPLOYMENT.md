@@ -27,6 +27,7 @@ TK
 | `NEXTAUTH_URL`                    |                                                                             |               |                 |
 | `NEXT_PUBLIC_LOGICAL_ENVIRONMENT` |                                                                             |               |                 |
 | `NEXT_PUBLIC_SENTRY_DSN`          |                                                                             |               |                 |
+| `NEXT_PUBLIC_URL`                 |                                                                             |               |                 |
 | `SENTRY_AUTH_TOKEN`               |                                                                             |               |                 |
 | `SENTRY_DSN`                      |                                                                             |               |                 |
 | `SENTRY_SECURITY_HEADER_ENDPOINT` |                                                                             |               |                 |
