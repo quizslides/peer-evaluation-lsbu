@@ -2,6 +2,19 @@
 
 This changelog is auto generated using semantic releases.
 
+## [1.6.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.5.0...v1.6.0) (2023-12-08)
+
+
+### Features
+
+* adding NEXT_PUBLIC_URL to iac deployment configuration ([8b60698](https://github.com/quizslides/peer-evaluation-lsbu/commit/8b60698316b684b46754a5fac6d7eeb641450fe7))
+* adding sign in with code instead of magic link ([3c98890](https://github.com/quizslides/peer-evaluation-lsbu/commit/3c98890359aab2847b2585578eb6aef5c3dd0254))
+
+
+### Documentation
+
+* updating CODEOWNERS ([71ea0ea](https://github.com/quizslides/peer-evaluation-lsbu/commit/71ea0ea95abe24c4c2ad9b1a3a81ab9f7911c56e))
+
 ## [1.6.0-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.5.0...v1.6.0-staging.1) (2023-12-07)
 
 
