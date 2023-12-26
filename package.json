@@ -111,7 +111,7 @@
     "swr": "^2.2.4",
     "type-graphql": "1.1.1",
     "typegraphql-prisma": "^0.27.1",
-    "yup": "^0.32.11"
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.7",
@@ -127,6 +127,7 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^29.5.11",
+    "@types/lodash": "^4.14.202",
     "@types/mui-datatables": "^4.3.12",
     "@types/node": "^20.10.5",
     "@types/nodemailer": "^6.4.14",
