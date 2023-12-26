@@ -4,9 +4,7 @@ import { PeerEvaluationStudentReview } from "@generated/type-graphql";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { Session } from "next-auth";
-import { array, number, object, string } from "yup";
-import { OptionalObjectSchema } from "yup/lib/object";
-import { AnyObject } from "yup/lib/types";
+import { AnyObjectSchema, array, number, object, string } from "yup";
 
 import LoadingContainer from "../LoadingContainer";
 
@@ -45,7 +43,7 @@ const PeerEvaluationStudentTable = ({ data, session, onSubmit }: IPeerEvaluation
 
   const [dataTableColumns, setDataTableColumns] = useState<MUIDataTableColumn[]>([]);
 
-  const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
+  const [validationSchemaState, setValidationSchemaState] = useState<AnyObjectSchema | null>(null);
 
   const [peerEvaluationTableData, setPeerEvaluationTableData] = useState<IPeerEvaluationStudentData[]>([]);
 

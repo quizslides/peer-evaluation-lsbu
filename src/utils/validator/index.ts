@@ -2,7 +2,12 @@ import { array, date, mixed, number, object, ref, string } from "yup";
 
 import client from "@/graphql/client";
 import peerEvaluationExist from "@/requests/direct/query/peerEvaluationExist";
-import { PeerEvaluationStatus, PeerEvaluationTeachingMemberRoles, Schools } from "@/types/peer-evaluation";
+import {
+  PeerEvaluationStatus,
+  PeerEvaluationTeachingMember,
+  PeerEvaluationTeachingMemberRoles,
+  Schools,
+} from "@/types/peer-evaluation";
 import { tomorrowDate } from "@/utils/form";
 import { Role } from "@/utils/permissions";
 import content from "@/utils/validator/content";
@@ -179,8 +184,10 @@ const peerEvaluationTeachingMembersValidator = {
       test: (values) => {
         const isOwnerRole = (role: string) => role === "OWNER";
 
-        if (values && values.length) {
-          const teachingMemberList = values.filter(({ status }) => status !== "DELETED");
+        const valuesForm = values as PeerEvaluationTeachingMember[];
+
+        if (valuesForm && valuesForm.length) {
+          const teachingMemberList = valuesForm.filter(({ status }) => status !== "DELETED");
 
           return teachingMemberList.some(({ role }) => isOwnerRole(role || ""));
         }

@@ -7,8 +7,7 @@ import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
-import { array, object } from "yup";
-import { AnyObject, OptionalObjectSchema } from "yup/lib/object";
+import { AnyObjectSchema, array, object } from "yup";
 
 import {
   Base,
@@ -81,7 +80,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
 
   const [tableFormInitialState, setTableFormInitialState] = useState<IPeerEvaluationResultStudentTeamTableForm[]>([]);
 
-  const [validationSchemaState, setValidationSchemaState] = useState<OptionalObjectSchema<AnyObject> | null>(null);
+  const [validationSchemaState, setValidationSchemaState] = useState<AnyObjectSchema | null>(null);
 
   const [updatePeerEvaluationStudentTeamCalculateResultsTableByTeam] =
     useUpdatePeerEvaluationStudentTeamCalculateResultsTableByTeam(
