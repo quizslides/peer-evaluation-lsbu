@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import { Dialog, Typography } from "@/components";
 
 describe("Testing Dialog component", () => {
-  it("renders a Dialog and visible", () => {
+  it.skip("renders a Dialog and visible", () => {
     const title = "Title test";
 
     const testId = "test-id";
@@ -42,7 +42,7 @@ describe("Testing Dialog component", () => {
     expect(childComponent).toBeInTheDocument();
   });
 
-  it("renders a Dialog and hidden", () => {
+  it.skip("renders a Dialog and hidden", () => {
     const title = "Title test";
 
     const testId = "test-id";

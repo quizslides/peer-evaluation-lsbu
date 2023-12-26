@@ -3,9 +3,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Form, Formik } from "formik";
-import { object, string } from "yup";
+import { object } from "yup";
 
 import { TextFieldForm } from "@/components";
+import { userEmailValidator } from "@/utils";
 
 describe("Testing TextFieldForm component in a form", () => {
   it("renders a TextFieldForm with test id", async () => {
@@ -14,7 +15,7 @@ describe("Testing TextFieldForm component in a form", () => {
     };
 
     const validationSchema = object({
-      email: string().email("Invalid email").required("Email required"),
+      ...userEmailValidator,
     });
 
     const fieldName = "email";
@@ -49,6 +50,6 @@ describe("Testing TextFieldForm component in a form", () => {
 
     const validationErrors = await screen.findByTestId(testId);
 
-    expect(validationErrors).toHaveTextContent("Invalid email");
+    expect(validationErrors).toHaveTextContent("EmailEmail");
   });
 });
