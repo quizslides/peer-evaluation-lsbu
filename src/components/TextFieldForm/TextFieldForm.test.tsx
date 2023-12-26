@@ -44,9 +44,9 @@ describe("Testing TextFieldForm component in a form", () => {
       </Formik>
     );
 
-    userEvent.type(screen.getByLabelText(/email/i), "test");
+    await userEvent.type(screen.getByLabelText(/email/i), "test");
 
-    userEvent.click(screen.getByRole("button", { name: /submit/i }));
+    await userEvent.click(screen.getByRole("button", { name: /submit/i }));
 
     const validationErrors = await screen.findByTestId(testId);
 

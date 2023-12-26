@@ -23,7 +23,7 @@ describe("Testing TextField component in a form", () => {
       />
     );
 
-    userEvent.type(screen.getByLabelText(/text/i), "test");
+    await userEvent.type(screen.getByLabelText(/text/i), "test");
 
     const validationErrors = await screen.findByTestId(testId);
 
