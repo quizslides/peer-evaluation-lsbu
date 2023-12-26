@@ -129,7 +129,7 @@
     "@types/jest": "^29.5.11",
     "@types/mui-datatables": "^3.7.8",
     "@types/node": "^20.10.5",
-    "@types/nodemailer": "^6.4.4",
+    "@types/nodemailer": "^6.4.14",
     "@types/papaparse": "^5.3.14",
     "@types/react": "17.0.38",
     "@types/react-html-parser": "^2.0.2",
