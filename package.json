@@ -80,7 +80,7 @@
     "apollo-server-micro": "^3.13.0",
     "class-validator": "0.13.2",
     "eslint-plugin-prettier": "^5.1.2",
-    "formik": "^2.2.9",
+    "formik": "^2.4.5",
     "graphql": "15.3.0",
     "graphql-fields": "2.0.3",
     "graphql-middleware": "6.0.9",
