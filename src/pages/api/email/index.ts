@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 import content from "@/pages/api/email/content";
 import { createEmailTransport, getEmailTemplate } from "@/pages/api/email/utils";
 import prisma from "@/pages/api/prisma";
+import routing from "@/routing";
 import { errorLogger } from "@/utils/logger";
 
 const isAccountCreated = async (userEmail: string | null | undefined) => {
@@ -21,21 +22,28 @@ const isAccountCreated = async (userEmail: string | null | undefined) => {
   return false;
 };
 
-const sendSignInEmail = async (email: string, signInUrl: string) => {
+const sendSignInEmail = async (email: string, code: string, redirectUrl: string | null) => {
   try {
     const emailTransporter = createEmailTransport();
+
+    let signInUrl = `${process.env.NEXTAUTH_URL}${routing.auth.signIn}?email=${email}`;
+
+    if (redirectUrl) {
+      signInUrl = `${signInUrl}&${redirectUrl}`;
+    }
 
     await emailTransporter.sendMail({
       to: email,
       from: content.global.from,
       subject: content.emailTemplates.sendSignInEmail.subject,
       html: await getEmailTemplate("sign-in", {
-        preHeader: content.emailTemplates.sendSignInEmail.variables.preHeader,
+        baseUrl: process.env.NEXTAUTH_URL,
+        code,
+        email,
         expireTime: content.emailTemplates.sendSignInEmail.variables.expireTime,
         expireTimeUnit: content.emailTemplates.sendSignInEmail.variables.expireTimeUnit,
-        baseUrl: process.env.NEXTAUTH_URL,
+        preHeader: content.emailTemplates.sendSignInEmail.variables.preHeader,
         signInUrl,
-        email,
       }),
     });
 

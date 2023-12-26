@@ -39,10 +39,14 @@ envs:
   - key: SMTP_SECURE
     scope: RUN_AND_BUILD_TIME
     value: "true"
+  - key: DATABASE_URL_PRISMA
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:/X42pKuUn8JUTR0U92fnOVUkr8ZK8YSF:dhRSsLPXlBaO+4h1cgI8YmkgR0wjgB1GVxYsRplVTfJd1puSkoWKftxPNcjuS4r/MQj2PK/L0hjtFtfyWRYCxBK+FNvhtoXxXpu2ivciQe39CNTAbVLatoJkTX0sHlVH4qfqoNncIuhSfiLQ6AjfI9fqfXm64wVDyI4XdqCgznu+wAjJ9hsgmzQ1Feoxc638AgrB8aZ8kxP1XUq4ngVLIKIseln6DgVx4cShUF6Nc9n1rqqEwhKVoo8vYci6UrYsr3Ghaku4ngg7C0g58FGO+79ogWFL1CCnTDJu8yj+fEfZn9K1eIF8DaIUgg==]
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
-    value: EV[1:d41NnAGnjPwIq+EefJnwRgohTQ+ywDnf:rFQSl6X9Krk8yEkJrX7aBHiYI55LWRO+MOh4S5+XEuHz+fKoA/dtXzpNBm7jnyPLvOLX8aM4Rko4zp97j86xBUh3qw+tx6jk5SsN3yxQ3orVErqHgFutzdaeisTKgcl9RPDlerAZorIfeUNTH6NQILO7Sc3yDGsnqzIC4iMn2QqkW2NsYpKYgP9fI28lhaxmWOZ8wt2k2/R6r2FfWo9pIaPvY4T8jy+E8S644zxmJWgAkHk3qyUUx0RIqeyNIsqMoE4zzpJXbvPM96W+O4nno0wqwBCNj968oPmuOgjHFQUCUxoeO9FxaWvz]
+    value: EV[1:OufceX9+iqRy4aEJMbaul8sqcRda45Dm:hXEhobVtD1dyMjbV69Dy3I0DcxHZ/SWtccSnx/ouCa6vqlPLQHs/NI+HPOY44chssowjDfPaSzKpNYPO1fcukaFrvi0cw28lxU1FWRguxEQO+yQwM/0phyjn0EHvOPnWzlyh7NLERGhDLOYi2GO5+W50ipYptDJXjAznOiWQq582KZnr+leMUAsbZuG1o9l54q3h7HTjbj7FxWl+rvv0Uf6WBmmu6wg6l94UetAPNfdqZW975xlW8tLt87sulebJ5JyDMFn+rIeXkEeLkMHCY42C4dX9iwgHDV1qMYy4XrsVuPwdeq89GJVny42n9md5+OInxct+Kkdeuw==]
   - key: SENTRY_DSN
     scope: RUN_AND_BUILD_TIME
     type: SECRET
@@ -51,10 +55,17 @@ envs:
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:UTt+6UcC3qIhjrmXEPxXSJ7uHfJp+kXu:Duyo09u66+hyRTGI8SPHCnKNjFuM+dKzv/6R98kn4IIlIlcw8x13KPhspO8Xqc8SPUoUXYUk4DFKuE4+4gTgwtBRxZEIC4rxisKnkWK+JAHRuntzG6Q40YBk]
+  - key: NEXT_PUBLIC_URL
+    scope: RUN_AND_BUILD_TIME
+    value: https://lsbupeerevaluation.software
   - key: SENTRY_AUTH_TOKEN
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:xFeNkGiDBMNb/e9u5WUWAmncejNYCaRP:JWwdedd1o2QpHubsRymwsAI/Wmc9ojjZwul0AYboX6OdU40agrYadt1Dp3rBYvaUBdUjeaG0FxP+UPafLm/In5UDzcWhHGIbQpOEeV/sFKo=]
+  - key: SENTRY_SECURITY_HEADER_ENDPOINT
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:/y33f24T45ENkjT93O7AFF2wWHOtjFfM:ds3uSawWOTK+GIUN6gYm89BmiASI+F5pR2uKZtwhkoQMouD38gny3llw2n08egwuS8tOaPhDdRRdmMO6ftlX8sPT4NxFCHoiF2t5X/beHGJ9Gli3E0Ljun2RxeqgpTA3URWiWHCHa3uKVZseP4gqwd7c9HV2sRB5l7TItAPVnxvks1No]
 name: peer-evaluation-web-app-prod
 region: lon
 services:

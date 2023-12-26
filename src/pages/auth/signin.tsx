@@ -6,9 +6,10 @@ import { Form, Formik } from "formik";
 import type { NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import VerificationInput from "react-verification-input";
 import { object } from "yup";
 
-import { Button, PageTitle, TextFieldForm, Typography, WarningUnsavedForm } from "@/components";
+import { Button, Counter, PageTitle, TextFieldForm, Typography, WarningUnsavedForm } from "@/components";
 import { SignInWrapper } from "@/containers";
 import content from "@/content";
 import { EmailSentEmoji } from "@/icons";
@@ -27,10 +28,35 @@ const TextBold = styled.a`
   font-weight: 700;
 `;
 
+const CodeInputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .character {
+    color: black;
+    font-size: 20px;
+    border-radius: 8px;
+    background-color: #eeeeee;
+    box-shadow: 0 2px 0 #e4e2f5;
+  }
+`;
+
+const counterInitialValue = 60;
+
 const SignIn: NextPage = () => {
   const router = useRouter();
 
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
+
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+
+  const [isCodeSent, setCodeSent] = useState<boolean>(false);
+
+  const [counter, setCounter] = useState(counterInitialValue);
+
+  const [isLoadingCode, setLoadingCode] = useState(false);
 
   const { data: session, status } = useSession();
 
@@ -38,15 +64,11 @@ const SignIn: NextPage = () => {
     email: content.pages.auth.signIn.form.email.defaultValue,
   });
 
-  const [isSubmitting, setSubmitting] = useState<boolean>(false);
-
-  const [isLinkSent, setLinkSent] = useState<boolean>(false);
-
   const validationSchema = object({
     ...userEmailValidator,
   });
 
-  const sendLink = async (valuesForm: ISignInForm) => {
+  const sendCode = async (valuesForm: ISignInForm) => {
     setSubmitting(true);
 
     try {
@@ -58,10 +80,11 @@ const SignIn: NextPage = () => {
         redirectUrl: redirectUrl || `${window.location.origin}${routing.home}`,
       });
 
-      setLinkSent(true);
-      successNotification("Link sent successfully", notificationsId);
+      setCodeSent(true);
+
+      successNotification("Code sent successfully", notificationsId);
     } catch (error) {
-      errorNotification("Something wrong happened sending the link");
+      errorNotification("Something wrong happened sending the link with the code");
     } finally {
       setSubmitting(false);
     }
@@ -69,14 +92,18 @@ const SignIn: NextPage = () => {
 
   const submitForm = async (valuesForm: ISignInForm) => {
     setValuesForm(valuesForm);
-    await sendLink(valuesForm);
+
+    await sendCode(valuesForm);
   };
 
-  const resendLink = () => sendLink(valuesForm);
+  const resendCode = () => {
+    disableReSendCodeButton();
+    sendCode(valuesForm);
+  };
 
-  const hideLinkSetComponent = () => setLinkSent(false);
+  const hideLinkSetComponent = () => setCodeSent(false);
 
-  const loading = status === "loading";
+  const loading = status === "loading" || isLoadingCode;
 
   const getAuthenticatedRedirect = () => {
     if (typeof router.query.redirectUrl === "string") {
@@ -86,35 +113,103 @@ const SignIn: NextPage = () => {
     return routing.home;
   };
 
+  const onSignInWithCode = async (code: string) => {
+    setLoadingCode(true);
+
+    const url = `${process.env.NEXT_PUBLIC_URL}/api/auth/callback/email?callbackUrl=${encodeURIComponent(
+      `${process.env.NEXT_PUBLIC_URL}/auth/signin`
+    )}&token=${code}&email=${encodeURIComponent(valuesForm.email)}`;
+
+    const response = await fetch(url);
+
+    if (response.url.includes("error")) {
+      errorNotification("Your code entered is invalid. Try again or request another one.");
+
+      setLoadingCode(false);
+
+      return null;
+    }
+
+    let urlRedirect = response.url;
+
+    if (redirectUrl) {
+      urlRedirect = `${response.url}?redirectUrl=${redirectUrl}`;
+    }
+
+    window.location.href = urlRedirect;
+  };
+
+  const [isDisabled, setDisabled] = useState(false);
+
+  const disableReSendCodeButton = () => {
+    setDisabled(true);
+
+    const interval = setInterval(() => {
+      setCounter((prevCounter) => prevCounter - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      setDisabled(false);
+
+      setCounter(counterInitialValue);
+
+      clearInterval(interval);
+    }, counterInitialValue * 1000);
+  };
+
   useEffect(() => {
     if (router.query.redirectUrl && typeof router.query.redirectUrl === "string") {
       setRedirectUrl(router.query.redirectUrl);
     }
   }, [router.query.redirectUrl]);
 
+  useEffect(() => {
+    if (router.query.email && typeof router.query.email === "string") {
+      setValuesForm({
+        email: router.query.email,
+      });
+
+      setCodeSent(true);
+    }
+  }, [router.query.email]);
+
   if (!loading && session) {
     router.push(getAuthenticatedRedirect());
     return null;
   }
 
-  if (isLinkSent) {
+  if (isCodeSent) {
     return (
       <SignInWrapper loading={loading}>
         <EmailSentContainer maxWidth="xs">
           <EmailSentEmoji height="5rem" width="5rem" testId={"signin-email-link-sent-emoji"} />
+
           <Typography variant="subtitle1" testId="signin-email-link-sent">
-            {content.pages.auth.signIn.linkSent.description1} <TextBold>{valuesForm.email}</TextBold>{" "}
-            {content.pages.auth.signIn.linkSent.description2}
+            {content.pages.auth.signIn.codeSent.description1} <TextBold>{valuesForm.email}</TextBold>{" "}
+            {content.pages.auth.signIn.codeSent.description2}
           </Typography>
+
+          <CodeInputContainer data-testid={"signin-code-input"}>
+            <VerificationInput
+              classNames={{
+                container: "container",
+                character: "character",
+                characterInactive: "character--inactive",
+                characterSelected: "character--selected",
+              }}
+              onComplete={(value) => onSignInWithCode(value)}
+            />
+          </CodeInputContainer>
 
           <Stack spacing={1}>
             <Button
-              onClick={resendLink}
+              onClick={resendCode}
               testId="signin-email-link-sent-button-resent"
               variant="contained"
               color="inherit"
+              disabled={isDisabled}
             >
-              {content.pages.auth.signIn.linkSent.resendLink}
+              {content.pages.auth.signIn.codeSent.resendCode}
             </Button>
             <Button
               onClick={hideLinkSetComponent}
@@ -122,9 +217,13 @@ const SignIn: NextPage = () => {
               variant="outlined"
               color="inherit"
             >
-              {content.pages.auth.signIn.linkSent.hideLinkSetComponent}
+              {content.pages.auth.signIn.codeSent.hideLinkSetComponent}
             </Button>
           </Stack>
+
+          <div style={{ visibility: isDisabled ? "visible" : "hidden" }}>
+            <Counter seconds={counter} />
+          </div>
         </EmailSentContainer>
       </SignInWrapper>
     );

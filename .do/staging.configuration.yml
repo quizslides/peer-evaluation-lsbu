@@ -55,6 +55,9 @@ envs:
     scope: RUN_AND_BUILD_TIME
     type: SECRET
     value: EV[1:uSeeBn+uMvK7P+AxHaigHPQqncDfT7E3:Fj9wQfStf+xF21pUbPAAE8h4naejRot5HVMHsCI2Jyj7uLGDNOGX82N6Y9RL5rmSdPhl6lZCLlXFX0wKgdKthoM88dLQyh4ufXNLDvlSfkZbjOgsZpCrSrv0]
+  - key: NEXT_PUBLIC_URL
+    scope: RUN_AND_BUILD_TIME
+    value: https://staging.lsbupeerevaluation.software
   - key: SENTRY_AUTH_TOKEN
     scope: RUN_AND_BUILD_TIME
     type: SECRET

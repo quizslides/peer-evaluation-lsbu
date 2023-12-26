@@ -1,7 +1,7 @@
 {
   "name": "peer-evaluation-lsbu",
   "description": "The full stack web app of the Peer Evaluation App of LSBU",
-  "version": "1.4.0-staging.1",
+  "version": "1.6.0",
   "private": true,
   "author": "Juan Carlos Blanco Delgado <juancarlosjr97@gmail.com>",
   "license": "UNLICENSED",
@@ -103,6 +103,7 @@
     "react-spinners": "^0.11.0",
     "react-tiny-fab": "^4.0.4",
     "react-use": "^17.4.0",
+    "react-verification-input": "^4.0.0",
     "react-window": "^1.8.6",
     "reflect-metadata": "0.1.13",
     "sort-nested-json": "^0.3.2",
@@ -167,8 +168,7 @@
     "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
   },
   "engines": {
-    "node": ">=18",
-    "npm": ">=9"
+    "node": "20"
   },
   "publishConfig": {
     "access": "restricted"
