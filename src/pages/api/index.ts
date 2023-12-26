@@ -254,7 +254,11 @@ prisma.$use(async (params, next) => {
       }
 
       if ("columns" in params.args.data) {
-        if ("delete" in params.args.data.columns) {
+        if (
+          "delete" in params.args.data.columns &&
+          Array.isArray(params.args.data.columns.delete) &&
+          params.args.data.columns.delete.length
+        ) {
           isValidRecalculateMarksPeerEvaluation = true;
 
           // TODO: Move logic outside the hook
@@ -285,7 +289,6 @@ prisma.$use(async (params, next) => {
                   },
                 },
               });
-
               await prisma.peerEvaluationReviewee.update({
                 data: {
                   criteriaScoreTotal: {
@@ -299,8 +302,11 @@ prisma.$use(async (params, next) => {
             }
           }
         }
-
-        if ("create" in params.args.data.columns) {
+        if (
+          "create" in params.args.data.columns &&
+          Array.isArray(params.args.data.columns.create) &&
+          params.args.data.columns.create.length
+        ) {
           if (peerEvaluationDataBeforeUpdate && peerEvaluationDataAfterUpdate) {
             const peerEvaluationColumnIdsBeforeUpdate = peerEvaluationDataBeforeUpdate.columns.map(({ id }) => id);
 
