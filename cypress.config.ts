@@ -22,4 +22,5 @@ export default defineConfig({
   env: {
     mailHogUrl: "http://localhost:8025",
   },
+  video: true,
 });
