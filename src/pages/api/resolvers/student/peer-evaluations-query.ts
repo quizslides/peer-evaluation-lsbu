@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+
+import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/react";
 import { Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
 

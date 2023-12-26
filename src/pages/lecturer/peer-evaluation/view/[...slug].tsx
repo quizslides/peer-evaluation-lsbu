@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
+import { NextPage, NextPageContext } from "next";
+
 import { Container, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { NextPage, NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 import { Base, Message, PageTitle } from "@/components";
 import { PeerEvaluationNavigationFab } from "@/containers";

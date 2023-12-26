@@ -2,8 +2,8 @@ import React, { memo, useEffect } from "react";
 
 import styled from "@emotion/styled";
 import { Stack } from "@mui/material";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import Button from "@/components/Button/Button";
 import Typography from "@/components/Typography/Typography";

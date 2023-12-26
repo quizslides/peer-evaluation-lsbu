@@ -1,7 +1,8 @@
 import "reflect-metadata";
+import { NextApiRequest } from "next";
+
 import { PeerEvaluation } from "@generated/type-graphql";
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest } from "next";
 import { getSession } from "next-auth/react";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
 

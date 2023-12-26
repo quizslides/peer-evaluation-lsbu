@@ -51,6 +51,11 @@
             "pattern": "react",
             "group": "external",
             "position": "before"
+          },
+          {
+            "pattern": "next",
+            "group": "external",
+            "position": "before"
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"]

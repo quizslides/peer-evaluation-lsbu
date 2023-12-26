@@ -5,8 +5,8 @@ import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
-import { useSession } from "next-auth/react";
 import { NextRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import NavigationDrawer from "@/components/NavigationDrawer/NavigationDrawer";
 import NavigationExpandableItem, { IMenuItem } from "@/components/NavigationExpandableItem/NavigationExpandableItem";

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
-import * as Sentry from "@sentry/nextjs";
 import { NextPage, NextPageContext } from "next";
+
+import * as Sentry from "@sentry/nextjs";
 import NextErrorComponent, { ErrorProps } from "next/error";
 
 import { dismissNotification } from "@/utils";

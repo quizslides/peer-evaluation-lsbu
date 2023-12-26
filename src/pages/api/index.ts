@@ -1,9 +1,10 @@
 import "reflect-metadata";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { PageConfig } from "next";
+
 import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { PageConfig } from "next";
 
 import ErrorHandler from "@/pages/api/error";
 import { sanitizeUserEmail, welcomeUserEmailHook } from "@/pages/api/hooks/auth";

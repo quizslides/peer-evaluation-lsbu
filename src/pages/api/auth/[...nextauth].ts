@@ -1,7 +1,8 @@
 import crypto from "crypto";
 
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextApiHandler } from "next";
+
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";

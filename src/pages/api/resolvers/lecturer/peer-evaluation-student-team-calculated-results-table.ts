@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+
+import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/react";
 import sorter from "sort-nested-json";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";

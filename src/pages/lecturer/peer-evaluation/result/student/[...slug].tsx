@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { NextPage, NextPageContext } from "next";
-import { getSession } from "next-auth/react";
+
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 import { Base } from "@/components";
 import { PeerEvaluationStudentPeerEvaluationContainer } from "@/containers";

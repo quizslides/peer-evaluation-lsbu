@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import type { NextPage, NextPageContext } from "next";
+
 import { useApolloClient } from "@apollo/client";
 import { User } from "@generated/type-graphql";
 import MUIDataTable, { DisplayData, MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import type { NextPage, NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError, object } from "yup";

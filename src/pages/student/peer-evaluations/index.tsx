@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import type { NextPage } from "next";
+
 import { useRouter } from "next/router";
 
 import { Base, PageTitle } from "@/components";

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import { NextPage, NextPageContext } from "next";
+
 import { Grid, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { NextPage, NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { array, object } from "yup";
 import { AnyObject, OptionalObjectSchema } from "yup/lib/object";
 
@@ -372,7 +373,7 @@ const ReportTeam: NextPage<NextPagePros> = ({ session }) => {
                   );
                 },
               },
-            } as MUIDataTableColumn)
+            }) as MUIDataTableColumn
         );
 
         setTableColumns([...initialTableColumns, ...studentsColumnList]);

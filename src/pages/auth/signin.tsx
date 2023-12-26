@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import type { NextPage } from "next";
+
 import styled from "@emotion/styled";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
-import type { NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { signIn, useSession } from "next-auth/react";
 import VerificationInput from "react-verification-input";
 import { object } from "yup";
 
