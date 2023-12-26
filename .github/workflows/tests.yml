@@ -79,7 +79,7 @@ jobs:
         run: cp cypress.env.test.json cypress.env.json
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           install: false
           component: true
@@ -89,7 +89,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Cypress E2E tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           install: false
           browser: chrome
