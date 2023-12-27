@@ -81,9 +81,10 @@ jobs:
       - name: Run Cypress component tests
         uses: cypress-io/github-action@v6
         with:
-          install: false
-          component: true
           browser: chrome
+          component: true
+          install: false
+          record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -91,9 +92,10 @@ jobs:
       - name: Run Cypress E2E tests
         uses: cypress-io/github-action@v6
         with:
-          install: false
           browser: chrome
           headed: true
+          install: false
+          record: true
           wait-on: http://localhost:3000
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
