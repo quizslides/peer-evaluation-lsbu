@@ -12,3 +12,5 @@ jobs:
   tests:
     needs: install-dependencies
     uses: ./.github/workflows/tests.yml
+    secrets:
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
