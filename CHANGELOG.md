@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1-staging.1...v1.6.1-staging.2) (2024-02-16)
+
+
+### Chores
+
+* adding ci and chores to semantic-release ([09eb9b1](https://github.com/quizslides/peer-evaluation-lsbu/commit/09eb9b15139d0617c3909ce160ceb83601262823))
+
 ### [1.6.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1-staging.1) (2024-02-16)
 
 ## [1.6.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.5.0...v1.6.0) (2023-12-08)
