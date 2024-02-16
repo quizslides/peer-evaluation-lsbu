@@ -2,6 +2,8 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1-staging.1) (2024-02-16)
+
 ## [1.6.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.5.0...v1.6.0) (2023-12-08)
 
 
