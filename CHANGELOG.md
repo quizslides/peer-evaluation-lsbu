@@ -2,6 +2,28 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1) (2024-02-16)
+
+
+### Reverts
+
+* updating .nvmrc file ([ffc8674](https://github.com/quizslides/peer-evaluation-lsbu/commit/ffc86741b75130c1cbe58f430f36b4a78c04f1a5))
+
+
+### CI
+
+* adding chore as a patch change ([abd2188](https://github.com/quizslides/peer-evaluation-lsbu/commit/abd2188b92b70ca97740962f7685a3fb430fd34f))
+
+
+### Chores
+
+* adding ci and chores to semantic-release ([09eb9b1](https://github.com/quizslides/peer-evaluation-lsbu/commit/09eb9b15139d0617c3909ce160ceb83601262823))
+* **release:** 1.6.1-staging.1 [skip-ci] ([3491fdb](https://github.com/quizslides/peer-evaluation-lsbu/commit/3491fdb9d193f7bf16c3e4701e696e635f0ddde6))
+* **release:** 1.6.1-staging.2 [skip-ci] ([9fe057e](https://github.com/quizslides/peer-evaluation-lsbu/commit/9fe057e2d4e18e39b159047a4404d7b3ea1c85aa))
+* updating .nvmrv ([6599ba4](https://github.com/quizslides/peer-evaluation-lsbu/commit/6599ba4b26566a0fae532ec98150b1b050f71b76))
+* updating all node related version to 20.11.1 ([92e8fdd](https://github.com/quizslides/peer-evaluation-lsbu/commit/92e8fdda30225e8212ee2cb9bcc598db0c901449))
+* updating node to v20.11.1 with alpine 3.19 ([e5f7e84](https://github.com/quizslides/peer-evaluation-lsbu/commit/e5f7e8448436d0e85a2e13576db21216430bb1d2))
+
 ### [1.6.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1-staging.1...v1.6.1-staging.2) (2024-02-16)
 
 
