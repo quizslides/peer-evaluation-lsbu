@@ -2,6 +2,18 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.1-staging.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1-staging.2...v1.6.1-staging.3) (2024-03-16)
+
+
+### Reverts
+
+* updating .nvmrc file ([ffc8674](https://github.com/quizslides/peer-evaluation-lsbu/commit/ffc86741b75130c1cbe58f430f36b4a78c04f1a5))
+
+
+### Chores
+
+* updating .nvmrv ([6599ba4](https://github.com/quizslides/peer-evaluation-lsbu/commit/6599ba4b26566a0fae532ec98150b1b050f71b76))
+
 ### [1.6.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1-staging.1...v1.6.1-staging.2) (2024-02-16)
 
 
