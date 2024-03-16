@@ -2,6 +2,15 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.2-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1...v1.6.2-staging.1) (2024-03-16)
+
+
+### Chores
+
+* **release:** 1.6.1-staging.3 [skip-ci] ([3fe7171](https://github.com/quizslides/peer-evaluation-lsbu/commit/3fe7171448228a1b6161e55bd52272a666abdf08))
+* **release:** 1.6.1-staging.4 [skip-ci] ([4197eb5](https://github.com/quizslides/peer-evaluation-lsbu/commit/4197eb549ad4b3732783ee8f2c466af6ad5a7055))
+* updating node image with security fix for CVE-2024-28757 ([d185225](https://github.com/quizslides/peer-evaluation-lsbu/commit/d185225c36c1605e66cef0c5015a700a2ff686a0))
+
 ### [1.6.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1) (2024-02-16)
 
 
