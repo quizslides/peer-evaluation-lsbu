@@ -2,6 +2,13 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.3-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.2...v1.6.3-staging.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([33f7914](https://github.com/quizslides/peer-evaluation-lsbu/commit/33f7914f549ae4f0d64a1b2374f44e7bc3d15ecf))
+
 ### [1.6.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1...v1.6.2) (2024-03-16)
 
 
