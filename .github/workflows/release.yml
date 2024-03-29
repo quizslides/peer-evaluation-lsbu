@@ -16,13 +16,9 @@ jobs:
     secrets:
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  semantic-release:
-    needs: tests
-    uses: ./.github/workflows/semantic-release.yml
-
   deployment-credentials:
     name: Deployment credentials setup
-    needs: semantic-release
+    needs: tests
     runs-on: ubuntu-latest
 
     outputs:
@@ -60,3 +56,7 @@ jobs:
     secrets:
       DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets[needs.deployment-credentials.outputs.DIGITALOCEAN_APP_PLATFORM_ID] }}
+
+  semantic-release:
+    needs: digital-ocean-deployment
+    uses: ./.github/workflows/semantic-release.yml
