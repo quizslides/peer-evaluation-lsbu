@@ -20,6 +20,14 @@
           {
             "type": "refactor",
             "release": "patch"
+          },
+          {
+            "type": "chore",
+            "release": "patch"
+          },
+          {
+            "type": "ci",
+            "release": "patch"
           }
         ]
       }
@@ -53,6 +61,14 @@
             {
               "type": "refactor",
               "section": "Code Refactoring"
+            },
+            {
+              "type": "chore",
+              "section": "Chores"
+            },
+            {
+              "type": "ci",
+              "section": "CI"
             }
           ]
         }

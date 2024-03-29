@@ -2,6 +2,77 @@
 
 This changelog is auto generated using semantic releases.
 
+### [1.6.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.2...v1.6.3) (2024-03-23)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([33f7914](https://github.com/quizslides/peer-evaluation-lsbu/commit/33f7914f549ae4f0d64a1b2374f44e7bc3d15ecf))
+
+
+### Chores
+
+* **release:** 1.6.3-staging.1 [skip-ci] ([b94fe10](https://github.com/quizslides/peer-evaluation-lsbu/commit/b94fe103122dbc001905740450349d85f3d23de2))
+* updating tsconfig.json ([ba7737c](https://github.com/quizslides/peer-evaluation-lsbu/commit/ba7737c958adc13e8838ebd5a9e5313d24696950))
+
+### [1.6.3-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.2...v1.6.3-staging.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([33f7914](https://github.com/quizslides/peer-evaluation-lsbu/commit/33f7914f549ae4f0d64a1b2374f44e7bc3d15ecf))
+
+### [1.6.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1...v1.6.2) (2024-03-16)
+
+
+### Chores
+
+* **release:** 1.6.1-staging.3 [skip-ci] ([3fe7171](https://github.com/quizslides/peer-evaluation-lsbu/commit/3fe7171448228a1b6161e55bd52272a666abdf08))
+* **release:** 1.6.1-staging.4 [skip-ci] ([4197eb5](https://github.com/quizslides/peer-evaluation-lsbu/commit/4197eb549ad4b3732783ee8f2c466af6ad5a7055))
+* **release:** 1.6.2-staging.1 [skip-ci] ([0ed0892](https://github.com/quizslides/peer-evaluation-lsbu/commit/0ed089225de37877ccbd572f615b94ffab8949b1))
+* updating node image with security fix for CVE-2024-28757 ([d185225](https://github.com/quizslides/peer-evaluation-lsbu/commit/d185225c36c1605e66cef0c5015a700a2ff686a0))
+* updating tsconfig.json ([7a96ab8](https://github.com/quizslides/peer-evaluation-lsbu/commit/7a96ab84faf611ae05d1e08228d47fd1512da398))
+
+### [1.6.2-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1...v1.6.2-staging.1) (2024-03-16)
+
+
+### Chores
+
+* **release:** 1.6.1-staging.3 [skip-ci] ([3fe7171](https://github.com/quizslides/peer-evaluation-lsbu/commit/3fe7171448228a1b6161e55bd52272a666abdf08))
+* **release:** 1.6.1-staging.4 [skip-ci] ([4197eb5](https://github.com/quizslides/peer-evaluation-lsbu/commit/4197eb549ad4b3732783ee8f2c466af6ad5a7055))
+* updating node image with security fix for CVE-2024-28757 ([d185225](https://github.com/quizslides/peer-evaluation-lsbu/commit/d185225c36c1605e66cef0c5015a700a2ff686a0))
+
+### [1.6.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1) (2024-02-16)
+
+
+### Reverts
+
+* updating .nvmrc file ([ffc8674](https://github.com/quizslides/peer-evaluation-lsbu/commit/ffc86741b75130c1cbe58f430f36b4a78c04f1a5))
+
+
+### CI
+
+* adding chore as a patch change ([abd2188](https://github.com/quizslides/peer-evaluation-lsbu/commit/abd2188b92b70ca97740962f7685a3fb430fd34f))
+
+
+### Chores
+
+* adding ci and chores to semantic-release ([09eb9b1](https://github.com/quizslides/peer-evaluation-lsbu/commit/09eb9b15139d0617c3909ce160ceb83601262823))
+* **release:** 1.6.1-staging.1 [skip-ci] ([3491fdb](https://github.com/quizslides/peer-evaluation-lsbu/commit/3491fdb9d193f7bf16c3e4701e696e635f0ddde6))
+* **release:** 1.6.1-staging.2 [skip-ci] ([9fe057e](https://github.com/quizslides/peer-evaluation-lsbu/commit/9fe057e2d4e18e39b159047a4404d7b3ea1c85aa))
+* updating .nvmrv ([6599ba4](https://github.com/quizslides/peer-evaluation-lsbu/commit/6599ba4b26566a0fae532ec98150b1b050f71b76))
+* updating all node related version to 20.11.1 ([92e8fdd](https://github.com/quizslides/peer-evaluation-lsbu/commit/92e8fdda30225e8212ee2cb9bcc598db0c901449))
+* updating node to v20.11.1 with alpine 3.19 ([e5f7e84](https://github.com/quizslides/peer-evaluation-lsbu/commit/e5f7e8448436d0e85a2e13576db21216430bb1d2))
+
+### [1.6.1-staging.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.1-staging.1...v1.6.1-staging.2) (2024-02-16)
+
+
+### Chores
+
+* adding ci and chores to semantic-release ([09eb9b1](https://github.com/quizslides/peer-evaluation-lsbu/commit/09eb9b15139d0617c3909ce160ceb83601262823))
+
+### [1.6.1-staging.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.0...v1.6.1-staging.1) (2024-02-16)
+
 ## [1.6.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.5.0...v1.6.0) (2023-12-08)
 
 
