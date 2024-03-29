@@ -56,7 +56,7 @@ jobs:
         run: npm run test:jest:ci
 
       - name: Upload coverage jest
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: jest-coverage
@@ -93,7 +93,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Video Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: videos-cypress
@@ -101,7 +101,7 @@ jobs:
           retention-days: 7
 
       - name: Screenshots Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: screenshots-cypress
@@ -112,7 +112,7 @@ jobs:
         run: npm run test:coverage:check
 
       - name: Coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: merged-coverage
