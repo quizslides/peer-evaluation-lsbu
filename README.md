@@ -30,7 +30,7 @@ nvm use
 Install the node dependencies by running:
 
 ```bash
-yarn install
+npm ci --legacy-peer-deps
 ```
 
 ## Next Auth Credentials
@@ -54,7 +54,7 @@ openssl rand -base64 32
 2. Run server
 
    ```bash
-   yarn dev
+   npm run dev
    ```
 
 This will run the web app in your local machine, listening through the port `3000`.

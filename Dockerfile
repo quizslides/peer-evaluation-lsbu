@@ -46,16 +46,12 @@ WORKDIR /app
 
 COPY . ./
 
-RUN yarn config set network-timeout 300000
-
-RUN yarn install --frozen-lockfile \
-    && yarn build:next \
-    && rm -rf node_modules \
-    && yarn install --production --prefer-offline \
-    && yarn cache clean --all
+RUN npm ci --legacy-peer-deps \
+    && npm run build:next \
+    && npm ci --legacy-peer-deps --omit=dev
 
 RUN chmod +x scripts/start.sh
 
 EXPOSE 3000
 
-CMD scripts/start.sh
+CMD ["scripts/start.sh"]
