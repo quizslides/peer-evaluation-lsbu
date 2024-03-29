@@ -17,55 +17,46 @@ jobs:
 
     steps:
       - name: Checkout Code 🛎️
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            prisma/schema.prisma
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Get cached dependencies
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            **/node_modules
-          # yamllint disable-line
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/schema.prisma') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
 
       - name: Setup test environmental variables
         run: |
           cp .env.sample .env
 
       - name: Start docker container
-        run: yarn docker:ci
+        run: npm run docker:ci
 
       - name: Build and start web app in the background
-        run: yarn build:start:background
+        run: npm run build:start:background
         env:
           ENVIRONMENT: ci
           NODE_ENV: ci
 
       - name: Run linter check
-        run: yarn lint:check
+        run: npm run lint:check
 
       - name: Run prisma db migrations
-        run: yarn prisma:deploy
+        run: npm run prisma:deploy
 
       - name: Run prisma seed
-        run: yarn prisma:seed
+        run: npm run prisma:seed
 
       - name: Run jest unit tests
-        run: yarn test:jest:ci
+        run: npm run test:jest:ci
 
       - name: Upload coverage jest
         uses: actions/upload-artifact@v2
@@ -88,7 +79,6 @@ jobs:
           component: true
           install: false
           record: true
-          cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/schema.prisma') }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,7 +91,6 @@ jobs:
           install: false
           record: true
           wait-on: http://localhost:3000
-          cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/schema.prisma') }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -123,7 +112,7 @@ jobs:
           retention-days: 7
 
       - name: Run coverage check
-        run: yarn test:coverage:check
+        run: npm run test:coverage:check
 
       - name: Coverage
         uses: actions/upload-artifact@v2

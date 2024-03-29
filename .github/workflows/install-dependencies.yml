@@ -29,4 +29,4 @@ jobs:
             prisma/schema.prisma
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps

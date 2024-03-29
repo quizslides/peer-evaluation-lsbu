@@ -9,14 +9,21 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     experimentalOriginDependencies: true,
     experimentalModifyObstructiveThirdPartyCode: true,
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
+      require("@cypress/code-coverage/task")(on, config);
       on("task", verifyDownloadTasks);
+
+      return config;
     },
   },
   component: {
     devServer: {
       framework: "next",
       bundler: "webpack",
+    },
+    setupNodeEvents(on, config) {
+      require("@cypress/code-coverage/task")(on, config);
+      return config;
     },
   },
   env: {
