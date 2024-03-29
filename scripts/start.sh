@@ -1,3 +1,3 @@
-yarn prisma:deploy
+npm run prisma:deploy
 
-yarn start
+npm run start

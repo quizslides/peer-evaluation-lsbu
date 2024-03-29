@@ -8,18 +8,18 @@
   "scripts": {
     "build:next": "next build",
     "build:start": "next build && next start &",
-    "build:start:background": "yarn build:start &",
+    "build:start:background": "npm run build:start &",
     "clear:cache": "concurrently \"rm -rf .next\" \"rm -rf .nyc_output\" \"rm -rf coverage\" \"rm -rf node_modules\" \"rm -rf tsconfig.tsbuildinfo\" \"rm -rf .eslintcache\"",
     "dev": "concurrently --kill-others npm:dev:*",
     "dev:docker": "docker-compose up",
     "dev:next": "next dev",
-    "dev:tsc": "yarn tsc --watch --noEmit --incremental --preserveWatchOutput --pretty",
-    "docker:ci": "yarn dev:docker -d",
+    "dev:tsc": "tsc --watch --noEmit --incremental --preserveWatchOutput --pretty",
+    "docker:ci": "npm run dev:docker -d",
     "lint": "next lint --dir . --file ./.eslintrc.json",
-    "lint:check": "yarn lint && yarn tsc",
+    "lint:check": "npm run lint && tsc",
     "lint:fix": "next lint --fix --dir . --file ./.eslintrc.json",
-    "lint:fix:all": "yarn prettier && yarn lint:fix",
-    "postinstall": "yarn prisma:generate",
+    "lint:fix:all": "npm run prettier && npm run lint:fix",
+    "postinstall": "npm run prisma:generate",
     "prepare": "husky install",
     "prettier": "prettier --write .",
     "prisma:db:push": "npx prisma db push",
@@ -35,7 +35,7 @@
     "semantic-release": "semantic-release",
     "start": "next start",
     "test": "concurrently --kill-others --max-processes 1 npm:test:jest:ci npm:test:cypress:e2e:ci npm:test:cypress:component:ci",
-    "test:coverage:check": "yarn test:coverage:merge && yarn test:coverage:report --check-coverage --lines 50",
+    "test:coverage:check": "npm run test:coverage:merge && npm run test:coverage:report --check-coverage --lines 50",
     "test:coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json coverage/jest/coverage-final.json ./coverage/cypress/coverage-final.json",
     "test:coverage:report": "nyc report --reporter=lcov --reporter=text --reporter=text-summary --temp-dir=./coverage/merged --report-dir=./coverage/merged",
     "test:cypress:component:ci": "cypress run --component --browser chrome",
@@ -67,7 +67,7 @@
   "dependencies": {
     "@apollo/client": "3.9.9",
     "@auth/prisma-adapter": "1.5.1",
-    "@babel/traverse": "7.24.1",
+    "@babel/traverse": "7.21.3",
     "@date-io/date-fns": "2.13.1",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
@@ -89,7 +89,7 @@
     "graphql-shield": "7.5.0",
     "liquidjs": "10.10.2",
     "lodash": "4.17.21",
-    "micro": "10.0.1",
+    "micro": "9.3.4",
     "mui-datatables": "4.3.0",
     "next": "12.0.9",
     "next-auth": "4.24.7",
@@ -178,7 +178,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "resolutions": {
+  "overrides": {
     "@babel/core": "7.21.3",
     "@babel/types": "7.21.3",
     "@babel/traverse": "7.21.3"
