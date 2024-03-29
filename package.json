@@ -67,6 +67,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.8",
     "@auth/prisma-adapter": "^1.5.1",
+    "@babel/traverse": "7.22.6",
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -176,5 +177,10 @@
   },
   "publishConfig": {
     "access": "restricted"
+  },
+  "resolutions": {
+    "@babel/core": "7.21.3",
+    "@babel/types": "7.21.3",
+    "@babel/traverse": "7.21.3"
   }
 }
