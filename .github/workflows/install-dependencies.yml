@@ -23,6 +23,7 @@ jobs:
           cache-dependency-path: |
             package-lock.json
             prisma/schema.prisma
+          node-version-file: .nvmrc
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
