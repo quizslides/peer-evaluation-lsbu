@@ -16,8 +16,8 @@ jobs:
 
           branch=${{ github.event.workflow_run.head_branch }}
           
-          echo $branch
-          
+          echo ${{ github.event }}
+
           if [ -n "$branch" ] && [ "$branch" = "staging" ]; then
             release_options="--preRelease=beta"
           fi
