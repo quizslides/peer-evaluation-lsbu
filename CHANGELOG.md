@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.1...1.7.0-beta.2) (2024-03-30)
+
+
+### Features
+
+* adding codecov to run analysis on code coverage ([d1e9181](https://github.com/quizslides/peer-evaluation-lsbu/commit/d1e9181da403eace59f490da6f7c708a11c9bc4e))
+
 ## [1.7.0-beta.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.0...1.7.0-beta.1) (2024-03-30)
 
 
