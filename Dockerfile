@@ -44,7 +44,9 @@ ENV SMTP_USER=${SMTP_USER}
 
 WORKDIR /app
 
-COPY . ./
+USER root
+
+COPY --chown=node . ./
 
 RUN npm ci --legacy-peer-deps \
     && npm run build:next \
@@ -53,5 +55,7 @@ RUN npm ci --legacy-peer-deps \
 RUN chmod +x scripts/start.sh
 
 EXPOSE 3000
+
+USER node
 
 CMD ["scripts/start.sh"]
