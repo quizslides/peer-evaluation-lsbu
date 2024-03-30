@@ -3,6 +3,27 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.0...1.7.0-beta.1) (2024-03-30)
+
+
+### Features
+
+* enable release to digital ocean from pipeline ([e27a464](https://github.com/quizslides/peer-evaluation-lsbu/commit/e27a4641ffe28a0fbf366aad71b3df4daae3f0fa))
+
+
+### Chores
+
+* **deps:** updating husky dependency to 9.0.11 ([0c88ec4](https://github.com/quizslides/peer-evaluation-lsbu/commit/0c88ec437b2fab71c8e0dfeda3f2be1da30ee06b))
+* removing type commented out from IIconButtonWrapper ([f5c9d0a](https://github.com/quizslides/peer-evaluation-lsbu/commit/f5c9d0aac906ef6e0767253c55b68be50835aa94))
+* **renovate:** adding pr with security alert to add CVE ([8d9cd8f](https://github.com/quizslides/peer-evaluation-lsbu/commit/8d9cd8f8e8d4a08be7e1b17df055d4eb65c92cc7))
+* **renovate:** adding schedule weekly to renovate ([955b815](https://github.com/quizslides/peer-evaluation-lsbu/commit/955b8158f7cce8655935c890f784e07e4fd0b506))
+* updating @babel/traverse to v7.23.2 with security fix ([d0c3edf](https://github.com/quizslides/peer-evaluation-lsbu/commit/d0c3edf15e32b3ce42e2b4469f0685ea207fcf58))
+
+
+### Code Refactoring
+
+* updating export to handle on the service runtime execution of prisma ([2356708](https://github.com/quizslides/peer-evaluation-lsbu/commit/2356708d9b0d1eb9b49a18b2bbdd042cdc47dec4))
+
 ## [1.7.0-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.3...1.7.0-beta.0) (2024-03-30)
 
 
