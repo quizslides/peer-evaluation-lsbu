@@ -3,6 +3,17 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.4...1.7.0-beta.5) (2024-03-30)
+
+
+### Chores
+
+* updating class-validator to 0.14.1 ([c0e7f52](https://github.com/quizslides/peer-evaluation-lsbu/commit/c0e7f52cd6331da553eaacc2588246544e4d0a7d))
+* updating jose 5.2.3 ([9a34975](https://github.com/quizslides/peer-evaluation-lsbu/commit/9a3497577700a39e39de6106133cf653035a2c15))
+* updating minimist to 1.2.8 ([d390bf5](https://github.com/quizslides/peer-evaluation-lsbu/commit/d390bf5c12a2c90aeab56f66a7e9142ca5399539))
+* updating next configuration for sentry ([575dd4a](https://github.com/quizslides/peer-evaluation-lsbu/commit/575dd4ae0e3e4fd47153076475c8b563a276d1d8))
+* updating semver to 7.6.0 ([ffaae09](https://github.com/quizslides/peer-evaluation-lsbu/commit/ffaae091cf5bb0e2b9acc76a8089fce9b732442d))
+
 ## [1.7.0-beta.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.3...1.7.0-beta.4) (2024-03-30)
 
 
