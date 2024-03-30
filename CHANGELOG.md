@@ -3,6 +3,23 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.3...1.7.0-beta.4) (2024-03-30)
+
+
+### Features
+
+* adding codacy to run analysis on code coverage ([8c6d203](https://github.com/quizslides/peer-evaluation-lsbu/commit/8c6d20351030488c605af282e2ab418f196db5ee))
+
+
+### Bug Fixes
+
+* adding shebang to shell files ([5188690](https://github.com/quizslides/peer-evaluation-lsbu/commit/51886906f56e79a4395bf497b7cb977576d563b2))
+
+
+### Documentation
+
+* adding codecov to readme ([7e382b6](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e382b6a5dd68a890965f31efab52fc15a2b5e3b))
+
 ## [1.7.0-beta.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.2...1.7.0-beta.3) (2024-03-30)
 
 
