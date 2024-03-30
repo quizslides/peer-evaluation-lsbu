@@ -4,41 +4,41 @@ on:
   workflow_call:
 
 jobs:
-  release_options:
+  release_configuration:
     runs-on: ubuntu-latest
     outputs:
-      release_options: ${{ steps.release_options.outputs.release_options }}
+      branch: ${{ steps.release_configuration.outputs.branch }}
+      release_options: ${{ steps.release_configuration.outputs.release_options }}
     steps:
-      - id: release_options
+      - id: release_configuration
         name: Release options
         run: |
           release_options="--git.tagExclude='*[-]*'"
 
-          branch=${{ github.event.workflow_run.head_branch }}
-          
-          echo ${{ github.event }}
+          branch=${GITHUB_REF##*/}
 
           if [ -n "$branch" ] && [ "$branch" = "staging" ]; then
             release_options="--preRelease=beta"
           fi
           
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
           echo "release_options=$release_options" >> "$GITHUB_OUTPUT"
-  
-  # semantic-release:
-  #   name: Semantic Release Workflow
-  #   runs-on: ubuntu-latest
-  #   needs: release_options
-  #   timeout-minutes: 10
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-  #         ref: ${{ github.event.workflow_run.head_branch }}
 
-  #     - name: Running release-it using GitHub Action
-  #       uses: juancarlosjr97/release-it-containerized@0.6.7
-  #       with:
-  #         github_token: ${{ secrets.PROJECT_GITHUB_TOKEN }}
-  #         plugins_list: "@release-it/conventional-changelog@latest"
-  #         command: ${{needs.release_options.outputs.release_options}}
+  semantic-release:
+    name: Semantic Release Workflow
+    runs-on: ubuntu-latest
+    needs: release_configuration
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{needs.release_configuration.outputs.branch}}
+
+      - name: Running release-it using GitHub Action
+        uses: juancarlosjr97/release-it-containerized@0.6.7
+        with:
+          github_token: ${{ secrets.PROJECT_GITHUB_TOKEN }}
+          plugins_list: "@release-it/conventional-changelog@latest"
+          command: ${{needs.release_configuration.outputs.release_options}}
