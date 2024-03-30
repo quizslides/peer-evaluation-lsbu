@@ -72,9 +72,6 @@ const permissionsHeaders = [
 const moduleExports = {
   poweredByHeader: false,
   reactStrictMode: true,
-  sentry: {
-    hideSourceMaps: true,
-  },
   webpack: (config) => {
     config.experiments = config.experiments || {};
     config.experiments.topLevelAwait = true;
@@ -90,4 +87,12 @@ const sentryWebpackPluginOptions = {
   silent: true,
 };
 
-module.exports = isProductionEnvironment ? withSentryConfig(moduleExports, sentryWebpackPluginOptions) : moduleExports;
+const nextSext = {
+  sentry: {
+    hideSourceMaps: true,
+  },
+};
+
+module.exports = isProductionEnvironment
+  ? withSentryConfig({ ...moduleExports, ...nextSext }, sentryWebpackPluginOptions)
+  : moduleExports;
