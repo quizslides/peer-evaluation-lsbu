@@ -13,4 +13,5 @@ jobs:
     needs: install-dependencies
     uses: ./.github/workflows/tests.yml
     secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

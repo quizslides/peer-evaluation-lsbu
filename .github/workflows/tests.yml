@@ -3,9 +3,13 @@ name: Tests
 on:
   workflow_call:
     secrets:
+      CODECOV_TOKEN:
+        description: "The key to record the execution to CodeCov"
+        required: true
       CYPRESS_RECORD_KEY:
         description: "The key to record the execution to Cypress Cloud"
         required: true
+
 jobs:
   tests:
     name: Tests Workflow
