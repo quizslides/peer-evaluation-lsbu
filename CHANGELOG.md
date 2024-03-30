@@ -3,6 +3,18 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.5...1.7.0-beta.6) (2024-03-30)
+
+
+### Chores
+
+* upgrading next to v14 and react to v18 ([4c88d44](https://github.com/quizslides/peer-evaluation-lsbu/commit/4c88d440277e22d597defceb90d41fdb68f17d53))
+
+
+### Code Refactoring
+
+* refactoring for react 18 ([2e0751e](https://github.com/quizslides/peer-evaluation-lsbu/commit/2e0751ef623b08d79e69cb36d79b01ec1ab22f00))
+
 ## [1.7.0-beta.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.4...1.7.0-beta.5) (2024-03-30)
 
 
