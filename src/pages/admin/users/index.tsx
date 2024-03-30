@@ -627,6 +627,7 @@ const UsersAdmin: NextPage<NextPagePros> = ({ session }) => {
             <MUIDataTable
               title={""}
               data={userDataBulkError}
+              // @ts-ignore
               columns={columnsUserDataBulkError}
               options={tableOptionsUserDataBulkError}
             />

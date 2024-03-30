@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import Button, { ButtonVariant } from "@/components/Button/Button";
 
+// @ts-ignore
 interface IDialog extends DialogProps {
   content: React.ReactNode;
   extraLeftButton?: React.ReactNode | null;

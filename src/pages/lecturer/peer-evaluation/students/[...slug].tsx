@@ -580,6 +580,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
             <MUIDataTable
               title={""}
               data={studentsTeamsDataErrors}
+              // @ts-ignore
               columns={columnsUserDataBulkError}
               options={tableOptionsUserDataBulkError}
             />
