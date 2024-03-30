@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-micro";
 import { applyMiddleware } from "graphql-middleware";
 
-import ErrorHandler from "@/pages/api/error";
+import { ErrorHandler } from "@/pages/api/error";
 import { sanitizeUserEmail, welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import {
   onDeletePeerEvaluationStudentsHookAfter,
@@ -14,8 +14,8 @@ import {
   onUpdatePeerEvaluationStudentHookBeforeData,
 } from "@/pages/api/hooks/peer-evaluation";
 import { permissions } from "@/pages/api/permissions";
-import prisma from "@/pages/api/prisma";
-import schemaDefinitions from "@/pages/api/prisma/schema";
+import { prisma } from "@/pages/api/prisma";
+import { schemaDefinitions } from "@/pages/api/prisma/schema";
 import { getDifferenceTwoArrays } from "@/utils/form";
 import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/columns";
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
@@ -339,11 +339,12 @@ const getApolloServer = (prisma: PrismaClient) => {
   const schemaWithRules = applyMiddleware(schemaDefinitions, permissions);
 
   return new ApolloServer({
-    schema: schemaWithRules,
     context: ({ req, res }) => ({ prisma, req, res }),
     debug: !isProduction,
-    introspection: !isProduction,
     formatError: (error) => ErrorHandler(error),
+    introspection: !isProduction,
+    persistedQueries: false,
+    schema: schemaWithRules,
   });
 };
 

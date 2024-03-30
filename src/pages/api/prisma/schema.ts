@@ -106,4 +106,4 @@ const schemaDefinitions = await buildSchema({
   ],
 });
 
-export default schemaDefinitions;
+export { schemaDefinitions };

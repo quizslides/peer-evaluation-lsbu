@@ -9,7 +9,7 @@ import EmailProvider from "next-auth/providers/email";
 
 import { getUserSessionWithAdditionalDetails, isAccountCreated } from "@/pages/api/auth/utils";
 import { sendSignInEmail } from "@/pages/api/email/index";
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import routing from "@/routing";
 
 const options: NextAuthOptions = {

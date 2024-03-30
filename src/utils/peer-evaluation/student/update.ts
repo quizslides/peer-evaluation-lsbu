@@ -1,6 +1,6 @@
 import { PeerEvaluationStudent } from "@generated/type-graphql";
 
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import { calculatePeerEvaluationStudentMark } from "@/utils/peer-evaluation/mark-calculation";
 import {
   IPeerEvaluationRevieweesToBuildStudentTable,

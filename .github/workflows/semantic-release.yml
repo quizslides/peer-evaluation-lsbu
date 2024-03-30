@@ -6,7 +6,7 @@ on:
       PROJECT_GITHUB_TOKEN:
         description: "Access token for GitHub"
         required: true
-  
+
 jobs:
   release_configuration:
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
           if [ -n "$branch" ] && [ "$branch" = "staging" ]; then
             release_options="--preRelease=beta"
           fi
-          
+
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
           echo "release_options=$release_options" >> "$GITHUB_OUTPUT"
 

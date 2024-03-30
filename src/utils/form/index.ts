@@ -16,7 +16,7 @@ const getRangeNumberObject = (end: number, start = 0) => {
   return Object.assign({}, ...arr.map((v) => ({ [v]: v })));
 };
 
-const arrayToObject = (arr: Array<string | number>) => ({ ...arr } as unknown as JSONStringNumber);
+const arrayToObject = (arr: Array<string | number>) => ({ ...arr }) as unknown as JSONStringNumber;
 
 const tomorrowDate = () => new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 

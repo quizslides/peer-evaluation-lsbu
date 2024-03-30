@@ -1,6 +1,6 @@
 import { Session, User } from "next-auth";
 
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import { Role } from "@/utils/permissions";
 
 const isAccountCreated = async (userEmail: string | null | undefined) => {

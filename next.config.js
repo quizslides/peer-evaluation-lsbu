@@ -72,6 +72,9 @@ const permissionsHeaders = [
 const moduleExports = {
   poweredByHeader: false,
   reactStrictMode: true,
+  sentry: {
+    hideSourceMaps: true,
+  },
   webpack: (config) => {
     config.experiments = config.experiments || {};
     config.experiments.topLevelAwait = true;

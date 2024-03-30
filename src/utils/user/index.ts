@@ -1,4 +1,4 @@
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 
 const getUserIdByEmail = async (email: string) => {
   return (
