@@ -60,3 +60,5 @@ jobs:
   semantic-release:
     # needs: digital-ocean-deployment
     uses: ./.github/workflows/semantic-release.yml
+    secrets:
+      PROJECT_GITHUB_TOKEN: ${{ secrets.PROJECT_GITHUB_TOKEN }}

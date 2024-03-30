@@ -2,7 +2,11 @@
 name: Semantic Release
 on:
   workflow_call:
-
+    secrets:
+      PROJECT_GITHUB_TOKEN:
+        description: "Access token for GitHub"
+        required: true
+  
 jobs:
   release_configuration:
     runs-on: ubuntu-latest
@@ -40,5 +44,5 @@ jobs:
         uses: juancarlosjr97/release-it-containerized@0.6.7
         with:
           command: ${{ needs.release_configuration.outputs.release_options }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PROJECT_GITHUB_TOKEN }}
           plugins_list: "@release-it/conventional-changelog@latest"
