@@ -7,58 +7,58 @@ on:
       - staging
 
 jobs:
-  # install-dependencies:
-  #   uses: ./.github/workflows/install-dependencies.yml
+  install-dependencies:
+    uses: ./.github/workflows/install-dependencies.yml
 
-  # tests:
-  #   needs: install-dependencies
-  #   uses: ./.github/workflows/tests.yml
-  #   secrets:
-  #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  tests:
+    needs: install-dependencies
+    uses: ./.github/workflows/tests.yml
+    secrets:
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  # deployment-credentials:
-  #   name: Deployment credentials setup
-  #   needs: tests
-  #   runs-on: ubuntu-latest
+  deployment-credentials:
+    name: Deployment credentials setup
+    needs: tests
+    runs-on: ubuntu-latest
 
-  #   outputs:
-  #     DIGITALOCEAN_APP_PLATFORM_ID: ${{ steps.output-variables.outputs.DIGITALOCEAN_APP_PLATFORM_ID }}
-  #     DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{ steps.output-variables.outputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
+    outputs:
+      DIGITALOCEAN_APP_PLATFORM_ID: ${{ steps.output-variables.outputs.DIGITALOCEAN_APP_PLATFORM_ID }}
+      DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{ steps.output-variables.outputs.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
 
-  #   steps:
-  #     - name: Extract branch name
-  #       uses: nelonoel/branch-name@v1.0.1
+    steps:
+      - name: Extract branch name
+        uses: nelonoel/branch-name@v1.0.1
 
-  #     - name: Set credentials
-  #       run: |
-  #         echo "BRANCH_NAME=${BRANCH_NAME^^}" >> $GITHUB_ENV
-  #         echo "BRANCH_NAME_LOWERCASE=${BRANCH_NAME,,}" >> $GITHUB_ENV
+      - name: Set credentials
+        run: |
+          echo "BRANCH_NAME=${BRANCH_NAME^^}" >> $GITHUB_ENV
+          echo "BRANCH_NAME_LOWERCASE=${BRANCH_NAME,,}" >> $GITHUB_ENV
 
-  #     - name: Set variables of the branch
-  #       run: |
-  #         echo "DIGITALOCEAN_APP_PLATFORM_ID=DIGITALOCEAN_APP_PLATFORM_ID_${BRANCH_NAME}" >> $GITHUB_ENV
-  #         echo "DIGITALOCEAN_APP_CONFIGURATION_FILE=${BRANCH_NAME_LOWERCASE}.configuration.yml" >> $GITHUB_ENV
+      - name: Set variables of the branch
+        run: |
+          echo "DIGITALOCEAN_APP_PLATFORM_ID=DIGITALOCEAN_APP_PLATFORM_ID_${BRANCH_NAME}" >> $GITHUB_ENV
+          echo "DIGITALOCEAN_APP_CONFIGURATION_FILE=${BRANCH_NAME_LOWERCASE}.configuration.yml" >> $GITHUB_ENV
 
-  #     - name: Set output
-  #       id: output-variables
-  #       env:
-  #         DIGITALOCEAN_APP_PLATFORM_ID: ${{ env.DIGITALOCEAN_APP_PLATFORM_ID }}
-  #         DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{ env.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
-  #       run: |
-  #         echo "::set-output name=DIGITALOCEAN_APP_PLATFORM_ID::${DIGITALOCEAN_APP_PLATFORM_ID}"
-  #         echo "::set-output name=DIGITALOCEAN_APP_CONFIGURATION_FILE::${DIGITALOCEAN_APP_CONFIGURATION_FILE}"
+      - name: Set output
+        id: output-variables
+        env:
+          DIGITALOCEAN_APP_PLATFORM_ID: ${{ env.DIGITALOCEAN_APP_PLATFORM_ID }}
+          DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{ env.DIGITALOCEAN_APP_CONFIGURATION_FILE }}
+        run: |
+          echo "::set-output name=DIGITALOCEAN_APP_PLATFORM_ID::${DIGITALOCEAN_APP_PLATFORM_ID}"
+          echo "::set-output name=DIGITALOCEAN_APP_CONFIGURATION_FILE::${DIGITALOCEAN_APP_CONFIGURATION_FILE}"
 
-  # digital-ocean-deployment:
-  #   needs: deployment-credentials
-  #   uses: ./.github/workflows/digital-ocean-deployment.yml
-  #   with:
-  #     DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{needs.deployment-credentials.outputs.DIGITALOCEAN_APP_CONFIGURATION_FILE}}
-  #   secrets:
-  #     DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-  #     DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets[needs.deployment-credentials.outputs.DIGITALOCEAN_APP_PLATFORM_ID] }}
+  digital-ocean-deployment:
+    needs: deployment-credentials
+    uses: ./.github/workflows/digital-ocean-deployment.yml
+    with:
+      DIGITALOCEAN_APP_CONFIGURATION_FILE: ${{needs.deployment-credentials.outputs.DIGITALOCEAN_APP_CONFIGURATION_FILE}}
+    secrets:
+      DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets[needs.deployment-credentials.outputs.DIGITALOCEAN_APP_PLATFORM_ID] }}
 
   semantic-release:
-    # needs: digital-ocean-deployment
+    needs: digital-ocean-deployment
     uses: ./.github/workflows/semantic-release.yml
     secrets:
       PROJECT_GITHUB_TOKEN: ${{ secrets.PROJECT_GITHUB_TOKEN }}
