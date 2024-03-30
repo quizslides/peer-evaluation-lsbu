@@ -182,6 +182,7 @@
     "class-validator": "0.14.1",
     "jose": "5.2.3",
     "minimist": "1.2.8",
-    "semver": "7.6.0"
+    "semver": "7.6.0",
+    "minimatch@3.0.4": "3.0.5"
   }
 }
