@@ -1,6 +1,7 @@
 # Peer Evaluation London South Bank University
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0e5f5e32e22422da338226457f5225f)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)[![Deployment](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml/badge.svg)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0e5f5e32e22422da338226457f5225f)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![codecov](https://codecov.io/gh/quizslides/peer-evaluation-lsbu/graph/badge.svg?token=SunVCc5YMa)](https://codecov.io/gh/quizslides/peer-evaluation-lsbu)[![Deployment](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml/badge.svg)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml)
 
 These are the instructions to run a full-stack framework using Next.js.
 
