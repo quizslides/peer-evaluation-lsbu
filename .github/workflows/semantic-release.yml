@@ -40,5 +40,5 @@ jobs:
         uses: juancarlosjr97/release-it-containerized@0.6.7
         with:
           command: ${{ needs.release_configuration.outputs.release_options }}
-          github_token: ${{ secrets.PROJECT_GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           plugins_list: "@release-it/conventional-changelog@latest"
