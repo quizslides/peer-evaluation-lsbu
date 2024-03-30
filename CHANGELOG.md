@@ -3,6 +3,15 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.1-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0...1.7.1-beta.0) (2024-03-30)
+
+
+### Continuous Integration
+
+* fetching branch on workflow execution ([a3bcc2b](https://github.com/quizslides/peer-evaluation-lsbu/commit/a3bcc2be0d65a881ea032cf86f99b85fddd590cd))
+* testing workflow branch on workflow execution ([4e80f3a](https://github.com/quizslides/peer-evaluation-lsbu/commit/4e80f3ad3af023b698c8fcf49a3088f291173962))
+* updating release configuration to run on staging branch ([28e7d05](https://github.com/quizslides/peer-evaluation-lsbu/commit/28e7d05093153691c631e55e264c52f492ed4d23))
+
 ## [1.7.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.3...1.7.0) (2024-03-29)
 
 
