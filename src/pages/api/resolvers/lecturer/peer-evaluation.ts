@@ -8,10 +8,7 @@ import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-gr
 
 import { Role } from "@/utils/permissions";
 
-@InputType({
-  isAbstract: true,
-  description: "PeerEvaluation exist input",
-})
+@InputType("PeerEvaluationExistWhereInput")
 class PeerEvaluationExistWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -20,10 +17,7 @@ class PeerEvaluationExistWhereInput {
   code!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: undefined,
-})
+@ObjectType("PeerEvaluationExistResponse")
 class PeerEvaluationExistResponse {
   @Field((_type) => Boolean, {
     nullable: true,
@@ -51,10 +45,7 @@ class PeerEvaluationExistQuery {
   }
 }
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluations by Lecturer input",
-})
+@InputType("PeerEvaluationsByLecturerWhereInput")
 class PeerEvaluationsByLecturerWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -103,10 +94,7 @@ class PeerEvaluationsByLecturerQuery {
   }
 }
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation dashboard input",
-})
+@InputType("PeerEvaluationDashboardWhereInput")
 class PeerEvaluationDashboardWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -115,10 +103,7 @@ class PeerEvaluationDashboardWhereInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Dashboard Object",
-})
+@ObjectType("PeerEvaluationDashboard")
 class PeerEvaluationDashboard extends PeerEvaluation {
   @Field((_type) => Number, {
     nullable: true,
@@ -219,10 +204,7 @@ class PeerEvaluationDashboardQuery {
   }
 }
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Exist Where Input",
-})
+@InputType("PeerEvaluationStudentTeamExistWhereInput")
 class PeerEvaluationStudentTeamExistWhereInput {
   @Field((_type) => [String], {
     nullable: false,
@@ -237,10 +219,7 @@ class PeerEvaluationStudentTeamExistWhereInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Exist Response",
-})
+@ObjectType("PeerEvaluationStudentTeamExistResponse")
 class PeerEvaluationStudentTeamExistResponse {
   @Field((_type) => String, {
     nullable: false,
@@ -255,10 +234,7 @@ class PeerEvaluationStudentTeamExistResponse {
   id: string | undefined;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Exist Input",
-})
+@ObjectType("PeerEvaluationStudentTeamExist")
 class PeerEvaluationStudentTeamExist {
   @Field((_type) => [PeerEvaluationStudentTeamExistResponse], {
     nullable: false,

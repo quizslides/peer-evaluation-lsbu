@@ -3,10 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type
 
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Where Input",
-})
+@InputType("PeerEvaluationStudentTeamCalculateResultsTableWhereInput")
 class PeerEvaluationStudentTeamCalculateResultsTableWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -15,10 +12,7 @@ class PeerEvaluationStudentTeamCalculateResultsTableWhereInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Response",
-})
+@ObjectType("PeerEvaluationStudentTeamCalculateResultsTableResponse")
 class PeerEvaluationStudentTeamCalculateResultsTableResponse {
   @Field((_type) => Boolean, {
     nullable: false,

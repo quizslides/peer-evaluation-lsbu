@@ -7,10 +7,7 @@ import { getDateLocaleString } from "@/utils/date";
 import { isPeerEvaluationStudentTableExists } from "@/utils/peer-evaluation/student";
 import { createPeerEvaluationStudentTableByStudent } from "@/utils/peer-evaluation/student/create";
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Where Input",
-})
+@InputType("PeerEvaluationTableStudentLecturerWhereInput")
 class PeerEvaluationTableStudentLecturerWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -25,10 +22,7 @@ class PeerEvaluationTableStudentLecturerWhereInput {
   studentId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Response",
-})
+@ObjectType("PeerEvaluationTableStudentLecturerResponse")
 class PeerEvaluationTableStudentLecturerResponse {
   @Field((_type) => Boolean, {
     nullable: true,

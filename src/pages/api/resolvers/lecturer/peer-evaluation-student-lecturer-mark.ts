@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type
 
 import { getMarkSanitized } from "@/utils/peer-evaluation/mark-calculation/utils";
 
-@InputType({ description: "Peer Evaluation Students Lecturer Mark Input" })
+@InputType("PeerEvaluationStudentsLecturerMarkInput")
 class PeerEvaluationStudentsLecturerMarkInput {
   @Field((_type) => String, {
     nullable: false,
@@ -18,10 +18,7 @@ class PeerEvaluationStudentsLecturerMarkInput {
   lecturerAdjustedMark!: number | null;
 }
 
-@InputType({
-  isAbstract: true,
-  description: "Update Peer Evaluation Table Students Data Input",
-})
+@InputType("PeerEvaluationStudentsLecturerMarkInputData")
 class PeerEvaluationStudentsLecturerMarkInputData {
   @Field((_type) => [PeerEvaluationStudentsLecturerMarkInput], {
     nullable: true,
@@ -30,10 +27,7 @@ class PeerEvaluationStudentsLecturerMarkInputData {
   peerEvaluationStudentsLecturerMarkData!: PeerEvaluationStudentsLecturerMarkInput[];
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Students Response",
-})
+@ObjectType("PeerEvaluationStudentsLecturerMarkResponse")
 class PeerEvaluationStudentsLecturerMarkResponse {
   @Field((_type) => Boolean, {
     nullable: false,

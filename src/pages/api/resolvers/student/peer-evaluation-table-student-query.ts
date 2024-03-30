@@ -14,10 +14,7 @@ const getIsPeerEvaluationReadOnly = (role: UserRoles | undefined, status: PeerEv
   return true;
 };
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Where Input",
-})
+@InputType("PeerEvaluationTableStudentWhereInput")
 class PeerEvaluationTableStudentWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -32,10 +29,7 @@ class PeerEvaluationTableStudentWhereInput {
   userId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Info Response",
-})
+@ObjectType("PeerEvaluationTableStudentInfoResponse")
 class PeerEvaluationTableStudentInfoResponse {
   @Field((_type) => String, {
     nullable: false,
@@ -74,10 +68,7 @@ class PeerEvaluationTableStudentInfoResponse {
   isCompleted!: boolean;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Response",
-})
+@ObjectType("PeerEvaluationTableStudentResponse")
 class PeerEvaluationTableStudentResponse {
   @Field((_type) => Boolean, {
     nullable: true,

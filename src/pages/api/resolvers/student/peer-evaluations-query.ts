@@ -10,10 +10,7 @@ import {
 } from "@/utils/peer-evaluation/peer-evaluations/student";
 import type { TPeerEvaluationStatus } from "@/utils/peer-evaluation/peer-evaluations/student";
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluations Student Response",
-})
+@ObjectType("PeerEvaluationStudentResponse")
 class PeerEvaluationStudentResponse {
   @Field((_type) => String, {
     nullable: false,
@@ -52,10 +49,7 @@ class PeerEvaluationStudentResponse {
   peerEvaluationStatus!: TPeerEvaluationStatus;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluations Student Response",
-})
+@ObjectType("PeerEvaluationsStudentResponse")
 class PeerEvaluationsStudentResponse {
   @Field((_type) => [PeerEvaluationStudentResponse], {
     nullable: true,

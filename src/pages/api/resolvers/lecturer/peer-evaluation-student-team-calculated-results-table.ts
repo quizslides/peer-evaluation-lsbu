@@ -59,10 +59,7 @@ const getStudentsColumnList = (peerEvaluationStudentTeamCalculatedResults: IPeer
 
   return studentsColumnListSorted as unknown as [PeerEvaluationStudentTeamCalculatedResultsTableColumnList];
 };
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Where Input",
-})
+@InputType("PeerEvaluationStudentTeamCalculatedResultsTableWhereInput")
 class PeerEvaluationStudentTeamCalculatedResultsTableWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -77,7 +74,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTableWhereInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({ description: "Peer Evaluation Student Table Column List" })
+@ObjectType("PeerEvaluationStudentTeamCalculatedResultsTableColumnList")
 class PeerEvaluationStudentTeamCalculatedResultsTableColumnList {
   @Field((_type) => String, {
     nullable: false,
@@ -92,10 +89,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTableColumnList {
   label!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Response",
-})
+@ObjectType("PeerEvaluationStudentTeamCalculatedResultsTableResponse")
 class PeerEvaluationStudentTeamCalculatedResultsTableResponse {
   @Field((_type) => [PeerEvaluationStudentTeamCalculatedResultsTableColumnList], {
     nullable: true,
