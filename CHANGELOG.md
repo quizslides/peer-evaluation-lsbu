@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.6...1.7.0-beta.7) (2024-03-30)
+
+
+### Chores
+
+* overriding minimatch@3.0.4 with 3.0.5 ([61291fa](https://github.com/quizslides/peer-evaluation-lsbu/commit/61291fadabb04acebc92cea7b8dc87644a8711c2))
+
 ## [1.7.0-beta.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.5...1.7.0-beta.6) (2024-03-30)
 
 
