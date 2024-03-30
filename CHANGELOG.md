@@ -3,6 +3,23 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.2...1.7.0-beta.3) (2024-03-30)
+
+
+### Documentation
+
+* updating README ([9d9eebb](https://github.com/quizslides/peer-evaluation-lsbu/commit/9d9eebb16693ff3e5ff79bedd0f63c66808379bd))
+
+
+### Build Changes
+
+* updating dockerfile to run as node instead of root ([e22d7ef](https://github.com/quizslides/peer-evaluation-lsbu/commit/e22d7ef52e1bead902d5083916d47ba4e66fcccd))
+
+
+### Continuous Integration
+
+* updating codecov for code coverage check ([811550e](https://github.com/quizslides/peer-evaluation-lsbu/commit/811550e51cdfce637505aa56b01a35af36373685))
+
 ## [1.7.0-beta.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.1...1.7.0-beta.2) (2024-03-30)
 
 
