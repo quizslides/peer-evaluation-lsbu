@@ -119,6 +119,12 @@ jobs:
           path: coverage/merged
           retention-days: 7
 
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: quizslides/peer-evaluation-lsbu
+
       - name: Exit on failure
         if: failure()
         run: |
