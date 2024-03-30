@@ -3,6 +3,9 @@ name: Tests
 on:
   workflow_call:
     secrets:
+      CODACY_PROJECT_TOKEN:
+        description: "The key to record the execution to Codacy"
+        required: true
       CODECOV_TOKEN:
         description: "The key to record the execution to CodeCov"
         required: true
@@ -128,6 +131,11 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: quizslides/peer-evaluation-lsbu
+
+      - name: Upload coverage reports to Codacy
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
       - name: Exit on failure
         if: failure()
