@@ -1,6 +1,6 @@
-# Peer Evaluation LSBU
+# Peer Evaluation London South Bank University
 
-[![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=active+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu.svg/?label=resolved+issues&show_trend=true&token=JvSkE95Y9D_dTOxQj7ZPROAE)](https://deepsource.io/gh/quizslides/peer-evaluation-lsbu/?ref=repository-badge) [![Test](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/test.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0e5f5e32e22422da338226457f5225f)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)[![Deployment](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml/badge.svg)](https://github.com/quizslides/peer-evaluation-lsbu/actions/workflows/release.yml)
 
 These are the instructions to run a full-stack framework using Next.js.
 
