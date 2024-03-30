@@ -176,6 +176,7 @@
     "access": "restricted"
   },
   "overrides": {
+    "minimist": "1.2.8",
     "@babel/core": "7.21.3",
     "@babel/types": "7.21.3",
     "@babel/traverse": "7.23.2"
