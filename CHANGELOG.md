@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.7...1.7.0-beta.8) (2024-04-04)
+
+
+### Chores
+
+* updating node with security release ([325d8fb](https://github.com/quizslides/peer-evaluation-lsbu/commit/325d8fbd9dbb6f4c27c84f22bd1fa4c49cbfabb7)), closes [#PEL-414](https://github.com/quizslides/peer-evaluation-lsbu/issues/PEL-414)
+
 ## [1.7.0-beta.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.6...1.7.0-beta.7) (2024-03-30)
 
 
