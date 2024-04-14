@@ -3,7 +3,7 @@ services:
   database:
     container_name: db-peer-evaluation
     #PostgreSQL 13.5
-    image: postgres@sha256:f50997df18443e77e1c6d5b3eb69670e91f57c264202114024a75dcb8ca91ff2
+    image: postgres@sha256:7e30f5b61fccd7fc08ee5d5594bcebac83f1b8c77d05c88bd43fe563ca266a6d
     ports:
       - 5432:5432
     env_file: .env

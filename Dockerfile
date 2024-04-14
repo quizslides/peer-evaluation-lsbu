@@ -1,4 +1,4 @@
-FROM docker.io/library/node:20.11.1-alpine3.19@sha256:121edf6661770d20483818426b32042da33323b6fd30fc1ad4cd6890a817e240
+FROM docker.io/library/node:21.7.3-alpine3.19@sha256:7ea91e52a69e2bcdb8ab7724c9902245ef58036a3fcc04ce8b1b7fc0d74de9ec
 
 LABEL maintainer="juancarlosjr97@gmail.com" \
     description="This is a build container image to deploy Next.js web app using SSR"

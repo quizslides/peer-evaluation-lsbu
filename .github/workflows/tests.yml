@@ -14,12 +14,12 @@ jobs:
 
     steps:
       - name: Checkout Code 🛎️
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.1
         with:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -28,7 +28,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Get cached dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: |
@@ -65,7 +65,7 @@ jobs:
         run: yarn test:jest:ci
 
       - name: Upload coverage jest
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: jest-coverage
@@ -100,7 +100,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Video Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: videos-cypress
@@ -108,7 +108,7 @@ jobs:
           retention-days: 7
 
       - name: Screenshots Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: screenshots-cypress
@@ -119,7 +119,7 @@ jobs:
         run: yarn test:coverage:check
 
       - name: Coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: merged-coverage
