@@ -2091,3 +2091,25 @@ describe("Download the report of the team's mark", () => {
     cy.contains("Peer Evaluation deleted successfully", { timeout: 20000 }).should("be.visible");
   });
 });
+
+describe("Case-Insensitive Email Sign-In Test", () => {
+  before(() => {
+    cy.mhDeleteAll();
+
+    cy.signInAs(Cypress.env("users").lecturerUppercase.email);
+  });
+
+  beforeEach(() => {
+    cy.signInAs(Cypress.env("users").lecturerUppercase.email);
+  });
+
+  after(() => {
+    Cypress.session.clearCurrentSessionData();
+  });
+
+  it("Sign in successfully", () => {
+    cy.visit(Cypress.env("url").frontend);
+
+    cy.get("[data-testid=navigation-menu-button]", { timeout: 20000 }).should("be.visible");
+  });
+});
