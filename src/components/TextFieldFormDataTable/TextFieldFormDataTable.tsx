@@ -1,16 +1,14 @@
 import React, { memo } from "react";
 
 import { FormikErrors, useField, useFormikContext } from "formik";
-import { reach } from "yup";
-import { OptionalObjectSchema } from "yup/lib/object";
-import { AnyObject } from "yup/lib/types";
+import { AnyObjectSchema, reach } from "yup";
 
 import TextField, { ITextField } from "@/components/TextField/TextField";
 
 interface ITextFieldFormDataTable extends ITextField {
   name: string;
   updateDataTableFormValue: (value: string) => void;
-  validationSchema: OptionalObjectSchema<AnyObject>;
+  validationSchema: AnyObjectSchema;
   validationFieldPath: string;
 }
 
@@ -40,6 +38,9 @@ const TextFieldFormDataTable = ({
     props.helperText = meta.error;
 
     reach(validationSchema, validationFieldPath)
+      // @ts-ignore
+      // Due to type error and when the bug is fixed
+      // @source https://github.com/jquense/yup/issues/2152
       .validate(meta.value)
       .catch((e: FormikErrors<Error>) => {
         setErrors(e);

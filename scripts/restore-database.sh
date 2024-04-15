@@ -1,3 +1,5 @@
+#!/bin/sh
+
 DATABASE_NAME=$1
 
 docker exec -i db-peer-evaluation psql -U user -d db -c "DROP database db;"

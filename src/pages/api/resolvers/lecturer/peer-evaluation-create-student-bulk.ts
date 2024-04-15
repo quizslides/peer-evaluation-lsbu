@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type
 
 import { onCreatePeerEvaluationStudentBulk } from "@/utils/peer-evaluation/student/create";
 
-@InputType({ description: "Peer Evaluation Create Student Bulk Input" })
+@InputType("PeerEvaluationCreateStudentBulk")
 class PeerEvaluationCreateStudentBulk {
   @Field((_type) => String, {
     nullable: false,
@@ -18,10 +18,7 @@ class PeerEvaluationCreateStudentBulk {
   studentTeamName!: string;
 }
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Create Student Bulk Input",
-})
+@InputType("PeerEvaluationCreateStudentBulkInput")
 class PeerEvaluationCreateStudentBulkInput {
   @Field((_type) => [PeerEvaluationCreateStudentBulk], {
     nullable: true,
@@ -36,10 +33,7 @@ class PeerEvaluationCreateStudentBulkInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation ",
-})
+@ObjectType("PeerEvaluationCreateStudentBulkResponse")
 class PeerEvaluationCreateStudentBulkResponse {
   @Field((_type) => Boolean, {
     nullable: false,

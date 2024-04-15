@@ -8,6 +8,12 @@ import content from "@/content";
 
 describe("Testing ErrorAuth container", () => {
   it("renders a ErrorAuth", () => {
+    const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+    useRouter.mockImplementation(() => ({
+      push: jest.fn(),
+    }));
+
     render(
       <SessionProvider session={null}>
         <ErrorAuth />

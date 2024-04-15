@@ -1,6 +1,6 @@
 import { getPeerEvaluationStudentListByStudentUpdated, updatePeerEvaluationStudentReview } from "./update";
 
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import {
   IPeerEvaluationRevieweesToBuildStudentTable,
   getPeerEvaluationDataToBuildStudentTable,

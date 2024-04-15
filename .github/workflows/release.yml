@@ -13,14 +13,14 @@ jobs:
   tests:
     needs: install-dependencies
     uses: ./.github/workflows/tests.yml
-
-  semantic-release:
-    needs: tests
-    uses: ./.github/workflows/semantic-release.yml
+    secrets:
+      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   deployment-credentials:
     name: Deployment credentials setup
-    needs: semantic-release
+    needs: tests
     runs-on: ubuntu-latest
 
     outputs:
@@ -58,3 +58,9 @@ jobs:
     secrets:
       DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       DIGITALOCEAN_APP_PLATFORM_ID: ${{ secrets[needs.deployment-credentials.outputs.DIGITALOCEAN_APP_PLATFORM_ID] }}
+
+  semantic-release:
+    needs: digital-ocean-deployment
+    uses: ./.github/workflows/semantic-release.yml
+    secrets:
+      PROJECT_GITHUB_TOKEN: ${{ secrets.PROJECT_GITHUB_TOKEN }}

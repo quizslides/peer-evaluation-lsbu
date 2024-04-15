@@ -6,6 +6,12 @@ import { HelpButton } from "@/components";
 
 describe("Testing HelpButton component", () => {
   it("renders a help button with test id", () => {
+    const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+    useRouter.mockImplementation(() => ({
+      push: jest.fn(),
+    }));
+
     render(<HelpButton />);
 
     const buttonElementByTestId = screen.getByTestId("routing-help-page");

@@ -2,70 +2,68 @@
 name: Tests
 on:
   workflow_call:
+    secrets:
+      CODACY_PROJECT_TOKEN:
+        description: "The key to record the execution to Codacy"
+        required: true
+      CODECOV_TOKEN:
+        description: "The key to record the execution to CodeCov"
+        required: true
+      CYPRESS_RECORD_KEY:
+        description: "The key to record the execution to Cypress Cloud"
+        required: true
 
 jobs:
   tests:
     name: Tests Workflow
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      matrix:
-        node-version: [20.11.1]
 
     steps:
       - name: Checkout Code 🛎️
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: .nvmrc
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            prisma/schema.prisma
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Get cached dependencies
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            **/node_modules
-          # yamllint disable-line
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/schema.prisma') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
 
       - name: Setup test environmental variables
         run: |
           cp .env.sample .env
 
       - name: Start docker container
-        run: yarn docker:ci
+        run: npm run docker:ci
 
       - name: Build and start web app in the background
-        run: yarn build:start:background
+        run: npm run build:start:background
         env:
           ENVIRONMENT: ci
           NODE_ENV: ci
 
       - name: Run linter check
-        run: yarn lint:check
+        run: npm run lint:check
 
       - name: Run prisma db migrations
-        run: yarn prisma:deploy
+        run: npm run prisma:deploy
 
       - name: Run prisma seed
-        run: yarn prisma:seed
+        run: npm run prisma:seed
 
       - name: Run jest unit tests
-        run: yarn test:jest:ci
+        run: npm run test:jest:ci
 
       - name: Upload coverage jest
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: jest-coverage
@@ -79,28 +77,30 @@ jobs:
         run: cp cypress.env.test.json cypress.env.json
 
       - name: Run Cypress component tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
-          install: false
-          component: true
           browser: chrome
+          component: true
+          install: false
+          record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Cypress E2E tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
-          install: false
           browser: chrome
           headed: true
+          install: false
+          record: true
           wait-on: http://localhost:3000
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Video Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: videos-cypress
@@ -108,7 +108,7 @@ jobs:
           retention-days: 7
 
       - name: Screenshots Cypress
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: screenshots-cypress
@@ -116,15 +116,26 @@ jobs:
           retention-days: 7
 
       - name: Run coverage check
-        run: yarn test:coverage:check
+        run: npm run test:coverage:check
 
       - name: Coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: merged-coverage
           path: coverage/merged
           retention-days: 7
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: quizslides/peer-evaluation-lsbu
+
+      - name: Upload coverage reports to Codacy
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
       - name: Exit on failure
         if: failure()

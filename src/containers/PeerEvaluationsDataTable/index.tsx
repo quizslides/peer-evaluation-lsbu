@@ -5,8 +5,8 @@ import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { Session } from "next-auth";
 import { useRouter } from "next/router";
+import { Session } from "next-auth";
 
 import DataTableEditDeleteToolbar from "../DataTableEditDeleteToolbar";
 import PeerEvaluationStatusContainer from "../PeerEvaluationStatusContainer";

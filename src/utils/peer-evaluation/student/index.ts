@@ -1,6 +1,6 @@
 import { PeerEvaluationColumn, PeerEvaluationStudent, PeerEvaluationStudentTeam } from "@generated/type-graphql";
 
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 
 interface IPeerEvaluationDataToBuildStudentTable {
   peerEvaluationStudentTeams: PeerEvaluationStudentTeam[];

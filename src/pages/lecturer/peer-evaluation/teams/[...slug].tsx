@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+import { NextPage, NextPageContext } from "next";
+
 import { useApolloClient } from "@apollo/client";
 import { PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import { Form, Formik } from "formik";
 import { MUIDataTableColumn, MUIDataTableOptions } from "mui-datatables";
-import { NextPage, NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { array, number, object, string } from "yup";
 
 import {
@@ -53,22 +54,22 @@ interface IPeerEvaluationStudentTableForm {
   marks: [
     {
       mark: number | string;
-    }
+    },
   ];
   names: [
     {
       name: string;
-    }
+    },
   ];
   ids: [
     {
       id: string;
-    }
+    },
   ];
   comments: [
     {
       comment: string;
-    }
+    },
   ];
 }
 

@@ -7,7 +7,6 @@ import Tooltip from "@mui/material/Tooltip";
 interface IIconButtonWrapper extends IconButtonProps {
   testId: string;
   tooltip?: string | undefined;
-  component?: string | undefined;
 }
 
 const CustomIconCButton = styled(IconButton)``;

@@ -6,10 +6,7 @@ import {
   getPeerEvaluationStudentTeamIdByName,
 } from "@/utils/peer-evaluation/mark-calculation";
 
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Where Input",
-})
+@InputType("PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput")
 class PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -24,10 +21,7 @@ class PeerEvaluationStudentTeamCalculateResultsTableByTeamWhereInput {
   peerEvaluationStudentTeamName!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Response",
-})
+@ObjectType("PeerEvaluationStudentTeamCalculateResultsTableByTeamResponse")
 class PeerEvaluationStudentTeamCalculateResultsTableByTeamResponse {
   @Field((_type) => Boolean, {
     nullable: false,

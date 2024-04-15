@@ -20,4 +20,4 @@ const ErrorHandler = (error: GraphQLError) => {
   return new ApolloError(message, code);
 };
 
-export default ErrorHandler;
+export { ErrorHandler };

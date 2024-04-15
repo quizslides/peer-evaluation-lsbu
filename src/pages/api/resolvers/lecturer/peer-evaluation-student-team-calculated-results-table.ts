@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+
+import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/react";
 import sorter from "sort-nested-json";
 import { Arg, Ctx, Field, InputType, ObjectType, Query, Resolver } from "type-graphql";
@@ -58,10 +59,7 @@ const getStudentsColumnList = (peerEvaluationStudentTeamCalculatedResults: IPeer
 
   return studentsColumnListSorted as unknown as [PeerEvaluationStudentTeamCalculatedResultsTableColumnList];
 };
-@InputType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Where Input",
-})
+@InputType("PeerEvaluationStudentTeamCalculatedResultsTableWhereInput")
 class PeerEvaluationStudentTeamCalculatedResultsTableWhereInput {
   @Field((_type) => String, {
     nullable: false,
@@ -76,7 +74,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTableWhereInput {
   peerEvaluationId!: string;
 }
 
-@ObjectType({ description: "Peer Evaluation Student Table Column List" })
+@ObjectType("PeerEvaluationStudentTeamCalculatedResultsTableColumnList")
 class PeerEvaluationStudentTeamCalculatedResultsTableColumnList {
   @Field((_type) => String, {
     nullable: false,
@@ -91,10 +89,7 @@ class PeerEvaluationStudentTeamCalculatedResultsTableColumnList {
   label!: string;
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Student Team Calculated Results Table Response",
-})
+@ObjectType("PeerEvaluationStudentTeamCalculatedResultsTableResponse")
 class PeerEvaluationStudentTeamCalculatedResultsTableResponse {
   @Field((_type) => [PeerEvaluationStudentTeamCalculatedResultsTableColumnList], {
     nullable: true,

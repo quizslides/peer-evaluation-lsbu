@@ -1,4 +1,4 @@
-import prisma, { Prisma } from "@/pages/api/prisma";
+import { Prisma, prisma } from "@/pages/api/prisma";
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
 import { updatePeerEvaluationStudentTableOnStudentTeamUpdated } from "@/utils/peer-evaluation/student/update";
 

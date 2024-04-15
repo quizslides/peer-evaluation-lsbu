@@ -1,11 +1,12 @@
 import "reflect-metadata";
-import { PrismaClient } from "@prisma/client";
-import { ApolloServer } from "apollo-server-micro";
-import { applyMiddleware } from "graphql-middleware";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PageConfig } from "next";
 
-import ErrorHandler from "@/pages/api/error";
+import { PrismaClient } from "@prisma/client";
+import { ApolloServer } from "apollo-server-micro";
+import { applyMiddleware } from "graphql-middleware";
+
+import { ErrorHandler } from "@/pages/api/error";
 import { sanitizeUserEmail, welcomeUserEmailHook } from "@/pages/api/hooks/auth";
 import {
   onDeletePeerEvaluationStudentsHookAfter,
@@ -13,8 +14,8 @@ import {
   onUpdatePeerEvaluationStudentHookBeforeData,
 } from "@/pages/api/hooks/peer-evaluation";
 import { permissions } from "@/pages/api/permissions";
-import prisma from "@/pages/api/prisma";
-import schemaDefinitions from "@/pages/api/prisma/schema";
+import { prisma } from "@/pages/api/prisma";
+import { schemaDefinitions } from "@/pages/api/prisma/schema";
 import { getDifferenceTwoArrays } from "@/utils/form";
 import { onAddPeerEvaluationColumns } from "@/utils/peer-evaluation/columns";
 import { calculatePeerEvaluationStudentsMarkByPeerEvaluationId } from "@/utils/peer-evaluation/mark-calculation";
@@ -253,7 +254,11 @@ prisma.$use(async (params, next) => {
       }
 
       if ("columns" in params.args.data) {
-        if ("delete" in params.args.data.columns) {
+        if (
+          "delete" in params.args.data.columns &&
+          Array.isArray(params.args.data.columns.delete) &&
+          params.args.data.columns.delete.length
+        ) {
           isValidRecalculateMarksPeerEvaluation = true;
 
           // TODO: Move logic outside the hook
@@ -284,7 +289,6 @@ prisma.$use(async (params, next) => {
                   },
                 },
               });
-
               await prisma.peerEvaluationReviewee.update({
                 data: {
                   criteriaScoreTotal: {
@@ -298,8 +302,11 @@ prisma.$use(async (params, next) => {
             }
           }
         }
-
-        if ("create" in params.args.data.columns) {
+        if (
+          "create" in params.args.data.columns &&
+          Array.isArray(params.args.data.columns.create) &&
+          params.args.data.columns.create.length
+        ) {
           if (peerEvaluationDataBeforeUpdate && peerEvaluationDataAfterUpdate) {
             const peerEvaluationColumnIdsBeforeUpdate = peerEvaluationDataBeforeUpdate.columns.map(({ id }) => id);
 
@@ -332,11 +339,12 @@ const getApolloServer = (prisma: PrismaClient) => {
   const schemaWithRules = applyMiddleware(schemaDefinitions, permissions);
 
   return new ApolloServer({
-    schema: schemaWithRules,
     context: ({ req, res }) => ({ prisma, req, res }),
     debug: !isProduction,
-    introspection: !isProduction,
     formatError: (error) => ErrorHandler(error),
+    introspection: !isProduction,
+    persistedQueries: false,
+    schema: schemaWithRules,
   });
 };
 

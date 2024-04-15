@@ -104,6 +104,7 @@ const schemaDefinitions = await buildSchema({
     UpdatePeerEvaluationTableStudentData,
     UsersLecturer,
   ],
+  validate: { forbidUnknownValues: false },
 });
 
-export default schemaDefinitions;
+export { schemaDefinitions };

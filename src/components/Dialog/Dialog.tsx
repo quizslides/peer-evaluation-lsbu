@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import Button, { ButtonVariant } from "@/components/Button/Button";
 
+// @ts-ignore
 interface IDialog extends DialogProps {
   content: React.ReactNode;
   extraLeftButton?: React.ReactNode | null;
@@ -58,7 +59,7 @@ const Dialog = ({
         {extraLeftButton}
         {!isDisableLeftButton && (
           <Tooltip title={tooltipLeftButton}>
-            <Button autoFocus onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left`}>
+            <Button onClick={onClickLeftButton} variant={leftButtonVariant} testId={`${testId}-left`}>
               {leftButton}
             </Button>
           </Tooltip>

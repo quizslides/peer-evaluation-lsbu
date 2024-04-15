@@ -14,7 +14,7 @@ interface PeerEvaluationTableOnUpdate {
     {
       criteriaScore: number;
       key: string;
-    }
+    },
   ];
 }
 

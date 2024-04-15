@@ -10,9 +10,9 @@ import { LocalizationProvider } from "@mui/lab";
 import DateAdapter from "@mui/lab/AdapterDateFns";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 
 import { Layout } from "@/containers";

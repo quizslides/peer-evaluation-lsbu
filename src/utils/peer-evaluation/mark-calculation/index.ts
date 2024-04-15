@@ -1,6 +1,6 @@
 import { PeerEvaluationStudentReview, PeerEvaluationStudentTeam } from "@generated/type-graphql";
 
-import prisma, { Prisma } from "@/pages/api/prisma";
+import { Prisma, prisma } from "@/pages/api/prisma";
 import { getMarkSanitized, roundTwoDecimalPlaces } from "@/utils/peer-evaluation/mark-calculation/utils";
 import { getUserIdByEmail } from "@/utils/user";
 

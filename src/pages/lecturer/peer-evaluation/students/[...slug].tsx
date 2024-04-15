@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+import { NextPage, NextPageContext } from "next";
+
 import { useApolloClient } from "@apollo/client";
 import { PeerEvaluationStudentTeamCreateManyInput, PeerEvaluationTeachingMember } from "@generated/type-graphql";
 import { Prisma } from "@prisma/client";
 import MUIDataTable, { MUIDataTableOptions } from "mui-datatables";
-import { NextPage, NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { Action, Fab } from "react-tiny-fab";
 import { ValidationError } from "yup";
 
@@ -579,6 +580,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
             <MUIDataTable
               title={""}
               data={studentsTeamsDataErrors}
+              // @ts-ignore
               columns={columnsUserDataBulkError}
               options={tableOptionsUserDataBulkError}
             />

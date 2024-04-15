@@ -3,9 +3,7 @@ import React, { memo } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { FormikErrors, useField, useFormikContext } from "formik";
-import { reach } from "yup";
-import { OptionalObjectSchema } from "yup/lib/object";
-import { AnyObject } from "yup/lib/types";
+import { AnyObjectSchema, reach } from "yup";
 
 import { JSONStringNumber } from "@/types/object";
 
@@ -14,7 +12,7 @@ interface ISelectFieldFormDataTable {
   name: string;
   props: TextFieldProps;
   options: JSONStringNumber;
-  validationSchema: OptionalObjectSchema<AnyObject>;
+  validationSchema: AnyObjectSchema;
   validationFieldPath: string;
   updateDataTableFormValue: (value: string) => void;
 }
@@ -53,6 +51,9 @@ const SelectFieldFormDataTable = ({
     props.helperText = meta.error;
 
     reach(validationSchema, validationFieldPath)
+      // @ts-ignore
+      // Due to type error and when the bug is fixed
+      // @source https://github.com/jquense/yup/issues/2152
       .validate(meta.value)
       .catch((e: FormikErrors<Error>) => {
         setErrors(e);

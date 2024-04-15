@@ -390,9 +390,9 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
 
   const getColumnVariables = () => {
     const columnVariables: { [key: string]: object } = {
-      create: {},
-      update: {},
-      delete: {},
+      create: [],
+      update: [],
+      delete: [],
     };
 
     const onCreate = sanitizeColumnsDataOnCreate(columns);
@@ -403,20 +403,14 @@ const sanitizePeerEvaluationDataOnUpdate = (data: IPeerEvaluationData): PeerEval
 
     if (onCreate.length) {
       columnVariables.create = onCreate;
-    } else {
-      delete columnVariables.create;
     }
 
     if (onUpdate.length) {
       columnVariables.update = onUpdate;
-    } else {
-      delete columnVariables.update;
     }
 
     if (onDelete.length) {
       columnVariables.delete = onDelete;
-    } else {
-      delete columnVariables.delete;
     }
 
     return columnVariables;

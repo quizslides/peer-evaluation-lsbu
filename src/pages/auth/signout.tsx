@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
 import type { NextPage, NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
+
 import { useRouter } from "next/router";
+import { getSession, signOut } from "next-auth/react";
 
 import { LoadingContainer } from "@/containers";
 import { NextPagePros } from "@/types/pages";

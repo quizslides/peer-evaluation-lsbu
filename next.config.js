@@ -87,4 +87,12 @@ const sentryWebpackPluginOptions = {
   silent: true,
 };
 
-module.exports = isProductionEnvironment ? withSentryConfig(moduleExports, sentryWebpackPluginOptions) : moduleExports;
+const nextSext = {
+  sentry: {
+    hideSourceMaps: true,
+  },
+};
+
+module.exports = isProductionEnvironment
+  ? withSentryConfig({ ...moduleExports, ...nextSext }, sentryWebpackPluginOptions)
+  : moduleExports;

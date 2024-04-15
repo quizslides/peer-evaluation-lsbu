@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import type { NextPage } from "next";
+
 import styled from "@emotion/styled";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
-import type { NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { signIn, useSession } from "next-auth/react";
 import VerificationInput from "react-verification-input";
 import { object } from "yup";
 
@@ -75,7 +76,7 @@ const SignIn: NextPage = () => {
       const notificationsId = loadingNotification("Wait a little bit...");
 
       await signIn("email", {
-        email: valuesForm.email,
+        email: valuesForm.email.toLocaleLowerCase(),
         redirect: false,
         redirectUrl: redirectUrl || `${window.location.origin}${routing.home}`,
       });
@@ -118,7 +119,7 @@ const SignIn: NextPage = () => {
 
     const url = `${process.env.NEXT_PUBLIC_URL}/api/auth/callback/email?callbackUrl=${encodeURIComponent(
       `${process.env.NEXT_PUBLIC_URL}/auth/signin`
-    )}&token=${code}&email=${encodeURIComponent(valuesForm.email)}`;
+    )}&token=${code}&email=${encodeURIComponent(valuesForm.email.toLocaleLowerCase())}`;
 
     const response = await fetch(url);
 

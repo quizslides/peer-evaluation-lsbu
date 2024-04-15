@@ -6,7 +6,7 @@ interface FieldWrapperProps {
 
 const FieldWrapper = styled.div<FieldWrapperProps>`
   margin-top: 1em;
-  margin-bottom: ${(props) => props.marginBottom || "2em"}; ;
+  margin-bottom: ${(props) => props.marginBottom || "2em"};
 `;
 
 export { FieldWrapper };

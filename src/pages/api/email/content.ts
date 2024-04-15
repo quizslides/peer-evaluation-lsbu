@@ -21,4 +21,4 @@ const content = {
   },
 };
 
-export default content;
+export { content };

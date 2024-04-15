@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
 
-import content from "@/pages/api/email/content";
+import { content } from "@/pages/api/email/content";
 import { createEmailTransport, getEmailTemplate } from "@/pages/api/email/utils";
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import routing from "@/routing";
 import { errorLogger } from "@/utils/logger";
 

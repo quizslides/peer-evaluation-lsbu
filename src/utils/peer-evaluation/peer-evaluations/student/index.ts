@@ -1,6 +1,6 @@
 import { PeerEvaluation } from "@generated/type-graphql";
 
-import prisma from "@/pages/api/prisma";
+import { prisma } from "@/pages/api/prisma";
 import { getDateLocaleString } from "@/utils/date";
 
 type TPeerEvaluationStatus = "OPEN" | "CLOSED";

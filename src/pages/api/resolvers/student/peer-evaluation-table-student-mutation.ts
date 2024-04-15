@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
 
-@InputType({ description: "Peer EvaluationTable Data" })
+@InputType("PeerEvaluationTableInput")
 class PeerEvaluationTableInput {
   @Field((_type) => String, {
     nullable: false,
@@ -16,7 +16,7 @@ class PeerEvaluationTableInput {
   isCompleted!: boolean;
 }
 
-@InputType({ description: "Peer Evaluation Reviewee" })
+@InputType("PeerEvaluationRevieweeInput")
 class PeerEvaluationRevieweeInput {
   @Field((_type) => String, {
     nullable: false,
@@ -37,7 +37,7 @@ class PeerEvaluationRevieweeInput {
   criteriaScoreTotal!: number;
 }
 
-@InputType({ description: "Peer Evaluation Columns Reviewee Input" })
+@InputType("PeerEvaluationColumnsRevieweeInput")
 class PeerEvaluationColumnsRevieweeInput {
   @Field((_type) => String, {
     nullable: false,
@@ -51,10 +51,7 @@ class PeerEvaluationColumnsRevieweeInput {
   })
   criteriaScore!: number;
 }
-@InputType({
-  isAbstract: true,
-  description: "Update Peer Evaluation Table Student Data Input",
-})
+@InputType("UpdatePeerEvaluationTableStudentDataInput")
 class UpdatePeerEvaluationTableStudentDataInput {
   @Field((_type) => PeerEvaluationTableInput, {
     nullable: true,
@@ -75,7 +72,7 @@ class UpdatePeerEvaluationTableStudentDataInput {
   columnsReviewee!: [PeerEvaluationColumnsRevieweeInput];
 }
 
-@InputType({ description: "PeerEvaluationTable Data List" })
+@InputType("UpdatePeerEvaluationTableStudentDataInputList")
 class UpdatePeerEvaluationTableStudentDataInputList {
   @Field((_type) => [UpdatePeerEvaluationTableStudentDataInput], {
     nullable: false,
@@ -84,10 +81,7 @@ class UpdatePeerEvaluationTableStudentDataInputList {
   peerEvaluationTableDataList!: [UpdatePeerEvaluationTableStudentDataInput];
 }
 
-@ObjectType({
-  isAbstract: true,
-  description: "Peer Evaluation Table Student Response",
-})
+@ObjectType("UpdatePeerEvaluationTableStudentDataResponse")
 class UpdatePeerEvaluationTableStudentDataResponse {
   @Field((_type) => Boolean, {
     nullable: false,
