@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.7.0-beta.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.8...1.7.0-beta.9) (2024-04-15)
+
+
+### Bug Fixes
+
+* making the email on sign-in case insensitive ([31a00cb](https://github.com/quizslides/peer-evaluation-lsbu/commit/31a00cbc3f23f4c243ecca49e6b18532c03c873a)), closes [#PEL-416](https://github.com/quizslides/peer-evaluation-lsbu/issues/PEL-416)
+
 ## [1.7.0-beta.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0-beta.7...1.7.0-beta.8) (2024-04-04)
 
 
