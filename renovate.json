@@ -13,6 +13,7 @@
         "@types/react",
         "class-validator",
         "eslint",
+        "formik",
         "graphql-middleware",
         "graphql-scalars",
         "graphql-shield",
