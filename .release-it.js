@@ -17,6 +17,7 @@ module.exports = {
       infile: "CHANGELOG.md",
       path: ".",
       preset: {
+        issueUrlFormat: "https://quizslides.atlassian.net/browse/{{id}}",
         name: "conventionalcommits",
         types: [
           {
