@@ -2,8 +2,7 @@ version: "3.9"
 services:
   database:
     container_name: db-peer-evaluation
-    #PostgreSQL 13.5
-    image: postgres@sha256:f50997df18443e77e1c6d5b3eb69670e91f57c264202114024a75dcb8ca91ff2
+    image: postgres:16.2-alpine3.19@sha256:951bfda460300925caa3949eaa092ba022e9aec191bbea9056a39e2382260b27
     ports:
       - 5432:5432
     env_file: .env
@@ -11,8 +10,7 @@ services:
       - peer_evaluation
 
   mailhog:
-    # MailHog v1.0.1
-    image: mailhog/mailhog@sha256:8d76a3d4ffa32a3661311944007a415332c4bb855657f4f6c57996405c009bea
+    image: mailhog/mailhog:v1.0.1@sha256:8d76a3d4ffa32a3661311944007a415332c4bb855657f4f6c57996405c009bea
     container_name: email-peer-evaluation
     ports:
       - 8025:8025
