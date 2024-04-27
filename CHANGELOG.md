@@ -3,6 +3,36 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.0-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0...1.8.0-beta.0) (2024-04-27)
+
+
+### Features
+
+* updating node to v20.12.2 ([3bbdb20](https://github.com/quizslides/peer-evaluation-lsbu/commit/3bbdb200e8729972b8a68615c458dc9ed39e7036)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+* upgrading postgresql to v16 ([b7a3a34](https://github.com/quizslides/peer-evaluation-lsbu/commit/b7a3a340b600bfb8e319ccd4303ac3edf40eaa93)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([88c5880](https://github.com/quizslides/peer-evaluation-lsbu/commit/88c5880104d99b1347a7a0a0efb917c9b692a480))
+
+
+### Chores
+
+* adding formik to renovate constraints ([5aa608b](https://github.com/quizslides/peer-evaluation-lsbu/commit/5aa608b28d93fccd08ce85cdda125cb5935158b9)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+* **deps:** updating to latest compatible dependencies ([8d914f1](https://github.com/quizslides/peer-evaluation-lsbu/commit/8d914f1b885fdcf05af9e65cac827e02f2b5bf48)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+* updating renovate configuration for node LTS ([9bc5b7a](https://github.com/quizslides/peer-evaluation-lsbu/commit/9bc5b7aad09c8e8448710224d05f64750a0f7efc)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+
+
+### Continuous Integration
+
+* adding issueUrlFormat for release-it ([1be257c](https://github.com/quizslides/peer-evaluation-lsbu/commit/1be257cfbbe590dbe486b83a274856f400c4d468)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+
+
+### Reverts
+
+* node dependencies ([dfc4fd3](https://github.com/quizslides/peer-evaluation-lsbu/commit/dfc4fd343bc35f4d8e1268734531512d92cac1ae)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+
 ## [1.7.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/v1.6.3...1.7.0) (2024-04-15)
 
 
