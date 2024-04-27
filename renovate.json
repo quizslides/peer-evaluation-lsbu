@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "group:all", "schedule:weekly"],
+  "extends": ["config:recommended", "group:all", "schedule:weekly"],
   "packageRules": [
     {
       "matchPackageNames": [
@@ -12,6 +12,7 @@
         "@testing-library/react",
         "@types/react",
         "class-validator",
+        "eslint",
         "graphql-middleware",
         "graphql-scalars",
         "graphql-shield",
@@ -23,6 +24,12 @@
         "webpack-dev-server"
       ],
       "dependencyDashboardApproval": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/library/node"],
+      "versionCompatibility": "^(?<version>[^-]+)(?<compatibility>-alpine3.19)?$",
+      "versioning": "node"
     }
   ],
   "osvVulnerabilityAlerts": true
