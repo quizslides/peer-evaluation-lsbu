@@ -3,28 +3,99 @@
   "extends": ["config:recommended", "group:all", "schedule:weekly"],
   "packageRules": [
     {
-      "matchPackageNames": [
-        "@babel/traverse",
-        "@date-io/date-fns",
-        "@emotion/styled",
-        "@mui/icons-material",
-        "@mui/lab",
-        "@testing-library/react",
-        "@types/react",
-        "class-validator",
-        "eslint",
-        "formik",
-        "graphql-middleware",
-        "graphql-scalars",
-        "graphql-shield",
-        "graphql",
-        "micro",
-        "next",
-        "react-dom",
-        "react",
-        "webpack-dev-server"
-      ],
-      "dependencyDashboardApproval": true
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @babel/traverse",
+      "matchPackageNames": ["@babel/traverse"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @date-io/date-fns",
+      "matchPackageNames": ["@date-io/date-fns"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @emotion/styled",
+      "matchPackageNames": ["@emotion/styled"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @mui/icons-material",
+      "matchPackageNames": ["@mui/icons-material"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @mui/lab",
+      "matchPackageNames": ["@mui/lab"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @testing-library/react",
+      "matchPackageNames": ["@testing-library/react"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @types/react",
+      "matchPackageNames": ["@types/react"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - class-validator",
+      "matchPackageNames": ["class-validator"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - eslint",
+      "matchPackageNames": ["eslint"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - formik",
+      "matchPackageNames": ["formik"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - graphql-middleware",
+      "matchPackageNames": ["graphql-middleware"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - graphql-scalars",
+      "matchPackageNames": ["graphql-scalars"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - graphql-shield",
+      "matchPackageNames": ["graphql-shield"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - graphql",
+      "matchPackageNames": ["graphql"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - micro",
+      "matchPackageNames": ["micro"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - next",
+      "matchPackageNames": ["next"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - react-dom",
+      "matchPackageNames": ["react-dom"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - react",
+      "matchPackageNames": ["react"]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - webpack-dev-server",
+      "matchPackageNames": ["webpack-dev-server"]
     },
     {
       "matchDatasources": ["docker"],
