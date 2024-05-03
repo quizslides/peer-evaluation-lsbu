@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.0...1.8.1) (2024-05-03)
+
+
+### Chores
+
+* update renovate configuration to break down packages ([1a3b880](https://github.com/quizslides/peer-evaluation-lsbu/commit/1a3b880a567a1d5469993cb56fc89781cbbd3b87)), closes [#PEL-417](https://quizslides.atlassian.net/browse/PEL-417)
+
 ## [1.8.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.7.0...1.8.0) (2024-05-02)
 
 
