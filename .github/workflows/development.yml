@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "PEL-**"
+      - "renovate/all"
 
 jobs:
   install-dependencies:
