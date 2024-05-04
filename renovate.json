@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "autoApprove": true,
+  "automerge": true,
+  "baseBranches": ["staging"],
   "extends": ["config:recommended", "group:all", "schedule:weekly"],
+  "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
       "dependencyDashboardApproval": true,
@@ -54,6 +58,11 @@
     },
     {
       "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - graphql",
+      "matchPackageNames": ["graphql"]
+    },
+    {
+      "dependencyDashboardApproval": true,
       "groupName": "Node dependency - graphql-middleware",
       "matchPackageNames": ["graphql-middleware"]
     },
@@ -69,11 +78,6 @@
     },
     {
       "dependencyDashboardApproval": true,
-      "groupName": "Node dependency - graphql",
-      "matchPackageNames": ["graphql"]
-    },
-    {
-      "dependencyDashboardApproval": true,
       "groupName": "Node dependency - micro",
       "matchPackageNames": ["micro"]
     },
@@ -84,13 +88,13 @@
     },
     {
       "dependencyDashboardApproval": true,
-      "groupName": "Node dependency - react-dom",
-      "matchPackageNames": ["react-dom"]
+      "groupName": "Node dependency - react",
+      "matchPackageNames": ["react"]
     },
     {
       "dependencyDashboardApproval": true,
-      "groupName": "Node dependency - react",
-      "matchPackageNames": ["react"]
+      "groupName": "Node dependency - react-dom",
+      "matchPackageNames": ["react-dom"]
     },
     {
       "dependencyDashboardApproval": true,
@@ -104,5 +108,5 @@
       "versioning": "node"
     }
   ],
-  "osvVulnerabilityAlerts": true
+  "platformAutomerge": true
 }
