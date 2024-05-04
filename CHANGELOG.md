@@ -3,6 +3,14 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.2-beta.1](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.2-beta.0...1.8.2-beta.1) (2024-05-04)
+
+
+### Chores
+
+* enhance renovate with automerge to staging ([ab8a37d](https://github.com/quizslides/peer-evaluation-lsbu/commit/ab8a37dc79dd91636c979e3ebe9826e40da5d7de))
+* update renovate configuration to automerge to staging ([e7e7686](https://github.com/quizslides/peer-evaluation-lsbu/commit/e7e7686e671bee1d0419f5c4d817357ce05c32b7))
+
 ## [1.8.2-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.1...1.8.2-beta.0) (2024-05-03)
 
 
