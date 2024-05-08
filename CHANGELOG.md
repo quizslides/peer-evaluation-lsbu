@@ -3,6 +3,26 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.1...1.8.2) (2024-05-08)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([5c7747e](https://github.com/quizslides/peer-evaluation-lsbu/commit/5c7747e2763e09fc4721893ec7373af11731784f))
+* **deps:** update all dependencies ([53ae8b5](https://github.com/quizslides/peer-evaluation-lsbu/commit/53ae8b5e1cf69ba3ab5a2c0032c95188ffb8683c))
+
+
+### Chores
+
+* add .npmrc to install as legacy-peer-deps [skip-ci] ([7e5ac3f](https://github.com/quizslides/peer-evaluation-lsbu/commit/7e5ac3f321f6f9f5d1d1bbf0583a7f5c383cd06f))
+* enhance renovate with automerge to staging ([ab8a37d](https://github.com/quizslides/peer-evaluation-lsbu/commit/ab8a37dc79dd91636c979e3ebe9826e40da5d7de))
+* update renovate configuration to automerge to staging ([e7e7686](https://github.com/quizslides/peer-evaluation-lsbu/commit/e7e7686e671bee1d0419f5c4d817357ce05c32b7))
+
+
+### Continuous Integration
+
+* add renovate branch to run development github workflow [skip ci] ([bc570b4](https://github.com/quizslides/peer-evaluation-lsbu/commit/bc570b4379bb16ee09016b539dc8baab2d255d72))
+
 ## [1.8.2-beta.2](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.2-beta.1...1.8.2-beta.2) (2024-05-06)
 
 
