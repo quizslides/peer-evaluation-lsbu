@@ -3,6 +3,10 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.4-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.3-beta.1...1.8.4-beta.0) (2024-05-20)
+
+## [1.8.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.3-beta.1...1.8.4-beta.0) (2024-05-14)
+
 ## [1.8.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.2...1.8.3) (2024-05-14)
 
 
