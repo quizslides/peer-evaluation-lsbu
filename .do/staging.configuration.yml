@@ -90,7 +90,7 @@ services:
       timeout_seconds: 100
     http_port: 3000
     instance_count: 1
-    instance_size_slug: basic-xxs
+    instance_size_slug: apps-s-1vcpu-0.5gb
     name: peer-evaluation-web-app-staging
     routes:
       - path: /

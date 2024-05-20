@@ -90,7 +90,7 @@ services:
       timeout_seconds: 100
     http_port: 3000
     instance_count: 1
-    instance_size_slug: professional-xs
+    instance_size_slug: apps-s-1vcpu-1gb-fixed
     name: peer-evaluation-web-app-prod
     routes:
       - path: /
