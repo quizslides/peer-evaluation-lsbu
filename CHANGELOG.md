@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.5](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.4...1.8.5) (2024-05-20)
+
+
+### Build Changes
+
+* update container size for digital ocean for staging and production ([f3d8784](https://github.com/quizslides/peer-evaluation-lsbu/commit/f3d87846233cb9a73c88040ef63f49ff1b59c6f2)), closes [#PEL-423](https://quizslides.atlassian.net/browse/PEL-423)
+
 ## [1.8.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.3...1.8.4) (2024-05-20)
 
 
