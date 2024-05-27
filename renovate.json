@@ -2,7 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "autoApprove": true,
   "automerge": true,
-  "baseBranches": ["staging"],
   "commitBodyTable": true,
   "extends": ["config:recommended", "group:all", "schedule:weekly"],
   "osvVulnerabilityAlerts": true,
