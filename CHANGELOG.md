@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.8.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.5...1.8.6) (2024-05-27)
+
+
+### Chores
+
+* **deps:** update all dependencies ([9f30cf7](https://github.com/quizslides/peer-evaluation-lsbu/commit/9f30cf75dd41041eef1a620a148506ddf4d8efed))
+
 ## [1.8.6-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.5...1.8.6-beta.0) (2024-05-27)
 
 
