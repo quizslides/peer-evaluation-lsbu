@@ -3,6 +3,18 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.9.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.6...1.9.0) (2024-05-29)
+
+
+### Features
+
+* add automerge to master to release automatically changes passing on CI [skip ci] ([727964b](https://github.com/quizslides/peer-evaluation-lsbu/commit/727964b6c55db080f09f6983b37dcf984fb60d50))
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([00dbef2](https://github.com/quizslides/peer-evaluation-lsbu/commit/00dbef21b864e4d2a59eeb53f2db48059d4253c1))
+
 ## [1.8.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.8.5...1.8.6) (2024-05-27)
 
 
