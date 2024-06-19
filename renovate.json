@@ -4,7 +4,14 @@
   "automerge": true,
   "commitBodyTable": true,
   "dependencyDashboardOSVVulnerabilitySummary": "all",
-  "extends": ["config:recommended", "group:all", "schedule:weekly"],
+  "extends": [
+    ":assignee(juancarlosjr97)",
+    ":reviewer(juancarlosjr97)",
+    ":semanticPrefixChore",
+    "config:recommended",
+    "group:all",
+    "schedule:weekly"
+  ],
   "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
