@@ -3,6 +3,7 @@
   "autoApprove": true,
   "automerge": true,
   "commitBodyTable": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "extends": ["config:recommended", "group:all", "schedule:weekly"],
   "osvVulnerabilityAlerts": true,
   "packageRules": [
