@@ -3,6 +3,19 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.9.7](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.6...1.9.7) (2024-06-24)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([37847cc](https://github.com/quizslides/peer-evaluation-lsbu/commit/37847ccd66e119d3ce1525ad25501ab563ec537f))
+
+
+### Chores
+
+* add dependencyDashboardOSVVulnerabilitySummary to get CVE automatically [skip ci] ([197fffb](https://github.com/quizslides/peer-evaluation-lsbu/commit/197fffbe7ad1e6c98a250ab8aa48618f8fd2f11a))
+* add semanticPrefixChore, assignee and reviewer to automated MR [skip-ci] ([add5b46](https://github.com/quizslides/peer-evaluation-lsbu/commit/add5b4677c99fbc774de1651d48b8bc230850157))
+
 ## [1.9.6](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.5...1.9.6) (2024-06-17)
 
 
