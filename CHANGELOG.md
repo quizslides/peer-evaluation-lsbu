@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.9.9-beta.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.8...1.9.9-beta.0) (2024-07-01)
+
+
+### Chores
+
+* update alpine to 3.20 ([2c4cd38](https://github.com/quizslides/peer-evaluation-lsbu/commit/2c4cd385677cc37cfcb5993ff085961205ccceb9)), closes [#PEL-426](https://quizslides.atlassian.net/browse/PEL-426)
+
 ## [1.9.8](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.7...1.9.8) (2024-07-01)
 
 
