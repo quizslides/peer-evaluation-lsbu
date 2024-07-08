@@ -112,7 +112,7 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["docker.io/library/node"],
-      "versionCompatibility": "^(?<version>[^-]+)(?<compatibility>-alpine3.19)?$",
+      "versionCompatibility": "^(?<version>[^-]+)(?<compatibility>-alpine3.20)?$",
       "versioning": "node"
     }
   ],
