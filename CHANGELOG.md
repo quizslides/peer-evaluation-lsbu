@@ -3,6 +3,18 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.0](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.10...1.10.0) (2024-07-08)
+
+
+### Features
+
+* update dependency automation to stay on alpine 3.20 for node ([91393a2](https://github.com/quizslides/peer-evaluation-lsbu/commit/91393a2985c13ea27e2eb380cce5a983427fff9f)), closes [#PEL-428](https://quizslides.atlassian.net/browse/PEL-428)
+
+
+### Reverts
+
+* docker alpine version to 3.20 ([a2fc391](https://github.com/quizslides/peer-evaluation-lsbu/commit/a2fc391b56a439cc33b0aed988e67a80e5281f7e)), closes [#PEL-428](https://quizslides.atlassian.net/browse/PEL-428)
+
 ## [1.9.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.9.9...1.9.10) (2024-07-08)
 
 
