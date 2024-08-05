@@ -11,7 +11,7 @@
     "build:start:background": "npm run build:start &",
     "clear:cache": "concurrently \"rm -rf .next\" \"rm -rf .nyc_output\" \"rm -rf coverage\" \"rm -rf node_modules\" \"rm -rf tsconfig.tsbuildinfo\" \"rm -rf .eslintcache\"",
     "dev": "concurrently --kill-others npm:dev:*",
-    "dev:docker": "docker-compose up",
+    "dev:docker": "docker compose up",
     "dev:next": "next dev",
     "dev:tsc": "tsc --watch --noEmit --incremental --preserveWatchOutput --pretty",
     "docker:ci": "npm run dev:docker -- -d",
