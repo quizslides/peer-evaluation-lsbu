@@ -110,6 +110,11 @@
       "matchPackageNames": ["webpack-dev-server"]
     },
     {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @typescript-eslint",
+      "matchPackageNames": ["@typescript-eslint/eslint-plugin", "@typescript-eslint/parser"]
+    },
+    {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["docker.io/library/node"],
       "versionCompatibility": "^(?<version>[^-]+)(?<compatibility>-alpine3.20)?$",
