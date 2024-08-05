@@ -3,6 +3,23 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.4](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.3...1.10.4) (2024-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([59689d2](https://github.com/quizslides/peer-evaluation-lsbu/commit/59689d2a472317602fe364f316c58a9e3912c14e))
+
+
+### Chores
+
+* downgrading [@typescript-eslint](https://github.com/typescript-eslint) to v7.18.0 ([4d2dcf2](https://github.com/quizslides/peer-evaluation-lsbu/commit/4d2dcf22dde96486963bf5e125f82ecf1fb68bbd))
+
+
+### Continuous Integration
+
+* update docker command to use docker compose as docker-compose is deprecated ([52effad](https://github.com/quizslides/peer-evaluation-lsbu/commit/52effad25a69140ca32a4727b2de53152970cf58))
+
 ## [1.10.3](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.2...1.10.3) (2024-07-29)
 
 
