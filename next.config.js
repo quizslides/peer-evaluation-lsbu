@@ -88,7 +88,7 @@ const sentryWebpackPluginOptions = {
 };
 
 const nextSext = {
-  sentry: {
+  sentryBuildOptions: {
     hideSourceMaps: true,
   },
 };
