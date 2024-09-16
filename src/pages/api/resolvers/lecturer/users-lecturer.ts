@@ -4,6 +4,7 @@ import { Ctx, Query, Resolver } from "type-graphql";
 
 @Resolver()
 class UsersLecturer {
+  // @ts-ignore
   @Query((_returns) => [User] || null, {
     nullable: true,
   })
