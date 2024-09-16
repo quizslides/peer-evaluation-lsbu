@@ -3,6 +3,23 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.10](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.9...1.10.10) (2024-09-16)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([d7082e2](https://github.com/quizslides/peer-evaluation-lsbu/commit/d7082e2041e0e3dd531ce4b76a183e85c04a12bc))
+
+
+### Code Refactoring
+
+* update next configuration to use sentryBuildOptions as sentry is deprecated ([eb3b125](https://github.com/quizslides/peer-evaluation-lsbu/commit/eb3b12520cd6ad481afd9380a2fb27500f3e1190))
+
+
+### Code Style Changes
+
+* add esling ignore for false positive from tsc ([e032a57](https://github.com/quizslides/peer-evaluation-lsbu/commit/e032a57e2e63043373f1ac6bba21df6bcad029ae))
+
 ## [1.10.9](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.8...1.10.9) (2024-09-09)
 
 
