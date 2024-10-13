@@ -3,6 +3,16 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.14](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.13...1.10.14) (2024-10-13)
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([f8d6142](https://github.com/quizslides/peer-evaluation-lsbu/commit/f8d6142717c60c20bdf4f5f1332cb47097a56a40))
+
+### Chores
+
+* removing @babel/traverse overrides dependecy ([dd5ffc3](https://github.com/quizslides/peer-evaluation-lsbu/commit/dd5ffc31ba23bd6b1cdb6023a93609ecebf7266b))
+
 ## [1.10.13](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.12...1.10.13) (2024-09-30)
 
 
