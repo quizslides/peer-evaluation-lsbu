@@ -20,7 +20,7 @@
     "lint:fix": "next lint --fix --dir . --file ./.eslintrc.json",
     "lint:fix:all": "npm run prettier && npm run lint:fix",
     "postinstall": "npm run prisma:generate",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prettier": "prettier --write .",
     "prisma:db:push": "prisma db push",
     "prisma:deploy": "prisma migrate deploy",
@@ -177,7 +177,6 @@
   },
   "overrides": {
     "@babel/core": "7.25.8",
-    "@babel/traverse": "7.23.2",
     "@babel/types": "7.25.8",
     "class-validator": "0.14.1",
     "jose": "5.9.4",
