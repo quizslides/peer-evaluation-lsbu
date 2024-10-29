@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.16](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.15...1.10.16) (2024-10-29)
+
+### Chores
+
+* **deps:** update all dependencies ([ab62647](https://github.com/quizslides/peer-evaluation-lsbu/commit/ab6264783bceb4c6d2e21f54a853107ad05e58bb))
+* upgrading node to v22.10.0 ([75644cb](https://github.com/quizslides/peer-evaluation-lsbu/commit/75644cbfbe2739f37ca561d12c54188fbac83768)), closes [#PEL-436](https://quizslides.atlassian.net/browse/PEL-436)
+
 ## [1.10.15](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.14...1.10.15) (2024-10-21)
 
 ### Bug Fixes
