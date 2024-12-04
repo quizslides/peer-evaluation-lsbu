@@ -17,106 +17,158 @@
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @babel/traverse",
-      "matchPackageNames": ["@babel/traverse"]
+      "matchPackageNames": [
+        "@babel/traverse"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @date-io/date-fns",
-      "matchPackageNames": ["@date-io/date-fns"]
+      "matchPackageNames": [
+        "@date-io/date-fns"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @emotion/styled",
-      "matchPackageNames": ["@emotion/styled"]
+      "matchPackageNames": [
+        "@emotion/styled"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @mui/icons-material",
-      "matchPackageNames": ["@mui/icons-material"]
+      "matchPackageNames": [
+        "@mui/icons-material"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @mui/lab",
-      "matchPackageNames": ["@mui/lab"]
+      "matchPackageNames": [
+        "@mui/lab"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @testing-library/react",
-      "matchPackageNames": ["@testing-library/react"]
+      "matchPackageNames": [
+        "@testing-library/react"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @types/react",
-      "matchPackageNames": ["@types/react"]
+      "matchPackageNames": [
+        "@types/react"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - class-validator",
-      "matchPackageNames": ["class-validator"]
+      "matchPackageNames": [
+        "class-validator"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - eslint",
-      "matchPackageNames": ["eslint"]
+      "matchPackageNames": [
+        "eslint"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - formik",
-      "matchPackageNames": ["formik"]
+      "matchPackageNames": [
+        "formik"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - graphql",
-      "matchPackageNames": ["graphql"]
+      "matchPackageNames": [
+        "graphql"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - graphql-middleware",
-      "matchPackageNames": ["graphql-middleware"]
+      "matchPackageNames": [
+        "graphql-middleware"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - graphql-scalars",
-      "matchPackageNames": ["graphql-scalars"]
+      "matchPackageNames": [
+        "graphql-scalars"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - graphql-shield",
-      "matchPackageNames": ["graphql-shield"]
+      "matchPackageNames": [
+        "graphql-shield"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - micro",
-      "matchPackageNames": ["micro"]
+      "matchPackageNames": [
+        "micro"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - next",
-      "matchPackageNames": ["next"]
+      "matchPackageNames": [
+        "next"
+      ]
+    },
+    {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - prisma",
+      "matchPackageNames": [
+        "prisma"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - react",
-      "matchPackageNames": ["react"]
+      "matchPackageNames": [
+        "react"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - react-dom",
-      "matchPackageNames": ["react-dom"]
+      "matchPackageNames": [
+        "react-dom"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - webpack-dev-server",
-      "matchPackageNames": ["webpack-dev-server"]
+      "matchPackageNames": [
+        "webpack-dev-server"
+      ]
     },
     {
       "dependencyDashboardApproval": true,
       "groupName": "Node dependency - @typescript-eslint",
-      "matchPackageNames": ["@typescript-eslint/eslint-plugin", "@typescript-eslint/parser"]
+      "matchPackageNames": [
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser"
+      ]
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["docker.io/library/node"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "docker.io/library/node"
+      ],
       "versionCompatibility": "^(?<version>[^-]+)(?<compatibility>-alpine3.20)?$",
       "versioning": "node"
     }
