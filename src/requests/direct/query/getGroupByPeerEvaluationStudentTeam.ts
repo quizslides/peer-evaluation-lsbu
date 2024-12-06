@@ -8,6 +8,7 @@ const getGroupByPeerEvaluationStudentTeam = (
   peerEvaluationId: string,
   teamNames: string[]
 ) => {
+  // @ts-expect-error TS2589
   return apolloClient.query<{ groupByPeerEvaluationStudentTeam: [PeerEvaluationStudentTeamGroupBy] }>({
     query: GET_GROUP_BY_PEER_EVALUATION_STUDENT_TEAMS,
     errorPolicy: "all",

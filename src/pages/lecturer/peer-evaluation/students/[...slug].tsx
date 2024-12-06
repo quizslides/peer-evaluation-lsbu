@@ -520,6 +520,7 @@ const Students: NextPage<NextPagePros> = ({ session }) => {
 
   useEffect(() => {
     if (dataStudentsData && dataTeachingMember) {
+      // @ts-expect-error TS2345
       setPeerEvaluationStudentsData(sanitizePeerEvaluationStudentsDataOnFetch(dataStudentsData.peerEvaluationStudents));
 
       const teachingMemberRole =

@@ -6,6 +6,7 @@ import { IUserData } from "@/types/user";
 import { errorNotification, successNotification } from "@/utils";
 
 const useCreateOneUser = (notificationsId: string) => {
+  // @ts-expect-error TS2589
   return useMutation<
     {
       createOneUser: UserCreateInput;

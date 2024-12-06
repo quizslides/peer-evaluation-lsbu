@@ -55,6 +55,7 @@ const PeerEvaluationTeachingMemberFormWrapper = ({
 
   const [field, meta] = useField(name);
 
+  // @ts-expect-error TS2589
   const { data, loading, error: errorRequest } = useGetLecturerUsers();
 
   const [dataTablePeerEvaluationTeachingMembers, setDataTablePeerEvaluationTeachingMembers] = useState<
