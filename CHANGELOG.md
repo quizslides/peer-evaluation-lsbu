@@ -3,6 +3,21 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.21](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.20...1.10.21) (2024-12-06)
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([4d11514](https://github.com/quizslides/peer-evaluation-lsbu/commit/4d11514d3114fd3d84d30419d042e64a87902cc9))
+
+### Chores
+
+* **deps:** update all dependencies ([3300586](https://github.com/quizslides/peer-evaluation-lsbu/commit/3300586a298671792b5acfde144193a5c14367a3))
+* downgrade prisma to v5.22.0 due to conflict with other dependencies ([5254131](https://github.com/quizslides/peer-evaluation-lsbu/commit/5254131c5d41e4c79e2ab0cd54ef482db6da4570))
+
+### Code Style Changes
+
+* add expected error from ts as safe code ([622cd43](https://github.com/quizslides/peer-evaluation-lsbu/commit/622cd438ddbc79d49aa125cf7790cec779b8e95e)), closes [#PEL-439](https://quizslides.atlassian.net/browse/PEL-439)
+
 ## [1.10.20](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.19...1.10.20) (2024-11-25)
 
 ### Chores
