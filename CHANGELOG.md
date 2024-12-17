@@ -3,6 +3,12 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.23](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.22...1.10.23) (2024-12-17)
+
+### Bug Fixes
+
+* **deps:** update dependency next to v14.2.15 [security] ([4c797eb](https://github.com/quizslides/peer-evaluation-lsbu/commit/4c797ebb43edd0c9d7cd000358a355bdfdbbd5c0))
+
 ## [1.10.22](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.21...1.10.22) (2024-12-09)
 
 ### Chores
