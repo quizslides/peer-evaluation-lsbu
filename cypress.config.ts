@@ -30,4 +30,5 @@ export default defineConfig({
     mailHogUrl: "http://localhost:8025",
   },
   video: true,
+  injectDocumentDomain: true,
 });
