@@ -3,6 +3,14 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.29...1.10.30) (2025-01-26)
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([5011ee7](https://github.com/quizslides/peer-evaluation-lsbu/commit/5011ee772f7e6152581f861c6877139706559ab1))
+* **tests:** enable injectDocumentDomain for cypress v14 ([9ecf66a](https://github.com/quizslides/peer-evaluation-lsbu/commit/9ecf66a8a7489e3369753e2319a6faa7c2d91d91))
+* **tests:** set LIBGL_ALWAYS_SOFTWARE environment variable for Cypress tests ([a0d436c](https://github.com/quizslides/peer-evaluation-lsbu/commit/a0d436ca56d3cc4a2bdced5035f4c03ada15d726))
+
 ## [1.10.29](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.28...1.10.29) (2025-01-13)
 
 ### Bug Fixes
