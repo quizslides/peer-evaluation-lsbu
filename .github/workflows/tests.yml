@@ -86,6 +86,7 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LIBGL_ALWAYS_SOFTWARE: 1
 
       - name: Run Cypress E2E tests
         uses: cypress-io/github-action@v6
@@ -98,6 +99,7 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LIBGL_ALWAYS_SOFTWARE: 1
 
       - name: Video Cypress
         uses: actions/upload-artifact@v4
@@ -127,7 +129,7 @@ jobs:
           retention-days: 7
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5.1.2
+        uses: codecov/codecov-action@v5.3.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: quizslides/peer-evaluation-lsbu
