@@ -3,6 +3,12 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.31](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.30...1.10.31) (2025-02-03)
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([44e1cef](https://github.com/quizslides/peer-evaluation-lsbu/commit/44e1cefe7029ad72c43a2c7959eda886c85bb293))
+
 ## [1.10.30](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.29...1.10.30) (2025-01-26)
 
 ### Bug Fixes
