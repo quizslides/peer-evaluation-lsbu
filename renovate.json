@@ -163,6 +163,13 @@
       ]
     },
     {
+      "dependencyDashboardApproval": true,
+      "groupName": "Node dependency - @mui/material",
+      "matchPackageNames": [
+        "@mui/material"
+      ]
+    },
+    {
       "matchDatasources": [
         "docker"
       ],
