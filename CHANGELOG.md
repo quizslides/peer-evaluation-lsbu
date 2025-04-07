@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.41](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.40...1.10.41) (2025-04-07)
+
+### Bug Fixes
+
+* **deps:** downgrade @mui/material to version 6.4.8 and update related dependencies ([9f8b5a0](https://github.com/quizslides/peer-evaluation-lsbu/commit/9f8b5a0a02cc9f84e673a1ff58f41843a936d1c7))
+* **deps:** update all dependencies ([190888b](https://github.com/quizslides/peer-evaluation-lsbu/commit/190888ba50a6560b355760e58ce6de5838e0498c))
+
 ## [1.10.40](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.39...1.10.40) (2025-04-03)
 
 ### Bug Fixes
