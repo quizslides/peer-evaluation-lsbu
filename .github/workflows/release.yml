@@ -19,7 +19,7 @@ jobs:
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
   semantic-release:
-    needs: digital-ocean-deployment
+    needs: install-dependencies
     uses: ./.github/workflows/semantic-release.yml
     secrets:
       PROJECT_GITHUB_TOKEN: ${{ secrets.PROJECT_GITHUB_TOKEN }}
