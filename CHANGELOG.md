@@ -3,6 +3,13 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.48](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.47...1.10.48) (2025-06-01)
+
+### Chores
+
+* remove deployment step from release workflow ([21bd79f](https://github.com/quizslides/peer-evaluation-lsbu/commit/21bd79f99a3ca822298301fea5d75ed8b14839f9)), closes [#PEL-445](https://quizslides.atlassian.net/browse/PEL-445)
+* update semantic-release job dependency to install-dependencies ([1e145c5](https://github.com/quizslides/peer-evaluation-lsbu/commit/1e145c52cf5b8f62f288ac04b17d47d7841162df)), closes [#PEL-445](https://quizslides.atlassian.net/browse/PEL-445)
+
 ## [1.10.47](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.46...1.10.47) (2025-05-27)
 
 ### Bug Fixes
