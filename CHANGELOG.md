@@ -3,6 +3,12 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.50](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.49...1.10.50) (2025-06-06)
+
+### Chores
+
+* **deps:** update dependency webpack-dev-server to v5 [security] ([#198](https://quizslides.atlassian.net/browse/198)) ([f426649](https://github.com/quizslides/peer-evaluation-lsbu/commit/f426649a9489703702fecdb5884c5c7c874131db))
+
 ## [1.10.49](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.48...1.10.49) (2025-06-02)
 
 ### Bug Fixes
