@@ -3,6 +3,12 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.61](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.60...1.10.61) (2025-10-08)
+
+### Bug Fixes
+
+* **deps:** update dependency nodemailer to v7.0.7 [security] ([#211](https://quizslides.atlassian.net/browse/211)) ([345c721](https://github.com/quizslides/peer-evaluation-lsbu/commit/345c721d020f7620434f872be5529ca1ecfb056c))
+
 ## [1.10.60](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.59...1.10.60) (2025-08-31)
 
 ### Bug Fixes
