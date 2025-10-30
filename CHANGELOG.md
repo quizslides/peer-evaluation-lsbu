@@ -3,6 +3,12 @@
 This changelog is updated automatically using release-it.
 
 
+## [1.10.62](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.61...1.10.62) (2025-10-30)
+
+### Bug Fixes
+
+* **deps:** update dependency next-auth to v4.24.12 [security] ([#212](https://quizslides.atlassian.net/browse/212)) ([4f02d5d](https://github.com/quizslides/peer-evaluation-lsbu/commit/4f02d5d3b9dc068eb6669434a364602cb2d7cda4))
+
 ## [1.10.61](https://github.com/quizslides/peer-evaluation-lsbu/compare/1.10.60...1.10.61) (2025-10-08)
 
 ### Bug Fixes
