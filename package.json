@@ -176,10 +176,10 @@
     "access": "restricted"
   },
   "overrides": {
+    "@auth/core": "0.40.0",
     "@babel/core": "7.28.0",
     "@babel/types": "7.28.2",
     "class-validator": "0.14.1",
-    "jose": "6.0.12",
     "minimist": "1.2.8",
     "semver": "7.7.2",
     "minimatch@3.0.4": "3.0.5"
