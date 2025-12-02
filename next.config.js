@@ -81,6 +81,11 @@ const moduleExports = {
   async headers() {
     return permissionsHeaders;
   },
+  experimental: {
+    outputFileTracingIncludes: {
+      "/**": ["./src/pages/api/email/templates/**/*"],
+    },
+  },
 };
 
 const sentryWebpackPluginOptions = {
