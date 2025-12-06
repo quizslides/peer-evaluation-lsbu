@@ -108,7 +108,7 @@ describe("Edit column description configuration", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -350,7 +350,7 @@ describe("Updating Students/Teams and showing warning alert", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -464,7 +464,7 @@ describe("Show info alert on new column added to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -668,7 +668,7 @@ describe("Show info alert on deleting column to peer evaluation", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -878,7 +878,7 @@ describe("Update criteria score range and reset peer evaluations submitted", () 
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1112,7 +1112,7 @@ describe("Show definition for each peer evaluation status in-line", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1201,7 +1201,7 @@ describe("Lecturer as a viewer cannot edit the teams page", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1339,7 +1339,7 @@ describe("A lecturer as an editor/viewer cannot delete a peer evaluation", () =>
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1475,7 +1475,7 @@ describe("A lecturer as editor doing operations to teaching members of a peer ev
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1741,7 +1741,7 @@ describe("The peer evaluation student table updatedAt value is only updated afte
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
@@ -1940,7 +1940,7 @@ describe("Download the report of the team's mark", () => {
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click();
 
-    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING).click();
+    cy.contains(SchoolsDropdown.SCHOOL_OF_ENGINEERING_AND_DESIGN).click();
 
     cy.get('[data-testid="peer-evaluation-form-peer-evaluation-school-field"]').click({ force: true });
 
