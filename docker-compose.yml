@@ -4,7 +4,7 @@ services:
     container_name: db-peer-evaluation
     image: postgres:17.2-alpine3.19@sha256:d98de4f4959fb6b4531f3fb0cfe92aa49f799e5ebc7a086ae7775b59e7d534e7
     ports:
-      - 5432:5432
+      - 5555:5432
     env_file: .env
     networks:
       - peer_evaluation

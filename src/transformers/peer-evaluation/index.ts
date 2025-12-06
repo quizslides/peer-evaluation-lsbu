@@ -26,6 +26,7 @@ import {
   Schools,
   SchoolsDataTable,
   SchoolsDropdown,
+  SchoolsMigrationMap,
 } from "@/types/peer-evaluation";
 import { getDateLocaleString } from "@/utils/date";
 
@@ -43,13 +44,22 @@ type PeerEvaluationTeachingMemberUpdateMany =
 type PeerEvaluationTeachingMemberDeleteMany = PeerEvaluationTeachingMemberWhereUniqueInput[];
 
 const sanitizeSchoolsOnFetch = (data: PeerEvaluation): PeerEvaluation => {
-  data.schools = data.schools.map((school) => SchoolsDropdown[school]) as Schools[];
+  data.schools = data.schools.map((school) => {
+    const migratedSchool = (SchoolsMigrationMap[school as keyof typeof SchoolsMigrationMap] || school) as Schools;
+    return migratedSchool;
+  });
 
   return data;
 };
 
 const sanitizeSchoolsOnFetchPeerEvaluationView = (data: PeerEvaluationDashboard): PeerEvaluationDashboard => {
-  data.schools = data.schools.map((school) => SchoolsDataTable[SchoolsDropdown[school]]) as Schools[];
+  data.schools = data.schools.map((school) => {
+    const migratedSchool = (SchoolsMigrationMap[school as keyof typeof SchoolsMigrationMap] || school) as Schools;
+
+    const schoolName = SchoolsDropdown[migratedSchool as keyof typeof SchoolsDropdown];
+
+    return SchoolsDataTable[schoolName];
+  }) as Schools[];
 
   return data;
 };

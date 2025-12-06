@@ -51,10 +51,21 @@ enum PeerEvaluationTeachingMemberRolesNoOwner {
 }
 
 enum Schools {
+  // New schools
+  SCHOOL_OF_ALLIED_HEALTH_AND_LIFE_SCIENCES = "SCHOOL_OF_ALLIED_HEALTH_AND_LIFE_SCIENCES",
+  SCHOOL_OF_NURSING_AND_MIDWIFERY = "SCHOOL_OF_NURSING_AND_MIDWIFERY",
+  SCHOOL_OF_LAW_AND_EDUCATION = "SCHOOL_OF_LAW_AND_EDUCATION",
+  SCHOOL_OF_ARTS_AND_SOCIAL_SCIENCES = "SCHOOL_OF_ARTS_AND_SOCIAL_SCIENCES",
+  LSBU_BUSINESS_SCHOOL = "LSBU_BUSINESS_SCHOOL",
+  SCHOOL_OF_ENGINEERING_AND_DESIGN = "SCHOOL_OF_ENGINEERING_AND_DESIGN",
+  SCHOOL_OF_COMPUTER_SCIENCE_AND_DIGITAL_TECHNOLOGIES = "SCHOOL_OF_COMPUTER_SCIENCE_AND_DIGITAL_TECHNOLOGIES",
+  SCHOOL_OF_ARCHITECTURE_AND_PLANNING = "SCHOOL_OF_ARCHITECTURE_AND_PLANNING",
+  SCHOOL_OF_CONSTRUCTION_PROPERTY_AND_SURVEYING = "SCHOOL_OF_CONSTRUCTION_PROPERTY_AND_SURVEYING",
+  
+  // Deprecated schools (kept for backward compatibility)
   SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES = "SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES",
   SCHOOL_OF_APPLIED_SCIENCES = "SCHOOL_OF_APPLIED_SCIENCES",
   SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE = "SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE",
-  LSBU_BUSINESS_SCHOOL = "LSBU_BUSINESS_SCHOOL",
   SCHOOL_OF_ENGINEERING = "SCHOOL_OF_ENGINEERING",
   SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES = "SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES",
   INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE = "INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE",
@@ -79,14 +90,27 @@ enum FieldStatus {
   DELETED = "DELETED",
 }
 
+// Migration mapping from old to new schools
+const SchoolsMigrationMap: { [key: string]: Schools } = {
+  SCHOOL_OF_APPLIED_SCIENCES: Schools.SCHOOL_OF_ALLIED_HEALTH_AND_LIFE_SCIENCES,
+  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: Schools.SCHOOL_OF_NURSING_AND_MIDWIFERY,
+  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: Schools.SCHOOL_OF_LAW_AND_EDUCATION,
+  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: Schools.SCHOOL_OF_ARTS_AND_SOCIAL_SCIENCES,
+  LSBU_BUSINESS_SCHOOL: Schools.LSBU_BUSINESS_SCHOOL,
+  SCHOOL_OF_ENGINEERING: Schools.SCHOOL_OF_ENGINEERING_AND_DESIGN,
+  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: Schools.SCHOOL_OF_ARCHITECTURE_AND_PLANNING,
+};
+
 const SchoolsDropdown = {
-  SCHOOL_OF_ARTS_AND_CREATIVE_INDUSTRIES: "School of Arts and Creative Industries",
-  SCHOOL_OF_APPLIED_SCIENCES: "School of Applied Sciences",
-  SCHOOL_OF_THE_BUILT_ENVIRONMENT_AND_ARCHITECTURE: "School of The Built Environment and Architecture",
+  SCHOOL_OF_ALLIED_HEALTH_AND_LIFE_SCIENCES: "School of Allied Health and Life Sciences",
+  SCHOOL_OF_NURSING_AND_MIDWIFERY: "School of Nursing and Midwifery",
+  SCHOOL_OF_LAW_AND_EDUCATION: "School of Law and Education",
+  SCHOOL_OF_ARTS_AND_SOCIAL_SCIENCES: "School of Arts and Social Sciences",
   LSBU_BUSINESS_SCHOOL: "LSBU Business School",
-  SCHOOL_OF_ENGINEERING: "School of Engineering",
-  SCHOOL_OF_LAW_AND_SOCIAL_SCIENCES: "School of Law and Social Sciences",
-  INSTITUTE_OF_HEALTH_AND_SOCIAL_CARE: "Institute of Health and Social Care",
+  SCHOOL_OF_ENGINEERING_AND_DESIGN: "School of Engineering and Design",
+  SCHOOL_OF_COMPUTER_SCIENCE_AND_DIGITAL_TECHNOLOGIES: "School of Computer Science and Digital Technologies",
+  SCHOOL_OF_ARCHITECTURE_AND_PLANNING: "School of Architecture and Planning",
+  SCHOOL_OF_CONSTRUCTION_PROPERTY_AND_SURVEYING: "School of Construction, Property and Surveying",
 };
 
 interface ISchoolsDataTable {
@@ -100,13 +124,15 @@ interface IStudentsTeamData {
 }
 
 const SchoolsDataTable: ISchoolsDataTable = {
-  "School of Arts and Creative Industries": "ACI",
-  "School of Applied Sciences": "APS",
-  "School of The Built Environment and Architecture": "BEA",
+  "School of Allied Health and Life Sciences": "AHLS",
+  "School of Nursing and Midwifery": "N&M",
+  "School of Law and Education": "L&A",
+  "School of Arts and Social Sciences": "A&S",
   "LSBU Business School": "BUS",
-  "School of Engineering": "ENG",
-  "School of Law and Social Sciences": "LSS",
-  "Institute of Health and Social Care": "HSC",
+  "School of Engineering and Design": "E&D",
+  "School of Computer Science and Digital Technologies": "CSDT",
+  "School of Architecture and Planning": "A&P",
+  "School of Construction, Property and Surveying": "CPS",
 };
 
 const peerEvaluationColumnOrder = ["id", "description", "createdAt", "updatedAt", "status"];
@@ -235,6 +261,7 @@ export {
   Schools,
   SchoolsDataTable,
   SchoolsDropdown,
+  SchoolsMigrationMap,
 };
 
 export type { IPeerEvaluationColumn, IPeerEvaluationData, IStudentsTeamData, PeerEvaluationTeachingMember };
