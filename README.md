@@ -1,3 +1,6 @@
+> [!WARNING]
+> **This project has been archived and is no longer maintained.**
+
 # Peer Evaluation London South Bank University
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a0e5f5e32e22422da338226457f5225f)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
